@@ -1,12 +1,12 @@
 ## Climate Component
-#### Configuration variables:
+### Configuration variables:
 **name** (Optional): Name to use in the frontend<br />
 **device_id** (Required): ......<br />
 **controller_send_service** (Required): ......<br />
 **temperature_sensor** (Optional): **entity_id** for a temperature sensor<br />
 **humidity_sensor** (Optional): **entity_id** for a humidity sensor<br />
 
-#### Example:
+### Example:
 ```yaml
 climate:
   - platform: smartir
@@ -17,5 +17,13 @@ climate:
     humidity_sensor: sensor.humidity
 ```
 
-#### Available codes for climate devices:
+### Available codes for climate devices:
 #### Toyotomi
+| Code | Supported Models | Supported Controllers |
+| ------------- | ------------- | -------------------------- |
+1000|AKIRA GAN/GAG-A128 VL|Broadlink
+
+#### Panasonic
+| Code | Supported Models | Supported Controllers |
+| ------------- | ------------- | -------------------------- |
+1020|CS-CE7HKEW<br>CS-CE9HKEW<br>CS-CE12HKEW<br>CU-CE7HKE<br>CU-CE9HKE<br>CU-CE12HKE|Broadlink
