@@ -19,11 +19,14 @@ climate:
 
 ### Available codes for climate devices:
 #### Toyotomi
-| Code | Supported Models | Supported Controllers |
-| ------------- | ------------- | -------------------------- |
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
 1000|AKIRA GAN/GAG-A128 VL|Broadlink
 
 #### Panasonic
-| Code | Supported Models | Supported Controllers |
-| ------------- | ------------- | -------------------------- |
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
 1020|CS-CE7HKEW<br>CS-CE9HKEW<br>CS-CE12HKEW<br>CU-CE7HKE<br>CU-CE9HKE<br>CU-CE12HKE|Broadlink
+
+### Creating your own codes
+Todo...
