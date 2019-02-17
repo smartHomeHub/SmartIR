@@ -26,7 +26,7 @@ climate:
 #### Panasonic
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-1020|CS-CE7HKEW<br>CS-CE9HKEW<br>CS-CE12HKEW<br>CU-CE7HKE<br>CU-CE9HKE<br>CU-CE12HKE|Broadlink
+1020|CS-CE7HKEW<br>CS-CE9HKEW<br>CS-CE12HKEW|Broadlink
 
 ### Creating your own codes
 Todo...
