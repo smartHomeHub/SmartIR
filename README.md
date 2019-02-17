@@ -16,3 +16,6 @@ climate:
     temperature_sensor: sensor.temperature
     humidity_sensor: sensor.humidity
 ```
+
+#### Available codes for climate devices:
+#### Toyotomi
