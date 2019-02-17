@@ -36,4 +36,4 @@ climate:
 #### LG
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-1040|R09AWN<br>R24AWN<br>E09EK|Broadlink
+1060|R09AWN<br>R24AWN<br>E09EK|Broadlink
