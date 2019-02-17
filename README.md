@@ -11,7 +11,7 @@
 climate:
   - platform: smartir
     name: Office AC
-    device_id: 1000
+    device_code: 1000
     controller_send_service: switch.broadlink_send_packet_192_168_10_59
     temperature_sensor: sensor.temperature
     humidity_sensor: sensor.humidity
@@ -32,3 +32,8 @@ climate:
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 1040|Unknown model|Broadlink
+
+#### LG
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+1040|R09AWN<br>R24AWN<br>E09EK|Broadlink
