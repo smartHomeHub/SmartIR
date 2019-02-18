@@ -1,7 +1,10 @@
 ## Climate Component
+### Installation
+Create a new folder into the Home Assistant's `custom_components` folder and name it `smartir`. Copy `climate.py` into the `smartir` folder. Create the subfolders `codes/climate` into the `smartir` folder and copy the code file for your AC device.
+
 ### Configuration variables:
 **name** (Optional): Name to use in the frontend<br />
-**device_code** (Required): ......<br />
+**device_code** (Required): ...... (Accepts only positive numbers)<br />
 **controller_send_service** (Required): ......<br />
 **temperature_sensor** (Optional): **entity_id** for a temperature sensor<br />
 **humidity_sensor** (Optional): **entity_id** for a humidity sensor<br />
@@ -18,6 +21,12 @@ climate:
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
 ```
+
+### Create your own codes:
+ToDo...
+
+### Convert your old INI files:
+To convert your old INI files, please download the SmartIR INI Converter app (only for windows) from the [Tools](Tools/) folder.
 
 ### Available codes for climate devices:
 #### Toyotomi
