@@ -10,13 +10,18 @@ Create a new folder into the Home Assistant's `custom_components` folder and nam
 **humidity_sensor** (Optional): **entity_id** for a humidity sensor<br />
 **power_sensor** (Optional): ...... (Accepts On/Off)<br />
 
-### Example:
+### Example (using broadlink controller):
 ```yaml
+switch:
+  - platform: broadlink
+    host: 192.168.10.10
+    mac: '00:00:00:00:00:00E'
+    
 climate:
   - platform: smartir
     name: Office AC
     device_code: 1000
-    controller_send_service: switch.broadlink_send_packet_192_168_10_59
+    controller_send_service: switch.broadlink_send_packet_192_168_10_10
     temperature_sensor: sensor.temperature
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
