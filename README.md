@@ -15,7 +15,7 @@ Create a new folder into the Home Assistant's `custom_components` folder and nam
 switch:
   - platform: broadlink
     host: 192.168.10.10
-    mac: '00:00:00:00:00:00E'
+    mac: '00:00:00:00:00:00'
     
 climate:
   - platform: smartir
