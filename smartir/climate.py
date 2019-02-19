@@ -326,18 +326,23 @@ class IRClimate(ClimateDevice, RestoreEntity):
             service_name = split_entity_id(self._controller_send_service)[1]
 
             if supported_controller.lower() == 'broadlink':
-                # Default is Base64
-                if commands_encoding.lower() == 'hex':
+                if commands_encoding.lower() == 'base64':
+                    pass
+                elif commands_encoding.lower() == 'hex':
                     try:
                         command = binascii.unhexlify(command)
                         command = b64encode(command).decode('utf-8')
                     except:
                         _LOGGER.error("Error while converting Hex to Base64")
                         return
+                else:
+                    _LOGGER.error("The commands encoding provided in the JSON file is not supported")
+                    return
 
                 service_data = {
                     'packet': [command]
                 }
+                
             else:
                 _LOGGER.error("The controller provided in the JSON file is not supported")
                 return
