@@ -27,14 +27,14 @@ climate:
     power_sensor: binary_sensor.ac_power
 ```
 
+## Links
+* [SmartIR Chat on Telegram](https://t.me/smartHomeHub)
+
 ## Create your own codes:
 ToDo...
 
 ## Convert your old INI files:
 To convert your old INI files, please download the SmartIR INI Converter app (only for windows) from the [Tools](Tools/) folder.
-
-## Links
-* [SmartIR Chat on Telegram](https://t.me/smartHomeHub)
 
 ## Available codes for climate devices:
 Below are the code files created by the people in the community. Before you start creating your own code file, try if one of them works with your device. **Please open an issue if your device is working and not included in the supported models.**
