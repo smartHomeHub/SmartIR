@@ -12,6 +12,7 @@
     "FTXS95LVMA"
   ],
   "supportedController": "Broadlink",
+  "commandsEncoding": "Base64",
   "minTemperature": 18.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
