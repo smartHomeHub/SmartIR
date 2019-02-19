@@ -6,6 +6,7 @@
     "E09EK"
   ],
   "supportedController": "Broadlink",
+  "commandsEncoding": "Base64",
   "minTemperature": 18,
   "maxTemperature": 30,
   "precision": 1,
