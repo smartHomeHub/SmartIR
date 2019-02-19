@@ -1,8 +1,8 @@
-## Climate Component
-### Installation:
+# Climate Component
+## Installation:
 Create a new folder into the Home Assistant's `custom_components` folder and name it `smartir`. Copy `climate.py` into the `smartir` folder. Create the subfolders `codes/climate` into the `smartir` folder and copy the code file for your AC device.
 
-### Configuration variables:
+## Configuration variables:
 **name** (Optional): Name to use in the frontend<br />
 **device_code** (Required): ...... (Accepts only positive numbers)<br />
 **controller_send_service** (Required): The service that will be used to send the commands. Only `broadlink_send_packet` (Broadlink controller) is currently supported.<br />
@@ -10,7 +10,7 @@ Create a new folder into the Home Assistant's `custom_components` folder and nam
 **humidity_sensor** (Optional): *entity_id* for a humidity sensor<br />
 **power_sensor** (Optional): *entity_id* for a sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor. (Accepts only on/off states)<br />
 
-### Example (using broadlink controller):
+## Example (using broadlink controller):
 ```yaml
 switch:
   - platform: broadlink
@@ -27,13 +27,16 @@ climate:
     power_sensor: binary_sensor.ac_power
 ```
 
-### Create your own codes:
+## Create your own codes:
 ToDo...
 
-### Convert your old INI files:
+## Convert your old INI files:
 To convert your old INI files, please download the SmartIR INI Converter app (only for windows) from the [Tools](Tools/) folder.
 
-### Available codes for climate devices:
+## Links
+* [SmartIR Chat on Telegram](https://t.me/smartHomeHub)
+
+## Available codes for climate devices:
 #### Toyotomi
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
