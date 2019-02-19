@@ -4,6 +4,7 @@
     "Unknown"
   ],
   "supportedController": "Broadlink",
+  "commandsEncoding": "Base64",
   "minTemperature": 62.0,
   "maxTemperature": 86.0,
   "precision": 1.0,
