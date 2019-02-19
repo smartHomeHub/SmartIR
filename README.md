@@ -6,9 +6,9 @@ Create a new folder into the Home Assistant's `custom_components` folder and nam
 **name** (Optional): Name to use in the frontend<br />
 **device_code** (Required): ...... (Accepts only positive numbers)<br />
 **controller_send_service** (Required): ......<br />
-**temperature_sensor** (Optional): **entity_id** for a temperature sensor<br />
-**humidity_sensor** (Optional): **entity_id** for a humidity sensor<br />
-**power_sensor** (Optional): ...... (Accepts On/Off)<br />
+**temperature_sensor** (Optional): *entity_id* for a temperature sensor<br />
+**humidity_sensor** (Optional): *entity_id* for a humidity sensor<br />
+**power_sensor** (Optional): *entity_id* for a sensor that monitors if your device is actually On or Off. This can be a power monitor sensor. (Accepts only on/off states)<br />
 
 ### Example (using broadlink controller):
 ```yaml
