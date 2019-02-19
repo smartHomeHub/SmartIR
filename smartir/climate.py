@@ -1,4 +1,6 @@
 import asyncio
+from base64 import b64encode
+import binascii
 import json
 import logging
 import os.path
@@ -96,6 +98,7 @@ class IRClimate(ClimateDevice, RestoreEntity):
         self._manufacturer = device_data['manufacturer']
         self._supported_models = device_data['supportedModels']
         self._supported_controller = device_data['supportedController']
+        self._commands_encoding = device_data['commandsEncoding']
         self._min_temperature = device_data['minTemperature']
         self._max_temperature = device_data['maxTemperature']
         self._precision = device_data['precision']
@@ -253,6 +256,7 @@ class IRClimate(ClimateDevice, RestoreEntity):
             'manufacturer': self._manufacturer,
             'supported_models': self._supported_models,
             'supported_controller': self._supported_controller,
+            'commands_encoding': self._commands_encoding,
         }
 
     async def async_set_temperature(self, **kwargs):
@@ -308,6 +312,7 @@ class IRClimate(ClimateDevice, RestoreEntity):
         async with self._temp_lock:
             self._on_by_remote = False
             supported_controller = self._supported_controller
+            commands_encoding = self._commands_encoding
             operation_mode = self._current_operation
             fan_mode = self._current_fan_mode
             target_temperature = '{0:g}'.format(self._target_temperature)
@@ -321,6 +326,15 @@ class IRClimate(ClimateDevice, RestoreEntity):
             service_name = split_entity_id(self._controller_send_service)[1]
 
             if supported_controller.lower() == 'broadlink':
+                # Default is Base64
+                if commands_encoding.lower() == 'hex':
+                    try:
+                        command = binascii.unhexlify(command)
+                        command = b64encode(command).decode('utf-8')
+                    except:
+                        _LOGGER.error("Error while converting Hex to Base64")
+                        return
+
                 service_data = {
                     'packet': [command]
                 }
