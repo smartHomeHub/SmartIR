@@ -50,6 +50,7 @@ Below are the code files created by the people in the community. Before you star
 1020|CS-CE7HKEW<br>CS-CE9HKEW<br>CS-CE12HKEW|Broadlink
 1021|CS-RE9GKE<br>CS-RE12GKE|Broadlink
 1022|CS-Z25TK|Broadlink
+1023|CS-HE9JKE<br>CS-HE12JKE|Broadlink
 
 #### General Electric
 | Code | Supported Models | Controller |
