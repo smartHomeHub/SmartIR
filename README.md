@@ -36,7 +36,7 @@ ToDo...
 ## Convert your old INI files:
 To convert your old INI files, please download the SmartIR INI Converter app (only for windows) from the [Tools](Tools/) folder.
 
-### Add to custom updater _(Recommended)_
+## Add to custom updater _(Recommended)_
 
 1. Make sure you've the [custom_updater](https://github.com/custom-components/custom_updater) component installed and working.
 2. Add a new reference under `component_urls` in your `custom_updater` configuration in `configuration.yaml`.
