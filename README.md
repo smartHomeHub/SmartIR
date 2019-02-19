@@ -5,10 +5,10 @@ Create a new folder into the Home Assistant's `custom_components` folder and nam
 ### Configuration variables:
 **name** (Optional): Name to use in the frontend<br />
 **device_code** (Required): ...... (Accepts only positive numbers)<br />
-**controller_send_service** (Required): ......<br />
+**controller_send_service** (Required): The service that will be used to send the commands. Only `broadlink_send_packet` (Broadlink controller) is currently supported.<br />
 **temperature_sensor** (Optional): *entity_id* for a temperature sensor<br />
 **humidity_sensor** (Optional): *entity_id* for a humidity sensor<br />
-**power_sensor** (Optional): *entity_id* for a sensor that monitors if your device is actually On or Off. This can be a power monitor sensor. (Accepts only on/off states)<br />
+**power_sensor** (Optional): *entity_id* for a sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor. (Accepts only on/off states)<br />
 
 ### Example (using broadlink controller):
 ```yaml
