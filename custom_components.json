@@ -1,0 +1,9 @@
+{
+    "SmartIR Climate": {
+      "version": "1.0.0",
+      "local_location": "custom_components/smartir/climate.py",
+      "remote_location": "https://github.com/smartHomeHub/SmartIR/blob/master/smartir/climate.py",
+      "visit_repo": "https://github.com/smartHomeHub/SmartIR",
+      "changelog": "https://github.com/smartHomeHub/SmartIR/releases/latest"
+    }
+}
