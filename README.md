@@ -48,7 +48,7 @@ custom_updater:
 ```
 
 ## Available codes for climate devices:
-Below are the code files created by the people in the community. Before you start creating your own code file, try if one of them works with your device. **Please open an issue if your device is working and not included in the supported models.**
+Below are the code files created by the people in the community. Before you start creating your own code file, try if one of them works for your device. **Please open an issue if your device is working and not included in the supported models.**
 
 #### Toyotomi
 | Code | Supported Models | Controller |
