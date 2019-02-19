@@ -31,7 +31,7 @@ climate:
 * [SmartIR Chat on Telegram](https://t.me/smartHomeHub)
 
 ## Create your own codes:
-ToDo...
+ToDo... I'm developing a windows tool to easily create your code files. Please be patient!
 
 ## Convert your old INI files:
 To convert your old INI files, please download the SmartIR INI Converter app (only for windows) from the [Tools](Tools/) folder.
