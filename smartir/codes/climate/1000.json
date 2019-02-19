@@ -4,6 +4,7 @@
     "AKIRA GAN/GAG-A128 VL"
   ],
   "supportedController": "Broadlink",
+  "commandsEncoding": "Hex",
   "minTemperature": 16,
   "maxTemperature": 30,
   "precision": 1,
