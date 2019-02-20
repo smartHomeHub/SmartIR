@@ -168,3 +168,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 1420|KFR-34GW|Broadlink
+
+#### Akai
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+1440|Unknown model|Broadlink
