@@ -213,8 +213,6 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
 
     async def send_command(self, command):
         async with self._temp_lock:
-            _LOGGER.error(command)
-
             supported_controller = self._supported_controller
             commands_encoding = self._commands_encoding
 
