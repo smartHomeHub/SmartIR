@@ -8,7 +8,7 @@
 
 ## Links
 * [SmartIR Chat on Telegram](https://t.me/smartHomeHub)
-* [Discussion about SmartIR Climate (Home Assistant Community)](https://community.home-assistant.io/t/broadlink-ir-climate-component)
+* [Discussion about SmartIR Climate (Home Assistant Community)](https://community.home-assistant.io/t/smartir-climate-component/)
 
 ## Add to custom updater _(Recommended)_
 1. Make sure you've the [custom_updater](https://github.com/custom-components/custom_updater) component installed and working.
