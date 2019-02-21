@@ -125,7 +125,7 @@ Below are the code files created by the people in the community. Before you star
 #### Sharp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1300](../smartir/codes/climate/1300.json)|Unknown model|Broadlink
+[1300](../smartir/codes/climate/1300.json)|AY-B22DM|Broadlink
 
 #### Haier
 | Code | Supported Models | Controller |
