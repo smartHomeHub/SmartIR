@@ -29,26 +29,11 @@ climate:
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
 ```
-
-## Links
-* [SmartIR Chat on Telegram](https://t.me/smartHomeHub)
-
 ## Create your own codes:
 ToDo... I'm developing a windows tool to easily create your code files. Please be patient!
 
 ## Convert your old INI files:
 To convert your old INI files, please download the SmartIR INI Converter app (only for windows) from the [Tools](Tools/) folder.
-
-## Add to custom updater _(Recommended)_
-
-1. Make sure you've the [custom_updater](https://github.com/custom-components/custom_updater) component installed and working.
-2. Add a new reference under `component_urls` in your `custom_updater` configuration in `configuration.yaml`.
-
-```yaml
-custom_updater:
-  component_urls:
-    - https://raw.githubusercontent.com/smartHomeHub/SmartIR/master/custom_components.json
-```
 
 ## Available codes for climate devices:
 Below are the code files created by the people in the community. Before you start creating your own code file, try if one of them works for your device. **Please open an issue if your device is working and not included in the supported models.**
