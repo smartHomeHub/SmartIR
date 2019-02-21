@@ -1,4 +1,7 @@
-# Climate Component
+<p align="center">
+  <a href="#"><img src="http://www.tooltip.gr/github_assets/smartir_climate.png" width="350" alt="SmartIR Climate"></a>
+</p>
+
 ## Installation:
 Create a new folder into the Home Assistant's `custom_components` folder and name it `smartir`. Copy `__init__.py` and `climate.py` into the `smartir` folder. Create the subfolders `codes/climate` into the `smartir` folder and copy the code file for your AC device.
 
