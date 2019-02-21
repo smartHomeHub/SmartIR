@@ -30,7 +30,7 @@ _LOGGER = logging.getLogger(__name__)
 
 VERSION = '1.0.0'
 
-DEFAULT_NAME = 'SmartIR'
+DEFAULT_NAME = "SmartIR Climate"
 
 CONF_DEVICE_CODE = 'device_code'
 CONF_CONTROLLER_SEND_SERVICE = "controller_send_service"
@@ -342,7 +342,7 @@ class IRClimate(ClimateDevice, RestoreEntity):
                 service_data = {
                     'packet': [command]
                 }
-                
+
             else:
                 _LOGGER.error("The controller provided in the JSON file is not supported")
                 return
