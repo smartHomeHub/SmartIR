@@ -2,8 +2,23 @@
   <a href="#"><img src="http://www.tooltip.gr/github_assets/smartir_climate.png" width="350" alt="SmartIR Climate"></a>
 </p>
 
-## Installation:
-Create a new folder into the Home Assistant's `custom_components` folder and name it `smartir`. Copy `__init__.py` and `climate.py` into the `smartir` folder. Create the subfolders `codes/climate` into the `smartir` folder and copy the code file for your AC device.
+SmartIR Climate is a custom [Home Assistant](https://www.home-assistant.io/) component for controlling AC units via Infrared. An IR controller such as Broadlink RM is required.
+
+The key features of the component are:
+* Support for Base64, Broadlink Hex and Pronto codes.
+* Support for external temperature and humidity sensors
+* Support for external on/off sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor.
+* Support to turn on/off from voice assistants. The component is always remembering the last mode.
+
+## Setup instructions:
+Create the folder `custom_components`, if it does not exist, in the home assistant’s config directory. Create the `smartir` folder and copy `__init__.py` and `climate.py` into it. Finally, create the `codes/climate` subfolders into the smartir folder.
+
+For this component to work, we need a .json file containing all the necessary IR commands.
+
+* If you previously used the Broadlink IR Climate component you should use this [tool](../Tools/) to convert your old INI files. If you have uploaded your old INI files to GitHub, I have already converted them and you can find them [here](https://github.com/smartHomeHub/SmartIR/blob/master/Docs/CLIMATE.md#available-codes-for-climate-devices).
+* For new users, find the file 8 for your device’s brand and place it in the previously created codes/climate folder. If your device is not working, you will need to learn your own codes. [Keite Trần](https://github.com/keitetran/BroadlinkIRTools) developed [an amazing web-based app](https://keitetran.github.io/BroadlinkIRTools/) for this job.
+
+Make sure the broadlink switch is already installed. Go to the Home Assistant UI/dev service, find the broadlink send_packet service and copy the name of it.
 
 ## Configuration variables:
 **name** (Optional): Name to use in the frontend<br />
@@ -29,11 +44,12 @@ climate:
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
 ```
-## Create your own codes:
-ToDo... I'm developing a windows tool to easily create your code files. Please be patient!
 
-## Convert your old INI files:
-To convert your old INI files, please download the SmartIR INI Converter app (only for windows) from the [Tools](../Tools/) folder.
+Replace the device_code value with the name of the file you previously downloaded from the list or the file you converted. Please note that this field only accepts positive numbers and searches for the file only under codes/climate folder. The .json extension is not required.
+
+Also, replace the controller_send_service value with the name of the previously copied broadlink send_packet service.
+
+Restart HA instance
 
 ## Available codes for climate devices:
 Below are the code files created by the people in the community. Before you start creating your own code file, try if one of them works for your device. **Please open an issue if your device is working and not included in the supported models.**
