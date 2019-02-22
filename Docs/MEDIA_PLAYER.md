@@ -18,7 +18,7 @@ switch:
     host: 192.168.10.10
     mac: '00:00:00:00:00:00'
     
-climate:
+media_player:
   - platform: smartir
     name: Living room TV
     device_code: 1000
