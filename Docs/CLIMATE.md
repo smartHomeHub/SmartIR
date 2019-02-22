@@ -162,3 +162,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1440](../smartir/codes/climate/1440.json)|Unknown model|Broadlink
+
+#### Alliance
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1450](../smartir/codes/climate/1450.json)|Unknown model|Broadlink
