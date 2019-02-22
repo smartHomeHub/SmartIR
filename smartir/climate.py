@@ -7,7 +7,6 @@ import os.path
 
 import voluptuous as vol
 
-from homeassistant.core import callback, split_entity_id
 """
 from homeassistant.components.climate import ClimateDevice, PLATFORM_SCHEMA
 from homeassistant.components.climate.const import (
@@ -20,15 +19,17 @@ from homeassistant.components.climate import (
     SUPPORT_OPERATION_MODE, SUPPORT_TARGET_TEMPERATURE, SUPPORT_FAN_MODE,
     SUPPORT_ON_OFF, PLATFORM_SCHEMA)
 from homeassistant.const import (
-    STATE_OFF, STATE_ON, ATTR_TEMPERATURE, CONF_NAME, STATE_UNKNOWN,
+    CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN, ATTR_TEMPERATURE,
     PRECISION_HALVES, PRECISION_TENTHS, PRECISION_WHOLE)
+from homeassistant.core import callback, split_entity_id
 from homeassistant.helpers.event import async_track_state_change
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
+from . import Helper
 
 _LOGGER = logging.getLogger(__name__)
 
-VERSION = '1.0.0'
+VERSION = '1.1.0'
 
 DEFAULT_NAME = "SmartIR Climate"
 
@@ -77,13 +78,12 @@ async def async_setup_platform(hass, config, async_add_devices, discovery_info=N
             _LOGGER.error("The device JSON file is invalid")
             return
 
-    async_add_devices([IRClimate(
+    async_add_devices([SmartIRClimate(
         hass, name, device_code, device_data, controller_send_service, 
         temperature_sensor, humidity_sensor, power_sensor
     )])
 
-class IRClimate(ClimateDevice, RestoreEntity):
-
+class SmartIRClimate(ClimateDevice, RestoreEntity):
     def __init__(self, hass, name, device_code, device_data, 
                  controller_send_service, temperature_sensor, 
                  humidity_sensor, power_sensor):
@@ -155,15 +155,6 @@ class IRClimate(ClimateDevice, RestoreEntity):
                                      self._async_power_sensor_changed)
 
     @property
-    def state(self):
-        """Return the current state."""
-        if self._on_by_remote:
-            return STATE_ON
-        if self.current_operation != STATE_OFF:
-            return self.current_operation
-        return STATE_OFF
-
-    @property
     def should_poll(self):
         """Return the polling state."""
         return False
@@ -172,6 +163,15 @@ class IRClimate(ClimateDevice, RestoreEntity):
     def name(self):
         """Return the name of the climate device."""
         return self._name
+
+    @property
+    def state(self):
+        """Return the current state."""
+        if self._on_by_remote:
+            return STATE_ON
+        if self.current_operation != STATE_OFF:
+            return self.current_operation
+        return STATE_OFF
 
     @property
     def temperature_unit(self):
@@ -334,6 +334,16 @@ class IRClimate(ClimateDevice, RestoreEntity):
                         command = b64encode(command).decode('utf-8')
                     except:
                         _LOGGER.error("Error while converting Hex to Base64")
+                        return
+                elif commands_encoding.lower() == 'pronto':
+                    try:
+                        command = command.replace(' ',"")
+                        command = bytearray.fromhex(command)
+                        command = Helper.pronto2lirc(command)
+                        command = Helper.lirc2broadlink(command)
+                        command = b64encode(command).decode('utf-8')
+                    except:
+                        _LOGGER.error("Error while converting Pronto to Base64")
                         return
                 else:
                     _LOGGER.error("The commands encoding provided in the JSON file is not supported")
