@@ -1,4 +1,6 @@
 import asyncio
+from base64 import b64encode
+import binascii
 import json
 import logging
 import os.path
@@ -16,10 +18,11 @@ from homeassistant.const import (
 from homeassistant.core import callback, split_entity_id
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
+from . import Helper
 
 _LOGGER = logging.getLogger(__name__)
 
-VERSION = '1.0.0'
+VERSION = '1.1.0'
 
 DEFAULT_NAME = "SmartIR Media Player"
 
@@ -117,6 +120,8 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
 
         if last_state is not None:
             self._state = last_state.state
+
+        
 
     @property
     def should_poll(self):
@@ -229,6 +234,16 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
                     except:
                         _LOGGER.error("Error while converting Hex to Base64")
                         return
+                elif commands_encoding.lower() == 'pronto':
+                    try:
+                        command = command.replace(' ',"")
+                        command = bytearray.fromhex(command)
+                        command = Helper.pronto2lirc(command)
+                        command = Helper.lirc2broadlink(command)
+                        command = b64encode(command).decode('utf-8')
+                    except:
+                        _LOGGER.error("Error while converting Pronto to Base64")
+                        return
                 else:
                     _LOGGER.error("The commands encoding provided in the JSON file is not supported")
                     return
@@ -249,7 +264,7 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
 
         power_state = self.hass.states.get(self._power_sensor)
 
-        if power_state and power_state.state != STATE_UNKNOWN:
+        if power_state:
             if power_state.state == STATE_OFF:
                 self._state = STATE_OFF
                 self._source = None
