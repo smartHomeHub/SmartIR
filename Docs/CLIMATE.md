@@ -183,3 +183,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1450](../smartir/codes/climate/1450.json)|Unknown model|Broadlink
+
+#### Junkers
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1470](../smartir/codes/climate/1470.json)|Excellence|Broadlink
