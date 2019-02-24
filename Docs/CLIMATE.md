@@ -11,7 +11,7 @@ The key features of the component are:
 * Support to turn on/off from voice assistants. The component is always remembering the last mode.
 
 ## Setup instructions:
-Create the folder `custom_components`, if it does not exist, in the home assistant’s config directory. Create the `smartir` folder and copy `__init__.py` and `climate.py` into it. Finally, create the `codes/climate` subfolders into the smartir folder.
+Create the folder `custom_components`, if it does not exist, in the home assistant’s config directory. Create the `smartir` folder and copy `__init__.py` and `climate.py` into it. ~~Finally, create the `codes/climate` subfolders into the smartir folder.~~ In the last version, the component creates the `codes/climate` subfolders if they not exist.
 
 For this component to work, we need a .json file containing all the necessary IR commands.
 
