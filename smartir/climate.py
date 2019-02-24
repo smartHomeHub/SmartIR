@@ -221,7 +221,7 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
     @property
     def precision(self):
         """Return the precision of the system."""
-        return self._precision
+        return PRECISION_TENTHS
 
     @property
     def operation_list(self):
