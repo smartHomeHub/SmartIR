@@ -319,9 +319,14 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
 
             if operation_mode.lower() == STATE_OFF:
                 command = self._commands['off']
+                _LOGGER.debug("Sending command Off")
             else:
                 command = self._commands[operation_mode][fan_mode][target_temperature]
-
+                _LOGGER.debug("Sending command %s%s%s", 
+                                operation_mode.capitalize(), 
+                                fan_mode.capitalize(), 
+                                target_temperature)
+            
             service_domain = split_entity_id(self._controller_send_service)[0]
             service_name = split_entity_id(self._controller_send_service)[1]
 
@@ -357,6 +362,7 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
                 _LOGGER.error("The controller provided in the JSON file is not supported")
                 return
 
+            _LOGGER.debug("%s.%s %s", service_domain, service_name, service_data)
             await self.hass.services.async_call(service_domain, service_name, service_data)
 
     async def _async_temp_sensor_changed(self, entity_id, old_state, new_state):
