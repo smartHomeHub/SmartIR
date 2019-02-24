@@ -3,7 +3,7 @@
 </p>
 
 ## Installation:
-Create a new folder into the Home Assistant's `custom_components` folder and name it `smartir`. Copy `__init__.py` and `media_player.py` into the `smartir` folder. Create the subfolders `codes/media_player` into the `smartir` folder and copy the code file for your device.
+Create a new folder into the Home Assistant's `custom_components` folder and name it `smartir`. Copy `__init__.py` and `media_player.py` into the `smartir` folder. ~~Create the subfolders `codes/media_player` into the `smartir` folder and copy the code file for your device.~~ In the last version, the component creates the `codes/media_player` subfolders if they not exist.
 
 ## Configuration variables:
 **name** (Optional): Name to use in the frontend<br />
