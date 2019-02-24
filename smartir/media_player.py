@@ -22,7 +22,7 @@ from . import Helper
 
 _LOGGER = logging.getLogger(__name__)
 
-VERSION = '1.1.0'
+VERSION = '1.1.1'
 
 DEFAULT_NAME = "SmartIR Media Player"
 
@@ -45,13 +45,33 @@ async def async_setup_platform(hass, config, async_add_devices, discovery_info=N
     power_sensor = config.get(CONF_POWER_SENSOR)
 
     abspath = os.path.dirname(os.path.abspath(__file__))
-    device_json_file = "{}/codes/media_player/{}.json".format(abspath, device_code)
+    device_files_subdir = os.path.join('codes', 'media_player')
+    device_files_path = os.path.join(abspath, device_files_subdir)
 
-    if not os.path.exists(device_json_file):
-        _LOGGER.error("The device JSON file was not found. [%s]", device_json_file)
-        return
+    if not os.path.isdir(device_files_path):
+        os.makedirs(device_files_path)
 
-    with open(device_json_file) as j:
+    device_json_filename = str(device_code) + '.json'
+    device_json_path = os.path.join(device_files_path, device_json_filename)
+
+    if not os.path.exists(device_json_path):
+        _LOGGER.warning("Couldn't find the device Json file. The component will " \
+                        "try to download it from the GitHub repo.")
+
+        try:
+            codes_source = ("https://raw.githubusercontent.com/"
+                            "smartHomeHub/SmartIR/master/smartir/"
+                            "codes/media_player/{}.json")
+
+            Helper.downloader(codes_source.format(device_code), device_json_path)
+        except:
+            _LOGGER.error("There was an error while downloading the device Json file. " \
+                          "Please check your internet connection or the device code " \
+                          "exists on GitHub. If the problem still exists please " \
+                          "place the file manually in the proper location.")
+            return
+
+    with open(device_json_path) as j:
         try:
             device_data = json.load(j)
         except:
