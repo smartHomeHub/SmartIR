@@ -15,8 +15,8 @@ Create the folder `custom_components`, if it does not exist, in the home assista
 
 For this component to work, we need a .json file containing all the necessary IR commands.
 
-* If you previously used the Broadlink IR Climate component you should use this tool to convert your old INI files. If you have uploaded your old INI files to GitHub, I have already converted them. Find the code of your device [here](https://github.com/smartHomeHub/SmartIR/blob/master/Docs/CLIMATE.md#available-codes-for-climate-devices) and fill the device code in configuration. The component will download it automatically.
-* For new users, find the code of your device brand [here](https://github.com/smartHomeHub/SmartIR/blob/master/Docs/CLIMATE.md#available-codes-for-climate-devices) and fill the device code in configuration.  If your device is not working, you will need to learn your own codes. [Keite Trần](https://github.com/keitetran/BroadlinkIRTools) developed [an amazing web-based app](https://keitetran.github.io/BroadlinkIRTools/) for this job.
+* If you previously used the Broadlink IR Climate component you should use this tool to convert your old INI files. If you have uploaded your old INI files to GitHub, I have already converted them. Find your device's brand code [here](https://github.com/smartHomeHub/SmartIR/blob/master/Docs/CLIMATE.md#available-codes-for-climate-devices) and fill the device code in the configuration. The component will download it automatically.
+* For new users, find your device's brand code [here](https://github.com/smartHomeHub/SmartIR/blob/master/Docs/CLIMATE.md#available-codes-for-climate-devices) and fill the device code in the configuration.  If your device is not working, you will need to learn your own codes. [Keite Trần](https://github.com/keitetran/BroadlinkIRTools) developed [an amazing web-based app](https://keitetran.github.io/BroadlinkIRTools/) for this job.
 
 Make sure the broadlink switch is already installed. Go to the Home Assistant UI/dev service, find the broadlink send_packet service and copy the name of it.
 
