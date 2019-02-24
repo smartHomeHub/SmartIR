@@ -26,5 +26,20 @@ media_player:
     power_sensor: binary_sensor.tv_power
 ```
 
-## Create your own codes:
-ToDo... I'm developing a windows tool to easily create your code files. Please be patient!
+## Available codes for TV devices:
+Below are the code files created by the people in the community. Before you start creating your own code file, try if one of them works for your device. **Please open an issue if your device is working and not included in the supported models.**
+
+#### Philips
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1000](../smartir/codes/media_player/1000.json)|Unknown|Broadlink
+
+#### Sony
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1020](../smartir/codes/media_player/1020.json)|KDL-46HX800|Broadlink
+
+#### LG
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1040](../smartir/codes/media_player/1040.json)|22MT47DC|Broadlink
