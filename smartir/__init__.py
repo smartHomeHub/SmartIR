@@ -1,7 +1,20 @@
 import binascii
+import requests
 import struct
 
 class Helper():
+    @staticmethod
+    def downloader(source, dest):
+        req = requests.get(source, stream=True, timeout=10)
+
+        if req.status_code == 200:
+            with open(dest, 'wb') as fil:
+                for chunk in req.iter_content(1024):
+                    fil.write(chunk)
+        else:
+            raise Exception('File not found')
+
+
     @staticmethod
     def pronto2lirc(pronto):
         codes = [int(binascii.hexlify(pronto[i:i+2]), 16) for i in range(0, len(pronto), 2)]
