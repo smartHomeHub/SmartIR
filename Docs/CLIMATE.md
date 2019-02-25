@@ -16,7 +16,7 @@ Create the folder `custom_components`, if it does not exist, in the home assista
 For this component to work, we need a .json file containing all the necessary IR commands.
 
 * If you previously used the Broadlink IR Climate component you should use this tool to convert your old INI files. If you have uploaded your old INI files on GitHub, I have already converted them. Find your device's brand code [here](https://github.com/smartHomeHub/SmartIR/blob/master/Docs/CLIMATE.md#available-codes-for-climate-devices) and fill the device code in the configuration. The component will download it automatically.
-* For new users, find your device's brand code [here](https://github.com/smartHomeHub/SmartIR/blob/master/Docs/CLIMATE.md#available-codes-for-climate-devices) and fill the device code in the configuration.  If your device is not working, you will need to learn your own codes and place the Json file in `codes/climate` subfolders. [Keite Trần](https://github.com/keitetran/BroadlinkIRTools) developed [an amazing web-based app](https://keitetran.github.io/BroadlinkIRTools/) for this job.
+* For new users, find your device's brand code [here](https://github.com/smartHomeHub/SmartIR/blob/master/Docs/CLIMATE.md#available-codes-for-climate-devices) and fill the device code in the configuration. If your device is not working, you will need to learn your own codes and place the Json file in `codes/climate` subfolders. [Keite Trần](https://github.com/keitetran/BroadlinkIRTools) developed [an amazing web-based app](https://keitetran.github.io/BroadlinkIRTools/) for this job.
 
 Make sure the broadlink switch is already installed. Go to the Home Assistant UI/dev service, find the broadlink send_packet service and copy the name of it.
 
@@ -45,7 +45,7 @@ climate:
     power_sensor: binary_sensor.ac_power
 ```
 
-Replace the device_code value with the name of the file you previously downloaded from the list or the file you converted. Please note that this field only accepts positive numbers and searches for the file only under codes/climate folder. The .json extension is not required.
+Replace the device_code with a code number from [this list](https://github.com/smartHomeHub/SmartIR/blob/master/Docs/CLIMATE.md#available-codes-for-climate-devices) in order for the component to try to download it. If you want to use your own command file, replace the device_code with the name of the Json file. Please note that this field only accepts positive numbers and searches for the file only under codes/climate folder. The .json extension is not required.
 
 Also, replace the controller_send_service value with the name of the previously copied broadlink send_packet service.
 
