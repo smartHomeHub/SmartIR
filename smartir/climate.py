@@ -400,12 +400,14 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
         if new_state is None:
             return
 
-        if new_state.state == STATE_OFF and self._current_operation != STATE_OFF:
-            self._current_operation = STATE_OFF
-            await self.async_update_ha_state()
-
         if new_state.state == STATE_ON and self._current_operation == STATE_OFF:
             self._on_by_remote = True
+            await self.async_update_ha_state()
+
+        if new_state.state == STATE_OFF:
+            self._on_by_remote = False
+            if self._current_operation != STATE_OFF:
+                self._current_operation = STATE_OFF
             await self.async_update_ha_state()
 
     @callback
