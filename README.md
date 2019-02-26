@@ -9,9 +9,10 @@ The key features of the component are:
 ## **Component setup instructions**
 Create the folder `custom_components`, if it does not exist, in the home assistant’s config directory. Create the `smartir` folder and copy `__init__.py`, ` climate.py` and `media_player.py` files into it.
 Add the following to your configuration.yaml file.
+```yaml
+smartir:
+```
 
-    smartir:
-    
 ## **Platform setup instructions**
 <p align="center">
   <a href="Docs/CLIMATE.md"><img src="http://www.tooltip.gr/github_assets/smartir_climate.png" width="400" alt="SmartIR Climate"></a>
