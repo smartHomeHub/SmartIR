@@ -1,6 +1,6 @@
 {            
     "version": "1.1.1",
-    "minHAVersion": "0.89.0",
+    "minHAVersion": "0.88.0",
     "releaseNotes": "A new version is available that is compatible with your system.",
     "files": [
         "__init__.py",
