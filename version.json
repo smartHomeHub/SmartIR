@@ -4,6 +4,7 @@
     "releaseNotes": "A new version is available that is compatible with your system.",
     "files": [
         "__init__.py",
-        "climate.py"
+        "climate.py",
+        "codes/climate/1081.json"
     ]
 }
