@@ -2,8 +2,8 @@
   <a href="#"><img src="http://www.tooltip.gr/github_assets/smartir_mediaplayer.png" width="350" alt="SmartIR Media Player"></a>
 </p>
 
-## Installation:
-Create a new folder into the Home Assistant's `custom_components` folder and name it `smartir`. Copy `__init__.py` and `media_player.py` into the `smartir` folder. ~~Create the subfolders `codes/media_player` into the `smartir` folder and copy the code file for your device.~~ In the last version, the component creates the `codes/media_player` subfolders if they not exist.
+For this platform to work, we need a .json file containing all the necessary IR commands.
+Find your device's brand code [here](https://github.com/smartHomeHub/SmartIR/blob/master/Docs/MEDIA_PLAYER.md#available-codes-for-tv-devices) and fill the device code in the configuration. If your device is not working, you will need to learn your own codes and place the Json file in `codes/media_player` subfolders.
 
 ## Configuration variables:
 **name** (Optional): Name to use in the frontend<br />
@@ -13,6 +13,8 @@ Create a new folder into the Home Assistant's `custom_components` folder and nam
 
 ## Example (using broadlink controller):
 ```yaml
+smartir:
+
 switch:
   - platform: broadlink
     host: 192.168.10.10
