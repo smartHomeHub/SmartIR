@@ -6,8 +6,7 @@ For this platform to work, we need a .json file containing all the necessary IR 
 
 * If you previously used the Broadlink IR Climate component you should use [this tool](https://github.com/smartHomeHub/SmartIR/tree/master/Tools) to convert your old INI files. If you have uploaded your old INI files on GitHub, I have already converted them. Find your device's brand code [here](https://github.com/smartHomeHub/SmartIR/blob/master/Docs/CLIMATE.md#available-codes-for-climate-devices) and add the number in the `device_code` field. The compoenent will download it to the correct folder.
 * For new users, find your device's brand code [here](https://github.com/smartHomeHub/SmartIR/blob/master/Docs/CLIMATE.md#available-codes-for-climate-devices) and add the number in the `device_code` field. If your device is not working, you will need to learn your own codes and place the Json file in `smartir/codes/climate` subfolders. [Keite Trần](https://github.com/keitetran/BroadlinkIRTools) developed [an amazing web-based app](https://keitetran.github.io/BroadlinkIRTools/) for this job.
-
-Make sure the broadlink switch is already installed. Go to the Home Assistant UI/dev service, find the broadlink send_packet service and copy the name of it.
+_Please note that the device_code field only accepts positive numbers. The .json extension is not required._
 
 ## Configuration variables:
 **name** (Optional): Name to use in the frontend<br />
@@ -35,12 +34,8 @@ climate:
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
 ```
-
-Replace the device_code with a code number from [this list](https://github.com/smartHomeHub/SmartIR/blob/master/Docs/CLIMATE.md#available-codes-for-climate-devices) in order for the component to try to download it. If you want to use your own command file, replace the device_code with the name of the Json file. Please note that this field only accepts positive numbers and searches for the file only under codes/climate folder. The .json extension is not required.
-
-Also, replace the controller_send_service value with the name of the previously copied broadlink send_packet service.
-
-Restart HA instance
+Make sure the broadlink switch is already installed. Go to the Home Assistant UI/dev service, find the broadlink send_packet service and copy the name of it.
+Add the name of the send_packet service to the `controller_send_service` field.
 
 ## Available codes for climate devices:
 Below are the code files created by the people in the community. Before you start creating your own code file, try if one of them works for your device. **Please open an issue if your device is working and not included in the supported models.**
