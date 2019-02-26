@@ -1,4 +1,4 @@
-SmartIR is a component for controlling AC units and TV devices via Infrared controllers. An IR controller such as Broadlink RM is required.
+SmartIR is a custom [Home Assistant](https://www.home-assistant.io/) component for controlling AC units and TV devices via Infrared controllers. An IR controller such as Broadlink RM is required.
 
 The key features of the component are:
 * Support for Base64, Broadlink Hex and Pronto codes.
