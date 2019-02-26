@@ -23,7 +23,7 @@ smartir:
 </p>
 
 ## **Update the component**
-The component will check for updates each time HA is restarted. When there is a new version, a new Persistent Notification will appear.
+The component will check for updates each time HA is restarted. When there is a new version, a Persistent Notification will appear.
 Use the services `smartir.check_updates` to manually check for updates and `smartir.update_component` to start the automatic update.
 
 ## Links
