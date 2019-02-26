@@ -1,5 +1,10 @@
 {            
     "version": "1.1.1",
     "minHAVersion": "0.88.0",
-    "releaseNotes": "A new version is available that is compatible with your system."
+    "releaseNotes": "A new version is available that is compatible with your system. Call the service smartir.update to auto update.",
+    "files": [
+        "__init__.py",
+        "climate.py",
+        "media_player.py"
+    ]
 }
