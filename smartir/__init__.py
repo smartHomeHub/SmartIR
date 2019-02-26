@@ -16,7 +16,7 @@ from homeassistant.helpers.typing import ConfigType
 _LOGGER = logging.getLogger(__name__)
 
 DOMAIN = 'smartir'
-VERSION = '1.2.0'
+VERSION = '1.2.1'
 VERSION_URL = (
     "https://raw.githubusercontent.com/smartHomeHub/SmartIR/master/version.json")
 REMOTE_BASE_DIR = (
@@ -44,11 +44,11 @@ async def async_setup(hass, config):
     hass.services.async_register(DOMAIN, 'update_component', update_component)
 
     if conf[CONF_CHECK_UPDATES]:
-        await _update(hass)
+        await _update(hass, False, False)
 
     return True
 
-async def _update(hass, do_update = False):
+async def _update(hass, do_update=False, notify_if_latest=True):
     has_errors = False
 
     request = requests.get(VERSION_URL, stream=True, timeout=10)
@@ -60,6 +60,9 @@ async def _update(hass, do_update = False):
         release_notes = data['releaseNotes']
         
         if StrictVersion(last_version) <= StrictVersion(VERSION):
+            if notify_if_latest:
+                hass.components.persistent_notification.async_create(
+                    "You're already using the latest version", title='SmartIR')
             return
             
         if StrictVersion(current_ha_version) >= StrictVersion(min_ha_version):
