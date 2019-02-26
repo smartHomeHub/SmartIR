@@ -5,6 +5,6 @@
     "files": [
         "__init__.py",
         "climate.py",
-        "codes/climate/1081.json"
+        "media_player.py",
     ]
 }
