@@ -17,7 +17,7 @@ from homeassistant.components.climate.const import (
 from homeassistant.components.climate import (
     STATE_HEAT, STATE_COOL, STATE_AUTO, STATE_DRY, ClimateDevice,
     SUPPORT_OPERATION_MODE, SUPPORT_TARGET_TEMPERATURE, SUPPORT_FAN_MODE,
-    SUPPORT_ON_OFF, PLATFORM_SCHEMA)
+    SUPPORT_ON_OFF, PLATFORM_SCHEMA, DOMAIN)
 from homeassistant.const import (
     CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN, ATTR_TEMPERATURE,
     PRECISION_HALVES, PRECISION_TENTHS, PRECISION_WHOLE)
@@ -28,8 +28,6 @@ from homeassistant.helpers.restore_state import RestoreEntity
 from . import Helper
 
 _LOGGER = logging.getLogger(__name__)
-
-VERSION = '1.1.1'
 
 DEFAULT_NAME = "SmartIR Climate"
 
@@ -217,11 +215,6 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
     def target_temperature_step(self):
         """Return the supported step of target temperature."""
         return self._precision
-
-    @property
-    def precision(self):
-        """Return the precision of the system."""
-        return PRECISION_TENTHS
 
     @property
     def operation_list(self):
