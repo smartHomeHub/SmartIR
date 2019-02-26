@@ -1,18 +1,5 @@
-[
-    {
-        "component": "climate",
-        "data": {
-            "version": "1.1.1",
-            "minHAVersion": "0.88.0",
-            "releaseNotes": "A new version is available that is compatible with your system."
-        }
-    },
-    {
-        "component": "media_player",
-        "data": {
-            "version": "1.1.1",
-            "minHAVersion": "0.88.0",
-            "releaseNotes": "A new version is available that is compatible with your system."
-        }
-    }
-]
+{            
+    "version": "1.1.1",
+    "minHAVersion": "0.88.0",
+    "releaseNotes": "A new version is available that is compatible with your system."
+}
