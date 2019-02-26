@@ -2,7 +2,7 @@
   <a href="#"><img src="http://www.tooltip.gr/github_assets/smartir_climate.png" width="350" alt="SmartIR Climate"></a>
 </p>
 
-For this component to work, we need a .json file containing all the necessary IR commands.
+For this platform to work, we need a .json file containing all the necessary IR commands.
 
 * If you previously used the Broadlink IR Climate component you should use [this tool](https://github.com/smartHomeHub/SmartIR/tree/master/Tools) to convert your old INI files. If you have uploaded your old INI files on GitHub, I have already converted them. Find your device's brand code [here](https://github.com/smartHomeHub/SmartIR/blob/master/Docs/CLIMATE.md#available-codes-for-climate-devices) and fill the device code in the configuration. The component will download it automatically.
 * For new users, find your device's brand code [here](https://github.com/smartHomeHub/SmartIR/blob/master/Docs/CLIMATE.md#available-codes-for-climate-devices) and fill the device code in the configuration. If your device is not working, you will need to learn your own codes and place the Json file in `codes/climate` subfolders. [Keite Trần](https://github.com/keitetran/BroadlinkIRTools) developed [an amazing web-based app](https://keitetran.github.io/BroadlinkIRTools/) for this job.
@@ -11,7 +11,7 @@ Make sure the broadlink switch is already installed. Go to the Home Assistant UI
 
 ## Configuration variables:
 **name** (Optional): Name to use in the frontend<br />
-**device_code** (Required): ...... (Accepts only positive numbers)<br />
+**device_code** (Required): .... (Accepts only positive numbers)<br />
 **controller_send_service** (Required): The service that will be used to send the commands. Only `broadlink_send_packet` (Broadlink controller) is currently supported.<br />
 **temperature_sensor** (Optional): *entity_id* for a temperature sensor<br />
 **humidity_sensor** (Optional): *entity_id* for a humidity sensor<br />
@@ -19,6 +19,8 @@ Make sure the broadlink switch is already installed. Go to the Home Assistant UI
 
 ## Example (using broadlink controller):
 ```yaml
+smartir:
+
 switch:
   - platform: broadlink
     host: 192.168.10.10
