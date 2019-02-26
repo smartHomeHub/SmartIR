@@ -22,8 +22,6 @@ from . import Helper
 
 _LOGGER = logging.getLogger(__name__)
 
-VERSION = '1.1.1'
-
 DEFAULT_NAME = "SmartIR Media Player"
 
 CONF_DEVICE_CODE = 'device_code'
