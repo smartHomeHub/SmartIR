@@ -22,6 +22,10 @@ smartir:
   <a href="Docs/MEDIA_PLAYER.md"><img src="http://www.tooltip.gr/github_assets/smartir_mediaplayer.png" width="400" alt="SmartIR Media Player"></a>
 </p>
 
+<p align="center">
+  <a href="Docs/FAN.md"><img src="http://www.tooltip.gr/github_assets/smartir_fan.png" width="400" alt="SmartIR Media Player"></a>
+</p>
+
 ## **Update the component**
 The component will check for updates each time HA is restarted. When there is a new version, a Persistent Notification will appear.
 Use the services `smartir.check_updates` to manually check for updates and `smartir.update_component` to start the automatic update.
