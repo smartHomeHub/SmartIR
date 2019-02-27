@@ -35,3 +35,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1000](../smartir/codes/fan/1000.json)|Unknown|Broadlink
+
+#### Acorn
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1020](../smartir/codes/fan/1020.json)|Unknown|Broadlink
