@@ -16,7 +16,7 @@ from homeassistant.helpers.typing import ConfigType
 _LOGGER = logging.getLogger(__name__)
 
 DOMAIN = 'smartir'
-VERSION = '1.2.1'
+VERSION = '1.3.0'
 VERSION_URL = (
     "https://raw.githubusercontent.com/smartHomeHub/SmartIR/master/version.json")
 REMOTE_BASE_DIR = (
