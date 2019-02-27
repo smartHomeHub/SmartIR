@@ -3,7 +3,7 @@
 </p>
 
 For this platform to work, we need a .json file containing all the necessary IR or RF commands.
-Find your device's brand code [here](https://github.com/smartHomeHub/SmartIR/blob/master/Docs/MEDIA_PLAYER.md#available-codes-for-fan-devices) and add the number in the `device_code` field. The compoenent will download it to the correct folder. If your device is not working, you will need to learn your own codes and place the .json file in `smartir/codes/fan/` subfolders. Please note that the `device_code` field only accepts positive numbers. The .json extension is not required.
+Find your device's brand code [here](https://github.com/smartHomeHub/SmartIR/blob/master/Docs/FAN.MD#available-codes-for-fan-devices) and add the number in the `device_code` field. The compoenent will download it to the correct folder. If your device is not working, you will need to learn your own codes and place the .json file in `smartir/codes/fan/` subfolders. Please note that the `device_code` field only accepts positive numbers. The .json extension is not required.
 
 ## Configuration variables:
 **name** (Optional): Name to use in the frontend<br />
