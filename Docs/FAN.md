@@ -30,3 +30,8 @@ fan:
 
 ## Available codes for Fan devices:
 Below are the code files created by the people in the community. Before you start creating your own code file, try if one of them works for your device. **Please open an issue if your device is working and not included in the supported models.**
+
+#### Kaze
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1000](../smartir/codes/fan/1000.json)|Unknown|Broadlink
