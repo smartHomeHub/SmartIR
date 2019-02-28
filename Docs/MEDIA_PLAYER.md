@@ -7,7 +7,7 @@ Find your device's brand code [here](https://github.com/smartHomeHub/SmartIR/blo
 
 ## Configuration variables:
 **name** (Optional): The name of the device<br />
-**unique_id** (Optional): An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.
+**unique_id** (Optional): An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.<br />
 **device_code** (Required): ...... (Accepts only positive numbers)<br />
 **controller_send_service** (Required): The service that will be used to send the commands. Only `broadlink_send_packet` (Broadlink controller) is currently supported.<br />
 **power_sensor** (Optional): *entity_id* for a sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor. (Accepts only on/off states)<br />
