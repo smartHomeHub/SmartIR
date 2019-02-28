@@ -1,7 +1,7 @@
 {
   "manufacturer": "Mitsubishi Electric",
   "supportedModels": [
-    "Unknown"
+    "MSZ-GA35VA"
   ],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",

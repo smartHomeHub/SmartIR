@@ -83,7 +83,7 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1120](../smartir/codes/climate/1120.json)|MSZ-GL25VGD<br>MSZ-GL35VGD<br>MSZ-GL42VGD<br>MSZ-GL50VG<br>MSZ-GL60VGD<br>MSZ-GL71VGD<br>MSZ-GL80VGD|Broadlink
-[1121](../smartir/codes/climate/1121.json)|Unknown model|Broadlink
+[1121](../smartir/codes/climate/1121.json)|MSZ-GA35VA|Broadlink
 
 #### Actron
 | Code | Supported Models | Controller |
@@ -157,6 +157,7 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1400](../smartir/codes/climate/1400.json)|Unknown model|Broadlink
+[1401](../smartir/codes/climate/1401.json)|AR##HSF/JFS##|Broadlink
 
 #### Sintech
 | Code | Supported Models | Controller |
@@ -182,3 +183,14 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1500](../smartir/codes/climate/1500.json)|Unknown|Broadlink
+
+#### Hisense
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1520](../smartir/codes/climate/1520.json)|Unknown|Broadlink
+[1521](../smartir/codes/climate/1521.json)|Unknown|Broadlink
+
+#### Whirlpool
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1540](../smartir/codes/climate/1540.json)|SPIS412L|Broadlink
