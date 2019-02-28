@@ -15,15 +15,15 @@ smartir:
 
 ## **Platform setup instructions**
 <p align="center">
-  <a href="Docs/CLIMATE.md"><img src="http://www.tooltip.gr/github_assets/smartir_climate.png" width="400" alt="SmartIR Climate"></a>
+  <a href="CLIMATE.md"><img src="http://www.tooltip.gr/github_assets/smartir_climate.png" width="400" alt="SmartIR Climate"></a>
 </p>
 
 <p align="center">
-  <a href="Docs/MEDIA_PLAYER.md"><img src="http://www.tooltip.gr/github_assets/smartir_mediaplayer.png" width="400" alt="SmartIR Media Player"></a>
+  <a href="MEDIA_PLAYER.md"><img src="http://www.tooltip.gr/github_assets/smartir_mediaplayer.png" width="400" alt="SmartIR Media Player"></a>
 </p>
 
 <p align="center">
-  <a href="Docs/FAN.md"><img src="http://www.tooltip.gr/github_assets/smartir_fan.png" width="400" alt="SmartIR Media Player"></a>
+  <a href="FAN.md"><img src="http://www.tooltip.gr/github_assets/smartir_fan.png" width="400" alt="SmartIR Media Player"></a>
 </p>
 
 ## **Update the component**
