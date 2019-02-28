@@ -24,11 +24,13 @@ _LOGGER = logging.getLogger(__name__)
 
 DEFAULT_NAME = "SmartIR Media Player"
 
+CONF_UNIQUE_ID = 'unique_id'
 CONF_DEVICE_CODE = 'device_code'
 CONF_CONTROLLER_SEND_SERVICE = "controller_send_service"
 CONF_POWER_SENSOR = 'power_sensor'
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
+    vol.Optional(CONF_UNIQUE_ID): cv.string,
     vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
     vol.Required(CONF_DEVICE_CODE): cv.positive_int,
     vol.Required(CONF_CONTROLLER_SEND_SERVICE): cv.entity_id,
@@ -37,6 +39,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Set up the IR Media Player platform."""
+    unique_id = config.get(CONF_UNIQUE_ID)
     name = config.get(CONF_NAME)
     device_code = config.get(CONF_DEVICE_CODE)
     controller_send_service = config.get(CONF_CONTROLLER_SEND_SERVICE)
@@ -77,14 +80,15 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
             return
 
     async_add_entities([SmartIRMediaPlayer(
-        hass, name, device_code, device_data, controller_send_service, 
-        power_sensor
+        hass, unique_id, name, device_code, device_data, 
+        controller_send_service, power_sensor
     )])
 
 class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
-    def __init__(self, hass, name, device_code, device_data, 
-                 controller_send_service, power_sensor):
+    def __init__(self, hass, unique_id, name, device_code, 
+                 device_data, controller_send_service, power_sensor):
         self.hass = hass
+        self._unique_id = unique_id
         self._name = name
         self._device_code = device_code
         self._controller_send_service = controller_send_service
@@ -143,6 +147,11 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
     def should_poll(self):
         """Push an update after each command."""
         return True
+
+    @property
+    def unique_id(self):
+        """Return a unique ID."""
+        return self._unique_id
 
     @property
     def name(self):
