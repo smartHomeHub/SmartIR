@@ -35,7 +35,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_POWER_SENSOR): cv.entity_id
 })
 
-async def async_setup_platform(hass, config, async_add_devices, discovery_info=None):
+async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Set up the IR Media Player platform."""
     name = config.get(CONF_NAME)
     device_code = config.get(CONF_DEVICE_CODE)
@@ -76,7 +76,7 @@ async def async_setup_platform(hass, config, async_add_devices, discovery_info=N
             _LOGGER.error("The device JSON file is invalid")
             return
 
-    async_add_devices([SmartIRMediaPlayer(
+    async_add_entities([SmartIRMediaPlayer(
         hass, name, device_code, device_data, controller_send_service, 
         power_sensor
     )])
@@ -138,8 +138,6 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
 
         if last_state is not None:
             self._state = last_state.state
-
-        
 
     @property
     def should_poll(self):
