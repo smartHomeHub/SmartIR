@@ -9,7 +9,8 @@ For this platform to work, we need a .json file containing all the necessary IR 
 _Please note that the device_code field only accepts positive numbers. The .json extension is not required._
 
 ## Configuration variables:
-**name** (Optional): Name to use in the frontend<br />
+**name** (Optional): The name of the device<br />
+**unique_id** (Optional): An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.
 **device_code** (Required): .... (Accepts only positive numbers)<br />
 **controller_send_service** (Required): The service that will be used to send the commands. Only `broadlink_send_packet` (Broadlink controller) is currently supported.<br />
 **temperature_sensor** (Optional): *entity_id* for a temperature sensor<br />
@@ -28,6 +29,7 @@ switch:
 climate:
   - platform: smartir
     name: Office AC
+    unique_id: office_ac
     device_code: 1000
     controller_send_service: switch.broadlink_send_packet_192_168_10_10
     temperature_sensor: sensor.temperature
