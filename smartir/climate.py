@@ -7,20 +7,14 @@ import os.path
 
 import voluptuous as vol
 
-"""
 from homeassistant.components.climate import ClimateDevice, PLATFORM_SCHEMA
 from homeassistant.components.climate.const import (
     STATE_HEAT, STATE_COOL, STATE_AUTO, STATE_DRY,
     SUPPORT_OPERATION_MODE, SUPPORT_TARGET_TEMPERATURE, SUPPORT_FAN_MODE,
     SUPPORT_ON_OFF)
-"""
-from homeassistant.components.climate import (
-    STATE_HEAT, STATE_COOL, STATE_AUTO, STATE_DRY, ClimateDevice,
-    SUPPORT_OPERATION_MODE, SUPPORT_TARGET_TEMPERATURE, SUPPORT_FAN_MODE,
-    SUPPORT_ON_OFF, PLATFORM_SCHEMA, DOMAIN)
 from homeassistant.const import (
     CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN, ATTR_TEMPERATURE,
-    PRECISION_HALVES, PRECISION_TENTHS, PRECISION_WHOLE)
+    PRECISION_TENTHS, PRECISION_HALVES, PRECISION_WHOLE)
 from homeassistant.core import callback, split_entity_id
 from homeassistant.helpers.event import async_track_state_change
 import homeassistant.helpers.config_validation as cv
@@ -53,7 +47,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_POWER_SENSOR): cv.entity_id
 })
 
-async def async_setup_platform(hass, config, async_add_devices, discovery_info=None):
+async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Set up the IR Climate platform."""
     name = config.get(CONF_NAME)
     device_code = config.get(CONF_DEVICE_CODE)
@@ -96,7 +90,7 @@ async def async_setup_platform(hass, config, async_add_devices, discovery_info=N
             _LOGGER.error("The device Json file is invalid")
             return
 
-    async_add_devices([SmartIRClimate(
+    async_add_entities([SmartIRClimate(
         hass, name, device_code, device_data, controller_send_service, 
         temperature_sensor, humidity_sensor, power_sensor
     )])
