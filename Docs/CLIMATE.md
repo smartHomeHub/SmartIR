@@ -10,7 +10,7 @@ _Please note that the device_code field only accepts positive numbers. The .json
 
 ## Configuration variables:
 **name** (Optional): The name of the device<br />
-**unique_id** (Optional): An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.
+**unique_id** (Optional): An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.<br />
 **device_code** (Required): .... (Accepts only positive numbers)<br />
 **controller_send_service** (Required): The service that will be used to send the commands. Only `broadlink_send_packet` (Broadlink controller) is currently supported.<br />
 **temperature_sensor** (Optional): *entity_id* for a temperature sensor<br />
