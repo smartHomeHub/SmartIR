@@ -362,7 +362,7 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
                     return
 
                 service_data = {
-                    'packet': [command]
+                    'packet': command
                 }
 
             else:

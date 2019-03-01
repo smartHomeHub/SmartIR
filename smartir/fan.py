@@ -269,7 +269,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
                     return
 
                 service_data = {
-                    'packet': [command]
+                    'packet': command
                 }
 
             else:
