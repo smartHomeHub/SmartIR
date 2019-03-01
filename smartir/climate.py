@@ -51,23 +51,16 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Set up the IR Climate platform."""
-    unique_id = config.get(CONF_UNIQUE_ID)
-    name = config.get(CONF_NAME)
     device_code = config.get(CONF_DEVICE_CODE)
-    controller_send_service = config.get(CONF_CONTROLLER_SEND_SERVICE)
-    temperature_sensor = config.get(CONF_TEMPERATURE_SENSOR)
-    humidity_sensor = config.get(CONF_HUMIDITY_SENSOR)
-    power_sensor = config.get(CONF_POWER_SENSOR)
-
-    abspath = os.path.dirname(os.path.abspath(__file__))
+    hass_config_absdir = os.path.dirname(os.path.abspath(__file__))
     device_files_subdir = os.path.join('codes', 'climate')
-    device_files_path = os.path.join(abspath, device_files_subdir)
+    device_files_absdir = os.path.join(hass_config_absdir, device_files_subdir)
 
-    if not os.path.isdir(device_files_path):
-        os.makedirs(device_files_path)
+    if not os.path.isdir(device_files_absdir):
+        os.makedirs(device_files_absdir)
 
     device_json_filename = str(device_code) + '.json'
-    device_json_path = os.path.join(device_files_path, device_json_filename)
+    device_json_path = os.path.join(device_files_absdir, device_json_filename)
 
     if not os.path.exists(device_json_path):
         _LOGGER.warning("Couldn't find the device Json file. The component will " \
@@ -94,23 +87,19 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
             return
 
     async_add_entities([SmartIRClimate(
-        hass, name, unique_id, device_code, device_data, 
-        controller_send_service, temperature_sensor, 
-        humidity_sensor, power_sensor
+        hass, config, device_data
     )])
 
 class SmartIRClimate(ClimateDevice, RestoreEntity):
-    def __init__(self, hass, unique_id, name, device_code, device_data, 
-                 controller_send_service, temperature_sensor, 
-                 humidity_sensor, power_sensor):
+    def __init__(self, hass, config, device_data):
         self.hass = hass
-        self._unique_id = unique_id
-        self._name = name
-        self._device_code = device_code
-        self._controller_send_service = controller_send_service
-        self._temperature_sensor = temperature_sensor
-        self._humidity_sensor = humidity_sensor
-        self._power_sensor = power_sensor
+        self._unique_id = config.get(CONF_UNIQUE_ID)
+        self._name = config.get(CONF_NAME)
+        self._device_code = config.get(CONF_DEVICE_CODE)
+        self._controller_send_service = config.get(CONF_CONTROLLER_SEND_SERVICE)
+        self._temperature_sensor = config.get(CONF_TEMPERATURE_SENSOR)
+        self._humidity_sensor = config.get(CONF_HUMIDITY_SENSOR)
+        self._power_sensor = config.get(CONF_POWER_SENSOR)
 
         self._manufacturer = device_data['manufacturer']
         self._supported_models = device_data['supportedModels']
