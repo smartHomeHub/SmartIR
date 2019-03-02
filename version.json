@@ -1,6 +1,6 @@
 {            
     "version": "1.3.6",
-    "minHAVersion": "0.89",
+    "minHAVersion": "0.89.0b0",
     "releaseNotes": "A new version (1.3.6) is available that is compatible with your system. Call the ``smartir.update_component`` service to update the component.",
     "files": [
         "__init__.py",
