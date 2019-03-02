@@ -52,3 +52,9 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1060](../smartir/codes/media_player/1060.json)|UE40F6500|Broadlink
+
+#### Insignia
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1080](../smartir/codes/media_player/1080.json)|NS-42D510NA15|Broadlink
+
