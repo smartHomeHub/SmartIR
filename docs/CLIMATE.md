@@ -194,3 +194,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1540](../codes/climate/1540.json)|SPIS412L|Broadlink
+
+#### Tadiran
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1560](../codes/climate/1560.json)|WIND 3P|Broadlink
