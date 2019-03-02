@@ -1,11 +1,11 @@
 <p align="center">
-  <a href="#"><img src="http://www.tooltip.gr/github_assets/smartir_climate.png" width="350" alt="SmartIR Climate"></a>
+  <a href="#"><img src="assets/climate.png" width="350" alt="SmartIR Climate"></a>
 </p>
 
 For this platform to work, we need a .json file containing all the necessary IR commands.
 
-* If you previously used the Broadlink IR Climate component you should use [this tool](https://github.com/smartHomeHub/SmartIR/tree/master/Tools) to convert your old INI files. If you have uploaded your old INI files on GitHub, I have already converted them. Find your device's brand code [here](https://github.com/smartHomeHub/SmartIR/blob/master/Docs/CLIMATE.md#available-codes-for-climate-devices) and add the number in the `device_code` field. The compoenent will download it to the correct folder.
-* For new users, find your device's brand code [here](https://github.com/smartHomeHub/SmartIR/blob/master/Docs/CLIMATE.md#available-codes-for-climate-devices) and add the number in the `device_code` field. If your device is not working, you will need to learn your own codes and place the Json file in `smartir/codes/climate` subfolders. [Keite Trần](https://github.com/keitetran/BroadlinkIRTools) developed [an amazing web-based app](https://keitetran.github.io/BroadlinkIRTools/) for this job.
+* If you previously used the Broadlink IR Climate component you should use [this tool](../tools) to convert your old INI files. If you have uploaded your old INI files on GitHub, I have already converted them. Find your device's brand code [here](https://github.com/smartHomeHub/blob/master/Docs/CLIMATE.md#available-codes-for-climate-devices) and add the number in the `device_code` field. The compoenent will download it to the correct folder.
+* For new users, find your device's brand code [here](CLIMATE.md#available-codes-for-climate-devices) and add the number in the `device_code` field. If your device is not working, you will need to learn your own codes and place the Json file in `smartir/codes/climate` subfolders. [Keite Trần](https://github.com/keitetran/BroadlinkIRTools) developed [an amazing web-based app](https://keitetran.github.io/BroadlinkIRTools/) for this job.
 _Please note that the device_code field only accepts positive numbers. The .json extension is not required._
 
 ## Configuration variables:
@@ -45,152 +45,152 @@ Below are the code files created by the people in the community. Before you star
 #### Toyotomi
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1000](../smartir/codes/climate/1000.json)|AKIRA GAN/GAG-A128 VL|Broadlink
+[1000](../codes/climate/1000.json)|AKIRA GAN/GAG-A128 VL|Broadlink
 
 #### Panasonic
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1020](../smartir/codes/climate/1020.json)|CS-CE7HKEW<br>CS-CE9HKEW<br>CS-CE12HKEW|Broadlink
-[1021](../smartir/codes/climate/1021.json)|CS-RE9GKE<br>CS-RE12GKE|Broadlink
-[1022](../smartir/codes/climate/1022.json)|CS-Z25TK|Broadlink
-[1023](../smartir/codes/climate/1023.json)|CS-HE9JKE<br>CS-HE12JKE|Broadlink
+[1020](../codes/climate/1020.json)|CS-CE7HKEW<br>CS-CE9HKEW<br>CS-CE12HKEW|Broadlink
+[1021](../codes/climate/1021.json)|CS-RE9GKE<br>CS-RE12GKE|Broadlink
+[1022](../codes/climate/1022.json)|CS-Z25TK|Broadlink
+[1023](../codes/climate/1023.json)|CS-HE9JKE<br>CS-HE12JKE|Broadlink
 
 #### General Electric
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1040](../smartir/codes/climate/1040.json)|Unknown model|Broadlink
+[1040](../codes/climate/1040.json)|Unknown model|Broadlink
 
 #### LG
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1060](../smartir/codes/climate/1060.json)|R09AWN<br>R24AWN<br>E09EK|Broadlink
-[1061](../smartir/codes/climate/1061.json)|Unknown model|Broadlink
-[1062](../smartir/codes/climate/1062.json)|LG InverterV P12RK|Broadlink
+[1060](../codes/climate/1060.json)|R09AWN<br>R24AWN<br>E09EK|Broadlink
+[1061](../codes/climate/1061.json)|Unknown model|Broadlink
+[1062](../codes/climate/1062.json)|LG InverterV P12RK|Broadlink
 
 #### Hitachi
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1080](../smartir/codes/climate/1080.json)|Unknown model|Broadlink
-[1081](../smartir/codes/climate/1081.json)|RAS-10EH3|Broadlink
+[1080](../codes/climate/1080.json)|Unknown model|Broadlink
+[1081](../codes/climate/1081.json)|RAS-10EH3|Broadlink
 
 #### Daikin
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1100](../smartir/codes/climate/1100.json)|Unknown model|Broadlink
-[1101](../smartir/codes/climate/1101.json)|FTXS20LVMA<br>FTXS25LVMA<br>FTXS35LVMA<br>FTXS46LVMA<br>FTXS50LVMA<br>FTXS60LVMA<br>FTXS71LVMA<br>FTXS85LVMA<br>FTXS95LVMA|Broadlink
+[1100](../codes/climate/1100.json)|Unknown model|Broadlink
+[1101](../codes/climate/1101.json)|FTXS20LVMA<br>FTXS25LVMA<br>FTXS35LVMA<br>FTXS46LVMA<br>FTXS50LVMA<br>FTXS60LVMA<br>FTXS71LVMA<br>FTXS85LVMA<br>FTXS95LVMA|Broadlink
 
 #### Mitsubishi Electric
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1120](../smartir/codes/climate/1120.json)|MSZ-GL25VGD<br>MSZ-GL35VGD<br>MSZ-GL42VGD<br>MSZ-GL50VG<br>MSZ-GL60VGD<br>MSZ-GL71VGD<br>MSZ-GL80VGD|Broadlink
-[1121](../smartir/codes/climate/1121.json)|MSZ-GA35VA|Broadlink
+[1120](../codes/climate/1120.json)|MSZ-GL25VGD<br>MSZ-GL35VGD<br>MSZ-GL42VGD<br>MSZ-GL50VG<br>MSZ-GL60VGD<br>MSZ-GL71VGD<br>MSZ-GL80VGD|Broadlink
+[1121](../codes/climate/1121.json)|MSZ-GA35VA|Broadlink
 
 #### Actron
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1140](../smartir/codes/climate/1140.json)|Unknown model|Broadlink
+[1140](../codes/climate/1140.json)|Unknown model|Broadlink
 
 #### Carrier
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1160](../smartir/codes/climate/1160.json)|Unknown model|Broadlink
+[1160](../codes/climate/1160.json)|Unknown model|Broadlink
 
 #### Gree
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1180](../smartir/codes/climate/1180.json)|Unknown model|Broadlink
-[1181](../smartir/codes/climate/1181.json)|Unknown model|Broadlink
+[1180](../codes/climate/1180.json)|Unknown model|Broadlink
+[1181](../codes/climate/1181.json)|Unknown model|Broadlink
 
 #### Tosot
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1200](../smartir/codes/climate/1200.json)|Unknown model|Broadlink
+[1200](../codes/climate/1200.json)|Unknown model|Broadlink
 
 #### Sungold
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1220](../smartir/codes/climate/1220.json)|Unknown model|Broadlink
+[1220](../codes/climate/1220.json)|Unknown model|Broadlink
 
 #### Consul
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1240](../smartir/codes/climate/1240.json)|Unknown model|Broadlink
+[1240](../codes/climate/1240.json)|Unknown model|Broadlink
 
 #### Toshiba
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1260](../smartir/codes/climate/1260.json)|RAS-13NKV-E / RAS-13NAV-E<br>RAS-13NKV-A / RAS-13NAV-A<br>RAS-16NKV-E / RAS-16NAV-E<br>RAS-16NKV-A / RAS-16NAV-A|Broadlink
+[1260](../codes/climate/1260.json)|RAS-13NKV-E / RAS-13NAV-E<br>RAS-13NKV-A / RAS-13NAV-A<br>RAS-16NKV-E / RAS-16NAV-E<br>RAS-16NKV-A / RAS-16NAV-A|Broadlink
 
 #### Fujitsu
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1280](../smartir/codes/climate/1280.json)|AR-RBE1E|Broadlink
-[1281](../smartir/codes/climate/1281.json)|Unknown model|Broadlink
+[1280](../codes/climate/1280.json)|AR-RBE1E|Broadlink
+[1281](../codes/climate/1281.json)|Unknown model|Broadlink
 
 #### Sharp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1300](../smartir/codes/climate/1300.json)|AY-B22DM|Broadlink
+[1300](../codes/climate/1300.json)|AY-B22DM|Broadlink
 
 #### Haier
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1320](../smartir/codes/climate/1320.json)|Unknown model|Broadlink
+[1320](../codes/climate/1320.json)|Unknown model|Broadlink
 
 #### Tadiran
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1340](../smartir/codes/climate/1340.json)|Unknown model|Broadlink
+[1340](../codes/climate/1340.json)|Unknown model|Broadlink
 
 #### Springer
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1360](../smartir/codes/climate/1360.json)|Split Hi Wall Maxiflex|Broadlink
+[1360](../codes/climate/1360.json)|Split Hi Wall Maxiflex|Broadlink
 
 #### Midea
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1380](../smartir/codes/climate/1380.json)|Unknown model|Broadlink
-[1381](../smartir/codes/climate/1381.json)|Unknown model|Broadlink
+[1380](../codes/climate/1380.json)|Unknown model|Broadlink
+[1381](../codes/climate/1381.json)|Unknown model|Broadlink
 
 #### Samsung
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1400](../smartir/codes/climate/1400.json)|Unknown model|Broadlink
-[1401](../smartir/codes/climate/1401.json)|AR##HSF/JFS##|Broadlink
+[1400](../codes/climate/1400.json)|Unknown model|Broadlink
+[1401](../codes/climate/1401.json)|AR##HSF/JFS##|Broadlink
 
 #### Sintech
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1420](../smartir/codes/climate/1420.json)|KFR-34GW|Broadlink
+[1420](../codes/climate/1420.json)|KFR-34GW|Broadlink
 
 #### Akai
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1440](../smartir/codes/climate/1440.json)|Unknown model|Broadlink
+[1440](../codes/climate/1440.json)|Unknown model|Broadlink
 
 #### Alliance
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1460](../smartir/codes/climate/1460.json)|Unknown model|Broadlink
+[1460](../codes/climate/1460.json)|Unknown model|Broadlink
 
 #### Junkers
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1480](../smartir/codes/climate/1480.json)|Excellence|Broadlink
+[1480](../codes/climate/1480.json)|Excellence|Broadlink
 
 #### Sanyo
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1500](../smartir/codes/climate/1500.json)|Unknown|Broadlink
+[1500](../codes/climate/1500.json)|Unknown|Broadlink
 
 #### Hisense
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1520](../smartir/codes/climate/1520.json)|Unknown|Broadlink
-[1521](../smartir/codes/climate/1521.json)|Unknown|Broadlink
+[1520](../codes/climate/1520.json)|Unknown|Broadlink
+[1521](../codes/climate/1521.json)|Unknown|Broadlink
 
 #### Whirlpool
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1540](../smartir/codes/climate/1540.json)|SPIS412L|Broadlink
+[1540](../codes/climate/1540.json)|SPIS412L|Broadlink

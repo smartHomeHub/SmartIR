@@ -1,9 +1,9 @@
 <p align="center">
-  <a href="#"><img src="http://www.tooltip.gr/github_assets/smartir_fan.png" width="350" alt="SmartIR Media Player"></a>
+  <a href="#"><img src="assets/smartir_fan.png" width="350" alt="SmartIR Media Player"></a>
 </p>
 
 For this platform to work, we need a .json file containing all the necessary IR or RF commands.
-Find your device's brand code [here](https://github.com/smartHomeHub/SmartIR/blob/master/Docs/FAN.md#available-codes-for-fan-devices) and add the number in the `device_code` field. The compoenent will download it to the correct folder. If your device is not working, you will need to learn your own codes and place the .json file in `smartir/codes/fan/` subfolders. Please note that the `device_code` field only accepts positive numbers. The .json extension is not required.
+Find your device's brand code [here](FAN.md#available-codes-for-fan-devices) and add the number in the `device_code` field. The compoenent will download it to the correct folder. If your device is not working, you will need to learn your own codes and place the .json file in `smartir/codes/fan/` subfolders. Please note that the `device_code` field only accepts positive numbers. The .json extension is not required.
 
 ## Configuration variables:
 **name** (Optional): The name of the device<br />
@@ -36,9 +36,9 @@ Below are the code files created by the people in the community. Before you star
 #### Kaze
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1000](../smartir/codes/fan/1000.json)|Unknown|Broadlink
+[1000](../codes/fan/1000.json)|Unknown|Broadlink
 
 #### Acorn
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1020](../smartir/codes/fan/1020.json)|Unknown|Broadlink
+[1020](../codes/fan/1020.json)|Unknown|Broadlink
