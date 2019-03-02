@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="#"><img src="assets/climate.png" width="350" alt="SmartIR Climate"></a>
+  <a href="#"><img src="assets/smartir_climate.png" width="350" alt="SmartIR Climate"></a>
 </p>
 
 For this platform to work, we need a .json file containing all the necessary IR commands.
