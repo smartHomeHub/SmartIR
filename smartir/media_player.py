@@ -1,6 +1,4 @@
 import asyncio
-from base64 import b64encode
-import binascii
 import json
 import logging
 import os.path
@@ -15,10 +13,11 @@ from homeassistant.components.media_player.const import (
     SUPPORT_SELECT_SOURCE, MEDIA_TYPE_CHANNEL)
 from homeassistant.const import (
     CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN)
-from homeassistant.core import callback, split_entity_id
+from homeassistant.core import callback
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
 from . import COMPONENT_ABS_DIR, Helper
+from .controller import Controller
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -126,6 +125,13 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
 
         self._temp_lock = asyncio.Lock()
 
+        #Init the IR/RF controller
+        self._controller = Controller(
+            self.hass,
+            self._supported_controller, 
+            self._commands_encoding,
+            self._controller_send_service)
+
     async def async_added_to_hass(self):
         """Run when entity about to be added."""
         await super().async_added_to_hass()
@@ -191,16 +197,20 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
 
     async def async_turn_off(self):
         """Turn the media player off."""
-        self._state = STATE_OFF
-        self._source = None
         await self.send_command(self._commands['off'])
-        await self.async_update_ha_state()
+        
+        if self._power_sensor is None:
+            self._state = STATE_OFF
+            self._source = None
+            await self.async_update_ha_state()
 
     async def async_turn_on(self):
         """Turn the media player off."""
-        self._state = STATE_ON
         await self.send_command(self._commands['on'])
-        await self.async_update_ha_state()
+
+        if self._power_sensor is None:
+            self._state = STATE_ON
+            await self.async_update_ha_state()
 
     async def async_media_previous_track(self):
         """Send previous track command."""
@@ -235,46 +245,11 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
 
     async def send_command(self, command):
         async with self._temp_lock:
-            supported_controller = self._supported_controller
-            commands_encoding = self._commands_encoding
-
-            service_domain = split_entity_id(self._controller_send_service)[0]
-            service_name = split_entity_id(self._controller_send_service)[1]
-
-            if supported_controller.lower() == 'broadlink':
-                if commands_encoding.lower() == 'base64':
-                    pass
-                elif commands_encoding.lower() == 'hex':
-                    try:
-                        command = binascii.unhexlify(command)
-                        command = b64encode(command).decode('utf-8')
-                    except:
-                        _LOGGER.error("Error while converting Hex to Base64")
-                        return
-                elif commands_encoding.lower() == 'pronto':
-                    try:
-                        command = command.replace(' ',"")
-                        command = bytearray.fromhex(command)
-                        command = Helper.pronto2lirc(command)
-                        command = Helper.lirc2broadlink(command)
-                        command = b64encode(command).decode('utf-8')
-                    except:
-                        _LOGGER.error("Error while converting Pronto to Base64")
-                        return
-                else:
-                    _LOGGER.error("The commands encoding provided in the JSON file is not supported")
-                    return
-
-                service_data = {
-                    'packet': command
-                }
-
-            else:
-                _LOGGER.error("The controller provided in the JSON file is not supported")
-                return
-
-            await self.hass.services.async_call(service_domain, service_name, service_data)
-
+            try:
+                await self._controller.send(command)
+            except Exception as e:
+                _LOGGER.exception(e)
+            
     async def async_update(self):
         if self._power_sensor is None:
             return

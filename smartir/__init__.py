@@ -16,7 +16,7 @@ from homeassistant.helpers.typing import ConfigType
 _LOGGER = logging.getLogger(__name__)
 
 DOMAIN = 'smartir'
-VERSION = '1.3.7'
+VERSION = '1.3.8'
 VERSION_URL = (
     "https://raw.githubusercontent.com/"
     "smartHomeHub/SmartIR/{}/version.json")
@@ -125,16 +125,16 @@ class Helper():
                 for chunk in req.iter_content(1024):
                     fil.write(chunk)
         else:
-            raise Exception('File not found')
+            raise Exception("File not found")
 
     @staticmethod
     def pronto2lirc(pronto):
         codes = [int(binascii.hexlify(pronto[i:i+2]), 16) for i in range(0, len(pronto), 2)]
 
         if codes[0]:
-            raise ValueError('Pronto code should start with 0000')
+            raise ValueError("Pronto code should start with 0000")
         if len(codes) != 4 + 2 * (codes[2] + codes[3]):
-            raise ValueError('Number of pulse widths does not match the preamble')
+            raise ValueError("Number of pulse widths does not match the preamble")
 
         frequency = 1 / (codes[1] * 0.241246)
         return [int(round(code / frequency)) for code in codes[4:]]

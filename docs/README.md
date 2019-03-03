@@ -7,8 +7,21 @@ The key features of the component are:
 * Support for voice assistants.
 
 ## **Component setup instructions**
-Create the folder `custom_components`, if it does not exist, in the home assistant’s config directory. Create the `smartir` folder and copy `__init__.py`, ` climate.py`, ` fan.py` and `media_player.py` files into it.
-Add the following to your configuration.yaml file.
+1. Create a directory `custom_components` in your Home Assistant configuration directory.
+2. Copy `smartir` from this project including **all** files and sub-directories into the directory `custom_components`.
+
+It should look similar to this after installation:
+```
+.homeassistant/
+|-- custom_components/
+|   |-- smartir/
+|       |-- __init__.py
+|       |-- climate.py
+|       |-- fan.py
+|       |-- media_player.py
+|       |-- etc...
+```
+3. Add the following to your configuration.yaml file.
 ```yaml
 smartir:
 ```

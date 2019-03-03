@@ -1,6 +1,4 @@
 import asyncio
-from base64 import b64encode
-import binascii
 import json
 import logging
 import os.path
@@ -14,11 +12,12 @@ from homeassistant.components.fan import (
     SUPPORT_SET_SPEED, SUPPORT_DIRECTION)
 from homeassistant.const import (
     CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN)
-from homeassistant.core import callback, split_entity_id
+from homeassistant.core import callback
 from homeassistant.helpers.event import async_track_state_change
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
 from . import COMPONENT_ABS_DIR, Helper
+from .controller import Controller
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -107,6 +106,13 @@ class SmartIRFan(FanEntity, RestoreEntity):
 
         self._temp_lock = asyncio.Lock()
         self._on_by_remote = False
+
+        #Init the IR/RF controller
+        self._controller = Controller(
+            self.hass,
+            self._supported_controller, 
+            self._commands_encoding,
+            self._controller_send_service)
 
     async def async_added_to_hass(self):
         """Run when entity about to be added."""
@@ -224,8 +230,6 @@ class SmartIRFan(FanEntity, RestoreEntity):
     async def send_command(self):
         async with self._temp_lock:
             self._on_by_remote = False
-            supported_controller = self._supported_controller
-            commands_encoding = self._commands_encoding
             speed = self._speed
             direction = self._direction or 'default'
 
@@ -234,42 +238,10 @@ class SmartIRFan(FanEntity, RestoreEntity):
             else:
                 command = self._commands[direction][speed] 
 
-            service_domain = split_entity_id(self._controller_send_service)[0]
-            service_name = split_entity_id(self._controller_send_service)[1]
-
-            if supported_controller.lower() == 'broadlink':
-                if commands_encoding.lower() == 'base64':
-                    pass
-                elif commands_encoding.lower() == 'hex':
-                    try:
-                        command = binascii.unhexlify(command)
-                        command = b64encode(command).decode('utf-8')
-                    except:
-                        _LOGGER.error("Error while converting Hex to Base64")
-                        return
-                elif commands_encoding.lower() == 'pronto':
-                    try:
-                        command = command.replace(' ',"")
-                        command = bytearray.fromhex(command)
-                        command = Helper.pronto2lirc(command)
-                        command = Helper.lirc2broadlink(command)
-                        command = b64encode(command).decode('utf-8')
-                    except:
-                        _LOGGER.error("Error while converting Pronto to Base64")
-                        return
-                else:
-                    _LOGGER.error("The commands encoding provided in the JSON file is not supported")
-                    return
-
-                service_data = {
-                    'packet': command
-                }
-
-            else:
-                _LOGGER.error("The controller provided in the JSON file is not supported")
-                return
-
-            await self.hass.services.async_call(service_domain, service_name, service_data)
+            try:
+                await self._controller.send(command)
+            except Exception as e:
+                _LOGGER.exception(e)
 
     async def _async_power_sensor_changed(self, entity_id, old_state, new_state):
         """Handle power sensor changes."""
