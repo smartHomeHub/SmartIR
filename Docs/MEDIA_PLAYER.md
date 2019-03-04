@@ -2,8 +2,8 @@
   <a href="#"><img src="http://www.tooltip.gr/github_assets/smartir_mediaplayer.png" width="350" alt="SmartIR Media Player"></a>
 </p>
 
-## Installation:
-Create a new folder into the Home Assistant's `custom_components` folder and name it `smartir`. Copy `__init__.py` and `media_player.py` into the `smartir` folder. Create the subfolders `codes/media_player` into the `smartir` folder and copy the code file for your device.
+For this platform to work, we need a .json file containing all the necessary IR commands.
+Find your device's brand code [here](https://github.com/smartHomeHub/SmartIR/blob/master/Docs/MEDIA_PLAYER.md#available-codes-for-tv-devices) and add the number in the `device_code` field. The compoenent will download it to the correct folder. If your device is not working, you will need to learn your own codes and place the .json file in `smartir/codes/media_player/` subfolders. Please note that the `device_code` field only accepts positive numbers. The .json extension is not required.
 
 ## Configuration variables:
 **name** (Optional): Name to use in the frontend<br />
@@ -13,6 +13,8 @@ Create a new folder into the Home Assistant's `custom_components` folder and nam
 
 ## Example (using broadlink controller):
 ```yaml
+smartir:
+
 switch:
   - platform: broadlink
     host: 192.168.10.10
@@ -26,5 +28,25 @@ media_player:
     power_sensor: binary_sensor.tv_power
 ```
 
-## Create your own codes:
-ToDo... I'm developing a windows tool to easily create your code files. Please be patient!
+## Available codes for TV devices:
+Below are the code files created by the people in the community. Before you start creating your own code file, try if one of them works for your device. **Please open an issue if your device is working and not included in the supported models.**
+
+#### Philips
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1000](../smartir/codes/media_player/1000.json)|Unknown|Broadlink
+
+#### Sony
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1020](../smartir/codes/media_player/1020.json)|KDL-46HX800|Broadlink
+
+#### LG
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1040](../smartir/codes/media_player/1040.json)|22MT47DC|Broadlink
+
+#### Samsung
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1060](../smartir/codes/media_player/1060.json)|UE40F6500|Broadlink

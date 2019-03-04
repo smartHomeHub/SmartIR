@@ -17,7 +17,7 @@ from homeassistant.components.climate.const import (
 from homeassistant.components.climate import (
     STATE_HEAT, STATE_COOL, STATE_AUTO, STATE_DRY, ClimateDevice,
     SUPPORT_OPERATION_MODE, SUPPORT_TARGET_TEMPERATURE, SUPPORT_FAN_MODE,
-    SUPPORT_ON_OFF, PLATFORM_SCHEMA)
+    SUPPORT_ON_OFF, PLATFORM_SCHEMA, DOMAIN)
 from homeassistant.const import (
     CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN, ATTR_TEMPERATURE,
     PRECISION_HALVES, PRECISION_TENTHS, PRECISION_WHOLE)
@@ -28,8 +28,6 @@ from homeassistant.helpers.restore_state import RestoreEntity
 from . import Helper
 
 _LOGGER = logging.getLogger(__name__)
-
-VERSION = '1.1.0'
 
 DEFAULT_NAME = "SmartIR Climate"
 
@@ -65,17 +63,37 @@ async def async_setup_platform(hass, config, async_add_devices, discovery_info=N
     power_sensor = config.get(CONF_POWER_SENSOR)
 
     abspath = os.path.dirname(os.path.abspath(__file__))
-    device_json_file = "{}/codes/climate/{}.json".format(abspath, device_code)
+    device_files_subdir = os.path.join('codes', 'climate')
+    device_files_path = os.path.join(abspath, device_files_subdir)
 
-    if not os.path.exists(device_json_file):
-        _LOGGER.error("The device JSON file was not found. [%s]", device_json_file)
-        return
+    if not os.path.isdir(device_files_path):
+        os.makedirs(device_files_path)
 
-    with open(device_json_file) as j:
+    device_json_filename = str(device_code) + '.json'
+    device_json_path = os.path.join(device_files_path, device_json_filename)
+
+    if not os.path.exists(device_json_path):
+        _LOGGER.warning("Couldn't find the device Json file. The component will " \
+                        "try to download it from the GitHub repo.")
+
+        try:
+            codes_source = ("https://raw.githubusercontent.com/"
+                            "smartHomeHub/SmartIR/master/smartir/"
+                            "codes/climate/{}.json")
+
+            Helper.downloader(codes_source.format(device_code), device_json_path)
+        except:
+            _LOGGER.error("There was an error while downloading the device Json file. " \
+                          "Please check your internet connection or the device code " \
+                          "exists on GitHub. If the problem still exists please " \
+                          "place the file manually in the proper location.")
+            return
+
+    with open(device_json_path) as j:
         try:
             device_data = json.load(j)
         except:
-            _LOGGER.error("The device JSON file is invalid")
+            _LOGGER.error("The device Json file is invalid")
             return
 
     async_add_devices([SmartIRClimate(
@@ -196,11 +214,6 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
     @property
     def target_temperature_step(self):
         """Return the supported step of target temperature."""
-        return self._precision
-
-    @property
-    def precision(self):
-        """Return the precision of the system."""
         return self._precision
 
     @property
@@ -386,12 +399,14 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
         if new_state is None:
             return
 
-        if new_state.state == STATE_OFF and self._current_operation != STATE_OFF:
-            self._current_operation = STATE_OFF
-            await self.async_update_ha_state()
-
         if new_state.state == STATE_ON and self._current_operation == STATE_OFF:
             self._on_by_remote = True
+            await self.async_update_ha_state()
+
+        if new_state.state == STATE_OFF:
+            self._on_by_remote = False
+            if self._current_operation != STATE_OFF:
+                self._current_operation = STATE_OFF
             await self.async_update_ha_state()
 
     @callback

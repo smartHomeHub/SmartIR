@@ -1,0 +1,11 @@
+{            
+    "version": "1.3.0",
+    "minHAVersion": "0.88.0",
+    "releaseNotes": "A new version (1.3.0) is available that is compatible with your system. Initial support for fan devices was added. Call the ``smartir.update_component`` service to update the component.",
+    "files": [
+        "__init__.py",
+        "climate.py",
+        "media_player.py",
+        "fan.py"
+    ]
+}

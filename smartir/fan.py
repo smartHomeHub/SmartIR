@@ -7,22 +7,22 @@ import os.path
 
 import voluptuous as vol
 
-from homeassistant.components.media_player import (
-    MediaPlayerDevice, PLATFORM_SCHEMA)
-from homeassistant.components.media_player.const import (
-    SUPPORT_TURN_OFF, SUPPORT_TURN_ON, SUPPORT_PREVIOUS_TRACK,
-    SUPPORT_NEXT_TRACK, SUPPORT_VOLUME_STEP,SUPPORT_VOLUME_MUTE, 
-    SUPPORT_SELECT_SOURCE, MEDIA_TYPE_CHANNEL)
+from homeassistant.components.fan import (
+    FanEntity, PLATFORM_SCHEMA, ATTR_SPEED, 
+    SPEED_OFF, SPEED_LOW, SPEED_MEDIUM, SPEED_HIGH, 
+    DIRECTION_REVERSE, DIRECTION_FORWARD,
+    SUPPORT_SET_SPEED, SUPPORT_DIRECTION)
 from homeassistant.const import (
     CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN)
 from homeassistant.core import callback, split_entity_id
+from homeassistant.helpers.event import async_track_state_change
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
 from . import Helper
 
 _LOGGER = logging.getLogger(__name__)
 
-DEFAULT_NAME = "SmartIR Media Player"
+DEFAULT_NAME = "SmartIR Fan"
 
 CONF_DEVICE_CODE = 'device_code'
 CONF_CONTROLLER_SEND_SERVICE = "controller_send_service"
@@ -35,15 +35,14 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_POWER_SENSOR): cv.entity_id
 })
 
-async def async_setup_platform(hass, config, async_add_devices, discovery_info=None):
-    """Set up the IR Media Player platform."""
+async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     name = config.get(CONF_NAME)
     device_code = config.get(CONF_DEVICE_CODE)
     controller_send_service = config.get(CONF_CONTROLLER_SEND_SERVICE)
     power_sensor = config.get(CONF_POWER_SENSOR)
 
     abspath = os.path.dirname(os.path.abspath(__file__))
-    device_files_subdir = os.path.join('codes', 'media_player')
+    device_files_subdir = os.path.join('codes', 'fan')
     device_files_path = os.path.join(abspath, device_files_subdir)
 
     if not os.path.isdir(device_files_path):
@@ -59,7 +58,7 @@ async def async_setup_platform(hass, config, async_add_devices, discovery_info=N
         try:
             codes_source = ("https://raw.githubusercontent.com/"
                             "smartHomeHub/SmartIR/master/smartir/"
-                            "codes/media_player/{}.json")
+                            "codes/fan/{}.json")
 
             Helper.downloader(codes_source.format(device_code), device_json_path)
         except:
@@ -76,12 +75,12 @@ async def async_setup_platform(hass, config, async_add_devices, discovery_info=N
             _LOGGER.error("The device JSON file is invalid")
             return
 
-    async_add_devices([SmartIRMediaPlayer(
+    async_add_entities([SmartIRFan(
         hass, name, device_code, device_data, controller_send_service, 
         power_sensor
     )])
 
-class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
+class SmartIRFan(FanEntity, RestoreEntity):
     def __init__(self, hass, name, device_code, device_data, 
                  controller_send_service, power_sensor):
         self.hass = hass
@@ -94,95 +93,95 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
         self._supported_models = device_data['supportedModels']
         self._supported_controller = device_data['supportedController']
         self._commands_encoding = device_data['commandsEncoding']
+        self._speed_list = [SPEED_OFF] + device_data['speed']
         self._commands = device_data['commands']
+        
+        self._speed = SPEED_OFF
+        self._direction = None
+        self._last_on_speed = None
 
-        self._state = STATE_OFF
-        self._sources_list = []
-        self._source = None
-        self._support_flags = 0
+        self._support_flags = SUPPORT_SET_SPEED
 
-        #Supported features
-        if 'off' in self._commands and self._commands['off'] is not None:
-            self._support_flags = self._support_flags | SUPPORT_TURN_OFF
-
-        if 'on' in self._commands and self._commands['on'] is not None:
-            self._support_flags = self._support_flags | SUPPORT_TURN_ON
-
-        if 'previousChannel' in self._commands and self._commands['previousChannel'] is not None:
-            self._support_flags = self._support_flags | SUPPORT_PREVIOUS_TRACK
-
-        if 'nextChannel' in self._commands and self._commands['nextChannel'] is not None:
-            self._support_flags = self._support_flags | SUPPORT_NEXT_TRACK
-
-        if ('volumeDown' in self._commands and self._commands['volumeDown'] is not None) \
-        or ('volumeUp' in self._commands and self._commands['volumeUp'] is not None):
-            self._support_flags = self._support_flags | SUPPORT_VOLUME_STEP
-
-        if 'mute' in self._commands and self._commands['mute'] is not None:
-            self._support_flags = self._support_flags | SUPPORT_VOLUME_MUTE
-
-        if 'sources' in self._commands and self._commands['sources'] is not None:
-            self._support_flags = self._support_flags | SUPPORT_SELECT_SOURCE
-
-            #Sources list
-            for key in self._commands['sources']:
-                self._sources_list.append(key)
+        if (DIRECTION_REVERSE in self._commands and \
+            DIRECTION_FORWARD in self._commands):
+            self._direction = DIRECTION_REVERSE
+            self._support_flags = (
+                self._support_flags | SUPPORT_DIRECTION)
 
         self._temp_lock = asyncio.Lock()
+        self._on_by_remote = False
 
     async def async_added_to_hass(self):
         """Run when entity about to be added."""
         await super().async_added_to_hass()
-
+    
         last_state = await self.async_get_last_state()
 
         if last_state is not None:
-            self._state = last_state.state
+            if 'speed' in last_state.attributes:
+                self._speed = last_state.attributes['speed']
 
-        
+            #If _direction has a value the direction controls appears 
+            #in UI even if SUPPORT_DIRECTION is not provided in the flags
+            if ('direction' in last_state.attributes and \
+                self._support_flags & SUPPORT_DIRECTION):
+                self._direction = last_state.attributes['direction']
 
-    @property
-    def should_poll(self):
-        """Push an update after each command."""
-        return True
+            if 'last_on_speed' in last_state.attributes:
+                self._last_on_speed = last_state.attributes['last_on_speed']
+
+            if self._power_sensor:
+                async_track_state_change(self.hass, self._power_sensor, 
+                                         self._async_power_sensor_changed)
 
     @property
     def name(self):
-        """Return the name of the media player."""
+        """Return the display name of the fan."""
         return self._name
 
     @property
     def state(self):
-        """Return the state of the player."""
-        return self._state
+        """Return the current state."""
+        if (self._on_by_remote or \
+            self.speed != SPEED_OFF):
+            return STATE_ON
+        return SPEED_OFF
 
     @property
-    def media_title(self):
-        """Return the title of current playing media."""
+    def speed_list(self):
+        """Get the list of available speeds."""
+        return self._speed_list
+
+    @property
+    def speed(self):
+        """Return the current speed."""
+        return self._speed
+
+    @property
+    def oscillating(self):
+        """Return the oscillation state."""
         return None
 
     @property
-    def media_content_type(self):
-        """Content type of current playing media."""
-        return MEDIA_TYPE_CHANNEL
+    def direction(self):
+        """Return the oscillation state."""
+        return self._direction
 
     @property
-    def source_list(self):
-        return self._sources_list
-        
-    @property
-    def source(self):
-        return self._source
+    def last_on_speed(self):
+        """Return the last non-idle speed."""
+        return self._last_on_speed
 
     @property
     def supported_features(self):
-        """Flag media player features that are supported."""
+        """Return the list of supported features."""
         return self._support_flags
 
     @property
     def device_state_attributes(self) -> dict:
         """Platform specific attributes."""
         return {
+            'last_on_speed': self._last_on_speed,
             'device_code': self._device_code,
             'manufacturer': self._manufacturer,
             'supported_models': self._supported_models,
@@ -190,54 +189,48 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
             'commands_encoding': self._commands_encoding,
         }
 
+    async def async_set_speed(self, speed: str):
+        """Set the speed of the fan."""
+        self._speed = speed
+
+        if not speed == SPEED_OFF:
+            self._last_on_speed = speed
+
+        await self.send_command()
+        await self.async_update_ha_state()
+
+    async def async_set_direction(self, direction: str):
+        """Set the direction of the fan"""
+        self._direction = direction
+
+        if not self._speed.lower() == SPEED_OFF:
+            await self.send_command()
+
+        await self.async_update_ha_state()
+
+    async def async_turn_on(self, speed: str = None, **kwargs):
+        """Turn on the fan."""
+        if speed is None:
+            speed = self._last_on_speed or self._speed_list[1]
+
+        await self.async_set_speed(speed)
+
     async def async_turn_off(self):
-        """Turn the media player off."""
-        self._state = STATE_OFF
-        self._source = None
-        await self.send_command(self._commands['off'])
-        await self.async_update_ha_state()
+        """Turn off the fan."""
+        await self.async_set_speed(SPEED_OFF)
 
-    async def async_turn_on(self):
-        """Turn the media player off."""
-        self._state = STATE_ON
-        await self.send_command(self._commands['on'])
-        await self.async_update_ha_state()
-
-    async def async_media_previous_track(self):
-        """Send previous track command."""
-        await self.send_command(self._commands['previousChannel'])
-        await self.async_update_ha_state()
-
-    async def async_media_next_track(self):
-        """Send next track command."""
-        await self.send_command(self._commands['nextChannel'])
-        await self.async_update_ha_state()
-
-    async def async_volume_down(self):
-        """Turn volume down for media player."""
-        await self.send_command(self._commands['volumeDown'])
-        await self.async_update_ha_state()
-
-    async def async_volume_up(self):
-        """Turn volume up for media player."""
-        await self.send_command(self._commands['volumeUp'])
-        await self.async_update_ha_state()
-    
-    async def async_mute_volume(self, mute):
-        """Mute the volume."""
-        await self.send_command(self._commands['mute'])
-        await self.async_update_ha_state()
-
-    async def async_select_source(self, source):
-        """Select channel from source."""
-        self._source = source
-        await self.send_command(self._commands['sources'][source])
-        await self.async_update_ha_state()
-
-    async def send_command(self, command):
+    async def send_command(self):
         async with self._temp_lock:
+            self._on_by_remote = False
             supported_controller = self._supported_controller
             commands_encoding = self._commands_encoding
+            speed = self._speed
+            direction = self._direction or 'default'
+
+            if speed.lower() == SPEED_OFF:
+                command = self._commands['off']
+            else:
+                command = self._commands[direction][speed] 
 
             service_domain = split_entity_id(self._controller_send_service)[0]
             service_name = split_entity_id(self._controller_send_service)[1]
@@ -267,7 +260,7 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
                     return
 
                 service_data = {
-                    'packet': command
+                    'packet': [command]
                 }
 
             else:
@@ -276,15 +269,18 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
 
             await self.hass.services.async_call(service_domain, service_name, service_data)
 
-    async def async_update(self):
-        if self._power_sensor is None:
+    async def _async_power_sensor_changed(self, entity_id, old_state, new_state):
+        """Handle power sensor changes."""
+        if new_state is None:
             return
 
-        power_state = self.hass.states.get(self._power_sensor)
+        if new_state.state == STATE_ON and self._speed == SPEED_OFF:
+            self._on_by_remote = True
+            self._speed = None
+            await self.async_update_ha_state()
 
-        if power_state:
-            if power_state.state == STATE_OFF:
-                self._state = STATE_OFF
-                self._source = None
-            elif power_state.state == STATE_ON:
-                self._state = STATE_ON
+        if new_state.state == STATE_OFF:
+            self._on_by_remote = False
+            if self._speed != SPEED_OFF:
+                self._speed = SPEED_OFF
+            await self.async_update_ha_state()

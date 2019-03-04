@@ -2,27 +2,15 @@
   <a href="#"><img src="http://www.tooltip.gr/github_assets/smartir_climate.png" width="350" alt="SmartIR Climate"></a>
 </p>
 
-SmartIR Climate is a custom [Home Assistant](https://www.home-assistant.io/) component for controlling AC units via Infrared. An IR controller such as Broadlink RM is required.
+For this platform to work, we need a .json file containing all the necessary IR commands.
 
-The key features of the component are:
-* Support for Base64, Broadlink Hex and Pronto codes.
-* Support for external temperature and humidity sensors
-* Support for external on/off sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor.
-* Support to turn on/off from voice assistants. The component is always remembering the last mode.
-
-## Setup instructions:
-Create the folder `custom_components`, if it does not exist, in the home assistant’s config directory. Create the `smartir` folder and copy `__init__.py` and `climate.py` into it. Finally, create the `codes/climate` subfolders into the smartir folder.
-
-For this component to work, we need a .json file containing all the necessary IR commands.
-
-* If you previously used the Broadlink IR Climate component you should use this [tool](../Tools/) to convert your old INI files. If you have uploaded your old INI files to GitHub, I have already converted them and you can find them [here](https://github.com/smartHomeHub/SmartIR/blob/master/Docs/CLIMATE.md#available-codes-for-climate-devices).
-* For new users, find the file 8 for your device’s brand and place it in the previously created codes/climate folder. If your device is not working, you will need to learn your own codes. [Keite Trần](https://github.com/keitetran/BroadlinkIRTools) developed [an amazing web-based app](https://keitetran.github.io/BroadlinkIRTools/) for this job.
-
-Make sure the broadlink switch is already installed. Go to the Home Assistant UI/dev service, find the broadlink send_packet service and copy the name of it.
+* If you previously used the Broadlink IR Climate component you should use [this tool](https://github.com/smartHomeHub/SmartIR/tree/master/Tools) to convert your old INI files. If you have uploaded your old INI files on GitHub, I have already converted them. Find your device's brand code [here](https://github.com/smartHomeHub/SmartIR/blob/master/Docs/CLIMATE.md#available-codes-for-climate-devices) and add the number in the `device_code` field. The compoenent will download it to the correct folder.
+* For new users, find your device's brand code [here](https://github.com/smartHomeHub/SmartIR/blob/master/Docs/CLIMATE.md#available-codes-for-climate-devices) and add the number in the `device_code` field. If your device is not working, you will need to learn your own codes and place the Json file in `smartir/codes/climate` subfolders. [Keite Trần](https://github.com/keitetran/BroadlinkIRTools) developed [an amazing web-based app](https://keitetran.github.io/BroadlinkIRTools/) for this job.
+_Please note that the device_code field only accepts positive numbers. The .json extension is not required._
 
 ## Configuration variables:
 **name** (Optional): Name to use in the frontend<br />
-**device_code** (Required): ...... (Accepts only positive numbers)<br />
+**device_code** (Required): .... (Accepts only positive numbers)<br />
 **controller_send_service** (Required): The service that will be used to send the commands. Only `broadlink_send_packet` (Broadlink controller) is currently supported.<br />
 **temperature_sensor** (Optional): *entity_id* for a temperature sensor<br />
 **humidity_sensor** (Optional): *entity_id* for a humidity sensor<br />
@@ -30,6 +18,8 @@ Make sure the broadlink switch is already installed. Go to the Home Assistant UI
 
 ## Example (using broadlink controller):
 ```yaml
+smartir:
+
 switch:
   - platform: broadlink
     host: 192.168.10.10
@@ -44,12 +34,8 @@ climate:
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
 ```
-
-Replace the device_code value with the name of the file you previously downloaded from the list or the file you converted. Please note that this field only accepts positive numbers and searches for the file only under codes/climate folder. The .json extension is not required.
-
-Also, replace the controller_send_service value with the name of the previously copied broadlink send_packet service.
-
-Restart HA instance
+Make sure the broadlink switch is already installed. Go to the Home Assistant UI/dev service, find the broadlink send_packet service and copy the name of it.
+Add the name of the send_packet service to the `controller_send_service` field.
 
 ## Available codes for climate devices:
 Below are the code files created by the people in the community. Before you start creating your own code file, try if one of them works for your device. **Please open an issue if your device is working and not included in the supported models.**
@@ -77,6 +63,7 @@ Below are the code files created by the people in the community. Before you star
 | ------------- | -------------------------- | ------------- |
 [1060](../smartir/codes/climate/1060.json)|R09AWN<br>R24AWN<br>E09EK|Broadlink
 [1061](../smartir/codes/climate/1061.json)|Unknown model|Broadlink
+[1062](../smartir/codes/climate/1062.json)|LG InverterV P12RK|Broadlink
 
 #### Hitachi
 | Code | Supported Models | Controller |
@@ -182,9 +169,14 @@ Below are the code files created by the people in the community. Before you star
 #### Alliance
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1450](../smartir/codes/climate/1450.json)|Unknown model|Broadlink
+[1460](../smartir/codes/climate/1460.json)|Unknown model|Broadlink
 
 #### Junkers
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1470](../smartir/codes/climate/1470.json)|Excellence|Broadlink
+[1480](../smartir/codes/climate/1480.json)|Excellence|Broadlink
+
+#### Sanyo
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1500](../smartir/codes/climate/1500.json)|Unknown|Broadlink
