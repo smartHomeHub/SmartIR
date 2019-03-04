@@ -199,3 +199,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1560](../codes/climate/1560.json)|WIND 3P|Broadlink
+
+#### Chigo
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1580](../codes/climate/1580.json)|Unknown|Broadlink
