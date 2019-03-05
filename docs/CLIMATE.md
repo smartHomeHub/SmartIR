@@ -12,7 +12,8 @@ _Please note that the device_code field only accepts positive numbers. The .json
 **name** (Optional): The name of the device<br />
 **unique_id** (Optional): An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.<br />
 **device_code** (Required): .... (Accepts only positive numbers)<br />
-**controller_send_service** (Required): The service that will be used to send the commands. Only `broadlink_send_packet` (Broadlink controller) is currently supported.<br />
+**controller_send_service** (Required): The service that will be used to send the commands. Only `broadlink_send_packet` (Broadlink controller) and `mqtt.publish` is currently supported.<br />
+**controller_command_topic** (Optional): MQTT topic on which to send commands when *controller_send_service* is mqtt.publish<br />
 **temperature_sensor** (Optional): *entity_id* for a temperature sensor<br />
 **humidity_sensor** (Optional): *entity_id* for a humidity sensor<br />
 **power_sensor** (Optional): *entity_id* for a sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor. (Accepts only on/off states)<br />
@@ -38,6 +39,22 @@ climate:
 ```
 Make sure the broadlink switch is already installed. Go to the Home Assistant UI/dev service, find the broadlink send_packet service and copy the name of it.
 Add the name of the send_packet service to the `controller_send_service` field.
+
+## Example (using mqtt controller):
+```yaml
+smartir:
+    
+climate:
+  - platform: smartir
+    name: Office AC
+    unique_id: office_ac
+    device_code: 2000
+    controller_send_service: mqtt.publish
+    controller_command_topic: home-assistant/office-ac/command
+    temperature_sensor: sensor.temperature
+    humidity_sensor: sensor.humidity
+    power_sensor: binary_sensor.ac_power
+```
 
 ## Available codes for climate devices:
 Below are the code files created by the people in the community. Before you start creating your own code file, try if one of them works for your device. **Please open an issue if your device is working and not included in the supported models.**
