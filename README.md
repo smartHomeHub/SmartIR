@@ -1,4 +1,4 @@
-SmartIR is a custom [Home Assistant](https://www.home-assistant.io/) component for controlling AC units, TV sets and fans via Infrared and RF controllers. An IR or RF controller such as Broadlink is required.
+SmartIR is a custom [Home Assistant](https://www.home-assistant.io/) component for controlling AC units, TV sets and fans via Infrared and RF controllers. An IR or RF controller such as Broadlink, or and MQTT broker/topic with appropriate controller subscribed is required.
 
 The key features of the component are:
 * Support for Base64, Broadlink Hex and Pronto codes.

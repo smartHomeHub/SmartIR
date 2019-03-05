@@ -36,6 +36,7 @@ CONF_CONTROLLER_SEND_SERVICE = "controller_send_service"
 CONF_TEMPERATURE_SENSOR = 'temperature_sensor'
 CONF_HUMIDITY_SENSOR = 'humidity_sensor'
 CONF_POWER_SENSOR = 'power_sensor'
+CONF_COMMAND_TOPIC = 'command_topic'
 
 SUPPORT_FLAGS = (
     SUPPORT_TARGET_TEMPERATURE | 
@@ -50,7 +51,8 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_CONTROLLER_SEND_SERVICE): cv.entity_id,
     vol.Optional(CONF_TEMPERATURE_SENSOR): cv.entity_id,
     vol.Optional(CONF_HUMIDITY_SENSOR): cv.entity_id,
-    vol.Optional(CONF_POWER_SENSOR): cv.entity_id
+    vol.Optional(CONF_POWER_SENSOR): cv.entity_id,
+    vol.Optional(CONF_COMMAND_TOPIC): cv.string
 })
 
 async def async_setup_platform(hass, config, async_add_devices, discovery_info=None):
@@ -61,6 +63,7 @@ async def async_setup_platform(hass, config, async_add_devices, discovery_info=N
     temperature_sensor = config.get(CONF_TEMPERATURE_SENSOR)
     humidity_sensor = config.get(CONF_HUMIDITY_SENSOR)
     power_sensor = config.get(CONF_POWER_SENSOR)
+    command_topic = config.get(CONF_COMMAND_TOPIC)
 
     abspath = os.path.dirname(os.path.abspath(__file__))
     device_files_subdir = os.path.join('codes', 'climate')
@@ -98,17 +101,18 @@ async def async_setup_platform(hass, config, async_add_devices, discovery_info=N
 
     async_add_devices([SmartIRClimate(
         hass, name, device_code, device_data, controller_send_service, 
-        temperature_sensor, humidity_sensor, power_sensor
+        temperature_sensor, humidity_sensor, power_sensor, command_topic
     )])
 
 class SmartIRClimate(ClimateDevice, RestoreEntity):
     def __init__(self, hass, name, device_code, device_data, 
                  controller_send_service, temperature_sensor, 
-                 humidity_sensor, power_sensor):
+                 humidity_sensor, power_sensor, command_topic):
         self.hass = hass
         self._name = name
         self._device_code = device_code
         self._controller_send_service = controller_send_service
+        self._command_topic = command_topic
         self._temperature_sensor = temperature_sensor
         self._humidity_sensor = humidity_sensor
         self._power_sensor = power_sensor
@@ -364,6 +368,12 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
 
                 service_data = {
                     'packet': [command]
+                }
+
+            elif supported_controller.lower() == 'mqtt':
+                service_data = {
+                    'topic': self._command_topic,
+                    'payload': command
                 }
 
             else:

@@ -11,7 +11,8 @@ _Please note that the device_code field only accepts positive numbers. The .json
 ## Configuration variables:
 **name** (Optional): Name to use in the frontend<br />
 **device_code** (Required): .... (Accepts only positive numbers)<br />
-**controller_send_service** (Required): The service that will be used to send the commands. Only `broadlink_send_packet` (Broadlink controller) is currently supported.<br />
+**controller_send_service** (Required): The service that will be used to send the commands.<br />
+**command_topic** (Optional): MQTT topic on which to send commands when *controller_send_service* is mqtt.publish<br />
 **temperature_sensor** (Optional): *entity_id* for a temperature sensor<br />
 **humidity_sensor** (Optional): *entity_id* for a humidity sensor<br />
 **power_sensor** (Optional): *entity_id* for a sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor. (Accepts only on/off states)<br />
@@ -36,6 +37,21 @@ climate:
 ```
 Make sure the broadlink switch is already installed. Go to the Home Assistant UI/dev service, find the broadlink send_packet service and copy the name of it.
 Add the name of the send_packet service to the `controller_send_service` field.
+
+## Example (using mqtt):
+```yaml
+smartir:
+
+climate:
+  - platform: smartir
+    name: Living Room AC
+    device_code: 1520
+    controller_send_service: mqtt.publish
+    command_topic: "home/living/infrared"
+```
+Make sure the MQTT broker is already configured. Go to the Home Assistant UI -> Configuration -> Integrations -> MQTT.
+
+The device code file also needs to specify *"supportedController": "MQTT"*
 
 ## Available codes for climate devices:
 Below are the code files created by the people in the community. Before you start creating your own code file, try if one of them works for your device. **Please open an issue if your device is working and not included in the supported models.**
@@ -180,3 +196,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1500](../smartir/codes/climate/1500.json)|Unknown|Broadlink
+
+#### Kelvinator
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1520](../smartir/codes/climate/1520.json)|Unknown|MQTT
