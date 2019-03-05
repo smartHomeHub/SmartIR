@@ -34,7 +34,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
     vol.Required(CONF_DEVICE_CODE): cv.positive_int,
     vol.Required(CONF_CONTROLLER_SEND_SERVICE): cv.entity_id,
-    vol.Required(CONF_CONTROLLER_COMMAND_TOPIC): cv.string,
+    vol.Optional(CONF_CONTROLLER_COMMAND_TOPIC): cv.string,
     vol.Optional(CONF_POWER_SENSOR): cv.entity_id
 })
 
@@ -115,7 +115,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
             self.hass,
             self._supported_controller, 
             self._commands_encoding,
-            self._controller_send_service
+            self._controller_send_service,
             self._controller_command_topic)
 
     async def async_added_to_hass(self):
