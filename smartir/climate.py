@@ -1,38 +1,33 @@
 import asyncio
-from base64 import b64encode
-import binascii
 import json
 import logging
 import os.path
 
 import voluptuous as vol
 
-"""
 from homeassistant.components.climate import ClimateDevice, PLATFORM_SCHEMA
 from homeassistant.components.climate.const import (
     STATE_HEAT, STATE_COOL, STATE_AUTO, STATE_DRY,
     SUPPORT_OPERATION_MODE, SUPPORT_TARGET_TEMPERATURE, SUPPORT_FAN_MODE,
     SUPPORT_ON_OFF)
-"""
-from homeassistant.components.climate import (
-    STATE_HEAT, STATE_COOL, STATE_AUTO, STATE_DRY, ClimateDevice,
-    SUPPORT_OPERATION_MODE, SUPPORT_TARGET_TEMPERATURE, SUPPORT_FAN_MODE,
-    SUPPORT_ON_OFF, PLATFORM_SCHEMA, DOMAIN)
 from homeassistant.const import (
     CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN, ATTR_TEMPERATURE,
-    PRECISION_HALVES, PRECISION_TENTHS, PRECISION_WHOLE)
-from homeassistant.core import callback, split_entity_id
+    PRECISION_TENTHS, PRECISION_HALVES, PRECISION_WHOLE)
+from homeassistant.core import callback
 from homeassistant.helpers.event import async_track_state_change
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
-from . import Helper
+from . import COMPONENT_ABS_DIR, Helper
+from .controller import Controller
 
 _LOGGER = logging.getLogger(__name__)
 
 DEFAULT_NAME = "SmartIR Climate"
 
+CONF_UNIQUE_ID = 'unique_id'
 CONF_DEVICE_CODE = 'device_code'
 CONF_CONTROLLER_SEND_SERVICE = "controller_send_service"
+CONF_CONTROLLER_COMMAND_TOPIC = "controller_command_topic"
 CONF_TEMPERATURE_SENSOR = 'temperature_sensor'
 CONF_HUMIDITY_SENSOR = 'humidity_sensor'
 CONF_POWER_SENSOR = 'power_sensor'
@@ -45,32 +40,27 @@ SUPPORT_FLAGS = (
 )
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
+    vol.Optional(CONF_UNIQUE_ID): cv.string,
     vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
     vol.Required(CONF_DEVICE_CODE): cv.positive_int,
     vol.Required(CONF_CONTROLLER_SEND_SERVICE): cv.entity_id,
+    vol.Optional(CONF_CONTROLLER_COMMAND_TOPIC): cv.string,
     vol.Optional(CONF_TEMPERATURE_SENSOR): cv.entity_id,
     vol.Optional(CONF_HUMIDITY_SENSOR): cv.entity_id,
     vol.Optional(CONF_POWER_SENSOR): cv.entity_id
 })
 
-async def async_setup_platform(hass, config, async_add_devices, discovery_info=None):
+async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Set up the IR Climate platform."""
-    name = config.get(CONF_NAME)
     device_code = config.get(CONF_DEVICE_CODE)
-    controller_send_service = config.get(CONF_CONTROLLER_SEND_SERVICE)
-    temperature_sensor = config.get(CONF_TEMPERATURE_SENSOR)
-    humidity_sensor = config.get(CONF_HUMIDITY_SENSOR)
-    power_sensor = config.get(CONF_POWER_SENSOR)
-
-    abspath = os.path.dirname(os.path.abspath(__file__))
     device_files_subdir = os.path.join('codes', 'climate')
-    device_files_path = os.path.join(abspath, device_files_subdir)
+    device_files_absdir = os.path.join(COMPONENT_ABS_DIR, device_files_subdir)
 
-    if not os.path.isdir(device_files_path):
-        os.makedirs(device_files_path)
+    if not os.path.isdir(device_files_absdir):
+        os.makedirs(device_files_absdir)
 
     device_json_filename = str(device_code) + '.json'
-    device_json_path = os.path.join(device_files_path, device_json_filename)
+    device_json_path = os.path.join(device_files_absdir, device_json_filename)
 
     if not os.path.exists(device_json_path):
         _LOGGER.warning("Couldn't find the device Json file. The component will " \
@@ -78,7 +68,7 @@ async def async_setup_platform(hass, config, async_add_devices, discovery_info=N
 
         try:
             codes_source = ("https://raw.githubusercontent.com/"
-                            "smartHomeHub/SmartIR/master/smartir/"
+                            "smartHomeHub/SmartIR/master/"
                             "codes/climate/{}.json")
 
             Helper.downloader(codes_source.format(device_code), device_json_path)
@@ -96,22 +86,21 @@ async def async_setup_platform(hass, config, async_add_devices, discovery_info=N
             _LOGGER.error("The device Json file is invalid")
             return
 
-    async_add_devices([SmartIRClimate(
-        hass, name, device_code, device_data, controller_send_service, 
-        temperature_sensor, humidity_sensor, power_sensor
+    async_add_entities([SmartIRClimate(
+        hass, config, device_data
     )])
 
 class SmartIRClimate(ClimateDevice, RestoreEntity):
-    def __init__(self, hass, name, device_code, device_data, 
-                 controller_send_service, temperature_sensor, 
-                 humidity_sensor, power_sensor):
+    def __init__(self, hass, config, device_data):
         self.hass = hass
-        self._name = name
-        self._device_code = device_code
-        self._controller_send_service = controller_send_service
-        self._temperature_sensor = temperature_sensor
-        self._humidity_sensor = humidity_sensor
-        self._power_sensor = power_sensor
+        self._unique_id = config.get(CONF_UNIQUE_ID)
+        self._name = config.get(CONF_NAME)
+        self._device_code = config.get(CONF_DEVICE_CODE)
+        self._controller_send_service = config.get(CONF_CONTROLLER_SEND_SERVICE)
+        self._controller_command_topic = config.get(CONF_CONTROLLER_COMMAND_TOPIC)
+        self._temperature_sensor = config.get(CONF_TEMPERATURE_SENSOR)
+        self._humidity_sensor = config.get(CONF_HUMIDITY_SENSOR)
+        self._power_sensor = config.get(CONF_POWER_SENSOR)
 
         self._manufacturer = device_data['manufacturer']
         self._supported_models = device_data['supportedModels']
@@ -138,6 +127,14 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
         self._temp_lock = asyncio.Lock()
         self._on_by_remote = False
 
+        #Init the IR/RF controller
+        self._controller = Controller(
+            self.hass,
+            self._supported_controller, 
+            self._commands_encoding,
+            self._controller_send_service,
+            self._controller_command_topic)
+            
     async def async_added_to_hass(self):
         """Run when entity about to be added."""
         await super().async_added_to_hass()
@@ -173,9 +170,9 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
                                      self._async_power_sensor_changed)
 
     @property
-    def should_poll(self):
-        """Return the polling state."""
-        return False
+    def unique_id(self):
+        """Return a unique ID."""
+        return self._unique_id
 
     @property
     def name(self):
@@ -324,8 +321,6 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
     async def send_command(self):
         async with self._temp_lock:
             self._on_by_remote = False
-            supported_controller = self._supported_controller
-            commands_encoding = self._commands_encoding
             operation_mode = self._current_operation
             fan_mode = self._current_fan_mode
             target_temperature = '{0:g}'.format(self._target_temperature)
@@ -335,43 +330,11 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
             else:
                 command = self._commands[operation_mode][fan_mode][target_temperature]
 
-            service_domain = split_entity_id(self._controller_send_service)[0]
-            service_name = split_entity_id(self._controller_send_service)[1]
-
-            if supported_controller.lower() == 'broadlink':
-                if commands_encoding.lower() == 'base64':
-                    pass
-                elif commands_encoding.lower() == 'hex':
-                    try:
-                        command = binascii.unhexlify(command)
-                        command = b64encode(command).decode('utf-8')
-                    except:
-                        _LOGGER.error("Error while converting Hex to Base64")
-                        return
-                elif commands_encoding.lower() == 'pronto':
-                    try:
-                        command = command.replace(' ',"")
-                        command = bytearray.fromhex(command)
-                        command = Helper.pronto2lirc(command)
-                        command = Helper.lirc2broadlink(command)
-                        command = b64encode(command).decode('utf-8')
-                    except:
-                        _LOGGER.error("Error while converting Pronto to Base64")
-                        return
-                else:
-                    _LOGGER.error("The commands encoding provided in the JSON file is not supported")
-                    return
-
-                service_data = {
-                    'packet': [command]
-                }
-
-            else:
-                _LOGGER.error("The controller provided in the JSON file is not supported")
-                return
-
-            await self.hass.services.async_call(service_domain, service_name, service_data)
-
+            try:
+                await self._controller.send(command)
+            except Exception as e:
+                _LOGGER.exception(e)
+            
     async def _async_temp_sensor_changed(self, entity_id, old_state, new_state):
         """Handle temperature sensor changes."""
         if new_state is None:
