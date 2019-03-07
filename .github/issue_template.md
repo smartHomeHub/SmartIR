@@ -29,6 +29,7 @@ Add configuration here
 ```
 
 **Describe the bug**
+
 A clear and concise description of what the bug is.
 
 **Debug log**
@@ -40,4 +41,5 @@ Add your logs here.
 ```
 
 **Additional context**
+
 Add any other context about the problem here.
