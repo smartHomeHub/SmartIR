@@ -142,7 +142,7 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1280](../codes/climate/1280.json)|AR-RBE1E (Remote control)|Broadlink
-[1281](../codes/climate/1281.json)|Unknown model|Broadlink
+[1281](../codes/climate/1281.json)|AR-RAE1/AR-RAE1E|Broadlink
 [1282](../codes/climate/1282.json)|AR-JW11 (Remote control)|Broadlink
 
 #### Sharp
