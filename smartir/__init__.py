@@ -16,91 +16,104 @@ from homeassistant.helpers.typing import ConfigType
 _LOGGER = logging.getLogger(__name__)
 
 DOMAIN = 'smartir'
-VERSION = '1.3.0'
+VERSION = '1.3.9'
 VERSION_URL = (
-    "https://raw.githubusercontent.com/smartHomeHub/SmartIR/master/version.json")
-REMOTE_BASE_DIR = (
-    "https://raw.githubusercontent.com/smartHomeHub/SmartIR/master/smartir/"
-)
+    "https://raw.githubusercontent.com/"
+    "smartHomeHub/SmartIR/{}/version.json")
+REMOTE_BASE_URL = (
+    "https://raw.githubusercontent.com/"
+    "smartHomeHub/SmartIR/{}/smartir/")
+COMPONENT_ABS_DIR = os.path.dirname(
+    os.path.abspath(__file__))
+
 CONF_CHECK_UPDATES = 'check_updates'
+CONF_UPDATE_BRANCH = 'update_branch'
 
 CONFIG_SCHEMA = vol.Schema({
     DOMAIN: vol.Schema({
-        vol.Optional(CONF_CHECK_UPDATES, default=True): cv.boolean
+        vol.Optional(CONF_CHECK_UPDATES, default=True): cv.boolean,
+        vol.Optional(CONF_UPDATE_BRANCH, default='master'): vol.In(
+            ['master', 'rc'])
     })
 }, extra=vol.ALLOW_EXTRA)
 
 async def async_setup(hass, config):
     """Set up the SmartIR component."""
     conf = config.get(DOMAIN)
+    check_updates = conf[CONF_CHECK_UPDATES]
+    update_branch = conf[CONF_UPDATE_BRANCH]
 
-    async def check_updates(service):
-        await _update(hass)
+    async def _check_updates(service):
+        await _update(hass, update_branch)
 
-    async def update_component(service):
-        await _update(hass, True)
+    async def _update_component(service):
+        await _update(hass, update_branch, True)
 
-    hass.services.async_register(DOMAIN, 'check_updates', check_updates)
-    hass.services.async_register(DOMAIN, 'update_component', update_component)
+    hass.services.async_register(DOMAIN, 'check_updates', _check_updates)
+    hass.services.async_register(DOMAIN, 'update_component', _update_component)
 
-    if conf[CONF_CHECK_UPDATES]:
-        await _update(hass, False, False)
+    if check_updates:
+        await _update(hass, update_branch, False, False)
 
     return True
 
-async def _update(hass, do_update=False, notify_if_latest=True):
+async def _update(hass, branch, do_update=False, notify_if_latest=True):
+    try:
+        request = requests.get(VERSION_URL.format(branch), stream=True, timeout=10)
+    except:
+        _LOGGER.error("An error occurred while checking for updates. "
+                      "Please check your internet connection.")
+        return
+
+    if request.status_code != 200:
+        _LOGGER.error("Invalid response from the server while "
+                      "checking for a new version")
+        return
+
+    data = request.json()
+    last_version = data['version']
+    min_ha_version = data['minHAVersion']
+    release_notes = data['releaseNotes']
+
+    if StrictVersion(last_version) <= StrictVersion(VERSION):
+        if notify_if_latest:
+            hass.components.persistent_notification.async_create(
+                "You're already using the latest version!", title='SmartIR')
+        return
+
+    if StrictVersion(current_ha_version) < StrictVersion(min_ha_version):
+        hass.components.persistent_notification.async_create(
+            "There is a new version of SmartIR, but it is **incompatible** "
+            "with your HA version. Please first update Home Assistant.", title='SmartIR')
+        return
+
+    if do_update is False:
+        hass.components.persistent_notification.async_create(
+            release_notes, title='SmartIR')
+        return
+
+    # Begin update
+    files = data['files']
     has_errors = False
 
-    request = requests.get(VERSION_URL, stream=True, timeout=10)
-    
-    if request.status_code == 200:
-        data = request.json()
-        last_version = data['version']
-        min_ha_version = data['minHAVersion']
-        release_notes = data['releaseNotes']
-        
-        if StrictVersion(last_version) <= StrictVersion(VERSION):
-            if notify_if_latest:
-                hass.components.persistent_notification.async_create(
-                    "You're already using the latest version", title='SmartIR')
-            return
-            
-        if StrictVersion(current_ha_version) >= StrictVersion(min_ha_version):
-            if do_update:
-                files = data['files']
-                abspath = os.path.dirname(os.path.abspath(__file__))
+    for file in files:
+        try:
+            source = REMOTE_BASE_URL.format(branch) + file
+            dest = os.path.join(COMPONENT_ABS_DIR, file)
+            os.makedirs(os.path.dirname(dest), exist_ok=True)
+            Helper.downloader(source, dest)
+        except:
+            has_errors = True
+            _LOGGER.error("Error updating %s. Please update the file manually.", file)
 
-                for file in files:
-                    try:
-                        source = REMOTE_BASE_DIR + file
-                        dest = os.path.join(abspath, file)
-                        os.makedirs(os.path.dirname(dest), exist_ok=True)
-                        Helper.downloader(source, dest)
-                    except:
-                        _LOGGER.error("Error updating %s. Please update the file manually.", file)
-                        has_errors = True
-            else:
-                hass.components.persistent_notification.async_create(
-                    release_notes, title='SmartIR')
-
-        else:
-            hass.components.persistent_notification.async_create(
-                "There is a new version of SmartIR, but it is **incompatible** "
-                "with your HA version. Please first update Home Assistant.", title='SmartIR')
-
+    if has_errors:
+        hass.components.persistent_notification.async_create(
+            "There was an error updating one or more files of SmartIR. "
+            "Please check the logs for more information.", title='SmartIR')
     else:
-        _LOGGER.error("Invalid response from the server while checking for a new version")
-        has_errors = True
-
-    if do_update:
-        if has_errors:
-            hass.components.persistent_notification.async_create(
-                "There was an error updating SmartIR. Please "
-                "check the logs for more information.", title='SmartIR')
-        else:
-            hass.components.persistent_notification.async_create(
-                "Successfully updated to {}. Please restart Home Assistant."
-                .format(last_version), title='SmartIR')
+        hass.components.persistent_notification.async_create(
+            "Successfully updated to {}. Please restart Home Assistant."
+            .format(last_version), title='SmartIR')
 
 class Helper():
     @staticmethod
@@ -112,16 +125,16 @@ class Helper():
                 for chunk in req.iter_content(1024):
                     fil.write(chunk)
         else:
-            raise Exception('File not found')
+            raise Exception("File not found")
 
     @staticmethod
     def pronto2lirc(pronto):
         codes = [int(binascii.hexlify(pronto[i:i+2]), 16) for i in range(0, len(pronto), 2)]
 
         if codes[0]:
-            raise ValueError('Pronto code should start with 0000')
+            raise ValueError("Pronto code should start with 0000")
         if len(codes) != 4 + 2 * (codes[2] + codes[3]):
-            raise ValueError('Number of pulse widths does not match the preamble')
+            raise ValueError("Number of pulse widths does not match the preamble")
 
         frequency = 1 / (codes[1] * 0.241246)
         return [int(round(code / frequency)) for code in codes[4:]]
@@ -148,5 +161,4 @@ class Helper():
         remainder = (len(packet) + 4) % 16
         if remainder:
             packet += bytearray(16 - remainder)
-
         return packet
