@@ -9,7 +9,7 @@ from homeassistant.components.fan import (
     FanEntity, PLATFORM_SCHEMA, ATTR_SPEED, 
     SPEED_OFF, SPEED_LOW, SPEED_MEDIUM, SPEED_HIGH, 
     DIRECTION_REVERSE, DIRECTION_FORWARD,
-    SUPPORT_SET_SPEED, SUPPORT_DIRECTION)
+    SUPPORT_SET_SPEED, SUPPORT_DIRECTION, SUPPORT_OSCILLATE, ATTR_OSCILLATING )
 from homeassistant.const import (
     CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN)
 from homeassistant.core import callback
@@ -28,6 +28,9 @@ CONF_DEVICE_CODE = 'device_code'
 CONF_CONTROLLER_SEND_SERVICE = "controller_send_service"
 CONF_CONTROLLER_COMMAND_TOPIC = "controller_command_topic"
 CONF_POWER_SENSOR = 'power_sensor'
+
+_VALID_STATES = [STATE_ON, STATE_OFF]
+_VALID_OSC = [True, False]
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_UNIQUE_ID): cv.string,
@@ -98,7 +101,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
         self._speed = SPEED_OFF
         self._direction = None
         self._last_on_speed = None
-
+        self._oscillating = None
         self._support_flags = SUPPORT_SET_SPEED
 
         if (DIRECTION_REVERSE in self._commands and \
@@ -106,6 +109,11 @@ class SmartIRFan(FanEntity, RestoreEntity):
             self._direction = DIRECTION_REVERSE
             self._support_flags = (
                 self._support_flags | SUPPORT_DIRECTION)
+        if ('oscillate' in self._commands):
+            self._oscillating = False
+            self._support_flags = (
+                self._support_flags | SUPPORT_OSCILLATE)
+
 
         self._temp_lock = asyncio.Lock()
         self._on_by_remote = False
@@ -172,7 +180,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
     @property
     def oscillating(self):
         """Return the oscillation state."""
-        return None
+        return self._oscillating
 
     @property
     def direction(self):
@@ -211,6 +219,18 @@ class SmartIRFan(FanEntity, RestoreEntity):
         await self.send_command()
         await self.async_update_ha_state()
 
+    async def async_oscillate(self, oscillating: bool) -> None:
+        """Set oscillation of the fan."""
+
+        if oscillating in _VALID_OSC:
+            self._oscillating = oscillating
+            await self.send_command()
+        else:
+            _LOGGER.error(
+                'Received invalid oscillating value: %s. Expected: %s.',
+                oscillating, ', '.join(_VALID_OSC))
+        await self.async_update_ha_state()
+
     async def async_set_direction(self, direction: str):
         """Set the direction of the fan"""
         self._direction = direction
@@ -236,9 +256,12 @@ class SmartIRFan(FanEntity, RestoreEntity):
             self._on_by_remote = False
             speed = self._speed
             direction = self._direction or 'default'
+            oscillating = self._oscillating
 
             if speed.lower() == SPEED_OFF:
                 command = self._commands['off']
+            elif oscillating:
+                command = self._commands['oscillate']
             else:
                 command = self._commands[direction][speed] 
 
