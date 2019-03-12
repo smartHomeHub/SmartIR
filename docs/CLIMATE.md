@@ -222,3 +222,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1580](../codes/climate/1580.json)|Unknown|Broadlink
+
+#### Beko
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1600](../codes/climate/1600.json)|BEVCA 120|Broadlink
