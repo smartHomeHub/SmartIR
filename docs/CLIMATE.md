@@ -227,3 +227,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1600](../codes/climate/1600.json)|BEVCA 120|Broadlink
+
+#### Tornado
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1620](../codes/climate/1620.json)|Unknown|Broadlink
