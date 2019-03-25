@@ -237,3 +237,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1640](../codes/climate/1640.json)|Unknown|Broadlink
+
+#### Royal
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1660](../codes/climate/1660.json)|08HPN1T1|Broadlink
