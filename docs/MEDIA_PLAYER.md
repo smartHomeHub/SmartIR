@@ -68,7 +68,7 @@ Below are the code files created by the people in the community. Before you star
 #### Samsung
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1060](../codes/media_player/1060.json)|UE40F6500<br>LE40D550|Broadlink
+[1060](../codes/media_player/1060.json)|UE40F6500<br>LE40D550<br>UE40H6400|Broadlink
 
 #### Insignia
 | Code | Supported Models | Controller |
