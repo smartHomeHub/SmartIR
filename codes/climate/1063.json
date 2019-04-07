@@ -1,8 +1,7 @@
 {
   "manufacturer": "LG",
   "supportedModels": [
-    "P12EP1",
-    "AKB74955603"
+    "P12EP1"
   ],
   "commandsEncoding": "Base64",
   "supportedController": "Broadlink",
