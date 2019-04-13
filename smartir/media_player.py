@@ -199,6 +199,22 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
             'commands_encoding': self._commands_encoding,
         }
 
+    async def async_play_media(self, media_type, media_id, **kwargs):
+        if self._state == STATE_OFF:
+            await self.async_turn_on()
+
+        if media_type != MEDIA_TYPE_CHANNEL:
+            _LOGGER.error("invalid media type")
+            return
+        if not media_id.isdigit():
+            _LOGGER.error("media_id must be a channel number")
+            return
+
+        self._source = "Channel {}".format(media_id)
+        for digit in media_id:
+            await self.send_command(self._commands['sources']["Channel {}".format(digit)])
+        await self.async_update_ha_state()
+
     async def async_turn_off(self):
         """Turn the media player off."""
         await self.send_command(self._commands['off'])
