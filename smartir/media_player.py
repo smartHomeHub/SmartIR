@@ -28,6 +28,7 @@ CONF_DEVICE_CODE = 'device_code'
 CONF_CONTROLLER_SEND_SERVICE = "controller_send_service"
 CONF_CONTROLLER_COMMAND_TOPIC = "controller_command_topic"
 CONF_POWER_SENSOR = 'power_sensor'
+CONF_POWER_SENSOR_THRESHOLD = 'power_sensor_threshold'
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_UNIQUE_ID): cv.string,
@@ -35,7 +36,8 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_DEVICE_CODE): cv.positive_int,
     vol.Required(CONF_CONTROLLER_SEND_SERVICE): cv.entity_id,
     vol.Optional(CONF_CONTROLLER_COMMAND_TOPIC): cv.string,
-    vol.Optional(CONF_POWER_SENSOR): cv.entity_id
+    vol.Optional(CONF_POWER_SENSOR): cv.entity_id,
+    vol.Optional(CONF_POWER_SENSOR_THRESHOLD, default=0): cv.positive_int,
 })
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
@@ -87,6 +89,7 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
         self._controller_send_service = config.get(CONF_CONTROLLER_SEND_SERVICE)
         self._controller_command_topic = config.get(CONF_CONTROLLER_COMMAND_TOPIC)
         self._power_sensor = config.get(CONF_POWER_SENSOR)
+        self._power_sensor_threshold = config.get(CONF_POWER_SENSOR_THRESHOLD)
 
         self._manufacturer = device_data['manufacturer']
         self._supported_models = device_data['supportedModels']
@@ -261,8 +264,8 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
         power_state = self.hass.states.get(self._power_sensor)
 
         if power_state:
-            if power_state.state == STATE_OFF:
+            if int(power_state.state) <= self._power_sensor_threshold:
                 self._state = STATE_OFF
                 self._source = None
-            elif power_state.state == STATE_ON:
+            else:
                 self._state = STATE_ON
