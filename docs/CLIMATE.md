@@ -32,7 +32,8 @@ climate:
     name: Office AC
     unique_id: office_ac
     device_code: 1000
-    controller_send_service: switch.broadlink_send_packet_192_168_10_10
+    controller_send_service: broadlink.send
+    controller_send_service_host: 192.168.10.10
     temperature_sensor: sensor.temperature
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
