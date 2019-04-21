@@ -50,4 +50,4 @@ smartir:
 
 ## Links
 * [SmartIR Chat on Telegram](https://t.me/smartHomeHub)
-* [Discussion about SmartIR Climate (Home Assistant Community)](https://community.home-assistant.io/t/smartir-climate-component/)
+* [Discussion about SmartIR Climate (Home Assistant Community)](https://community.home-assistant.io/t/smartir-control-your-climate-tv-and-fan-devices-via-ir-rf-controllers/)

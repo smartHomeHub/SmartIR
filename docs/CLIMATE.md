@@ -83,6 +83,7 @@ Below are the code files created by the people in the community. Before you star
 [1060](../codes/climate/1060.json)|R09AWN<br>R24AWN<br>E09EK|Broadlink
 [1061](../codes/climate/1061.json)|Unknown model|Broadlink
 [1062](../codes/climate/1062.json)|LG InverterV P12RK|Broadlink
+[1063](../codes/climate/1063.json)|LG Inverter P12EP1 (AKB74955603 Remote)|Broadlink
 
 #### Hitachi
 | Code | Supported Models | Controller |
@@ -142,8 +143,10 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1280](../codes/climate/1280.json)|AR-RBE1E (Remote control)|Broadlink
-[1281](../codes/climate/1281.json)|Unknown model|Broadlink
+[1281](../codes/climate/1281.json)|AR-RAE1/AR-RAE1E|Broadlink
 [1282](../codes/climate/1282.json)|AR-JW11 (Remote control)|Broadlink
+[1283](../codes/climate/1283.json)|AR-AB5 (Remote control)|Broadlink
+[1284](../codes/climate/1284.json)|AR-REG1U (Remote control)|Broadlink
 
 #### Sharp
 | Code | Supported Models | Controller |
@@ -222,3 +225,29 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1580](../codes/climate/1580.json)|Unknown|Broadlink
+
+#### Beko
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1600](../codes/climate/1600.json)|BEVCA 120|Broadlink
+
+#### Tornado
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1620](../codes/climate/1620.json)|Unknown|Broadlink
+
+#### Fujiko
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1640](../codes/climate/1640.json)|Unknown|Broadlink
+
+#### Royal
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1660](../codes/climate/1660.json)|08HPN1T1|Broadlink
+
+#### Mitsubishi Heavy
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1680](../codes/climate/1680.json)|SRK25ZJ-S1|Broadlink
+[1681](../codes/climate/1681.json)|SRK71ZK-S|Broadlink

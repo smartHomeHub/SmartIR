@@ -59,3 +59,13 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1020](../codes/fan/1020.json)|Unknown|Broadlink
+
+#### Lucci Air
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1040](../codes/fan/1040.json)|Aria|Broadlink
+
+#### Super Fan
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1060](../codes/fan/1060.json)|A1|Broadlink
