@@ -19,9 +19,9 @@ BROADLINK_COMMANDS_ENCODING = [
     ENC_BASE64, ENC_HEX, ENC_PRONTO]
 
 MQTT_COMMANDS_ENCODING = [ENC_RAW]
-
+_LOGGER = logging.getLogger(__name__)
 class Controller():
-    def __init__(self, hass, controller, encoding, service, topic=None):
+    def __init__(self, hass, controller, encoding, service, topic=None, host=None):
         if controller not in [
             BROADLINK_CONTROLLER, XIAOMI_CONTROLLER, MQTT_CONTROLLER]:
             raise Exception("The controller is not supported.")
@@ -30,6 +30,10 @@ class Controller():
             if encoding not in BROADLINK_COMMANDS_ENCODING:
                 raise Exception("The encoding is not supported "
                                 "by the Broadlink controller.")
+            if host is None:
+                raise Exception("There is must be controller_send_service_host for "
+                                "the Broadlink controller.")
+
 
         if controller == XIAOMI_CONTROLLER:
             raise Exception("The Xiaomi IR controller "
@@ -50,6 +54,7 @@ class Controller():
         self._command_topic = topic
         self._controller = controller
         self._encoding = encoding
+        self._host=host
 
     async def send(self, command):
         if self._controller == BROADLINK_CONTROLLER:
@@ -73,9 +78,9 @@ class Controller():
                                     "Pronto to Base64 encoding")
 
             service_data = {
+                'host': self._host,
                 'packet': command
             }
-
             await self.hass.services.async_call(
                 self._service_domain, self._service_name, 
                 service_data) 
