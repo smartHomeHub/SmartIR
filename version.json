@@ -1,5 +1,5 @@
 {            
-    "version": "1.3.9",
+    "version": "1.4.0",
     "minHAVersion": "0.92.0b0",
     "releaseNotes": "A new version (1.4.0) is available that is compatible with your system. Call the ``smartir.update_component`` service to update the component.",
     "files": [
