@@ -9,8 +9,7 @@ Find your device's brand code [here](FAN.md#available-codes-for-fan-devices) and
 **name** (Optional): The name of the device<br />
 **unique_id** (Optional): An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.<br />
 **device_code** (Required): ...... (Accepts only positive numbers)<br />
-**controller_send_service** (Required): The service that will be used to send the commands. Only `broadlink_send_packet` (Broadlink controller) and `mqtt.publish` is currently supported.<br />
-**controller_command_topic** (Optional): MQTT topic on which to send commands when *controller_send_service* is mqtt.publish<br />
+**controller_data** (Required): The data required for the controller to function. Enter the IP address of the Broadlink device (must be an already configured device) or the MQTT topic on which to send commands.<br />
 **power_sensor** (Optional): *entity_id* for a sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor. (Accepts only on/off states)<br />
 
 ## Example (using broadlink controller):
@@ -27,7 +26,7 @@ fan:
     name: Bedroom fan
     unique_id: bedroom_fan
     device_code: 1000
-    controller_send_service: switch.broadlink_send_packet_192_168_10_10
+    controller_data: 192.168.10.10
     power_sensor: binary_sensor.fan_power
 ```
 Make sure the broadlink switch is already installed. Go to the Home Assistant UI/dev service, find the broadlink send_packet service and copy the name of it.
@@ -42,8 +41,7 @@ fan:
     name: Bedroom fan
     unique_id: bedroom_fan
     device_code: 2000
-    controller_send_service: mqtt.publish
-    controller_command_topic: home-assistant/bedroom-fan/command
+    controller_data: home-assistant/bedroom-fan/command
     power_sensor: binary_sensor.fan_power
 ```
 
