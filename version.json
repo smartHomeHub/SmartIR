@@ -1,12 +1,14 @@
 {            
-    "version": "1.4.0",
+    "version": "1.4.1",
     "minHAVersion": "0.92.0b0",
-    "releaseNotes": "A new version (1.4.0) is available that is compatible with your system. **This version has a breaking change in the configuration!** Call the ``smartir.update_component`` service to update the component.",
+    "releaseNotes": "A new version (1.4.1) is available that is compatible with your system. **This version has a breaking change in the configuration!** Call the ``smartir.update_component`` service to update the component.",
     "files": [
         "__init__.py",
         "climate.py",
         "media_player.py",
         "fan.py",
-        "controller.py"
+        "controller.py",
+        "manifest.json",
+        "services.yaml"
     ]
 }
