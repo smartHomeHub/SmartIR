@@ -118,6 +118,7 @@ Below are the code files created by the people in the community. Before you star
 | ------------- | -------------------------- | ------------- |
 [1180](../codes/climate/1180.json)|Unknown model|Broadlink
 [1181](../codes/climate/1181.json)|Unknown model|Broadlink
+[1190](../codes/climate/1190.json)|Trotec PAC 2010 E (Rebrand)|MQTT
 
 #### Tosot
 | Code | Supported Models | Controller |
