@@ -21,7 +21,7 @@ BROADLINK_COMMANDS_ENCODING = [
 MQTT_COMMANDS_ENCODING = [ENC_RAW]
 
 class Controller():
-    def __init__(self, hass, controller, encoding, service, topic=None):
+    def __init__(self, hass, controller, encoding, controller_data):
         if controller not in [
             BROADLINK_CONTROLLER, XIAOMI_CONTROLLER, MQTT_CONTROLLER]:
             raise Exception("The controller is not supported.")
@@ -40,16 +40,10 @@ class Controller():
                 raise Exception("The encoding is not supported "
                                 "by the mqtt controller.")
 
-            if not topic:
-                raise Exception("controller_command_topic must be "
-                                "specified for mqtt controllers.")
-
         self.hass = hass
-        self._service_domain = split_entity_id(service)[0]
-        self._service_name = split_entity_id(service)[1]
-        self._command_topic = topic
         self._controller = controller
         self._encoding = encoding
+        self._controller_data = controller_data
 
     async def send(self, command):
         if self._controller == BROADLINK_CONTROLLER:
@@ -73,20 +67,19 @@ class Controller():
                                     "Pronto to Base64 encoding")
 
             service_data = {
+                'host': self._controller_data,
                 'packet': command
             }
 
             await self.hass.services.async_call(
-                self._service_domain, self._service_name, 
-                service_data) 
+                'broadlink', 'send', service_data) 
                 
 
         if self._controller == MQTT_CONTROLLER:
             service_data = {
-                'topic': self._command_topic,
+                'topic': self._controller_data,
                 'payload': command
             }
 
             await self.hass.services.async_call(
-                self._service_domain, self._service_name, 
-                service_data)
+               'mqtt', 'publish', service_data)

@@ -25,8 +25,7 @@ DEFAULT_NAME = "SmartIR Media Player"
 
 CONF_UNIQUE_ID = 'unique_id'
 CONF_DEVICE_CODE = 'device_code'
-CONF_CONTROLLER_SEND_SERVICE = "controller_send_service"
-CONF_CONTROLLER_COMMAND_TOPIC = "controller_command_topic"
+CONF_CONTROLLER_DATA = "controller_data"
 CONF_POWER_SENSOR = 'power_sensor'
 CONF_POWER_SENSOR_THRESHOLD = 'power_sensor_threshold'
 
@@ -36,6 +35,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_DEVICE_CODE): cv.positive_int,
     vol.Required(CONF_CONTROLLER_SEND_SERVICE): cv.entity_id,
     vol.Optional(CONF_CONTROLLER_COMMAND_TOPIC): cv.string,
+    vol.Required(CONF_CONTROLLER_DATA): cv.string,
     vol.Optional(CONF_POWER_SENSOR): cv.entity_id,
     vol.Optional(CONF_POWER_SENSOR_THRESHOLD, default=0): cv.positive_int,
 })
@@ -86,8 +86,7 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
         self._unique_id = config.get(CONF_UNIQUE_ID)
         self._name = config.get(CONF_NAME)
         self._device_code = config.get(CONF_DEVICE_CODE)
-        self._controller_send_service = config.get(CONF_CONTROLLER_SEND_SERVICE)
-        self._controller_command_topic = config.get(CONF_CONTROLLER_COMMAND_TOPIC)
+        self._controller_data = config.get(CONF_CONTROLLER_DATA)
         self._power_sensor = config.get(CONF_POWER_SENSOR)
         self._power_sensor_threshold = config.get(CONF_POWER_SENSOR_THRESHOLD)
 
@@ -136,8 +135,7 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
             self.hass,
             self._supported_controller, 
             self._commands_encoding,
-            self._controller_send_service,
-            self._controller_command_topic)
+            self._controller_data)
 
     async def async_added_to_hass(self):
         """Run when entity about to be added."""
