@@ -36,8 +36,6 @@ climate:
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
 ```
-Make sure the broadlink switch is already installed. Go to the Home Assistant UI/dev service, find the broadlink send_packet service and copy the name of it.
-Add the name of the send_packet service to the `controller_send_service` field.
 
 ## Example (using mqtt controller):
 ```yaml
