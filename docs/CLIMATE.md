@@ -12,7 +12,7 @@ _Please note that the device_code field only accepts positive numbers. The .json
 **name** (Optional): The name of the device<br />
 **unique_id** (Optional): An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.<br />
 **device_code** (Required): .... (Accepts only positive numbers)<br />
-**controller_data** (Required): The data required for the controller to function. Enter the IP address of the Broadlink device (must be an already configured device) or the MQTT topic on which to send commands.<br />
+**controller_data** (Required): The data required for the controller to function. Enter the IP address of the Broadlink device **(must be an already configured device)** or the MQTT topic on which to send commands.<br />
 **temperature_sensor** (Optional): *entity_id* for a temperature sensor<br />
 **humidity_sensor** (Optional): *entity_id* for a humidity sensor<br />
 **power_sensor** (Optional): *entity_id* for a sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor. (Accepts only on/off states)<br />
@@ -36,8 +36,6 @@ climate:
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
 ```
-Make sure the broadlink switch is already installed. Go to the Home Assistant UI/dev service, find the broadlink send_packet service and copy the name of it.
-Add the name of the send_packet service to the `controller_send_service` field.
 
 ## Example (using mqtt controller):
 ```yaml
