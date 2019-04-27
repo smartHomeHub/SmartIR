@@ -26,8 +26,7 @@ DEFAULT_NAME = "SmartIR Climate"
 
 CONF_UNIQUE_ID = 'unique_id'
 CONF_DEVICE_CODE = 'device_code'
-CONF_CONTROLLER_SEND_SERVICE = "controller_send_service"
-CONF_CONTROLLER_COMMAND_TOPIC = "controller_command_topic"
+CONF_CONTROLLER_DATA = "controller_data"
 CONF_TEMPERATURE_SENSOR = 'temperature_sensor'
 CONF_HUMIDITY_SENSOR = 'humidity_sensor'
 CONF_POWER_SENSOR = 'power_sensor'
@@ -43,8 +42,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_UNIQUE_ID): cv.string,
     vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
     vol.Required(CONF_DEVICE_CODE): cv.positive_int,
-    vol.Required(CONF_CONTROLLER_SEND_SERVICE): cv.entity_id,
-    vol.Optional(CONF_CONTROLLER_COMMAND_TOPIC): cv.string,
+    vol.Required(CONF_CONTROLLER_DATA): cv.string,
     vol.Optional(CONF_TEMPERATURE_SENSOR): cv.entity_id,
     vol.Optional(CONF_HUMIDITY_SENSOR): cv.entity_id,
     vol.Optional(CONF_POWER_SENSOR): cv.entity_id
@@ -96,8 +94,7 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
         self._unique_id = config.get(CONF_UNIQUE_ID)
         self._name = config.get(CONF_NAME)
         self._device_code = config.get(CONF_DEVICE_CODE)
-        self._controller_send_service = config.get(CONF_CONTROLLER_SEND_SERVICE)
-        self._controller_command_topic = config.get(CONF_CONTROLLER_COMMAND_TOPIC)
+        self._controller_data = config.get(CONF_CONTROLLER_DATA)
         self._temperature_sensor = config.get(CONF_TEMPERATURE_SENSOR)
         self._humidity_sensor = config.get(CONF_HUMIDITY_SENSOR)
         self._power_sensor = config.get(CONF_POWER_SENSOR)
@@ -132,8 +129,7 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
             self.hass,
             self._supported_controller, 
             self._commands_encoding,
-            self._controller_send_service,
-            self._controller_command_topic)
+            self._controller_data)
             
     async def async_added_to_hass(self):
         """Run when entity about to be added."""
