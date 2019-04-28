@@ -260,10 +260,9 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
             return
 
         power_state = self.hass.states.get(self._power_sensor)
-
-        if power_state:
-            if int(power_state.state) <= self._power_sensor_threshold:
+        if power_state and power_state.state != STATE_UNKNOWN:
+            if power_state.state == STATE_OFF or int(power_state.state) <= self._power_sensor_threshold:
                 self._state = STATE_OFF
                 self._source = None
-            else:
+            elif power_state.state == STATE_ON or int(power_state.state) > self._power_sensor_threshold:
                 self._state = STATE_ON
