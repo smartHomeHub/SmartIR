@@ -71,3 +71,7 @@ Below are the code files created by the people in the community. Before you star
 | ------------- | -------------------------- | ------------- |
 [1080](../codes/media_player/1080.json)|NS-42D510NA15|Broadlink
 
+#### Toshiba
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1100](../codes/media_player/1100.json)|42C3530D|Broadlink
