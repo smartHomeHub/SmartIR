@@ -12,8 +12,7 @@ _Please note that the device_code field only accepts positive numbers. The .json
 **name** (Optional): The name of the device<br />
 **unique_id** (Optional): An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.<br />
 **device_code** (Required): .... (Accepts only positive numbers)<br />
-**controller_send_service** (Required): The service that will be used to send the commands. Only `broadlink_send_packet` (Broadlink controller) and `mqtt.publish` is currently supported.<br />
-**controller_command_topic** (Optional): MQTT topic on which to send commands when *controller_send_service* is mqtt.publish<br />
+**controller_data** (Required): The data required for the controller to function. Enter the IP address of the Broadlink device **(must be an already configured device)** or the MQTT topic on which to send commands.<br />
 **temperature_sensor** (Optional): *entity_id* for a temperature sensor<br />
 **humidity_sensor** (Optional): *entity_id* for a humidity sensor<br />
 **power_sensor** (Optional): *entity_id* for a sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor. (Accepts only on/off states)<br />
@@ -32,13 +31,11 @@ climate:
     name: Office AC
     unique_id: office_ac
     device_code: 1000
-    controller_send_service: switch.broadlink_send_packet_192_168_10_10
+    controller_data: 192.168.10.10
     temperature_sensor: sensor.temperature
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
 ```
-Make sure the broadlink switch is already installed. Go to the Home Assistant UI/dev service, find the broadlink send_packet service and copy the name of it.
-Add the name of the send_packet service to the `controller_send_service` field.
 
 ## Example (using mqtt controller):
 ```yaml
@@ -49,8 +46,7 @@ climate:
     name: Office AC
     unique_id: office_ac
     device_code: 2000
-    controller_send_service: mqtt.publish
-    controller_command_topic: home-assistant/office-ac/command
+    controller_data: home-assistant/office-ac/command
     temperature_sensor: sensor.temperature
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
@@ -83,6 +79,7 @@ Below are the code files created by the people in the community. Before you star
 [1060](../codes/climate/1060.json)|R09AWN<br>R24AWN<br>E09EK|Broadlink
 [1061](../codes/climate/1061.json)|Unknown model|Broadlink
 [1062](../codes/climate/1062.json)|LG InverterV P12RK|Broadlink
+[1063](../codes/climate/1063.json)|LG Inverter P12EP1 (AKB74955603 Remote)|Broadlink
 
 #### Hitachi
 | Code | Supported Models | Controller |
@@ -142,8 +139,10 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1280](../codes/climate/1280.json)|AR-RBE1E (Remote control)|Broadlink
-[1281](../codes/climate/1281.json)|Unknown model|Broadlink
+[1281](../codes/climate/1281.json)|AR-RAE1/AR-RAE1E|Broadlink
 [1282](../codes/climate/1282.json)|AR-JW11 (Remote control)|Broadlink
+[1283](../codes/climate/1283.json)|AR-AB5 (Remote control)|Broadlink
+[1284](../codes/climate/1284.json)|AR-REG1U (Remote control)|Broadlink
 
 #### Sharp
 | Code | Supported Models | Controller |
@@ -222,3 +221,29 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1580](../codes/climate/1580.json)|Unknown|Broadlink
+
+#### Beko
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1600](../codes/climate/1600.json)|BEVCA 120|Broadlink
+
+#### Tornado
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1620](../codes/climate/1620.json)|Unknown|Broadlink
+
+#### Fujiko
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1640](../codes/climate/1640.json)|Unknown|Broadlink
+
+#### Royal
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1660](../codes/climate/1660.json)|08HPN1T1|Broadlink
+
+#### Mitsubishi Heavy
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1680](../codes/climate/1680.json)|SRK25ZJ-S1|Broadlink
+[1681](../codes/climate/1681.json)|SRK71ZK-S|Broadlink
