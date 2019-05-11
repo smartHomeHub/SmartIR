@@ -18,6 +18,7 @@ ENC_RAW = 'Raw'
 BROADLINK_COMMANDS_ENCODING = [
     ENC_BASE64, ENC_HEX, ENC_PRONTO]
 
+XIAOMI_COMMANDS_ENCODING = [ENC_HEX]
 MQTT_COMMANDS_ENCODING = [ENC_RAW]
 
 class Controller():
@@ -32,8 +33,9 @@ class Controller():
                                 "by the Broadlink controller.")
 
         if controller == XIAOMI_CONTROLLER:
-            raise Exception("The Xiaomi IR controller "
-                            "is not yet supported.")
+            if encoding not in XIAOMI_COMMANDS_ENCODING:
+                raise Exception("The encoding is not supported "
+                                "by the Xiaomi controller.")
 
         if controller == MQTT_CONTROLLER:
             if encoding not in MQTT_COMMANDS_ENCODING:
@@ -73,7 +75,15 @@ class Controller():
 
             await self.hass.services.async_call(
                 'broadlink', 'send', service_data) 
-                
+
+        if self._controller == XIAOMI_CONTROLLER:
+            service_data = {
+                'entity_id': self._controller_data,
+                'command': command
+            }
+
+            await self.hass.services.async_call(
+               'remote', 'send_command', service_data)                
 
         if self._controller == MQTT_CONTROLLER:
             service_data = {
