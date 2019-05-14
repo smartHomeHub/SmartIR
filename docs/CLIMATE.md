@@ -189,6 +189,7 @@ Below are the code files created by the people in the community. Before you star
 | ------------- | -------------------------- | ------------- |
 [1380](../codes/climate/1380.json)|Unknown model|Broadlink
 [1381](../codes/climate/1381.json)|Unknown model|Broadlink
+[3380](../codes/climate/3380.json)|MCD-24HRN1-Q1|Xiaomi
 
 #### Samsung
 | Code | Supported Models | Controller |
