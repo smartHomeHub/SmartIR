@@ -3,12 +3,15 @@ from base64 import b64encode
 import binascii
 import logging
 
+from homeassistant.const import ATTR_ENTITY_ID
 from homeassistant.core import split_entity_id
 from . import Helper
 
+_LOGGER = logging.getLogger(__name__)
+
 BROADLINK_CONTROLLER = 'Broadlink'
-MQTT_CONTROLLER = 'MQTT'
 XIAOMI_CONTROLLER = 'Xiaomi'
+MQTT_CONTROLLER = 'MQTT'
 
 ENC_BASE64 = 'Base64'
 ENC_HEX = 'Hex'
@@ -17,6 +20,9 @@ ENC_RAW = 'Raw'
 
 BROADLINK_COMMANDS_ENCODING = [
     ENC_BASE64, ENC_HEX, ENC_PRONTO]
+
+XIAOMI_COMMANDS_ENCODING = [
+    ENC_PRONTO, ENC_RAW]
 
 MQTT_COMMANDS_ENCODING = [ENC_RAW]
 
@@ -32,8 +38,9 @@ class Controller():
                                 "by the Broadlink controller.")
 
         if controller == XIAOMI_CONTROLLER:
-            raise Exception("The Xiaomi IR controller "
-                            "is not yet supported.")
+            if encoding not in XIAOMI_COMMANDS_ENCODING:
+                raise Exception("The encoding is not supported "
+                                "by the Xiaomi controller.")
 
         if controller == MQTT_CONTROLLER:
             if encoding not in MQTT_COMMANDS_ENCODING:
@@ -72,8 +79,18 @@ class Controller():
             }
 
             await self.hass.services.async_call(
-                'broadlink', 'send', service_data) 
-                
+                'broadlink', 'send', service_data)
+
+
+        if self._controller == XIAOMI_CONTROLLER:
+            service_data = {
+                ATTR_ENTITY_ID: self._controller_data,
+                'command':  self._encoding.lower() + ':' + command
+            }
+
+            await self.hass.services.async_call(
+               'remote', 'send_command', service_data)
+
 
         if self._controller == MQTT_CONTROLLER:
             service_data = {
