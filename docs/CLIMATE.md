@@ -268,6 +268,7 @@ Below are the code files created by the people in the community. Before you star
 | ------------- | -------------------------- | ------------- |
 [1680](../codes/climate/1680.json)|SRK25ZJ-S1|Broadlink
 [1681](../codes/climate/1681.json)|SRK71ZK-S|Broadlink
+[1682](../codes/climate/1681.json)|SRKM25H|Broadlink
 
 #### Electrolux
 | Code | Supported Models | Controller |
