@@ -25,7 +25,7 @@ switch:
   - platform: broadlink
     host: 192.168.10.10
     mac: '00:00:00:00:00:00'
-    
+
 climate:
   - platform: smartir
     name: Office AC
@@ -45,7 +45,7 @@ remote:
   - platform: xiaomi_miio
     host: 192.168.10.10
     token: YOUR_TOKEN
-    
+
 climate:
   - platform: smartir
     name: Office AC
@@ -60,7 +60,7 @@ climate:
 ## Example (using mqtt controller):
 ```yaml
 smartir:
-    
+
 climate:
   - platform: smartir
     name: Office AC
@@ -268,3 +268,4 @@ Below are the code files created by the people in the community. Before you star
 | ------------- | -------------------------- | ------------- |
 [1680](../codes/climate/1680.json)|SRK25ZJ-S1|Broadlink
 [1681](../codes/climate/1681.json)|SRK71ZK-S|Broadlink
+[1682](../codes/climate/1682.json)|DXK12ZMA-S|Broadlink
