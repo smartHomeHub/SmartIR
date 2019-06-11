@@ -274,3 +274,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1700](../codes/climate/1700.json)|EACS/I-HAT/N3|Broadlink
+
+#### Erisson
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1720](../codes/climate/1720.json)|EC-S07T2|Broadlink
