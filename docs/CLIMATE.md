@@ -253,6 +253,11 @@ Below are the code files created by the people in the community. Before you star
 | ------------- | -------------------------- | ------------- |
 [1620](../codes/climate/1620.json)|Unknown|Broadlink
 
+#### Trotec
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[2000](../codes/climate/2000.json)|All air conditioners with YX1F6 remote|Broadlink
+
 #### Fujiko
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
