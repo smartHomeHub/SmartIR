@@ -1,0 +1,30 @@
+{
+    "manufacturer": "Philips",
+    "supportedModels": [
+      "42PFP5532D"
+    ],
+    "supportedController": "Broadlink",
+    "commandsEncoding": "Base64",
+    "commands": {
+        "off": "JgCcABsgHB84IRohGyAbIBwgGyAcPB0fOSAbAArTHB8dHzggHB8cIBsgHB8bIRo+HB86IBsACtIcIBwfOCEaIRsgGyAcIBwfHDwcIDkgHAAK0hwfHB86HxsgHCAbIBsgHB8bPh0eOiAaAArTHB8dHzggGyAbIRsgGyAcIBo+HR45IRsACtIdHxwfOCAbIRohHB8bIBshGz0cHzogHAANBQAAAAAAAAAAAAAAAA==",
+        "on": "JgC2ABwgOSAaIRohGyEaIRsfGyIaPRwgOSAcAArSHCA4IBohGyAbIRohGyAbIRo+HCA4IRoACtMcITkeHB8cIRogHB8bIRohGz4cIDghGwAK0hwfOiAZIRwgGiAcIBsgGyEaPhsgOSEaAArTHCA4IBsgHB8bIRsgGyAcIBs9HB85IRsACtIdHjofGyAbIBshGyAbIBshGj4cHzkhGwAK0h0eOSAbIRogGyEbIBsgGyAbPhwgOCAbAA0FAAA=",
+        "previousChannel": "JgCCABwgOR8bIRsgGyAcIBs9Oh8bIRsgGz0cAAq1HR86HhshGiEbIBsgHD05IBwgGyAbPRwACrUcIDkfGyEaIRwfHB8cPTkgGyEbIBw8HAAKtR0eOh8bIBsgGyEbIBs9OiAbIBsgHD0cAAq1HR45HxshHB8cHxshGz05IBshGyAcPBwADQUAAAAAAAA=",
+        "nextChannel": "JgCCABwfOSAaIRwfGyAbIRs9OSEbIBwfHB8bAArTHR85HxsgHCAcHxsgGz45IBsgHCAbIBwACtIcHzkgGyAbIBwgGyAbPTkhHB8cHxwgGwAK0xsgOR8bIRsgGyAbIBw9OSAbIRohGyAcAArSHB85IBsgHB8cHxshGz05IRsgHB8bIBsADQUAAAAAAAA=",
+        "volumeDown": "JgCCABwgOR8bIBshGiEbIBsgGz45IBshGz0dAAq0GyA5HxshHB8cHxwgGyAcPDkhGyAcPRsACrUdHzkfHB8cIBohHB8bIBs+OSAcIBs9HAAKtR0eOSAbIBsgHCAbIBsgGz45IBsgGz4bAAq2GyA5HxwgHB8bIBshGyAbPTkhGyAcPBwADQUAAAAAAAA=",
+        "volumeUp": "JgCCAB0eHCA4IBshGiEbIBwfHD06HxwfGyIaAArSHCAdHjggGyEbIBwfGyEaPjkgHCAbIBwACtEdHxwfOCAcIBsgGyAbIRo+OSAcIBsgGwAK0hwgGyA4IBshGyAcHxshGj45IBshGyAbAArSHR8cHzkfHCAcHxsgGyEbPTkgGyEbIBsADQUAAAAAAAA=",
+        "mute": "JgCCAB0fHB85HxshGyAbIBshGiEbPRwgOT0cAAq1HR4cHzkgGyAbIRsgGyAbIBw9HB85PhwACrQdHxwfOCEbIBwfGyEbIBsgHD0bIDo8HAAKtRwfHR84IBshGiEbIBsgHCAbPRwfOT4dAAq0HB8cHzkgGyAbIBshGyAcHxs+HB86PRwADQUAAAAAAAA=",
+        "sources": {
+            "EXT1": "JgAYAB8bHxs9HB4cHzkfHDwcHxsfOjwcHwANBQ==",
+            "EXT2": "JgAaAB8bPRsfHB4cHxsfHB46HxsfHDwcHzkfAA0FAAAAAAAAAAAAAAAAAAA=",
+            "VGA": "JgAaAB8bHxw8HB8bHzoeHB8bHxweHD0bHxsfAA0FAAAAAAAAAAAAAAAAAAA=",
+            "HDMI": "JgAaAB8cHxs9Gx8cHzkfGx8cHhwfGz0cHjofAA0FAAAAAAAAAAAAAAAAAAA=",
+            "HDMI Side": "JgAYAD06PBwfGx85HxwfGx8bHxw9OR8bHwANBQ==",
+            "AV Side": "JgAYAB8bPRwfGx8bHzoeHD0bHxweOh8bPQANBQ==",
+            "Channel 1": "JgAcAB8cPBweHB8bHxweHB4cHxweHB4cHxweOh4ADQUAAAAAAAAAAAAAAAA=",
+            "Channel 11": [
+                "JgAcAB8cPBweHB8bHxweHB4cHxweHB4cHxweOh4ADQUAAAAAAAAAAAAAAAA=",
+                "JgAcAB8cPBweHB8bHxweHB4cHxweHB4cHxweOh4ADQUAAAAAAAAAAAAAAAA="
+            ]
+        }
+    }
+}
