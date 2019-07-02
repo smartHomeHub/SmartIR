@@ -9,8 +9,8 @@ from homeassistant.components.media_player import (
     MediaPlayerDevice, PLATFORM_SCHEMA)
 from homeassistant.components.media_player.const import (
     SUPPORT_TURN_OFF, SUPPORT_TURN_ON, SUPPORT_PREVIOUS_TRACK,
-    SUPPORT_NEXT_TRACK, SUPPORT_VOLUME_STEP,SUPPORT_VOLUME_MUTE, 
-    SUPPORT_SELECT_SOURCE, MEDIA_TYPE_CHANNEL)
+    SUPPORT_NEXT_TRACK, SUPPORT_VOLUME_STEP, SUPPORT_VOLUME_SET,
+    SUPPORT_VOLUME_MUTE, SUPPORT_SELECT_SOURCE, MEDIA_TYPE_CHANNEL)
 from homeassistant.const import (
     CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN)
 from homeassistant.core import callback
@@ -25,16 +25,14 @@ DEFAULT_NAME = "SmartIR Media Player"
 
 CONF_UNIQUE_ID = 'unique_id'
 CONF_DEVICE_CODE = 'device_code'
-CONF_CONTROLLER_SEND_SERVICE = "controller_send_service"
-CONF_CONTROLLER_COMMAND_TOPIC = "controller_command_topic"
+CONF_CONTROLLER_DATA = "controller_data"
 CONF_POWER_SENSOR = 'power_sensor'
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_UNIQUE_ID): cv.string,
     vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
     vol.Required(CONF_DEVICE_CODE): cv.positive_int,
-    vol.Required(CONF_CONTROLLER_SEND_SERVICE): cv.entity_id,
-    vol.Optional(CONF_CONTROLLER_COMMAND_TOPIC): cv.string,
+    vol.Required(CONF_CONTROLLER_DATA): cv.string,
     vol.Optional(CONF_POWER_SENSOR): cv.entity_id
 })
 
@@ -84,8 +82,7 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
         self._unique_id = config.get(CONF_UNIQUE_ID)
         self._name = config.get(CONF_NAME)
         self._device_code = config.get(CONF_DEVICE_CODE)
-        self._controller_send_service = config.get(CONF_CONTROLLER_SEND_SERVICE)
-        self._controller_command_topic = config.get(CONF_CONTROLLER_COMMAND_TOPIC)
+        self._controller_data = config.get(CONF_CONTROLLER_DATA)
         self._power_sensor = config.get(CONF_POWER_SENSOR)
 
         self._manufacturer = device_data['manufacturer']
@@ -114,7 +111,7 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
 
         if ('volumeDown' in self._commands and self._commands['volumeDown'] is not None) \
         or ('volumeUp' in self._commands and self._commands['volumeUp'] is not None):
-            self._support_flags = self._support_flags | SUPPORT_VOLUME_STEP
+            self._support_flags = self._support_flags | SUPPORT_VOLUME_STEP | SUPPORT_VOLUME_SET
 
         if 'mute' in self._commands and self._commands['mute'] is not None:
             self._support_flags = self._support_flags | SUPPORT_VOLUME_MUTE
@@ -133,8 +130,7 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
             self.hass,
             self._supported_controller, 
             self._commands_encoding,
-            self._controller_send_service,
-            self._controller_command_topic)
+            self._controller_data)
 
     async def async_added_to_hass(self):
         """Run when entity about to be added."""

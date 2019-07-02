@@ -12,8 +12,7 @@ _Please note that the device_code field only accepts positive numbers. The .json
 **name** (Optional): The name of the device<br />
 **unique_id** (Optional): An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.<br />
 **device_code** (Required): .... (Accepts only positive numbers)<br />
-**controller_send_service** (Required): The service that will be used to send the commands. Only `broadlink_send_packet` (Broadlink controller) and `mqtt.publish` is currently supported.<br />
-**controller_command_topic** (Optional): MQTT topic on which to send commands when *controller_send_service* is mqtt.publish<br />
+**controller_data** (Required): The data required for the controller to function. Enter the IP address of the Broadlink device **(must be an already configured device)**, or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands.<br />
 **temperature_sensor** (Optional): *entity_id* for a temperature sensor<br />
 **humidity_sensor** (Optional): *entity_id* for a humidity sensor<br />
 **power_sensor** (Optional): *entity_id* for a sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor. (Accepts only on/off states)<br />
@@ -32,13 +31,31 @@ climate:
     name: Office AC
     unique_id: office_ac
     device_code: 1000
-    controller_send_service: switch.broadlink_send_packet_192_168_10_10
+    controller_data: 192.168.10.10
     temperature_sensor: sensor.temperature
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
 ```
-Make sure the broadlink switch is already installed. Go to the Home Assistant UI/dev service, find the broadlink send_packet service and copy the name of it.
-Add the name of the send_packet service to the `controller_send_service` field.
+
+## Example (using xiaomi controller):
+```yaml
+smartir:
+
+remote:
+  - platform: xiaomi_miio
+    host: 192.168.10.10
+    token: YOUR_TOKEN
+    
+climate:
+  - platform: smartir
+    name: Office AC
+    unique_id: office_ac
+    device_code: 2000
+    controller_data: remote.xiaomi_miio_192_168_10_10
+    temperature_sensor: sensor.temperature
+    humidity_sensor: sensor.humidity
+    power_sensor: binary_sensor.ac_power
+```
 
 ## Example (using mqtt controller):
 ```yaml
@@ -48,9 +65,8 @@ climate:
   - platform: smartir
     name: Office AC
     unique_id: office_ac
-    device_code: 2000
-    controller_send_service: mqtt.publish
-    controller_command_topic: home-assistant/office-ac/command
+    device_code: 3000
+    controller_data: home-assistant/office-ac/command
     temperature_sensor: sensor.temperature
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
@@ -174,6 +190,7 @@ Below are the code files created by the people in the community. Before you star
 | ------------- | -------------------------- | ------------- |
 [1380](../codes/climate/1380.json)|Unknown model|Broadlink
 [1381](../codes/climate/1381.json)|Unknown model|Broadlink
+[3380](../codes/climate/3380.json)|MCD-24HRN1-Q1|Xiaomi
 
 #### Samsung
 | Code | Supported Models | Controller |
