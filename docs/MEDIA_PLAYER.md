@@ -9,8 +9,7 @@ Find your device's brand code [here](MEDIA_PLAYER.md#available-codes-for-tv-devi
 **name** (Optional): The name of the device<br />
 **unique_id** (Optional): An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.<br />
 **device_code** (Required): ...... (Accepts only positive numbers)<br />
-**controller_send_service** (Required): The service that will be used to send the commands. Only `broadlink_send_packet` (Broadlink controller) and `mqtt.publish` is currently supported.<br />
-**controller_command_topic** (Optional): MQTT topic on which to send commands when *controller_send_service* is mqtt.publish<br />
+**controller_data** (Required): The data required for the controller to function. Enter the IP address of the Broadlink device **(must be an already configured device)**, or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands.<br />
 **power_sensor** (Optional): *entity_id* for a sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor. (Accepts only on/off states)<br />
 
 ## Example (using broadlink controller):
@@ -27,11 +26,27 @@ media_player:
     name: Living room TV
     unique_id: living_room_tv
     device_code: 1000
-    controller_send_service: switch.broadlink_send_packet_192_168_10_10
+    controller_data: 192.168.10.10
     power_sensor: binary_sensor.tv_power
 ```
-Make sure the broadlink switch is already installed. Go to the Home Assistant UI/dev service, find the broadlink send_packet service and copy the name of it.
-Add the name of the send_packet service to the `controller_send_service` field.
+
+## Example (using xiaomi controller):
+```yaml
+smartir:
+
+remote:
+  - platform: xiaomi_miio
+    host: 192.168.10.10
+    token: YOUR_TOKEN
+    
+media_player:
+  - platform: smartir
+    name: Living room TV
+    unique_id: living_room_tv
+    device_code: 2000
+    controller_data: remote.xiaomi_miio_192_168_10_10
+    power_sensor: binary_sensor.tv_power
+```
 
 ## Example (using mqtt controller):
 ```yaml
@@ -41,9 +56,8 @@ media_player:
   - platform: smartir
     name: Living room TV
     unique_id: living_room_tv
-    device_code: 2000
-    controller_send_service: mqtt.publish
-    controller_command_topic: home-assistant/living-room-tv/command
+    device_code: 3000
+    controller_data: home-assistant/living-room-tv/command
     power_sensor: binary_sensor.tv_power
 ```
 
@@ -75,3 +89,7 @@ Below are the code files created by the people in the community. Before you star
 | ------------- | -------------------------- | ------------- |
 [1080](../codes/media_player/1080.json)|NS-42D510NA15|Broadlink
 
+#### Toshiba
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1100](../codes/media_player/1100.json)|42C3530D|Broadlink

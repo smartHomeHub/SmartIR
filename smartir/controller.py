@@ -3,12 +3,15 @@ from base64 import b64encode
 import binascii
 import logging
 
+from homeassistant.const import ATTR_ENTITY_ID
 from homeassistant.core import split_entity_id
 from . import Helper
 
+_LOGGER = logging.getLogger(__name__)
+
 BROADLINK_CONTROLLER = 'Broadlink'
-MQTT_CONTROLLER = 'MQTT'
 XIAOMI_CONTROLLER = 'Xiaomi'
+MQTT_CONTROLLER = 'MQTT'
 
 ENC_BASE64 = 'Base64'
 ENC_HEX = 'Hex'
@@ -18,10 +21,13 @@ ENC_RAW = 'Raw'
 BROADLINK_COMMANDS_ENCODING = [
     ENC_BASE64, ENC_HEX, ENC_PRONTO]
 
+XIAOMI_COMMANDS_ENCODING = [
+    ENC_PRONTO, ENC_RAW]
+
 MQTT_COMMANDS_ENCODING = [ENC_RAW]
 
 class Controller():
-    def __init__(self, hass, controller, encoding, service, topic=None):
+    def __init__(self, hass, controller, encoding, controller_data):
         if controller not in [
             BROADLINK_CONTROLLER, XIAOMI_CONTROLLER, MQTT_CONTROLLER]:
             raise Exception("The controller is not supported.")
@@ -32,24 +38,19 @@ class Controller():
                                 "by the Broadlink controller.")
 
         if controller == XIAOMI_CONTROLLER:
-            raise Exception("The Xiaomi IR controller "
-                            "is not yet supported.")
+            if encoding not in XIAOMI_COMMANDS_ENCODING:
+                raise Exception("The encoding is not supported "
+                                "by the Xiaomi controller.")
 
         if controller == MQTT_CONTROLLER:
             if encoding not in MQTT_COMMANDS_ENCODING:
                 raise Exception("The encoding is not supported "
                                 "by the mqtt controller.")
 
-            if not topic:
-                raise Exception("controller_command_topic must be "
-                                "specified for mqtt controllers.")
-
         self.hass = hass
-        self._service_domain = split_entity_id(service)[0]
-        self._service_name = split_entity_id(service)[1]
-        self._command_topic = topic
         self._controller = controller
         self._encoding = encoding
+        self._controller_data = controller_data
 
     async def send(self, command):
         if self._controller == BROADLINK_CONTROLLER:
@@ -73,20 +74,29 @@ class Controller():
                                     "Pronto to Base64 encoding")
 
             service_data = {
+                'host': self._controller_data,
                 'packet': command
             }
 
             await self.hass.services.async_call(
-                self._service_domain, self._service_name, 
-                service_data) 
-                
+                'broadlink', 'send', service_data)
+
+
+        if self._controller == XIAOMI_CONTROLLER:
+            service_data = {
+                ATTR_ENTITY_ID: self._controller_data,
+                'command':  self._encoding.lower() + ':' + command
+            }
+
+            await self.hass.services.async_call(
+               'remote', 'send_command', service_data)
+
 
         if self._controller == MQTT_CONTROLLER:
             service_data = {
-                'topic': self._command_topic,
+                'topic': self._controller_data,
                 'payload': command
             }
 
             await self.hass.services.async_call(
-                self._service_domain, self._service_name, 
-                service_data)
+               'mqtt', 'publish', service_data)
