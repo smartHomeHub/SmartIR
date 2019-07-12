@@ -108,6 +108,10 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
         self._precision = device_data['precision']
         self._operation_modes = [STATE_OFF] + device_data['operationModes']
         self._fan_modes = device_data['fanModes']
+        if 'offFlags' in device_data:
+            self._off_flags = device_data['offFlags']
+        else:
+            self._off_flags = []
         self._commands = device_data['commands']
 
         self._target_temperature = self._min_temperature
@@ -323,6 +327,12 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
 
             if operation_mode.lower() == STATE_OFF:
                 command = self._commands['off']
+                if 'operation' in self._off_flags:
+                    command = command[self._last_on_operation]
+                if 'fan' in self._off_flags:
+                    command = command[fan_mode]
+                if 'temperature' in self._off_flags:
+                    command = command[target_temperature]
             else:
                 command = self._commands[operation_mode][fan_mode][target_temperature]
 
