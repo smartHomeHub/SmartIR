@@ -93,3 +93,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1100](../codes/media_player/1100.json)|42C3530D|Broadlink
+
+#### Yamaha
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1120](../codes/media_player/1120.json)|Unknown|Broadlink

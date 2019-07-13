@@ -105,7 +105,7 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1080](../codes/climate/1080.json)|Unknown model|Broadlink
-[1081](../codes/climate/1081.json)|RAS-10EH3|Broadlink
+[1081](../codes/climate/1081.json)|RAC-10EH1<br>RAC-18EH1<br>RAS-10EH1<br>RAS-10EH3<br>RAS-18EH1|Broadlink
 
 #### Daikin
 | Code | Supported Models | Controller |
@@ -159,7 +159,7 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1280](../codes/climate/1280.json)|AR-RBE1E (Remote control)|Broadlink
-[1281](../codes/climate/1281.json)|AR-RAE1/AR-RAE1E|Broadlink
+[1281](../codes/climate/1281.json)|AR-RY3 (Remote control)<br>AR-RAE1/AR-RAE1E|Broadlink
 [1282](../codes/climate/1282.json)|AR-JW11 (Remote control)|Broadlink
 [1283](../codes/climate/1283.json)|AR-AB5 (Remote control)|Broadlink
 [1284](../codes/climate/1284.json)|AR-REG1U (Remote control)|Broadlink
@@ -268,6 +268,22 @@ Below are the code files created by the people in the community. Before you star
 | ------------- | -------------------------- | ------------- |
 [1680](../codes/climate/1680.json)|SRK25ZJ-S1|Broadlink
 [1681](../codes/climate/1681.json)|SRK71ZK-S|Broadlink
+[1682](../codes/climate/1681.json)|SRKM25H|Broadlink
+
+#### Electrolux
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1700](../codes/climate/1700.json)|EACS/I-HAT/N3|Broadlink
+
+#### Erisson
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1720](../codes/climate/1720.json)|EC-S07T2|Broadlink
+
+#### Kelvinator
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1740](../codes/climate/1740.json)|KSV25HRG (RG57A6/BGEF Remote)|Broadlink
 
 #### Daitsu
 | Code | Supported Models | Controller |
