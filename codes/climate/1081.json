@@ -1,7 +1,11 @@
 {
   "manufacturer": "Hitachi",
   "supportedModels": [
-    "RAS-10EH3"
+    "RAC-10EH1",
+    "RAC-18EH1",
+    "RAS-10EH1",
+    "RAS-10EH3",
+    "RAS-18EH1"
   ],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",

@@ -60,9 +60,9 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
             Helper.downloader(codes_source.format(device_code), device_json_path)
         except:
             _LOGGER.error("There was an error while downloading the device Json file. " \
-                          "Please check your internet connection or the device code " \
+                          "Please check your internet connection or if the device code " \
                           "exists on GitHub. If the problem still exists please " \
-                          "place the file manually in the proper location.")
+                          "place the file manually in the proper directory.")
             return
 
     with open(device_json_path) as j:
