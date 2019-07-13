@@ -283,4 +283,4 @@ Below are the code files created by the people in the community. Before you star
 #### Kelvinator
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1740](../codes/climate/1700.json)|KSV25HRG (RG57A6/BGEF Remote)|Broadlink
+[1740](../codes/climate/1740.json)|KSV25HRG (RG57A6/BGEF Remote)|Broadlink
