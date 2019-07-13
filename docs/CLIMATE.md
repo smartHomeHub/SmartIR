@@ -272,4 +272,4 @@ Below are the code files created by the people in the community. Before you star
 #### Daitsu
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1700](../codes/climate/1700.json)|DS12U-RV (or any using R51M/E remote)|Broadlink
+[1760](../codes/climate/1760.json)|DS12U-RV (or any using R51M/E remote)|Broadlink
