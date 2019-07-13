@@ -284,3 +284,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1740](../codes/climate/1740.json)|KSV25HRG (RG57A6/BGEF Remote)|Broadlink
+
+#### Daitsu
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1760](../codes/climate/1760.json)|DS12U-RV (or any using R51M/E remote)|Broadlink
