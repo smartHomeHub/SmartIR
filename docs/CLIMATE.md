@@ -300,4 +300,4 @@ Below are the code files created by the people in the community. Before you star
 #### BALLU
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1800](../codes/climate/1800.json)|YKR-K/002E|Broadlink
+[1800](../codes/climate/1800.json)|YKR-K/002E (Remote)|Broadlink
