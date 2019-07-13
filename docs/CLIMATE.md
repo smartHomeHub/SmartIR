@@ -272,4 +272,4 @@ Below are the code files created by the people in the community. Before you star
 #### Trotec
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1780](../codes/climate/1780.json)|All air conditioners with YX1F6 remote|Broadlink
+[1780](../codes/climate/1780.json)|YX1F6 (Remote)|Broadlink
