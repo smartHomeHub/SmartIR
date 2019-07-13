@@ -279,3 +279,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1720](../codes/climate/1720.json)|EC-S07T2|Broadlink
+
+#### Kelvinator
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1740](../codes/climate/1700.json)|KSV25HRG (RG57A6/BGEF Remote)|Broadlink
