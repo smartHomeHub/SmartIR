@@ -11,7 +11,7 @@
   "operationModes": [
     "cool",
     "dry",
-    "fan"
+    "fan_only"
   ],
   "fanModes": [
     "auto",
