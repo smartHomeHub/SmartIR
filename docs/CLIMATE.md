@@ -302,3 +302,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1800](../codes/climate/1800.json)|YKR-K/002E (Remote)|Broadlink
+
+#### Riello
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1820](../codes/climate/1820.json)|WSI XN<br>RAR-3U4|Broadlink
