@@ -308,3 +308,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1820](../codes/climate/1820.json)|WSI XN<br>RAR-3U4|Broadlink
+
+#### Hualing
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1840](../codes/climate/1840.json)|KFR-45GW/JNV<br>KFR-45G/JNV|Broadlink
