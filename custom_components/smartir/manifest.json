@@ -5,5 +5,18 @@
   "dependencies": [],
   "codeowners": ["@smartHomeHub"],
   "requirements": [],
-  "homeassistant": "0.96.0b1"
+  "homeassistant": "0.96.0b1",
+  "updater": {
+    "version": "1.6.1",
+    "releaseNotes": "* Fix the built-in updater",
+    "files": [
+      "__init__.py",
+      "climate.py",
+      "media_player.py",
+      "fan.py",
+      "controller.py",
+      "manifest.json",
+      "services.yaml"
+    ]
+  }
 }

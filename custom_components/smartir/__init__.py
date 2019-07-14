@@ -16,13 +16,15 @@ from homeassistant.helpers.typing import ConfigType
 _LOGGER = logging.getLogger(__name__)
 
 DOMAIN = 'smartir'
-VERSION = '1.6.0'
-VERSION_URL = (
+VERSION = '1.6.1'
+MANIFEST_URL = (
     "https://raw.githubusercontent.com/"
-    "smartHomeHub/SmartIR/{}/version.json")
+    "smartHomeHub/SmartIR/{}/"
+    "custom_components/smartir/manifest.json")
 REMOTE_BASE_URL = (
     "https://raw.githubusercontent.com/"
-    "smartHomeHub/SmartIR/{}/smartir/")
+    "smartHomeHub/SmartIR/{}/"
+    "custom_components/smartir/")
 COMPONENT_ABS_DIR = os.path.dirname(
     os.path.abspath(__file__))
 
@@ -63,7 +65,7 @@ async def async_setup(hass, config):
 
 async def _update(hass, branch, do_update=False, notify_if_latest=True):
     try:
-        request = requests.get(VERSION_URL.format(branch), stream=True, timeout=10)
+        request = requests.get(MANIFEST_URL.format(branch), stream=True, timeout=10)
     except:
         _LOGGER.error("An error occurred while checking for updates. "
                       "Please check your internet connection.")
@@ -75,9 +77,9 @@ async def _update(hass, branch, do_update=False, notify_if_latest=True):
         return
 
     data = request.json()
-    last_version = data['version']
-    min_ha_version = data['minHAVersion']
-    release_notes = data['releaseNotes']
+    min_ha_version = data['homeassistant']
+    last_version = data['updater']['version']
+    release_notes = data['updater']['releaseNotes']
 
     if StrictVersion(last_version) <= StrictVersion(VERSION):
         if notify_if_latest:
@@ -87,17 +89,20 @@ async def _update(hass, branch, do_update=False, notify_if_latest=True):
 
     if StrictVersion(current_ha_version) < StrictVersion(min_ha_version):
         hass.components.persistent_notification.async_create(
-            "There is a new version of SmartIR, but it is **incompatible** "
-            "with your HA version. Please first update Home Assistant.", title='SmartIR')
+            "There is a new version of SmartIR integration, but it is **incompatible** "
+            "with your system. Please first update Home Assistant.", title='SmartIR')
         return
 
     if do_update is False:
         hass.components.persistent_notification.async_create(
-            release_notes, title='SmartIR')
+            "A new version of SmartIR integration is available ({}). "
+            "Call the ``smartir.update_component`` service to update "
+            "the integration. \n\n **Release notes:** \n{}"
+            .format(last_version, release_notes), title='SmartIR')
         return
 
     # Begin update
-    files = data['files']
+    files = data['updater']['files']
     has_errors = False
 
     for file in files:
