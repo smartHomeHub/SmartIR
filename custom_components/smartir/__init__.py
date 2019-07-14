@@ -16,7 +16,7 @@ from homeassistant.helpers.typing import ConfigType
 _LOGGER = logging.getLogger(__name__)
 
 DOMAIN = 'smartir'
-VERSION = '1.5.0'
+VERSION = '1.6.0'
 VERSION_URL = (
     "https://raw.githubusercontent.com/"
     "smartHomeHub/SmartIR/{}/version.json")
@@ -40,6 +40,10 @@ CONFIG_SCHEMA = vol.Schema({
 async def async_setup(hass, config):
     """Set up the SmartIR component."""
     conf = config.get(DOMAIN)
+
+    if conf is None:
+        return True
+
     check_updates = conf[CONF_CHECK_UPDATES]
     update_branch = conf[CONF_UPDATE_BRANCH]
 

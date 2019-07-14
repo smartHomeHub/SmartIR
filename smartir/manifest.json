@@ -1,8 +1,0 @@
-{
-  "domain": "smartir",
-  "name": "SmartIR",
-  "documentation": "https://github.com/smartHomeHub/SmartIR",
-  "dependencies": [],
-  "codeowners": ["@smartHomeHub"],
-  "requirements": []
-}
