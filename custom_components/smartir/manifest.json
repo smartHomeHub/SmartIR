@@ -4,5 +4,6 @@
   "documentation": "https://github.com/smartHomeHub/SmartIR",
   "dependencies": [],
   "codeowners": ["@smartHomeHub"],
-  "requirements": []
+  "requirements": [],
+  "homeassistant": "0.96.0b1"
 }
