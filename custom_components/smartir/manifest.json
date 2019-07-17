@@ -7,8 +7,8 @@
   "requirements": [],
   "homeassistant": "0.96.0b1",
   "updater": {
-    "version": "1.6.1",
-    "releaseNotes": "* Fix the built-in updater",
+    "version": "1.6.2",
+    "releaseNotes": "* Add support for Fujitsu AR-JE5 remote control * Add support for Hualing KFR-45GW/JNV, KFR-45G/JNV AC units * Add support for Daitsu DS-9KIDT AC unit * Add support for Riello WSI XN, RAR-3U4 AC units",
     "files": [
       "__init__.py",
       "climate.py",
