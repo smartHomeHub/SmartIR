@@ -165,6 +165,7 @@ Below are the code files created by the people in the community. Before you star
 [1283](../codes/climate/1283.json)|AR-AB5 (Remote control)|Broadlink
 [1284](../codes/climate/1284.json)|AR-REG1U (Remote control)|Broadlink
 [1285](../codes/climate/1285.json)|AR-RCE1E (Remote control)|Broadlink
+[1286](../codes/climate/1286.json)|AR-JE5 (Remote control)|Broadlink
 
 #### Sharp
 | Code | Supported Models | Controller |
@@ -292,6 +293,7 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1760](../codes/climate/1760.json)|DS12U-RV (or any using R51M/E remote)|Broadlink
+[1761](../codes/climate/1761.json)|DS-9KIDT|Broadlink
 
 #### Trotec
 | Code | Supported Models | Controller |
@@ -302,3 +304,13 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1800](../codes/climate/1800.json)|YKR-K/002E (Remote)|Broadlink
+
+#### Riello
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1820](../codes/climate/1820.json)|WSI XN<br>RAR-3U4|Broadlink
+
+#### Hualing
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1840](../codes/climate/1840.json)|KFR-45GW/JNV<br>KFR-45G/JNV|Broadlink
