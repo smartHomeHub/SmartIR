@@ -314,3 +314,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1840](../codes/climate/1840.json)|KFR-45GW/JNV<br>KFR-45G/JNV|Broadlink
+
+#### Simbio
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1860](../codes/climate/1860.json)|Unknown|Broadlink
