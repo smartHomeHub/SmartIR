@@ -13,23 +13,6 @@ Find your device's brand code [here](MEDIA_PLAYER.md#available-codes-for-tv-devi
 **power_sensor** (Optional): *entity_id* for a sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor. (Accepts only on/off states)<br />
 **source_names** (Optional): Override the names of sources as displayed in HomeAssistant (see below)<br />
 
-### Overriding Source Names
-
-Source names in device files are usually set to the name that the media player uses. These often aren't very descriptive, so you can override these names in the configuration file. You can also remove a source by setting its name to `null`
-
-```yaml
-media_player:
-  - platform: smartir
-    name: Living room TV
-    unique_id: living_room_tv
-    device_code: 1000
-    controller_data: 192.168.10.10
-    source_names:
-      HDMI1: DVD Player
-      HDMI2: Xbox
-      VGA: null
-```
-
 ## Example (using broadlink controller):
 ```yaml
 smartir:
@@ -77,6 +60,22 @@ media_player:
     device_code: 3000
     controller_data: home-assistant/living-room-tv/command
     power_sensor: binary_sensor.tv_power
+```
+
+### Overriding Source Names
+Source names in device files are usually set to the name that the media player uses. These often aren't very descriptive, so you can override these names in the configuration file. You can also remove a source by setting its name to `null`
+
+```yaml
+media_player:
+  - platform: smartir
+    name: Living room TV
+    unique_id: living_room_tv
+    device_code: 1000
+    controller_data: 192.168.10.10
+    source_names:
+      HDMI1: DVD Player
+      HDMI2: Xbox
+      VGA: null
 ```
 
 ## Available codes for TV devices:
