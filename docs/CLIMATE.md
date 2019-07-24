@@ -119,6 +119,7 @@ Below are the code files created by the people in the community. Before you star
 | ------------- | -------------------------- | ------------- |
 [1120](../codes/climate/1120.json)|MSZ-GL25VGD<br>MSZ-GL35VGD<br>MSZ-GL42VGD<br>MSZ-GL50VG<br>MSZ-GL60VGD<br>MSZ-GL71VGD<br>MSZ-GL80VGD|Broadlink
 [1121](../codes/climate/1121.json)|MSZ-GA35VA|Broadlink
+[1122](../codes/climate/1122.json)|MSZ-AP50VGKD|Broadlink
 
 #### Actron
 | Code | Supported Models | Controller |
