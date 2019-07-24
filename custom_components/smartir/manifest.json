@@ -7,8 +7,8 @@
   "requirements": [],
   "homeassistant": "0.96.0b1",
   "updater": {
-    "version": "1.6.2",
-    "releaseNotes": "* Add support for Fujitsu AR-JE5 remote control * Add support for Hualing KFR-45GW/JNV, KFR-45G/JNV AC units * Add support for Daitsu DS-9KIDT AC unit * Add support for Riello WSI XN, RAR-3U4 AC units",
+    "version": "1.7.0",
+    "releaseNotes": "-- Add config option to override source names in media_player platform<br> -- Add support for Simbio AC unit<br> -- Add support for Mitsubishi MSZ-AP50VGKD unit",
     "files": [
       "__init__.py",
       "climate.py",
