@@ -11,6 +11,7 @@ Find your device's brand code [here](MEDIA_PLAYER.md#available-codes-for-tv-devi
 **device_code** (Required): ...... (Accepts only positive numbers)<br />
 **controller_data** (Required): The data required for the controller to function. Enter the IP address of the Broadlink device **(must be an already configured device)**, or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands.<br />
 **power_sensor** (Optional): *entity_id* for a sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor. (Accepts only on/off states)<br />
+**source_names** (Optional): Override the names of sources as displayed in HomeAssistant (see below)<br />
 
 ## Example (using broadlink controller):
 ```yaml
@@ -61,6 +62,22 @@ media_player:
     power_sensor: binary_sensor.tv_power
 ```
 
+### Overriding Source Names
+Source names in device files are usually set to the name that the media player uses. These often aren't very descriptive, so you can override these names in the configuration file. You can also remove a source by setting its name to `null`
+
+```yaml
+media_player:
+  - platform: smartir
+    name: Living room TV
+    unique_id: living_room_tv
+    device_code: 1000
+    controller_data: 192.168.10.10
+    source_names:
+      HDMI1: DVD Player
+      HDMI2: Xbox
+      VGA: null
+```
+
 ## Available codes for TV devices:
 Below are the code files created by the people in the community. Before you start creating your own code file, try if one of them works for your device. **Please open an issue if your device is working and not included in the supported models.**
 
@@ -93,3 +110,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1100](../codes/media_player/1100.json)|42C3530D|Broadlink
+
+#### Yamaha
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1120](../codes/media_player/1120.json)|Unknown|Broadlink
