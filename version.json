@@ -1,7 +1,7 @@
 {            
-    "version": "1.7.0",
-    "minHAVersion": "0.96.0b1",
-    "releaseNotes": "A new version (1.7.0) is available that is compatible with your system. Call the ``smartir.update_component`` service to update the component.",
+    "version": "1.7.1",
+    "minHAVersion": "0.96.0",
+    "releaseNotes": "A new version (1.7.1) is available that is compatible with your system. Call the ``smartir.update_component`` service to update the component.",
     "files": [
         "__init__.py",
         "climate.py",
