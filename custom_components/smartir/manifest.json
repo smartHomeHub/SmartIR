@@ -5,10 +5,10 @@
   "dependencies": [],
   "codeowners": ["@smartHomeHub"],
   "requirements": [],
-  "homeassistant": "0.96.0b1",
+  "homeassistant": "0.96.0",
   "updater": {
-    "version": "1.7.0",
-    "releaseNotes": "-- Add config option to override source names in media_player platform<br> -- Add support for Simbio AC unit<br> -- Add support for Mitsubishi MSZ-AP50VGKD unit",
+    "version": "1.7.1",
+    "releaseNotes": "-- Add support for Midea KFR-35G/DY-IA(R3)<br> -- Add support for GREE YB0FB2 (Remote) (Xiaomi Controller)<br> -- Fix errors in Kelvinator KSV25HRG (1740)<br> -- Add support for new Midea AC unit (1382)<br> -- Extended commands for Tosot AC unit (1200)",
     "files": [
       "__init__.py",
       "climate.py",
