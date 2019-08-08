@@ -323,3 +323,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1860](../codes/climate/1860.json)|Unknown|Broadlink
+
+#### Saunier Duval
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1880](../codes/climate/1880.json)|Unknown|Broadlink
