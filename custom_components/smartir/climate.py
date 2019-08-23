@@ -255,6 +255,7 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
     def device_state_attributes(self) -> dict:
         """Platform specific attributes."""
         return {
+            'hvac_mode': self._hvac_mode,
             'last_on_operation': self._last_on_operation,
             'device_code': self._device_code,
             'manufacturer': self._manufacturer,
