@@ -261,6 +261,7 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1620](../codes/climate/1620.json)|Unknown|Broadlink
+[1621](../codes/climate/1621.json)|Super Legend 40|Broadlink
 
 #### Fujiko
 | Code | Supported Models | Controller |
