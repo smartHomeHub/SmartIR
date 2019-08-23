@@ -101,6 +101,7 @@ Below are the code files created by the people in the community. Before you star
 [1061](../codes/climate/1061.json)|Unknown model|Broadlink
 [1062](../codes/climate/1062.json)|LG InverterV P12RK|Broadlink
 [1063](../codes/climate/1063.json)|LG Inverter P12EP1 (AKB74955603 Remote)|Broadlink
+[1064](../codes/climate/1064.json)|Unknown model|Broadlink
 
 #### Hitachi
 | Code | Supported Models | Controller |
