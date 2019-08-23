@@ -3,7 +3,9 @@
   "supportedModels": [
     "CS-CE7HKEW",
     "CS-CE9HKEW",
-    "CS-CE12HKEW"
+    "CS-CE12HKEW",
+    "CS-PC24MKF",
+    "CS-C24PKF"
   ],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",

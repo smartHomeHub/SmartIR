@@ -83,7 +83,7 @@ Below are the code files created by the people in the community. Before you star
 #### Panasonic
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1020](../codes/climate/1020.json)|CS-CE7HKEW<br>CS-CE9HKEW<br>CS-CE12HKEW<br>CS-PC24MKF|Broadlink
+[1020](../codes/climate/1020.json)|CS-CE7HKEW<br>CS-CE9HKEW<br>CS-CE12HKEW<br>CS-PC24MKF<br>CS-C24PKF|Broadlink
 [1021](../codes/climate/1021.json)|CS-RE9GKE<br>CS-RE12GKE|Broadlink
 [1022](../codes/climate/1022.json)|CS-Z25TK|Broadlink
 [1023](../codes/climate/1023.json)|CS-HE9JKE<br>CS-HE12JKE|Broadlink
