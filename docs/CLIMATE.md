@@ -335,3 +335,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1900](../codes/climate/1900.json)|TAC-12CHSD/XA21I|Broadlink
+
+#### Aokesi
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1920](../codes/climate/1920.json)|Unknown|Broadlink
