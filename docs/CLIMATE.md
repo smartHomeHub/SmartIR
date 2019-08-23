@@ -346,3 +346,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1940](../codes/climate/1940.json)|Unknown|Broadlink
+
+#### AUX
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1960](../codes/climate/1960.json)|Unknown|Broadlink
