@@ -330,3 +330,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1880](../codes/climate/1880.json)|Unknown|Broadlink
+
+#### TCL
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1900](../codes/climate/1900.json)|TAC-12CHSD/XA21I|Broadlink
