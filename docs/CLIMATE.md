@@ -352,3 +352,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1960](../codes/climate/1960.json)|Unknown|Broadlink
+
+#### Fuji
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1980](../codes/climate/1980.json)|Unknown|Broadlink
