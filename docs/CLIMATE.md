@@ -364,3 +364,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [2000](../codes/climate/2000.json)|ASO-12IL<br>ASI-12IL|Broadlink
+
+#### Ariston
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[2020](../codes/climate/2020.json)|A-IFWHxx-IGX|Broadlink
