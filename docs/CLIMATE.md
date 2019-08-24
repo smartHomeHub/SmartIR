@@ -359,3 +359,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1980](../codes/climate/1980.json)|Unknown|Broadlink
+
+#### Aeronik
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[2000](../codes/climate/2000.json)|ASO-12IL<br>ASI-12IL|Broadlink
