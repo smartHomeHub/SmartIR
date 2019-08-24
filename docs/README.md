@@ -42,7 +42,7 @@ smartir:
 ## **Update the component**
 The component will check for updates each time HA is restarted. When there is a new version, a Persistent Notification will appear.
 Use the services `smartir.check_updates` to manually check for updates and `smartir.update_component` to start the automatic update.
-If you would like to get update notifications from the rc branch, configure SmartIR as follows:
+If you would like to get update notifications from the rc branch (Release Candidate), configure SmartIR as follows:
 ```yaml
 smartir:
   update_branch: rc
