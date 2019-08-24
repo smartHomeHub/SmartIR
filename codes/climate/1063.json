@@ -9,7 +9,7 @@
   "maxTemperature": 30.0,
   "precision": 1.0,
   "operationModes": [
-    "auto",
+    "heat_cool",
     "cool",
     "heat",
     "dry",
@@ -25,7 +25,7 @@
   ],
   "commands": {
     "off": "JgBAAGcAAUYRNBASDxMPEw81EBEQEw8TDzUPNRASEBIPEhASEBIQEhASEBIPExASEBIQNBASDzUQERATEBIQNBEADQUAAAAAAAAAAA==",
-    "auto": {
+    "heat_cool": {
       "auto": {
         "18": "JgBAAGsAAUMRNRASEBIQEhA1DxMPEw8TEBIQEhASEBIQEw8SEDUPNBATDxIQNQ81EBIQNQ8SEDUQNRASEDQQNBAADQUAAAAAAAAAAA==",
         "19": "JgBAAGsAAUQQNBESEBIQEhA0EBIQERATEBIQEhASEBIQEhASEDQQNBESEDQSEBATEBIQNBASEDQQNBAzERIQEhAADQUAAAAAAAAAAA==",

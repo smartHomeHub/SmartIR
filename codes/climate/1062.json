@@ -12,7 +12,7 @@
         "cool",
         "heat",
         "dry",
-        "auto"
+        "heat_cool"
     ],
     "fanModes": [
         "auto",
@@ -208,7 +208,7 @@
                 "30": "JgBAAAABIosQNRATDhMQEhA0ERIPExATDxMQEw8SEREQEhATDxIQNBA1EREREg42DxIQNQ8UDxIQNBA1DzYSDxIADQUAAAAAAAAAAA=="
             }
         },
-        "auto": {
+        "heat_cool": {
             "auto": {
                 "18": "JgBAAAABIokRNBATDxIREhA0EBIQEhASERIQEhATEBIQEhATEDQQNBASEBIQNBA0EREQNRATDzUPNRASDzUQNBEADQUAAAAAAAAAAA==",
                 "19": "JgBAAAABI4oRMxETEREQEhA0EBIQEhATEBIRERASEBIQEw8TDzQRNBATEjMRERASEBIQNBATEDQRNBA0ExAQEw8ADQUAAAAAAAAAAA==",
