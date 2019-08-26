@@ -110,6 +110,7 @@ Below are the code files created by the people in the community. Before you star
 | ------------- | -------------------------- | ------------- |
 [1080](../codes/climate/1080.json)|Unknown model|Broadlink
 [1081](../codes/climate/1081.json)|RAC-10EH1<br>RAC-18EH1<br>RAS-10EH1<br>RAS-10EH3<br>RAS-18EH1|Broadlink
+[1082](../codes/climate/1082.json)|RAS-25YHA<br>RAS-35YHA|Broadlink
 
 #### Daikin
 | Code | Supported Models | Controller | 
