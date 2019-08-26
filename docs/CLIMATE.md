@@ -372,3 +372,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [2020](../codes/climate/2020.json)|A-IFWHxx-IGX|Broadlink
+
+#### Pioneer
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[2040](../codes/climate/2040.json)|WYS018GMFI17RL<br>WYS009GMFI17RL|Broadlink
