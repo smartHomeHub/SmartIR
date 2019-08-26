@@ -103,7 +103,6 @@ Below are the code files created by the people in the community. Before you star
 [1062](../codes/climate/1062.json)|LG InverterV P12RK|Broadlink
 [1063](../codes/climate/1063.json)|LG Inverter P12EP1 (AKB74955603 Remote)|Broadlink
 [1064](../codes/climate/1064.json)|Unknown model|Broadlink
-[1065](../codes/climate/1065.json)|RAS-32CNH2|Broadlink
 
 #### Hitachi
 | Code | Supported Models | Controller |
@@ -111,6 +110,7 @@ Below are the code files created by the people in the community. Before you star
 [1080](../codes/climate/1080.json)|Unknown model|Broadlink
 [1081](../codes/climate/1081.json)|RAC-10EH1<br>RAC-18EH1<br>RAS-10EH1<br>RAS-10EH3<br>RAS-18EH1|Broadlink
 [1082](../codes/climate/1082.json)|RAS-25YHA<br>RAS-35YHA|Broadlink
+[1083](../codes/climate/1083.json)|RAS-32CNH2|Broadlink
 
 #### Daikin
 | Code | Supported Models | Controller | 
