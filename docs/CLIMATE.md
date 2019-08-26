@@ -94,6 +94,7 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1040](../codes/climate/1040.json)|Unknown model|Broadlink
+[1041](../codes/climate/1041.json)|AE1PH09IWF<br>AE0PH09IWO<br>AE1PH12IWF<br>AE0PH12IWO<br>AE4PH18IWF<br>AE4PH18IWF<br>AE5PH18IWO|Broadlink
 
 #### LG
 | Code | Supported Models | Controller |
