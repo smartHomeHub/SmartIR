@@ -7,8 +7,8 @@
   "requirements": [],
   "homeassistant": "0.96.0",
   "updater": {
-    "version": "1.7.2",
-    "releaseNotes": "-- Add support for new AC models<br> -- Add support for new HACS manifest",
+    "version": "1.7.3",
+    "releaseNotes": "-- Added support for new AC models<br> -- Added support for device_class property on media_player devices",
     "files": [
       "__init__.py",
       "climate.py",
