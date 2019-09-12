@@ -98,6 +98,9 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
         self._humidity_sensor = config.get(CONF_HUMIDITY_SENSOR)
         self._power_sensor = config.get(CONF_POWER_SENSOR)
 
+        self._controller_type = None
+        if 'controllerType' in device_data:
+            self._controller_type = device_data['controllerType']
         self._manufacturer = device_data['manufacturer']
         self._supported_models = device_data['supportedModels']
         self._supported_controller = device_data['supportedController']
@@ -267,7 +270,11 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
         """Set new target temperatures."""
         hvac_mode = kwargs.get(ATTR_HVAC_MODE)  
         temperature = kwargs.get(ATTR_TEMPERATURE)
-          
+
+        if self._controller_type == "Stateless" \
+           and self.hvac_mode == HVAC_MODE_OFF:
+            return
+
         if temperature is None:
             return
             
@@ -275,6 +282,7 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
             _LOGGER.warning('The temperature value is out of min/max range') 
             return
 
+        current_temperature = self._target_temperature
         if self._precision == PRECISION_WHOLE:
             self._target_temperature = round(temperature)
         else:
@@ -284,27 +292,53 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
             await self.async_set_hvac_mode(hvac_mode)
             return
         
+        command, count = self.get_command(
+            "temperature", current_temperature, self._target_temperature)
         if not self._hvac_mode.lower() == HVAC_MODE_OFF:
-            await self.send_command()
+            if command is not None:
+                await self.send_command_stateless(command, count)
+            else:
+                await self.send_command()
 
         await self.async_update_ha_state()
 
     async def async_set_hvac_mode(self, hvac_mode):
         """Set operation mode."""
+        _LOGGER.info("hvac mode set")
+        if self._controller_type == "Stateless" \
+           and hvac_mode != HVAC_MODE_OFF \
+           and self._hvac_mode == HVAC_MODE_OFF \
+           and "on" in self._commands:
+            _LOGGER.info("send on")
+            await self.send_command_stateless(self._commands["on"])
+            self._hvac_mode = self._last_on_operation
+            _LOGGER.info("send on finish")
+
+        command, count = self.get_command(
+            "operation", self._hvac_mode, hvac_mode)
+
         self._hvac_mode = hvac_mode
         
         if not hvac_mode == HVAC_MODE_OFF:
             self._last_on_operation = hvac_mode
 
-        await self.send_command()
+        if command is not None:
+            await self.send_command_stateless(command, count)
+        else:
+            await self.send_command()
         await self.async_update_ha_state()
 
     async def async_set_fan_mode(self, fan_mode):
         """Set fan mode."""
+        command, count = self.get_command(
+            "fan", self._current_fan_mode, fan_mode)
         self._current_fan_mode = fan_mode
         
         if not self._hvac_mode.lower() == HVAC_MODE_OFF:
-            await self.send_command()      
+            if command is not None:
+                await self.send_command_stateless(command, count)
+            else:
+                await self.send_command()
         await self.async_update_ha_state()
 
     async def async_turn_off(self):
@@ -313,10 +347,55 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
         
     async def async_turn_on(self):
         """Turn on."""
+        _LOGGER.info("asyn turn on")
         if self._last_on_operation is not None:
             await self.async_set_hvac_mode(self._last_on_operation)
         else:
             await self.async_set_hvac_mode(self._operation_modes[1])
+
+    def get_command(self, mode=None, current=None, target=None) -> tuple:
+        _LOGGER.info("mode:%s, current:%s, target:%s, last_on:%s"
+                     % (mode, current, target, self._last_on_operation))
+        command = None
+        code = None
+        count = 1
+        if target != current \
+           and target != HVAC_MODE_OFF \
+           and self._controller_type == "Stateless" \
+           and mode is not None:
+            if mode == "temperature" and "warmer" in self._commands:
+                gap = target - current
+                code = "cooler" if gap < 0 else "warmer"
+                count = abs(int(gap/self._precision))
+            else:
+                modes_list = []
+                if mode == "operation" and "operation" in self._commands:
+                    modes_list = self._operation_modes
+                    if HVAC_MODE_OFF == modes_list[0]:
+                        modes_list = modes_list[1:]
+                    code = "operation"
+                if mode == "fan" and "fan" in self._commands:
+                    modes_list = self._fan_modes
+                    code = "fan"
+                if modes_list:
+                    current_idx = modes_list.index(current)
+                    target_idx = modes_list.index(target)
+                    gap = target_idx - current_idx
+                    count = gap + len(modes_list) if gap < 0 else gap
+        if code is not None:
+            command = self._commands[code]
+        _LOGGER.info("code:%s, count:%d" % (code, count))
+        return (command, count)
+
+    async def send_command_stateless(self, command, count=1):
+        _LOGGER.info("stateless")
+        async with self._temp_lock:
+            for i in range(count):
+                _LOGGER.info("send command: %s", command)
+                try:
+                    await self._controller.send(command)
+                except Exception as e:
+                    _LOGGER.exception(e)
 
     async def send_command(self):
         async with self._temp_lock:
