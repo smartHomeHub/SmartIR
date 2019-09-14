@@ -180,8 +180,6 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
     @property
     def state(self):
         """Return the current state."""
-        if self._on_by_remote:
-            return STATE_ON
         if self.hvac_mode != HVAC_MODE_OFF:
             return self.hvac_mode
         return HVAC_MODE_OFF
@@ -255,6 +253,7 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
     def device_state_attributes(self) -> dict:
         """Platform specific attributes."""
         return {
+            'hvac_mode': self._hvac_mode,
             'last_on_operation': self._last_on_operation,
             'device_code': self._device_code,
             'manufacturer': self._manufacturer,
@@ -356,8 +355,9 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
         if new_state is None:
             return
 
-        if new_state.state == STATE_ON and self._hvac_mode == HVAC_MODE_OFF:
+        if new_state.state != self._hvac_mode:
             self._on_by_remote = True
+            self._hvac_mode = new_state.state.lower()
             await self.async_update_ha_state()
 
         if new_state.state == HVAC_MODE_OFF:
@@ -365,7 +365,6 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
             if self._hvac_mode != HVAC_MODE_OFF:
                 self._hvac_mode = HVAC_MODE_OFF
             await self.async_update_ha_state()
-
     @callback
     def _async_update_temp(self, state):
         """Update thermostat with latest state from temperature sensor."""
