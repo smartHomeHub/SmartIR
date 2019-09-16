@@ -377,3 +377,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [2040](../codes/climate/2040.json)|WYS018GMFI17RL<br>WYS009GMFI17RL|Broadlink
+
+#### Dimplex
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[2060](../codes/climate/2060.json)|GDPAC12RC|Broadlink
