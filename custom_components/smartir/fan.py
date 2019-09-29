@@ -221,6 +221,14 @@ class SmartIRFan(FanEntity, RestoreEntity):
         if speed is None:
             speed = self._last_on_speed or self._speed_list[1]
 
+        if self.state == SPEED_OFF and 'on' in self._commands:
+            async with self._temp_lock:
+                command = self._commands['on']
+                try:
+                    await self._controller.send(command)
+                except Exception as e:
+                    _LOGGER.exception(e)
+
         await self.async_set_speed(speed)
 
     async def async_turn_off(self):
