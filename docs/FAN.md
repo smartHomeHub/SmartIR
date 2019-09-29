@@ -87,3 +87,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1080](../codes/fan/1080.json)|Unknown|Broadlink
+
+#### KDK
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1100](../codes/fan/1100.json)|T60AW,U60FW,U48FP,W56WV|Broadlink
