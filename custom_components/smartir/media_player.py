@@ -30,6 +30,7 @@ CONF_CONTROLLER_DATA = "controller_data"
 CONF_POWER_SENSOR = 'power_sensor'
 CONF_SOURCE_NAMES = 'source_names'
 CONF_DEVICE_CLASS = 'device_class'
+CONF_VOLUME_STEPS_DEFAULT='volume_steps_default'
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_UNIQUE_ID): cv.string,
@@ -37,6 +38,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_DEVICE_CODE): cv.positive_int,
     vol.Required(CONF_CONTROLLER_DATA): cv.string,
     vol.Optional(CONF_POWER_SENSOR): cv.entity_id,
+    vol.Optional(CONF_VOLUME_STEPS_DEFAULT): cv.positive_int,
     vol.Optional(CONF_SOURCE_NAMES): dict,
     vol.Optional(CONF_DEVICE_CLASS, default=DEFAULT_DEVICE_CLASS): cv.string
 })
@@ -89,6 +91,7 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
         self._device_code = config.get(CONF_DEVICE_CODE)
         self._controller_data = config.get(CONF_CONTROLLER_DATA)
         self._power_sensor = config.get(CONF_POWER_SENSOR)
+        self._volume_steps_default = config.get(CONF_VOLUME_STEPS_DEFAULT)
 
         self._manufacturer = device_data['manufacturer']
         self._supported_models = device_data['supportedModels']
@@ -214,6 +217,8 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
             'supported_models': self._supported_models,
             'supported_controller': self._supported_controller,
             'commands_encoding': self._commands_encoding,
+            'volume_steps_default':self._volume_steps_default
+
         }
 
     async def async_turn_off(self):
