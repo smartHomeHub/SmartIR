@@ -265,17 +265,17 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
         await self.async_update_ha_state()
         
    async def async_media_play(self):
-        """Send previous track command."""
+        """Send play command."""
         await self.send_command(self._commands['play'])
         await self.async_update_ha_state()
 
     async def async_media_pause(self):
-        """Send previous track command."""
+        """Send pause command."""
         await self.send_command(self._commands['pause'])
         await self.async_update_ha_state()
     
     async def async_media_stop(self):
-        """Send previous track command."""
+        """Send stop command."""
         await self.send_command(self._commands['stop'])
         await self.async_update_ha_state()
         
@@ -316,8 +316,8 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
                     await self._controller.send(command)
                 except Exception as e:
                     _LOGGER.exception(e)
-            if len(commands) > 1:
-                await asyncio.sleep(0.5, self.hass.loop) 
+                if len(commands) > 1:
+                    await asyncio.sleep(0.5, self.hass.loop) 
   
     async def async_update(self):
         if self._power_sensor is None:
