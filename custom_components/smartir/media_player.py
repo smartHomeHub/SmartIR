@@ -13,7 +13,7 @@ from homeassistant.components.media_player.const import (
     SUPPORT_VOLUME_MUTE, SUPPORT_SELECT_SOURCE, MEDIA_TYPE_CHANNEL,
     SUPPORT_PLAY, SUPPORT_PLAY_MEDIA, SUPPORT_PAUSE, SUPPORT_STOP)
 from homeassistant.const import (
-    CONF_NAME, STATE_OFF, STATE_ON)
+    CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN)
 from homeassistant.core import callback
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
