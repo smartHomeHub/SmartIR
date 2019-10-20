@@ -12,7 +12,7 @@ from homeassistant.components.climate.const import (
     SUPPORT_TARGET_TEMPERATURE, SUPPORT_FAN_MODE,
     HVAC_MODES, ATTR_HVAC_MODE)
 from homeassistant.const import (
-    CONF_NAME, STATE_ON, STATE_UNKNOWN, ATTR_TEMPERATURE,
+    CONF_NAME, STATE_ON, STATE_OFF, STATE_UNKNOWN, ATTR_TEMPERATURE,
     PRECISION_TENTHS, PRECISION_HALVES, PRECISION_WHOLE)
 from homeassistant.core import callback
 from homeassistant.helpers.event import async_track_state_change
@@ -124,7 +124,6 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
         self._support_flags = SUPPORT_FLAGS
 
         self._temp_lock = asyncio.Lock()
-        self._on_by_remote = False
 
         #Init the IR/RF controller
         self._controller = Controller(
@@ -180,11 +179,7 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
     @property
     def state(self):
         """Return the current state."""
-        if self._on_by_remote:
-            return STATE_ON
-        if self.hvac_mode != HVAC_MODE_OFF:
-            return self.hvac_mode
-        return HVAC_MODE_OFF
+        return self.hvac_mode
 
     @property
     def temperature_unit(self):
@@ -320,7 +315,6 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
 
     async def send_command(self):
         async with self._temp_lock:
-            self._on_by_remote = False
             operation_mode = self._hvac_mode
             fan_mode = self._current_fan_mode
             target_temperature = '{0:g}'.format(self._target_temperature)
@@ -357,13 +351,14 @@ class SmartIRClimate(ClimateDevice, RestoreEntity):
             return
 
         if new_state.state == STATE_ON and self._hvac_mode == HVAC_MODE_OFF:
-            self._on_by_remote = True
+            if self._last_on_operation is not None:
+                self._hvac_mode = self._last_on_operation
+            else:
+                self._hvac_mode = self._operation_modes[1]
             await self.async_update_ha_state()
 
-        if new_state.state == HVAC_MODE_OFF:
-            self._on_by_remote = False
-            if self._hvac_mode != HVAC_MODE_OFF:
-                self._hvac_mode = HVAC_MODE_OFF
+        if new_state.state == STATE_OFF:
+            self._hvac_mode = HVAC_MODE_OFF
             await self.async_update_ha_state()
 
     @callback
