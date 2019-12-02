@@ -147,6 +147,7 @@ Below are the code files created by the people in the community. Before you star
 [1180](../codes/climate/1180.json)|Unknown model|Broadlink
 [1181](../codes/climate/1181.json)|Unknown model|Broadlink
 [3180](../codes/climate/3180.json)|YB0FB2 (Remote)|Xiaomi
+[5180](../codes/climate/5180.json)|Unknown model|MQTT (Tested with Geeklink and Tasmota v6.7.1.)
 
 #### Tosot
 | Code | Supported Models | Controller |
