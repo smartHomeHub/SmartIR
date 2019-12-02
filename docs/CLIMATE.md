@@ -205,7 +205,7 @@ Below are the code files created by the people in the community. Before you star
 [1381](../codes/climate/1381.json)|Unknown model|Broadlink
 [1382](../codes/climate/1382.json)|Unknown model|Broadlink
 [1383](../codes/climate/1383.json)|KFR-35G|Broadlink
-[3380](../codes/climate/3380.json)|MCD-24HRN1-Q1|Xiaomi
+[3380](../codes/climate/3380.json)|MCD-24HRN1-Q1<br>RAS-10N3KVR-E|Xiaomi
 
 #### Samsung
 | Code | Supported Models | Controller |
