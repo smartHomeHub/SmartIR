@@ -118,10 +118,10 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller | 
 | ------------- | -------------------------- | ------------- |
 [1100](../codes/climate/1100.json)|Unknown model|Broadlink
-[3100](../codes/climate/3100.json)|Unknown model|Xiaomi
 [1101](../codes/climate/1101.json)|FTXS20LVMA<br>FTXS25LVMA<br>FTXS35LVMA<br>FTXS46LVMA<br>FTXS50LVMA<br>FTXS60LVMA<br>FTXS71LVMA<br>FTXS85LVMA<br>FTXS95LVMA|Broadlink
 [1102](../codes/climate/1102.json)|FTV20AXV14|Broadlink
 [1103](../codes/climate/1103.json)|Unknown model|Broadlink
+[3100](../codes/climate/3100.json)|Unknown model|Xiaomi
 
 #### Mitsubishi Electric
 | Code | Supported Models | Controller |
