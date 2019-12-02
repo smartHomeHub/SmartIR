@@ -9,7 +9,7 @@
   "maxTemperature": 30.0,
   "precision": 1.0,
   "operationModes": [
-    "auto",
+    "heat_cool",
     "heat",
     "cool",
     "dry",
@@ -24,7 +24,7 @@
   ],
   "commands": {
     "off": "IRhvac {\"Vendor\":\"GREE\",\"Model\":1,\"Power\":\"off\",\"Mode\":\"off\",\"Celsius\":\"on\",\"Temp\":20,\"FanSpeed\":\"auto\",\"SwingV\":\"auto\",\"Turbo\":\"off\",\"Light\":\"off\"}",
-    "auto": {
+    "heat_cool": {
       "auto": {
         "17": "IRhvac {\"Vendor\":\"GREE\",\"Model\":1,\"Power\":\"on\",\"Mode\":\"auto\",\"Celsius\":\"on\",\"Temp\":17,\"FanSpeed\":\"auto\",\"SwingV\":\"auto\",\"Turbo\":\"off\",\"Light\":\"on\"}",
         "18": "IRhvac {\"Vendor\":\"GREE\",\"Model\":1,\"Power\":\"on\",\"Mode\":\"auto\",\"Celsius\":\"on\",\"Temp\":18,\"FanSpeed\":\"auto\",\"SwingV\":\"auto\",\"Turbo\":\"off\",\"Light\":\"on\"}",
