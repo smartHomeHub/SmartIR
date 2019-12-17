@@ -239,6 +239,7 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1500](../codes/climate/1500.json)|Unknown|Broadlink
+[1501](../codes/climate/1501.json)|SAP-KR124EHEA|Broadlink
 
 #### Hisense
 | Code | Supported Models | Controller |
