@@ -389,3 +389,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [2060](../codes/climate/2060.json)|GDPAC12RC|Broadlink
+
+#### Sendo 
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[2080](../codes/climate/2080.json)|SND-18IK|Broadlink
