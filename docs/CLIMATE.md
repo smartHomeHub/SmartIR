@@ -394,3 +394,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [2080](../codes/climate/2080.json)|SND-18IK|Broadlink
+
+#### Mirage 
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[2100](../codes/climate/2100.json)|Magnum Inverter 19|Broadlink
