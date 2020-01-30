@@ -400,3 +400,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [2100](../codes/climate/2100.json)|Magnum Inverter 19|Broadlink
+
+#### Technibel 
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[2120](../codes/climate/2120.json)|MPAF13A0R5IAA|Broadlink
