@@ -300,6 +300,7 @@ Below are the code files created by the people in the community. Before you star
 | ------------- | -------------------------- | ------------- |
 [1700](../codes/climate/1700.json)|EACS/I-HAT/N3|Broadlink
 [1701](../codes/climate/1701.json)|EACS-HA|Broadlink
+[1702](../codes/climate/1702.json)|QI/QE09F<br>QI/QE09R<br>QI/QE12F<br>QI/QE12R<br>QI/QE18F<br>QI/QE18R<br>QI/QE22F<br>QI/QE22R<br>XI/XE09F<br>XI/XE09R<br>XI/XE12F<br>XI/XE12R<br>XI/XE18F<br>XI/XE18R<br>XI/XE22F<br>XI/XE22R|Broadlink
 
 #### Erisson
 | Code | Supported Models | Controller |
