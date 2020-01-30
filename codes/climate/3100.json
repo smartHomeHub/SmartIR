@@ -1,7 +1,10 @@
 {
   "manufacturer": "Daikin",
   "supportedModels": [
-    "Unknown"
+    "FTXS25CVMB",
+    "FTXS35CVMB",
+    "FTXS60BVMB",
+    "FVXS25BVMB"
   ],
   "supportedController": "Xiaomi",
   "commandsEncoding": "Raw",
