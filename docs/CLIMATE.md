@@ -121,6 +121,7 @@ Below are the code files created by the people in the community. Before you star
 [1101](../codes/climate/1101.json)|FTXS20LVMA<br>FTXS25LVMA<br>FTXS35LVMA<br>FTXS46LVMA<br>FTXS50LVMA<br>FTXS60LVMA<br>FTXS71LVMA<br>FTXS85LVMA<br>FTXS95LVMA<br>FTXM35M<br>FVXM35F|Broadlink
 [1102](../codes/climate/1102.json)|FTV20AXV14|Broadlink
 [1103](../codes/climate/1103.json)|Unknown model|Broadlink
+[1027](../codes/climate/1027.json)|TF25DVM|Broadlink
 [3100](../codes/climate/3100.json)|FTXS25CVMB<br>FTXS35CVMB<br>FTXS60BVMB<br>FVXS25BVMB|Xiaomi
 
 #### Mitsubishi Electric
