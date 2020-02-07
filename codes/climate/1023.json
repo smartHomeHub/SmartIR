@@ -2,7 +2,8 @@
   "manufacturer": "Panasonic",
   "supportedModels": [
     "CS-HE9JKE",
-    "CS-HE12JKE"
+    "CS-HE12JKE",
+    "CS-HE9LKE"
   ],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
