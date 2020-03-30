@@ -421,3 +421,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [2160](../codes/climate/2160.json)|Unknown|Broadlink
+
+#### Hokkaido 
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[2180](../codes/climate/2180.json)|LA09-DUAL H1|Broadlink
