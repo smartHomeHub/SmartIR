@@ -116,3 +116,8 @@ Below are the code files created by the people in the community. Before you star
 | ------------- | -------------------------- | ------------- |
 [1120](../codes/media_player/1120.json)|Unknown|Broadlink
 [1121](../codes/media_player/1121.json)|Yamaha RX-V375 and others (RAV463/ZA113500 remote)|Broadlink
+
+#### RME
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1140](../codes/media_player/1140.json)|ADI-2 DAC FS|Broadlink
