@@ -365,6 +365,7 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1940](../codes/climate/1940.json)|Unknown|Broadlink
+[1941](../codes/climate/1941.json)|iGo|Broadlink
 
 #### AUX
 | Code | Supported Models | Controller |
