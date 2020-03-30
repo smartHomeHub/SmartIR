@@ -416,3 +416,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [2140](../codes/climate/2140.json)|Artify|Broadlink
+
+#### Lennox 
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[2160](../codes/climate/2160.json)|Unknown|Broadlink
