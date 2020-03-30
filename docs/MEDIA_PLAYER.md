@@ -121,3 +121,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1140](../codes/media_player/1140.json)|ADI-2 DAC FS|Broadlink
+
+#### Logitech
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1160](../codes/media_player/1160.json)|Z906|Broadlink
