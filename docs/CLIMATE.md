@@ -252,6 +252,7 @@ Below are the code files created by the people in the community. Before you star
 | ------------- | -------------------------- | ------------- |
 [1520](../codes/climate/1520.json)|Unknown|Broadlink
 [1521](../codes/climate/1521.json)|Unknown|Broadlink
+[1522](../codes/climate/1522.json)|DG11R2-01 (Remote)|Broadlink
 
 #### Whirlpool
 | Code | Supported Models | Controller |
