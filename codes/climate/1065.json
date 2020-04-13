@@ -1,0 +1,212 @@
+{
+  "manufacturer": "LG",
+  "supportedModels": [
+    "A18AHM",
+    "S18AN"
+  ],
+  "supportedController": "MQTT",
+  "commandsEncoding": "Raw",
+  "minTemperature": 18.0,
+  "maxTemperature": 30.0,
+  "precision": 1.0,
+  "operationModes": [
+    "heat",
+    "cool",
+    "dry"
+  ],
+  "fanModes": [
+    "low",
+    "mid",
+    "high",
+    "auto"
+  ],
+  "commands": {
+    "off": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x88C0051\",\"DataLSB\":\"0x1031008A\",\"Repeat\":0}",
+    "heat": {
+      "low": {
+        "18": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804307\",\"DataLSB\":\"0x1001C2E0\",\"Repeat\":0}",
+        "19": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804408\",\"DataLSB\":\"0x10012210\",\"Repeat\":0}",
+        "20": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804509\",\"DataLSB\":\"0x1001A290\",\"Repeat\":0}",
+        "21": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880460A\",\"DataLSB\":\"0x10016250\",\"Repeat\":0}",
+        "22": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880470B\",\"DataLSB\":\"0x1001E2D0\",\"Repeat\":0}",
+        "23": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880480C\",\"DataLSB\":\"0x10011230\",\"Repeat\":0}",
+        "24": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880490D\",\"DataLSB\":\"0x100192B0\",\"Repeat\":0}",
+        "25": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804A0E\",\"DataLSB\":\"0x10015270\",\"Repeat\":0}",
+        "26": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804B0F\",\"DataLSB\":\"0x1001D2F0\",\"Repeat\":0}",
+        "27": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804C00\",\"DataLSB\":\"0x10013200\",\"Repeat\":0}",
+        "28": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804D01\",\"DataLSB\":\"0x1001B280\",\"Repeat\":0}",
+        "29": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804E02\",\"DataLSB\":\"0x10017240\",\"Repeat\":0}",
+        "30": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804F03\",\"DataLSB\":\"0x1001F2C0\",\"Repeat\":0}"
+      },
+      "mid": {
+        "18": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804329\",\"DataLSB\":\"0x1001C294\",\"Repeat\":0}",
+        "19": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880442A\",\"DataLSB\":\"0x10012254\",\"Repeat\":0}",
+        "20": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880452B\",\"DataLSB\":\"0x1001A2D4\",\"Repeat\":0}",
+        "21": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880462C\",\"DataLSB\":\"0x10016234\",\"Repeat\":0}",
+        "22": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880472D\",\"DataLSB\":\"0x1001E2B4\",\"Repeat\":0}",
+        "23": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880482E\",\"DataLSB\":\"0x10011274\",\"Repeat\":0}",
+        "24": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880492F\",\"DataLSB\":\"0x100192F4\",\"Repeat\":0}",
+        "25": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804A20\",\"DataLSB\":\"0x10015204\",\"Repeat\":0}",
+        "26": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804B21\",\"DataLSB\":\"0x1001D284\",\"Repeat\":0}",
+        "27": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804C22\",\"DataLSB\":\"0x10013244\",\"Repeat\":0}",
+        "28": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804D23\",\"DataLSB\":\"0x1001B2C4\",\"Repeat\":0}",
+        "29": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804E24\",\"DataLSB\":\"0x10017224\",\"Repeat\":0}",
+        "30": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804F25\",\"DataLSB\":\"0x1001F2A4\",\"Repeat\":0}"
+      },
+      "high": {
+        "18": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880434B\",\"DataLSB\":\"0x1001C2D2\",\"Repeat\":0}",
+        "19": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880444C\",\"DataLSB\":\"0x10012232\",\"Repeat\":0}",
+        "20": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880454D\",\"DataLSB\":\"0x1001A2B2\",\"Repeat\":0}",
+        "21": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880464E\",\"DataLSB\":\"0x10016272\",\"Repeat\":0}",
+        "22": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880474F\",\"DataLSB\":\"0x1001E2F2\",\"Repeat\":0}",
+        "23": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804840\",\"DataLSB\":\"0x10011202\",\"Repeat\":0}",
+        "24": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804941\",\"DataLSB\":\"0x10019282\",\"Repeat\":0}",
+        "25": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804A42\",\"DataLSB\":\"0x10015242\",\"Repeat\":0}",
+        "26": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804B43\",\"DataLSB\":\"0x1001D2C2\",\"Repeat\":0}",
+        "27": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804C44\",\"DataLSB\":\"0x10013222\",\"Repeat\":0}",
+        "28": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804D45\",\"DataLSB\":\"0x1001B2A2\",\"Repeat\":0}",
+        "29": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804E46\",\"DataLSB\":\"0x10017262\",\"Repeat\":0}",
+        "30": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804F47\",\"DataLSB\":\"0x1001F2E2\",\"Repeat\":0}"
+      },
+      "auto": {
+        "18": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880435C\",\"DataLSB\":\"0x1001C23A\",\"Repeat\":0}",
+        "19": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880445D\",\"DataLSB\":\"0x100122BA\",\"Repeat\":0}",
+        "20": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880455E\",\"DataLSB\":\"0x1001A27A\",\"Repeat\":0}",
+        "21": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880465F\",\"DataLSB\":\"0x100162FA\",\"Repeat\":0}",
+        "22": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804750\",\"DataLSB\":\"0x1001E20A\",\"Repeat\":0}",
+        "23": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804851\",\"DataLSB\":\"0x1001128A\",\"Repeat\":0}",
+        "24": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804952\",\"DataLSB\":\"0x1001924A\",\"Repeat\":0}",
+        "25": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804A53\",\"DataLSB\":\"0x100152CA\",\"Repeat\":0}",
+        "26": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804B54\",\"DataLSB\":\"0x1001D22A\",\"Repeat\":0}",
+        "27": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804C55\",\"DataLSB\":\"0x100132AA\",\"Repeat\":0}",
+        "28": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804D56\",\"DataLSB\":\"0x1001B26A\",\"Repeat\":0}",
+        "29": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804E57\",\"DataLSB\":\"0x100172EA\",\"Repeat\":0}",
+        "30": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8804F58\",\"DataLSB\":\"0x1001F21A\",\"Repeat\":0}"
+      }
+    },
+    "cool": {
+      "low": {
+        "18": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800303\",\"DataLSB\":\"0x1001C0C0\",\"Repeat\":0}",
+        "19": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800404\",\"DataLSB\":\"0x10012020\",\"Repeat\":0}",
+        "20": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800505\",\"DataLSB\":\"0x1001A0A0\",\"Repeat\":0}",
+        "21": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800606\",\"DataLSB\":\"0x10016060\",\"Repeat\":0}",
+        "22": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800707\",\"DataLSB\":\"0x1001E0E0\",\"Repeat\":0}",
+        "23": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800808\",\"DataLSB\":\"0x10011010\",\"Repeat\":0}",
+        "24": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800909\",\"DataLSB\":\"0x10019090\",\"Repeat\":0}",
+        "25": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800A0A\",\"DataLSB\":\"0x10015050\",\"Repeat\":0}",
+        "26": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800B0B\",\"DataLSB\":\"0x1001D0D0\",\"Repeat\":0}",
+        "27": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800C0C\",\"DataLSB\":\"0x10013030\",\"Repeat\":0}",
+        "28": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800D0D\",\"DataLSB\":\"0x1001B0B0\",\"Repeat\":0}",
+        "29": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800E0E\",\"DataLSB\":\"0x10017070\",\"Repeat\":0}",
+        "30": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800F0F\",\"DataLSB\":\"0x1001F0F0\",\"Repeat\":0}"
+      },
+      "mid": {
+        "18": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800325\",\"DataLSB\":\"0x1001C0A4\",\"Repeat\":0}",
+        "19": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800426\",\"DataLSB\":\"0x10012064\",\"Repeat\":0}",
+        "20": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800527\",\"DataLSB\":\"0x1001A0E4\",\"Repeat\":0}",
+        "21": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800628\",\"DataLSB\":\"0x10016014\",\"Repeat\":0}",
+        "22": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800729\",\"DataLSB\":\"0x1001E094\",\"Repeat\":0}",
+        "23": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880082A\",\"DataLSB\":\"0x10011054\",\"Repeat\":0}",
+        "24": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880092B\",\"DataLSB\":\"0x100190D4\",\"Repeat\":0}",
+        "25": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800A2C\",\"DataLSB\":\"0x10015034\",\"Repeat\":0}",
+        "26": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800B2D\",\"DataLSB\":\"0x1001D0B4\",\"Repeat\":0}",
+        "27": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800C2E\",\"DataLSB\":\"0x10013074\",\"Repeat\":0}",
+        "28": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800D2F\",\"DataLSB\":\"0x1001B0F4\",\"Repeat\":0}",
+        "29": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800E20\",\"DataLSB\":\"0x10017004\",\"Repeat\":0}",
+        "30": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800F21\",\"DataLSB\":\"0x1001F084\",\"Repeat\":0}"
+      },
+      "high": {
+        "18": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800347\",\"DataLSB\":\"0x1001C0E2\",\"Repeat\":0}",
+        "19": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800448\",\"DataLSB\":\"0x10012012\",\"Repeat\":0}",
+        "20": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800549\",\"DataLSB\":\"0x1001A092\",\"Repeat\":0}",
+        "21": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880064A\",\"DataLSB\":\"0x10016052\",\"Repeat\":0}",
+        "22": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880074B\",\"DataLSB\":\"0x1001E0D2\",\"Repeat\":0}",
+        "23": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880084C\",\"DataLSB\":\"0x10011032\",\"Repeat\":0}",
+        "24": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880094D\",\"DataLSB\":\"0x100190B2\",\"Repeat\":0}",
+        "25": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800A4E\",\"DataLSB\":\"0x10015072\",\"Repeat\":0}",
+        "26": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800B4F\",\"DataLSB\":\"0x1001D0F2\",\"Repeat\":0}",
+        "27": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800C40\",\"DataLSB\":\"0x10013002\",\"Repeat\":0}",
+        "28": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800D41\",\"DataLSB\":\"0x1001B082\",\"Repeat\":0}",
+        "29": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800E42\",\"DataLSB\":\"0x10017042\",\"Repeat\":0}",
+        "30": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800F43\",\"DataLSB\":\"0x1001F0C2\",\"Repeat\":0}"
+      },
+      "auto": {
+        "18": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800358\",\"DataLSB\":\"0x1001C01A\",\"Repeat\":0}",
+        "19": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800459\",\"DataLSB\":\"0x1001209A\",\"Repeat\":0}",
+        "20": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880055A\",\"DataLSB\":\"0x1001A05A\",\"Repeat\":0}",
+        "21": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880065B\",\"DataLSB\":\"0x100160DA\",\"Repeat\":0}",
+        "22": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880075C\",\"DataLSB\":\"0x1001E03A\",\"Repeat\":0}",
+        "23": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880085D\",\"DataLSB\":\"0x100110BA\",\"Repeat\":0}",
+        "24": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880095E\",\"DataLSB\":\"0x1001907A\",\"Repeat\":0}",
+        "25": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800A5F\",\"DataLSB\":\"0x100150FA\",\"Repeat\":0}",
+        "26": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800B50\",\"DataLSB\":\"0x1001D00A\",\"Repeat\":0}",
+        "27": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800C51\",\"DataLSB\":\"0x1001308A\",\"Repeat\":0}",
+        "28": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800D52\",\"DataLSB\":\"0x1001B04A\",\"Repeat\":0}",
+        "29": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800E53\",\"DataLSB\":\"0x100170CA\",\"Repeat\":0}",
+        "30": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8800F54\",\"DataLSB\":\"0x1001F02A\",\"Repeat\":0}"
+      }
+    },
+    "dry": {
+      "low": {
+        "18": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8801809\",\"DataLSB\":\"0x10011890\",\"Repeat\":0}",
+        "19": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8801809\",\"DataLSB\":\"0x10011890\",\"Repeat\":0}",
+        "20": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8801809\",\"DataLSB\":\"0x10011890\",\"Repeat\":0}",
+        "21": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8801809\",\"DataLSB\":\"0x10011890\",\"Repeat\":0}",
+        "22": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8801809\",\"DataLSB\":\"0x10011890\",\"Repeat\":0}",
+        "23": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8801809\",\"DataLSB\":\"0x10011890\",\"Repeat\":0}",
+        "24": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8801809\",\"DataLSB\":\"0x10011890\",\"Repeat\":0}",
+        "25": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8801809\",\"DataLSB\":\"0x10011890\",\"Repeat\":0}",
+        "26": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8801809\",\"DataLSB\":\"0x10011890\",\"Repeat\":0}",
+        "27": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8801809\",\"DataLSB\":\"0x10011890\",\"Repeat\":0}",
+        "28": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8801809\",\"DataLSB\":\"0x10011890\",\"Repeat\":0}",
+        "29": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8801809\",\"DataLSB\":\"0x10011890\",\"Repeat\":0}",
+        "30": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x8801809\",\"DataLSB\":\"0x10011890\",\"Repeat\":0}"
+      },
+      "mid": {
+        "18": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880182B\",\"DataLSB\":\"0x100118D4\",\"Repeat\":0}",
+        "19": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880182B\",\"DataLSB\":\"0x100118D4\",\"Repeat\":0}",
+        "20": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880182B\",\"DataLSB\":\"0x100118D4\",\"Repeat\":0}",
+        "21": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880182B\",\"DataLSB\":\"0x100118D4\",\"Repeat\":0}",
+        "22": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880182B\",\"DataLSB\":\"0x100118D4\",\"Repeat\":0}",
+        "23": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880182B\",\"DataLSB\":\"0x100118D4\",\"Repeat\":0}",
+        "24": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880182B\",\"DataLSB\":\"0x100118D4\",\"Repeat\":0}",
+        "25": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880182B\",\"DataLSB\":\"0x100118D4\",\"Repeat\":0}",
+        "26": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880182B\",\"DataLSB\":\"0x100118D4\",\"Repeat\":0}",
+        "27": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880182B\",\"DataLSB\":\"0x100118D4\",\"Repeat\":0}",
+        "28": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880182B\",\"DataLSB\":\"0x100118D4\",\"Repeat\":0}",
+        "29": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880182B\",\"DataLSB\":\"0x100118D4\",\"Repeat\":0}",
+        "30": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880182B\",\"DataLSB\":\"0x100118D4\",\"Repeat\":0}"
+      },
+      "high": {
+        "18": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880184D\",\"DataLSB\":\"0x100118B2\",\"Repeat\":0}",
+        "19": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880184D\",\"DataLSB\":\"0x100118B2\",\"Repeat\":0}",
+        "20": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880184D\",\"DataLSB\":\"0x100118B2\",\"Repeat\":0}",
+        "21": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880184D\",\"DataLSB\":\"0x100118B2\",\"Repeat\":0}",
+        "22": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880184D\",\"DataLSB\":\"0x100118B2\",\"Repeat\":0}",
+        "23": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880184D\",\"DataLSB\":\"0x100118B2\",\"Repeat\":0}",
+        "24": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880184D\",\"DataLSB\":\"0x100118B2\",\"Repeat\":0}",
+        "25": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880184D\",\"DataLSB\":\"0x100118B2\",\"Repeat\":0}",
+        "26": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880184D\",\"DataLSB\":\"0x100118B2\",\"Repeat\":0}",
+        "27": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880184D\",\"DataLSB\":\"0x100118B2\",\"Repeat\":0}",
+        "28": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880184D\",\"DataLSB\":\"0x100118B2\",\"Repeat\":0}",
+        "29": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880184D\",\"DataLSB\":\"0x100118B2\",\"Repeat\":0}",
+        "30": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880184D\",\"DataLSB\":\"0x100118B2\",\"Repeat\":0}"
+      },
+      "auto": {
+        "18": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880185E\",\"DataLSB\":\"0x1001187A\",\"Repeat\":0}",
+        "19": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880185E\",\"DataLSB\":\"0x1001187A\",\"Repeat\":0}",
+        "20": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880185E\",\"DataLSB\":\"0x1001187A\",\"Repeat\":0}",
+        "21": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880185E\",\"DataLSB\":\"0x1001187A\",\"Repeat\":0}",
+        "22": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880185E\",\"DataLSB\":\"0x1001187A\",\"Repeat\":0}",
+        "23": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880185E\",\"DataLSB\":\"0x1001187A\",\"Repeat\":0}",
+        "24": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880185E\",\"DataLSB\":\"0x1001187A\",\"Repeat\":0}",
+        "25": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880185E\",\"DataLSB\":\"0x1001187A\",\"Repeat\":0}",
+        "26": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880185E\",\"DataLSB\":\"0x1001187A\",\"Repeat\":0}",
+        "27": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880185E\",\"DataLSB\":\"0x1001187A\",\"Repeat\":0}",
+        "28": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880185E\",\"DataLSB\":\"0x1001187A\",\"Repeat\":0}",
+        "29": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880185E\",\"DataLSB\":\"0x1001187A\",\"Repeat\":0}",
+        "30": "{\"Protocol\":\"LG\",\"Bits\":28,\"Data\":\"0x880185E\",\"DataLSB\":\"0x1001187A\",\"Repeat\":0}"
+      }
+    }
+  }
+}
