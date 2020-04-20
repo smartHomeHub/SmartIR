@@ -86,7 +86,7 @@ Below are the code files created by the people in the community. Before you star
 [1020](../codes/climate/1020.json)|CS-CE7HKEW<br>CS-CE9HKEW<br>CS-CE12HKEW<br>CS-PC24MKF<br>CS-C24PKF|Broadlink
 [1021](../codes/climate/1021.json)|CS-RE9GKE<br>CS-RE12GKE|Broadlink
 [1022](../codes/climate/1022.json)|CS-Z25TK<br>CS-XN7SKJ|Broadlink
-[1023](../codes/climate/1023.json)|CS-HE9JKE<br>CS-HE12JKE|Broadlink
+[1023](../codes/climate/1023.json)|CS-HE9JKE<br>CS-HE12JKE<br>CS-HE9LKE|Broadlink
 [1024](../codes/climate/1024.json)|CS-MRE7MKE|Broadlink
 [1025](../codes/climate/1025.json)|CS-E18FKR|Broadlink
 
@@ -115,13 +115,15 @@ Below are the code files created by the people in the community. Before you star
 [1083](../codes/climate/1083.json)|RAS-32CNH2|Broadlink
 
 #### Daikin
-| Code | Supported Models | Controller | 
+| Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1100](../codes/climate/1100.json)|Unknown model|Broadlink
-[1101](../codes/climate/1101.json)|FTXS20LVMA<br>FTXS25LVMA<br>FTXS35LVMA<br>FTXS46LVMA<br>FTXS50LVMA<br>FTXS60LVMA<br>FTXS71LVMA<br>FTXS85LVMA<br>FTXS95LVMA|Broadlink
+[1100](../codes/climate/1100.json)|FTXS25CVMB<br>FTXS35CVMB<br>FTXS60BVMB<br>FVXS25BVMB|Broadlink
+[1101](../codes/climate/1101.json)|FTXS20LVMA<br>FTXS25LVMA<br>FTXS35LVMA<br>FTXS46LVMA<br>FTXS50LVMA<br>FTXS60LVMA<br>FTXS71LVMA<br>FTXS85LVMA<br>FTXS95LVMA<br>FTXM35M<br>FVXM35F<br>FVXS50FV1B|Broadlink
 [1102](../codes/climate/1102.json)|FTV20AXV14|Broadlink
 [1103](../codes/climate/1103.json)|Unknown model|Broadlink
-[3100](../codes/climate/3100.json)|Unknown model|Xiaomi
+[1104](../codes/climate/1104.json)|TF25DVM|Broadlink
+[1105](../codes/climate/1105.json)|FTX12NMVJU|Broadlink
+[3100](../codes/climate/3100.json)|FTXS25CVMB<br>FTXS35CVMB<br>FTXS60BVMB<br>FVXS25BVMB|Xiaomi
 
 #### Mitsubishi Electric
 | Code | Supported Models | Controller |
@@ -130,6 +132,8 @@ Below are the code files created by the people in the community. Before you star
 [1121](../codes/climate/1121.json)|MSZ-GA35VA|Broadlink
 [1122](../codes/climate/1122.json)|MSZ-AP50VGKD|Broadlink
 [1123](../codes/climate/1123.json)|SRK25ZSX<br>SRC25ZSX|Broadlink
+[1124](../codes/climate/1124.json)|MSZ-SF25VE3<br>MSZ-SF35VE3<br>MSZ-SF42VE3<br>MSZ-SF50VE|Broadlink
+[1125](../codes/climate/1125.json)|MLZ-KP25VF<br>MLZ-KP35VF<br>MLZ-KP50VF|Broadlink
 
 #### Actron
 | Code | Supported Models | Controller |
@@ -163,6 +167,7 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1240](../codes/climate/1240.json)|Unknown model|Broadlink
+[1241](../codes/climate/1241.json)|CBV12CBBNA<br>CBY12DBBNA|Broadlink
 
 #### Toshiba
 | Code | Supported Models | Controller |
@@ -179,6 +184,7 @@ Below are the code files created by the people in the community. Before you star
 [1284](../codes/climate/1284.json)|AR-REG1U (Remote control)|Broadlink
 [1285](../codes/climate/1285.json)|AR-RCE1E (Remote control)|Broadlink
 [1286](../codes/climate/1286.json)|AR-JE5 (Remote control)|Broadlink
+[1287](../codes/climate/1287.json)|AR-REB1E (Remote control)|Broadlink
 
 #### Sharp
 | Code | Supported Models | Controller |
@@ -239,12 +245,14 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1500](../codes/climate/1500.json)|Unknown|Broadlink
+[1501](../codes/climate/1501.json)|SAP-KR124EHEA|Broadlink
 
 #### Hisense
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1520](../codes/climate/1520.json)|Unknown|Broadlink
 [1521](../codes/climate/1521.json)|Unknown|Broadlink
+[1522](../codes/climate/1522.json)|DG11R2-01 (Remote)|Broadlink
 
 #### Whirlpool
 | Code | Supported Models | Controller |
@@ -291,12 +299,14 @@ Below are the code files created by the people in the community. Before you star
 [1683](../codes/climate/1683.json)|DXK12ZMA-S|Broadlink
 [1684](../codes/climate/1684.json)|DXK24ZRA|Broadlink
 [1685](../codes/climate/1685.json)|SRK50ZS-S|Broadlink
+[1686](../codes/climate/1685.json)|SRK20ZSA-W<br>SRK25ZSA-W<br>SRK35ZSA-W<br>SRK50ZSA-W|Broadlink
 
 #### Electrolux
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1700](../codes/climate/1700.json)|EACS/I-HAT/N3|Broadlink
 [1701](../codes/climate/1701.json)|EACS-HA|Broadlink
+[1702](../codes/climate/1702.json)|QI/QE09F<br>QI/QE09R<br>QI/QE12F<br>QI/QE12R<br>QI/QE18F<br>QI/QE18R<br>QI/QE22F<br>QI/QE22R<br>XI/XE09F<br>XI/XE09R<br>XI/XE12F<br>XI/XE12R<br>XI/XE18F<br>XI/XE18R<br>XI/XE22F<br>XI/XE22R|Broadlink
 
 #### Erisson
 | Code | Supported Models | Controller |
@@ -358,6 +368,7 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1940](../codes/climate/1940.json)|Unknown|Broadlink
+[1941](../codes/climate/1941.json)|iGo|Broadlink
 
 #### AUX
 | Code | Supported Models | Controller |
@@ -388,3 +399,33 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [2060](../codes/climate/2060.json)|GDPAC12RC|Broadlink
+
+#### Sendo 
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[2080](../codes/climate/2080.json)|SND-18IK|Broadlink
+
+#### Mirage 
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[2100](../codes/climate/2100.json)|Magnum Inverter 19|Broadlink
+
+#### Technibel 
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[2120](../codes/climate/2120.json)|MPAF13A0R5IAA|Broadlink
+
+#### Unionaire 
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[2140](../codes/climate/2140.json)|Artify|Broadlink
+
+#### Lennox 
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[2160](../codes/climate/2160.json)|Unknown|Broadlink
+
+#### Hokkaido 
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[2180](../codes/climate/2180.json)|LA09-DUAL H1|Broadlink

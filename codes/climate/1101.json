@@ -9,7 +9,8 @@
     "FTXS60LVMA",
     "FTXS71LVMA",
     "FTXS85LVMA",
-    "FTXS95LVMA"
+    "FTXS95LVMA",
+	"FVXS50FV1B"
   ],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
