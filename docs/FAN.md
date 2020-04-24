@@ -20,7 +20,7 @@ switch:
   - platform: broadlink
     host: 192.168.10.10
     mac: '00:00:00:00:00:00'
-    
+
 fan:
   - platform: smartir
     name: Bedroom fan
@@ -37,7 +37,7 @@ remote:
   - platform: xiaomi_miio
     host: 192.168.10.10
     token: YOUR_TOKEN
-    
+
 fan:
   - platform: smartir
     name: Bedroom fan
@@ -50,7 +50,7 @@ fan:
 ## Example (using mqtt controller):
 ```yaml
 smartir:
-    
+
 fan:
   - platform: smartir
     name: Bedroom fan
@@ -87,3 +87,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1080](../codes/fan/1080.json)|Unknown|Broadlink
+
+#### Pacific
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1100](../codes/fan/1100.json)|Unknown|Broadlink
