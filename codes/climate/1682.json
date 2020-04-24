@@ -1,7 +1,8 @@
 {
   "manufacturer": "Mitsubishi Heavy",
   "supportedModels": [
-    "SRKM25H"
+    "SRKM25H",
+    "SRK40HBE"
   ],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
