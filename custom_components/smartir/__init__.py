@@ -7,6 +7,8 @@ import os.path
 import requests
 import struct
 import voluptuous as vol
+import base64
+import irgen
 
 from homeassistant.const import (
     ATTR_FRIENDLY_NAME, __version__ as current_ha_version)
@@ -65,7 +67,8 @@ async def async_setup(hass, config):
 
 async def _update(hass, branch, do_update=False, notify_if_latest=True):
     try:
-        request = requests.get(MANIFEST_URL.format(branch), stream=True, timeout=10)
+        request = requests.get(
+            MANIFEST_URL.format(branch), stream=True, timeout=10)
     except:
         _LOGGER.error("An error occurred while checking for updates. "
                       "Please check your internet connection.")
@@ -89,8 +92,10 @@ async def _update(hass, branch, do_update=False, notify_if_latest=True):
 
     if StrictVersion(current_ha_version) < StrictVersion(min_ha_version):
         hass.components.persistent_notification.async_create(
-            "There is a new version of SmartIR integration, but it is **incompatible** "
-            "with your system. Please first update Home Assistant.", title='SmartIR')
+            "There is a new version of SmartIR integration,"
+            "but it is **incompatible** with your system."
+            "Please first update Home Assistant.",
+            title='SmartIR')
         return
 
     if do_update is False:
@@ -113,7 +118,8 @@ async def _update(hass, branch, do_update=False, notify_if_latest=True):
             Helper.downloader(source, dest)
         except:
             has_errors = True
-            _LOGGER.error("Error updating %s. Please update the file manually.", file)
+            _LOGGER.error(
+                "Error updating %s. Please update the file manually.", file)
 
     if has_errors:
         hass.components.persistent_notification.async_create(
@@ -123,6 +129,7 @@ async def _update(hass, branch, do_update=False, notify_if_latest=True):
         hass.components.persistent_notification.async_create(
             "Successfully updated to {}. Please restart Home Assistant."
             .format(last_version), title='SmartIR')
+
 
 class Helper():
     @staticmethod
@@ -138,12 +145,14 @@ class Helper():
 
     @staticmethod
     def pronto2lirc(pronto):
-        codes = [int(binascii.hexlify(pronto[i:i+2]), 16) for i in range(0, len(pronto), 2)]
+        codes = [int(binascii.hexlify(pronto[i:i+2]), 16) for i in range(
+                    0, len(pronto), 2)]
 
         if codes[0]:
             raise ValueError("Pronto code should start with 0000")
         if len(codes) != 4 + 2 * (codes[2] + codes[3]):
-            raise ValueError("Number of pulse widths does not match the preamble")
+            raise ValueError(
+                "Number of pulse widths does not match the preamble")
 
         frequency = 1 / (codes[1] * 0.241246)
         return [int(round(code / frequency)) for code in codes[4:]]
@@ -166,8 +175,40 @@ class Helper():
         packet += array
         packet += bytearray([0x0d, 0x05])
 
-        # Add 0s to make ultimate packet size a multiple of 16 for 128-bit AES encryption.
+        # Add 0s to make ultimate packet size a multiple of 16 for 128-bit AES.
         remainder = (len(packet) + 4) % 16
         if remainder:
             packet += bytearray(16 - remainder)
         return packet
+
+    @staticmethod
+    def proto2raw(data):
+        raw = list(irgen.gen_raw_from_pronto(int(x, base=16) for x in data))
+        return str(raw)
+
+    @staticmethod
+    def broadlink2raw(data):
+        raw = irgen.gen_raw_from_broadlink(data)
+        return str(raw)
+
+    @staticmethod
+    def b64broadlink2raw(data):
+        raw = irgen.gen_simplified_from_raw(irgen.gen_raw_from_broadlink_base64(data.encode()))
+        def signed(x):
+            for v in x:
+                if v > 0:
+                    yield "+{}".format(v)
+                else:
+                    yield "{}".format(v)
+        return str(",".join(signed(raw)))
+
+    @staticmethod
+    def raw2b64broadlink(data):
+        broadlink = irgen.gen_broadlink_base64_from_raw(data)
+        return broadlink.decode('ascii')
+
+    @staticmethod
+    def gc2lirc(gccmd):
+        frequency = int(gccmd.split(",")[3])/1000000
+        pulses = gccmd.split(",")[6:]
+        return [int(round(int(code) / frequency)) for code in pulses]

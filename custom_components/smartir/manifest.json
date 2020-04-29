@@ -4,11 +4,11 @@
   "documentation": "https://github.com/smartHomeHub/SmartIR",
   "dependencies": [],
   "codeowners": ["@smartHomeHub"],
-  "requirements": [],
+  "requirements": ["irgen==0.1.2"],
   "homeassistant": "0.96.0",
   "updater": {
-    "version": "1.7.4",
-    "releaseNotes": "-- Fix Alexa volume set",
+    "version": "1.7.10",
+    "releaseNotes": "-- pep8 and ir decoding",
     "files": [
       "__init__.py",
       "climate.py",

@@ -9,7 +9,7 @@ from homeassistant.components.media_player import (
     MediaPlayerDevice, PLATFORM_SCHEMA)
 from homeassistant.components.media_player.const import (
     SUPPORT_TURN_OFF, SUPPORT_TURN_ON, SUPPORT_PREVIOUS_TRACK,
-    SUPPORT_NEXT_TRACK, SUPPORT_VOLUME_STEP, SUPPORT_VOLUME_MUTE, 
+    SUPPORT_NEXT_TRACK, SUPPORT_VOLUME_STEP, SUPPORT_VOLUME_MUTE,
     SUPPORT_SELECT_SOURCE, MEDIA_TYPE_CHANNEL)
 from homeassistant.const import (
     CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN)
@@ -41,7 +41,8 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_DEVICE_CLASS, default=DEFAULT_DEVICE_CLASS): cv.string
 })
 
-async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
+async def async_setup_platform(hass, config, async_add_entities,
+                               discovery_info=None):
     """Set up the IR Media Player platform."""
     device_code = config.get(CONF_DEVICE_CODE)
     device_files_subdir = os.path.join('codes', 'media_player')
@@ -54,20 +55,26 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
     device_json_path = os.path.join(device_files_absdir, device_json_filename)
 
     if not os.path.exists(device_json_path):
-        _LOGGER.warning("Couldn't find the device Json file. The component will " \
-                        "try to download it from the GitHub repo.")
+        _LOGGER.warning(
+                        "Couldn't find the device Json file. "
+                        "The component will try to download it from the "
+                        "GitHub repo.")
 
         try:
             codes_source = ("https://raw.githubusercontent.com/"
                             "smartHomeHub/SmartIR/master/"
                             "codes/media_player/{}.json")
 
-            Helper.downloader(codes_source.format(device_code), device_json_path)
+            Helper.downloader(codes_source.format(device_code),
+                              device_json_path)
         except:
-            _LOGGER.error("There was an error while downloading the device Json file. " \
-                          "Please check your internet connection or if the device code " \
-                          "exists on GitHub. If the problem still exists please " \
-                          "place the file manually in the proper directory.")
+            _LOGGER.error("There was an error while downloading the "
+                          "device Json file. "
+                          "Please check your internet connection or if the "
+                          "device code "
+                          "exists on GitHub. If the problem still exists "
+                          "please place the file manually in the "
+                          "proper directory.")
             return
 
     with open(device_json_path) as j:
@@ -80,6 +87,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
     async_add_entities([SmartIRMediaPlayer(
         hass, config, device_data
     )])
+
 
 class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
     def __init__(self, hass, config, device_data):
@@ -103,46 +111,52 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
 
         self._device_class = config.get(CONF_DEVICE_CLASS)
 
-        #Supported features
+        # Supported features
         if 'off' in self._commands and self._commands['off'] is not None:
             self._support_flags = self._support_flags | SUPPORT_TURN_OFF
 
         if 'on' in self._commands and self._commands['on'] is not None:
             self._support_flags = self._support_flags | SUPPORT_TURN_ON
 
-        if 'previousChannel' in self._commands and self._commands['previousChannel'] is not None:
+        if 'previousChannel' in self._commands and \
+                self._commands['previousChannel'] is not None:
             self._support_flags = self._support_flags | SUPPORT_PREVIOUS_TRACK
 
-        if 'nextChannel' in self._commands and self._commands['nextChannel'] is not None:
+        if 'nextChannel' in self._commands and \
+                self._commands['nextChannel'] is not None:
             self._support_flags = self._support_flags | SUPPORT_NEXT_TRACK
 
-        if ('volumeDown' in self._commands and self._commands['volumeDown'] is not None) \
-        or ('volumeUp' in self._commands and self._commands['volumeUp'] is not None):
+        if ('volumeDown' in self._commands and
+            self._commands['volumeDown'] is not None) \
+                or ('volumeUp' in self._commands and
+                    self._commands['volumeUp'] is not None):
             self._support_flags = self._support_flags | SUPPORT_VOLUME_STEP
 
         if 'mute' in self._commands and self._commands['mute'] is not None:
             self._support_flags = self._support_flags | SUPPORT_VOLUME_MUTE
 
-        if 'sources' in self._commands and self._commands['sources'] is not None:
+        if 'sources' in self._commands and \
+                self._commands['sources'] is not None:
             self._support_flags = self._support_flags | SUPPORT_SELECT_SOURCE
 
             for source, new_name in config.get(CONF_SOURCE_NAMES, {}).items():
                 if source in self._commands['sources']:
                     if new_name is not None:
-                        self._commands['sources'][new_name] = self._commands['sources'][source]
+                        self._commands['sources'][new_name] = \
+                        self._commands['sources'][source]
 
                     del self._commands['sources'][source]
 
-            #Sources list
+            # Sources list
             for key in self._commands['sources']:
                 self._sources_list.append(key)
 
         self._temp_lock = asyncio.Lock()
 
-        #Init the IR/RF controller
+        # Init the IR/RF controller
         self._controller = Controller(
             self.hass,
-            self._supported_controller, 
+            self._supported_controller,
             self._commands_encoding,
             self._controller_data)
 
@@ -193,7 +207,7 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
     @property
     def source_list(self):
         return self._sources_list
-        
+
     @property
     def source(self):
         return self._source
@@ -217,7 +231,7 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
     async def async_turn_off(self):
         """Turn the media player off."""
         await self.send_command(self._commands['off'])
-        
+
         if self._power_sensor is None:
             self._state = STATE_OFF
             self._source = None
@@ -250,7 +264,7 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
         """Turn volume up for media player."""
         await self.send_command(self._commands['volumeUp'])
         await self.async_update_ha_state()
-    
+
     async def async_mute_volume(self, mute):
         """Mute the volume."""
         await self.send_command(self._commands['mute'])
@@ -268,7 +282,7 @@ class SmartIRMediaPlayer(MediaPlayerDevice, RestoreEntity):
                 await self._controller.send(command)
             except Exception as e:
                 _LOGGER.exception(e)
-            
+
     async def async_update(self):
         if self._power_sensor is None:
             return
