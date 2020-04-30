@@ -4,11 +4,11 @@
   "documentation": "https://github.com/smartHomeHub/SmartIR",
   "dependencies": [],
   "codeowners": ["@smartHomeHub"],
-  "requirements": [],
+  "requirements": ["aiofiles==0.5.0"],
   "homeassistant": "0.96.0",
   "updater": {
-    "version": "1.7.4",
-    "releaseNotes": "-- Fix Alexa volume set",
+    "version": "1.7.5",
+    "releaseNotes": "-- Fix doing I/O",
     "files": [
       "__init__.py",
       "climate.py",
