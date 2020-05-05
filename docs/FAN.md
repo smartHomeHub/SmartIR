@@ -105,3 +105,8 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1100](../codes/fan/1100.json)|Unknown|Broadlink
+
+#### Europace
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1120](../codes/fan/1120.json)|Unknown|Broadlink
