@@ -18,18 +18,18 @@ LOOKIN_CONTROLLER = 'LOOKin'
 ENC_BASE64 = 'Base64'
 ENC_HEX = 'Hex'
 ENC_PRONTO = 'Pronto'
-ENC_PRONTO_HEX = 'ProntoHex'
 ENC_RAW = 'Raw'
 
 BROADLINK_COMMANDS_ENCODING = [ENC_BASE64, ENC_HEX, ENC_PRONTO]
 XIAOMI_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
 MQTT_COMMANDS_ENCODING = [ENC_RAW]
-LOOKIN_COMMANDS_ENCODING = [ENC_PRONTO_HEX, ENC_RAW]
+LOOKIN_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
 
 class Controller():
     def __init__(self, hass, controller, encoding, controller_data):
         if controller not in [
-            BROADLINK_CONTROLLER, XIAOMI_CONTROLLER, MQTT_CONTROLLER]:
+            BROADLINK_CONTROLLER, XIAOMI_CONTROLLER, 
+            MQTT_CONTROLLER, LOOKIN_CONTROLLER]:
             raise Exception("The controller is not supported.")
 
         if controller == BROADLINK_CONTROLLER:
@@ -107,8 +107,9 @@ class Controller():
                'mqtt', 'publish', service_data)
 
         if self._controller == LOOKIN_CONTROLLER:
+            encoding = self._encoding.lower().replace('pronto', 'prontohex')
             url = f"http://{self._controller_data}/commands/ir/" \
-                  f"{self._encoding.lower()}/{command}"
+                  f"{encoding}/{command}"
             await self.hass.async_add_executor_job(
                 requests.get, url
             )
