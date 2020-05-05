@@ -28,9 +28,6 @@ CONF_DEVICE_CODE = 'device_code'
 CONF_CONTROLLER_DATA = "controller_data"
 CONF_POWER_SENSOR = 'power_sensor'
 
-_VALID_STATES = [STATE_ON, STATE_OFF]
-_VALID_OSC = [True, False]
-
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_UNIQUE_ID): cv.string,
     vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
@@ -217,14 +214,9 @@ class SmartIRFan(FanEntity, RestoreEntity):
 
     async def async_oscillate(self, oscillating: bool) -> None:
         """Set oscillation of the fan."""
+        self._oscillating = oscillating
 
-        if oscillating in _VALID_OSC:
-            self._oscillating = oscillating
-            await self.send_command()
-        else:
-            _LOGGER.error(
-                'Received invalid oscillating value: %s. Expected: %s.',
-                oscillating, ', '.join(_VALID_OSC))
+        await self.send_command()
         await self.async_update_ha_state()
 
     async def async_set_direction(self, direction: str):
