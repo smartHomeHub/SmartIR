@@ -13,7 +13,6 @@ from homeassistant.components.media_player.const import (
     SUPPORT_SELECT_SOURCE, MEDIA_TYPE_CHANNEL)
 from homeassistant.const import (
     CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN)
-from homeassistant.core import callback
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
 from . import COMPONENT_ABS_DIR, Helper
@@ -63,7 +62,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
                             "codes/media_player/{}.json")
 
             await Helper.downloader(codes_source.format(device_code), device_json_path)
-        except:
+        except Exception:
             _LOGGER.error("There was an error while downloading the device Json file. " \
                           "Please check your internet connection or if the device code " \
                           "exists on GitHub. If the problem still exists please " \
@@ -73,7 +72,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
     with open(device_json_path) as j:
         try:
             device_data = json.load(j)
-        except:
+        except Exception:
             _LOGGER.error("The device JSON file is invalid")
             return
 

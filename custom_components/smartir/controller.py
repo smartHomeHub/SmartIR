@@ -1,11 +1,9 @@
-import asyncio
 from base64 import b64encode
 import binascii
 import requests
 import logging
 
 from homeassistant.const import ATTR_ENTITY_ID
-from homeassistant.core import split_entity_id
 from . import Helper
 
 _LOGGER = logging.getLogger(__name__)

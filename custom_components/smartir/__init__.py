@@ -108,7 +108,7 @@ async def _update(hass, branch, do_update=False, notify_if_latest=True):
                             dest = os.path.join(COMPONENT_ABS_DIR, file)
                             os.makedirs(os.path.dirname(dest), exist_ok=True)
                             await Helper.downloader(source, dest)
-                        except:
+                        except Exception:
                             has_errors = True
                             _LOGGER.error("Error updating %s. Please update the file manually.", file)
 
@@ -120,7 +120,7 @@ async def _update(hass, branch, do_update=False, notify_if_latest=True):
                         hass.components.persistent_notification.async_create(
                             "Successfully updated to {}. Please restart Home Assistant."
                             .format(last_version), title='SmartIR')
-    except:
+    except Exception:
        _LOGGER.error("An error occurred while checking for updates.")
 
 class Helper():
