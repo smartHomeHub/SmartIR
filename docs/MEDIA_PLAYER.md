@@ -62,6 +62,19 @@ media_player:
     power_sensor: binary_sensor.tv_power
 ```
 
+## Example (using LOOKin controller):
+```yaml
+smartir:
+
+media_player:
+  - platform: smartir
+    name: Living room TV
+    unique_id: living_room_tv
+    device_code: 4000
+    controller_data: 192.168.10.10
+    power_sensor: binary_sensor.tv_power
+```
+
 ### Overriding Source Names
 Source names in device files are usually set to the name that the media player uses. These often aren't very descriptive, so you can override these names in the configuration file. You can also remove a source by setting its name to `null`
 

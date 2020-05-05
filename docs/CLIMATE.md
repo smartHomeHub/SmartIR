@@ -70,6 +70,21 @@ climate:
     power_sensor: binary_sensor.ac_power
 ```
 
+## Example (using LOOKin controller):
+```yaml
+smartir:
+
+climate:
+  - platform: smartir
+    name: Office AC
+    unique_id: office_ac
+    device_code: 4000
+    controller_data: 192.168.10.10
+    temperature_sensor: sensor.temperature
+    humidity_sensor: sensor.humidity
+    power_sensor: binary_sensor.ac_power
+```
+
 ## Available codes for climate devices:
 Below are the code files created by the people in the community. Before you start creating your own code file, try if one of them works for your device. **Please open an issue if your device is working and not included in the supported models.**
 
