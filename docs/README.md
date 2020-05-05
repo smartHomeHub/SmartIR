@@ -1,3 +1,5 @@
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs)
+
 SmartIR is a custom [Home Assistant](https://www.home-assistant.io/) component for controlling AC units, TV sets and fans via Infrared and RF controllers. An IR or RF controller such as Broadlink is required.
 
 The key features of the component are:
@@ -5,6 +7,13 @@ The key features of the component are:
 * Support for external temperature and humidity sensors (Climate platform)
 * Support for external on/off sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor.
 * Support for voice assistants.
+
+
+## **Supported controllers**
+* [Broadlink](https://www.home-assistant.io/integrations/broadlink/)
+* [Xiaomi IR Remote (ChuangmiIr)](https://www.home-assistant.io/integrations/remote.xiaomi_miio/)
+* [LOOK.in Remote](http://look-in.club/devices/remote)
+* [MQTT Publish service](https://www.home-assistant.io/docs/mqtt/service/)
 
 ## **Component setup instructions**
 1. Create a directory `custom_components` in your Home Assistant configuration directory.
