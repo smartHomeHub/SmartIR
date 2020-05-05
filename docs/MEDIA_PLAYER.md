@@ -95,6 +95,7 @@ Below are the code files created by the people in the community. Before you star
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1040](../codes/media_player/1040.json)|22MT47DC|Broadlink
+[1041](../codes/media_player/1041.json)|LH6235D|Broadlink
 
 #### Samsung
 | Code | Supported Models | Controller |
