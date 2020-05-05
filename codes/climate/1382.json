@@ -1,7 +1,7 @@
 {
   "manufacturer": "Midea",
   "supportedModels": [
-    "Unknown"
+    "MSY-12HRDN1"
   ],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
