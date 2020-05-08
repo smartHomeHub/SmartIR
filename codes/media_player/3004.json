@@ -1,0 +1,23 @@
+{
+  "manufacturer": "Projector",
+  "supportedModels": [
+    "Chad Find Out"
+  ],
+  "supportedController": "MQTT",
+  "commandsEncoding": "Tas",
+  "commands": {
+    "on": "{'Protocol':'NEC','Bits':32,'Data':'0xC1AA09F6'}",
+    "off": "{'Protocol':'NEC','Bits':32,'Data':'0xC1AA09F6'}",
+    "previousChannel": "{'Protocol':'NEC','Bits':32,'Data':'0xC1AA4DB2'}",
+    "nextChannel": "{'Protocol':'NEC','Bits':32,'Data':'0xC1AA0DF2'}",
+    "volumeDown": "{'Protocol':'NEC','Bits':32,'Data':'0xC1AACD32'}",
+    "volumeUp": "{'Protocol':'NEC','Bits':32,'Data':'0xC1AA8D72'}",
+    "mute": "{'Protocol':'NEC','Bits':32,'Data':'0xC1AA59A6'}",
+    "sources": {
+      "Input": [
+        "{'Protocol':'NEC','Bits':32,'Data':'0xC1AA39C6'}",
+        "{'Protocol':'NEC','Bits':32,'Data':'0x02FD00FF'}"
+      ]
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+   "manufacturer": "Tosiba",
+   "supportedModels": [
+      "Model"
+   ],
+   "supportedController": "MQTT",
+   "commandsEncoding": "NEC",
+   "commands": {
+      "on": "0x02FD48B7",
+      "off": "0x02FD48B7",
+      "previousChannel": "0x02FD58A7",
+      "nextChannel": "0x02FD58A7",
+      "volumeDown": "0x02FD7887",
+      "volumeUp": "0x02FD58A7",
+      "mute": "0x02FD58A7"
+   }
+}

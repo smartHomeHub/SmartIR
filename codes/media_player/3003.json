@@ -1,0 +1,46 @@
+{
+   "manufacturer": "Toshiba",
+   "supportedModels": [
+      "Remote CT-RCIUS-16"
+   ],
+   "supportedController": "MQTT",
+   "commandsEncoding": "Tas",
+   "commands":{
+      "on": "{'Protocol':'NEC','Bits':32,'Data':'0x02FD48B7'}",
+      "off": "{'Protocol':'NEC','Bits':32,'Data':'0x02FD48B7'}",
+      "previousChannel": "{'Protocol':'NEC','Bits':32,'Data':'0x02FDF807'}",
+      "nextChannel": "{'Protocol':'NEC','Bits':32,'Data':'0x02FDD827'}", 
+      "volumeDown": "{'Protocol':'NEC','Bits':32,'Data':'0x02FD7887'}",
+      "volumeUp": "{'Protocol':'NEC','Bits':32,'Data':'0x02FD58A7'}",
+      "mute": "{'Protocol':'NEC','Bits':32,'Data':'0x02FD08F7'}",
+      "sources": {
+            "ANT/CABLE": ["{'Protocol':'NEC','Bits':32,'Data':'0x02FDF00F'}",
+                        "{'Protocol':'NEC','Bits':32,'Data':'0x02FD00FF'}"
+                        ],
+            "AV": [
+                        "{'Protocol':'NEC','Bits':32,'Data':'0x02FDF00F'}",
+                        "{'Protocol':'NEC','Bits':32,'Data':'0x02FD807F'}"
+                        ],            
+            "COMPONENT": [
+                        "{'Protocol':'NEC','Bits':32,'Data':'0x02FDF00F'}",
+                        "{'Protocol':'NEC','Bits':32,'Data':'0x02FD40BF'}"
+                        ],            
+            "HDMI 1": [
+                        "{'Protocol':'NEC','Bits':32,'Data':'0x02FDF00F'}",
+                        "{'Protocol':'NEC','Bits':32,'Data':'0x02FDC03F'}"
+                        ],            
+            "HDMI 2": [
+                        "{'Protocol':'NEC','Bits':32,'Data':'0x02FDF00F'}",
+                        "{'Protocol':'NEC','Bits':32,'Data':'0x02FD20DF'}"
+                        ],            
+            "HDMI 3": [
+                        "{'Protocol':'NEC','Bits':32,'Data':'0x02FDF00F'}",
+                        "{'Protocol':'NEC','Bits':32,'Data':'0x02FDA05F'}"
+                        ],
+            "USB": [
+                        "{'Protocol':'NEC','Bits':32,'Data':'0x02FDF00F'}",
+                        "{'Protocol':'NEC','Bits':32,'Data':'0x02FD609F'}"
+                        ]
+        }
+   }
+}

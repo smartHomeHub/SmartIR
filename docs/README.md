@@ -1,5 +1,12 @@
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs)
 
+This is a Fork of SmatIR created by CBrochard,
+
+This fork allows the "Tas" encoding. This allows this integration to use codes and commands with devices flashed with Tasamota. I have also included a check for commands that are a python list. If the command is a list, then an MQTT message is sent for each command in the list. This is useful for televisions whic require several IR codes to change Sources. For example to change sources on my Toshiba television, I send a ir code for the press of the "input" buttin, then a code for the number 1-5 corresponding to the source you wich to select. When the source is switched via the home assisitaint interface, the two IR codes are send in succetion resulting in a the change to the correct source.
+
+This is also useful for my protjector in which the power off button must be pressed twice to power off the unit. (A confirmation screen is shown to confirm power off). By including the same code in a list of the two IR code commands, the power off is achived via one press of the power button in the Home Assisitaint inteface.
+
+
 SmartIR is a custom [Home Assistant](https://www.home-assistant.io/) component for controlling AC units, TV sets and fans via Infrared and RF controllers. An IR or RF controller such as Broadlink is required.
 
 The key features of the component are:

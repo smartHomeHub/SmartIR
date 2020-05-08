@@ -17,10 +17,11 @@ ENC_BASE64 = 'Base64'
 ENC_HEX = 'Hex'
 ENC_PRONTO = 'Pronto'
 ENC_RAW = 'Raw'
+ENC_TAS = 'Tas'
 
 BROADLINK_COMMANDS_ENCODING = [ENC_BASE64, ENC_HEX, ENC_PRONTO]
 XIAOMI_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
-MQTT_COMMANDS_ENCODING = [ENC_RAW]
+MQTT_COMMANDS_ENCODING = [ENC_RAW, ENC_TAS]
 LOOKIN_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
 
 class Controller():
@@ -96,13 +97,25 @@ class Controller():
 
 
         if self._controller == MQTT_CONTROLLER:
-            service_data = {
-                'topic': self._controller_data,
-                'payload': command
-            }
+            
+            if command == list:
+                for myCommand in command
+                    service_data = {
+                        'topic': self._controller_data,
+                        'payload': command
+                    }
 
-            await self.hass.services.async_call(
-               'mqtt', 'publish', service_data)
+                    await self.hass.services.async_call(
+                       'mqtt', 'publish', service_data)
+
+            else:
+                service_data = {
+                    'topic': self._controller_data,
+                    'payload': command
+                }
+
+                await self.hass.services.async_call(
+                   'mqtt', 'publish', service_data)
 
         if self._controller == LOOKIN_CONTROLLER:
             encoding = self._encoding.lower().replace('pronto', 'prontohex')

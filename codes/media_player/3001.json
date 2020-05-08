@@ -1,0 +1,46 @@
+{
+   "manufacturer": "Panasonic",
+   "supportedModels": [
+      "Remote N2QAYB"
+   ],
+   "supportedController": "MQTT",
+   "commandsEncoding": "Tas",
+   "commands":{
+      "on": "{'Protocol':'PANASONIC','Bits':48,'Data':'0x40040100BCBD'}",
+      "off": "{'Protocol':'PANASONIC','Bits':48,'Data':'0x40040100BCBD'}",
+      "previousChannel": "{'Protocol':'PANASONIC','Bits':48,'Data':'0x40040100ACAD'}",
+      "nextChannel": "{'Protocol':'PANASONIC','Bits':48,'Data':'0x400401002C2D'}", 
+      "volumeDown": "{'Protocol':'PANASONIC','Bits':48,'Data':'0x40040100848'}",
+      "volumeUp": "{'Protocol':'PANASONIC','Bits':48,'Data':'0x400401000405'}",
+      "mute": "{'Protocol':'PANASONIC','Bits':48,'Data':'0x400401004C4D'}",
+      "sources": {
+            "ANT/CABLE": ["{'Protocol':'PANASONIC','Bits':48,'Data':'0x40040100A0A1}",
+                        "{'Protocol':'PANASONIC','Bits':48,'Data':'0x400401000809'}"
+                        ],
+            "AV": [
+                        "{'Protocol':'PANASONIC','Bits':48,'Data':'0x40040100A0A1'}",
+                        "{'Protocol':'PANASONIC','Bits':48,'Data':'0x400401008889'}"
+                        ],            
+            "COMPONENT": [
+                        "{'Protocol':'PANASONIC','Bits':48,'Data':'0x40040100A0A1'}",
+                        "{'Protocol':'PANASONIC','Bits':48,'Data':'0x400401004849'}"
+                        ],           
+            "HDMI 1": [
+                        "{'Protocol':'PANASONIC','Bits':48,'Data':'0x40040100A0A1'}",
+                        "{'Protocol':'PANASONIC','Bits':48,'Data':'0x40040100C8C9'}"
+                        ],
+            "HDMI 2": [
+                        "{'Protocol':'PANASONIC','Bits':48,'Data':'0x40040100A0A1'}",
+                        "{'Protocol':'PANASONIC','Bits':48,'Data':'0x400401002829'}"
+                        ],
+            "HDMI 3": [
+                        "{'Protocol':'PANASONIC','Bits':48,'Data':'0x40040100A0A1'}",
+                        "{'Protocol':'PANASONIC','Bits':48,'Data':'0x40040100A8A9'}"
+                        ],
+            "USB": [
+                        "{'Protocol':'PANASONIC','Bits':48,'Data':'0x40040100A0A1'}",
+                        "{'Protocol':'PANASONIC','Bits':48,'Data':'0x400401006869'}"
+                        ]
+        }
+   }
+}

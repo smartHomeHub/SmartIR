@@ -1,0 +1,12 @@
+{
+   "manufacturer": "Unknown",
+   "supportedModels": [
+      "1234"
+   ],
+   "supportedController": "MQTT",
+   "commandsEncoding": "Raw",
+   "commands": {
+      "on": "#FFFF01",
+      "off": "#FFFF03"
+   }
+}
