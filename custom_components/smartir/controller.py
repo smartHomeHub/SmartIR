@@ -99,7 +99,7 @@ class Controller():
         if self._controller == MQTT_CONTROLLER:
             
             if command == list:
-                for myCommand in command
+                for myCommand in command:
                     service_data = {
                         'topic': self._controller_data,
                         'payload': command
