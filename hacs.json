@@ -1,5 +1,5 @@
 {
-  "name": "SmartIR",
+  "name": "SmartIR_CBROC",
   "homeassistant": "0.96.0",
   "persistent_directory": "codes"
 }
