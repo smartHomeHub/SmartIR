@@ -10,7 +10,8 @@ from homeassistant.components.media_player import (
 from homeassistant.components.media_player.const import (
     SUPPORT_TURN_OFF, SUPPORT_TURN_ON, SUPPORT_PREVIOUS_TRACK,
     SUPPORT_NEXT_TRACK, SUPPORT_VOLUME_STEP, SUPPORT_VOLUME_MUTE, 
-    SUPPORT_SELECT_SOURCE, MEDIA_TYPE_CHANNEL)
+    SUPPORT_SELECT_SOURCE, MEDIA_TYPE_CHANNEL,
+    SUPPORT_PLAY, SUPPORT_PLAY_MEDIA, SUPPORT_PAUSE, SUPPORT_STOP)
 from homeassistant.const import (
     CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN)
 import homeassistant.helpers.config_validation as cv
@@ -122,7 +123,14 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         if 'mute' in self._commands and self._commands['mute'] is not None:
             self._support_flags = self._support_flags | SUPPORT_VOLUME_MUTE
 
-        if 'sources' in self._commands and self._commands['sources'] is not None:
+        if 'key_0' in self._commands and self._commands['key_0'] is not None:
+            self._support_flags = self._support_flags | SUPPORT_PLAY_MEDIA 
+        
+        if 'play' in self._commands and self._commands['play'] is not None:
+            self._support_flags = self._support_flags | SUPPORT_PLAY | \
+                SUPPORT_PLAY_MEDIA | SUPPORT_PAUSE | SUPPORT_STOP
+       
+       if 'sources' in self._commands and self._commands['sources'] is not None:
             self._support_flags = self._support_flags | SUPPORT_SELECT_SOURCE
 
             for source, new_name in config.get(CONF_SOURCE_NAMES, {}).items():
@@ -260,6 +268,45 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         self._source = source
         await self.send_command(self._commands['sources'][source])
         await self.async_update_ha_state()
+
+    async def async_media_play(self):
+        """Send play command."""
+        await self.send_command(self._commands['play'])
+        await self.async_update_ha_state()
+
+    async def async_media_pause(self):
+        """Send pause command."""
+        await self.send_command(self._commands['pause'])
+        await self.async_update_ha_state()
+
+    async def async_media_stop(self):
+        """Send stop command."""
+        await self.send_command(self._commands['stop'])
+        await self.async_update_ha_state()
+
+    async def async_play_media(self, media_type, media_id, **kwargs):
+        """Support changing a TV channel."""
+        # Media_id is either a numeric channel or a channel name.
+        if media_type != MEDIA_TYPE_CHANNEL:
+            _LOGGER.error('Unsupported media type')
+            return
+        media_id = media_id.lower().strip()
+        if not media_id.isdigit():
+            # We have a channel name instead so fetch numeric channel
+            if media_id in self._commands['channels'].keys():
+                media_id = self._commands['channels'][media_id]
+            else:
+                return
+        # Media_id should only be a channel number
+        try:
+            cv.positive_int(media_id)
+        except vol.Invalid:
+            _LOGGER.error('Media ID must be positive integer')
+            return
+        for digit in media_id:
+            await self.send_command(self._commands['key_' + digit])
+            await asyncio.sleep(0.5, self.hass.loop)
+        await self.send_command(self._commands['enter'])
 
     async def send_command(self, command):
         async with self._temp_lock:
