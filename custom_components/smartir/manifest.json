@@ -5,7 +5,7 @@
   "dependencies": [],
   "codeowners": ["@smartHomeHub"],
   "requirements": ["aiofiles==0.5.0"],
-  "homeassistant": "0.110.0",
+  "homeassistant": "0.110.0b0",
   "updater": {
     "version": "1.10.0",
     "releaseNotes": "-- Fixes deprecation warnings",
