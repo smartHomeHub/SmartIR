@@ -5,10 +5,10 @@
   "dependencies": [],
   "codeowners": ["@smartHomeHub"],
   "requirements": ["aiofiles==0.5.0"],
-  "homeassistant": "0.96.0",
+  "homeassistant": "0.110.0",
   "updater": {
-    "version": "1.9.0",
-    "releaseNotes": "-- Adds support for oscillate in fans",
+    "version": "1.10.0",
+    "releaseNotes": "-- Fixes deprecation warnings",
     "files": [
       "__init__.py",
       "climate.py",
