@@ -447,4 +447,9 @@ Below are the code files created by the people in the community. Before you star
 #### IGC 
 | Code                               | Supported Models   | Controller |
 | ---------------------------------- | ------------------ | ---------- |
-| [2200](../codes/climate/2200.json) | RAK-12NH, RAK-18NH | Broadlink  |
+| [2200](../codes/climate/2200.json) | RAK-12NH<br>RAK-18NH | Broadlink  |
+
+#### Blueridge 
+| Code                               | Supported Models | Controller |
+| ---------------------------------- | ---------------- | ---------- |
+| [2220](../codes/climate/2220.json) | RG57A4<br>BGEFU1 | Broadlink  |
