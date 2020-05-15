@@ -453,3 +453,8 @@ Below are the code files created by the people in the community. Before you star
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
 | [2220](../codes/climate/2220.json) | RG57A4<br>BGEFU1 | Broadlink  |
+
+#### Delonghi 
+| Code                               | Supported Models        | Controller |
+| ---------------------------------- | ----------------------- | ---------- |
+| [2240](../codes/climate/2240.json) | PAC N82ECO<br>PAC AN111 | Broadlink  |
