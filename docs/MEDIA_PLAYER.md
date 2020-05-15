@@ -97,7 +97,7 @@ Below are the code files created by the people in the community. Before you star
 #### Philips
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1000](../codes/media_player/1000.json)|Unknown|Broadlink
+[1000](../codes/media_player/1000.json)|26PFL560H|Broadlink
 
 #### Sony
 | Code | Supported Models | Controller |
