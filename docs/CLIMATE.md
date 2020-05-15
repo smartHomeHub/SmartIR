@@ -145,7 +145,7 @@ Below are the code files created by the people in the community. Before you star
 | [1121](../codes/climate/1121.json) | MSZ-GA35VA                                                                                           | Broadlink  |
 | [1122](../codes/climate/1122.json) | MSZ-AP50VGKD                                                                                         | Broadlink  |
 | [1123](../codes/climate/1123.json) | SRK25ZSX<br>SRC25ZSX                                                                                 | Broadlink  |
-| [1124](../codes/climate/1124.json) | MSZ-SF25VE3<br>MSZ-SF35VE3<br>MSZ-SF42VE3<br>MSZ-SF50VE                                              | Broadlink  |
+| [1124](../codes/climate/1124.json) | MSZ-SF25VE3<br>MSZ-SF35VE3<br>MSZ-SF42VE3<br>MSZ-SF50VE<br>MSZ-AP20VG                                | Broadlink  |
 | [1125](../codes/climate/1125.json) | MLZ-KP25VF<br>MLZ-KP35VF<br>MLZ-KP50VF                                                               | Broadlink  |
 
 #### Actron
