@@ -142,3 +142,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1120](../codes/fan/1120.json)|Unknown|Broadlink
+
+#### Brandson
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1140](../codes/fan/1140.json)|Unknown|Broadlink
