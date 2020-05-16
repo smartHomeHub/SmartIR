@@ -281,7 +281,6 @@ class SmartOneSpeedButtonIRFan(SmartIRFan):
 
     def __init__(self, hass, config, device_data):
         super().__init__(hass, config, device_data)
-        self._speed_list = [SPEED_OFF, SPEED_LOW, SPEED_MEDIUM, SPEED_HIGH]
         self._current_speed = SPEED_LOW
         self._current_oscillating = False
         self._current_on = self.state == STATE_ON
