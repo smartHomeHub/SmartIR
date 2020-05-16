@@ -72,9 +72,11 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
             _LOGGER.error("The device JSON file is invalid")
             return
 
-    async_add_entities([SmartIRFan(
-        hass, config, device_data
-    )])
+    if ATTR_SPEED in device_data['commands']:
+        async_add_entities([SmartOneSpeedButtonIRFan(hass, config, device_data)])
+    else:
+        async_add_entities([SmartIRFan(hass, config, device_data)])
+
 
 class SmartIRFan(FanEntity, RestoreEntity):
     def __init__(self, hass, config, device_data):
@@ -273,3 +275,54 @@ class SmartIRFan(FanEntity, RestoreEntity):
             if self._speed != SPEED_OFF:
                 self._speed = SPEED_OFF
             await self.async_update_ha_state()
+
+
+class SmartOneSpeedButtonIRFan(SmartIRFan):
+
+    def __init__(self, hass, config, device_data):
+        super().__init__(hass, config, device_data)
+        self._speed_list = [SPEED_OFF, SPEED_LOW, SPEED_MEDIUM, SPEED_HIGH]
+        self._current_speed = SPEED_LOW
+        self._current_oscillating = False
+        self._current_on = self.state == STATE_ON
+
+    async def send_command(self):
+        async with self._temp_lock:
+            speed = self._speed.lower()
+            last_speed = self._current_speed
+            oscillating = self._oscillating
+            last_oscillating = self._current_oscillating
+            currently_on = self._current_on
+
+            if speed == SPEED_OFF:
+                if currently_on:
+                    await self.__send(self._commands['off'])
+                self._current_on = False
+                return
+
+            if self._speed_list.index(speed) > self._speed_list.index(last_speed):
+                speed_command_times = self._speed_list.index(speed) - self._speed_list.index(last_speed)
+            elif self._speed_list.index(speed) < self._speed_list.index(last_speed):
+                # Go around the speed wheel by adding 3 to the wanted speed
+                speed_command_times = self._speed_list.index(speed) + 3 - self._speed_list.index(last_speed)
+            else:
+                speed_command_times = 0
+
+            if not currently_on:
+                await self.__send(self._commands['off'])
+                self._current_on = True
+                self._on_by_remote = False
+
+        for _ in range(speed_command_times):
+            await self.__send(self._commands['speed'])
+        self._current_speed = speed
+
+        if oscillating != last_oscillating:
+            await self.__send(self._commands['oscillate'])
+            self._current_oscillating = oscillating
+
+    async def __send(self, command):
+        try:
+            await self._controller.send(command)
+        except Exception as e:
+            _LOGGER.exception(e)
