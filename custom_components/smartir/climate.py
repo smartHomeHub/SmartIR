@@ -320,18 +320,23 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
     async def send_command(self):
         async with self._temp_lock:
-            self._on_by_remote = False
-            operation_mode = self._hvac_mode
-            fan_mode = self._current_fan_mode
-            target_temperature = '{0:g}'.format(self._target_temperature)
-
-            if operation_mode.lower() == HVAC_MODE_OFF:
-                command = self._commands['off']
-            else:
-                command = self._commands[operation_mode][fan_mode][target_temperature]
-
             try:
-                await self._controller.send(command)
+                self._on_by_remote = False
+                operation_mode = self._hvac_mode
+                fan_mode = self._current_fan_mode
+                target_temperature = '{0:g}'.format(self._target_temperature)
+
+                if operation_mode.lower() == HVAC_MODE_OFF:
+                    await self._controller.send(self._commands['off'])
+                    return
+
+                if 'on' in self._commands:
+                    await self._controller.send(self._commands['on'])
+                    await asyncio.sleep(0.5)
+
+                await self._controller.send(
+                    self._commands[operation_mode][fan_mode][target_temperature])
+
             except Exception as e:
                 _LOGGER.exception(e)
             
