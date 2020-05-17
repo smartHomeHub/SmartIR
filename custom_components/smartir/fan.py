@@ -285,6 +285,13 @@ class SmartOneSpeedButtonIRFan(SmartIRFan):
         self._current_oscillating = False
         self._current_on = self.state == STATE_ON
 
+    async def async_added_to_hass(self):
+        """Run when entity about to be added. Uses the data from the super class."""
+        await super().async_added_to_hass()
+
+        self._current_speed = self._last_on_speed
+        self._current_oscillating = self._oscillating
+
     async def send_command(self):
         async with self._temp_lock:
             speed = self._speed.lower()
