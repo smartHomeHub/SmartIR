@@ -2,6 +2,7 @@ from base64 import b64encode
 import binascii
 import requests
 import logging
+import json
 
 from homeassistant.const import ATTR_ENTITY_ID
 from . import Helper
@@ -12,6 +13,7 @@ BROADLINK_CONTROLLER = 'Broadlink'
 XIAOMI_CONTROLLER = 'Xiaomi'
 MQTT_CONTROLLER = 'MQTT'
 LOOKIN_CONTROLLER = 'LOOKin'
+ESPHOME_CONTROLLER = 'ESPHome'
 
 ENC_BASE64 = 'Base64'
 ENC_HEX = 'Hex'
@@ -22,12 +24,13 @@ BROADLINK_COMMANDS_ENCODING = [ENC_BASE64, ENC_HEX, ENC_PRONTO]
 XIAOMI_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
 MQTT_COMMANDS_ENCODING = [ENC_RAW]
 LOOKIN_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
+ESPHOME_COMMANDS_ENCODING = [ENC_RAW]
 
 class Controller():
     def __init__(self, hass, controller, encoding, controller_data):
         if controller not in [
             BROADLINK_CONTROLLER, XIAOMI_CONTROLLER, 
-            MQTT_CONTROLLER, LOOKIN_CONTROLLER]:
+            MQTT_CONTROLLER, LOOKIN_CONTROLLER, ESPHOME_CONTROLLER]:
             raise Exception("The controller is not supported.")
 
         if controller == BROADLINK_CONTROLLER:
@@ -49,6 +52,11 @@ class Controller():
             if encoding not in LOOKIN_COMMANDS_ENCODING:
                 raise Exception("The encoding is not supported "
                                 "by the LOOKin controller.")
+
+        if controller == ESPHOME_CONTROLLER:
+            if encoding not in ESPHOME_COMMANDS_ENCODING:
+                raise Exception("The encoding is not supported "
+                                "by the ESPHome controller.")
 
         self.hass = hass
         self._controller = controller
@@ -111,3 +119,11 @@ class Controller():
             await self.hass.async_add_executor_job(
                 requests.get, url
             )
+
+        if self._controller == ESPHOME_CONTROLLER:
+            service_data = {
+                'command':  json.loads(command)
+            }
+
+            await self.hass.services.async_call(
+               'esphome', self._controller_data, service_data)
