@@ -196,6 +196,7 @@ Below are the code files created by the people in the community. Before you star
 | [1283](../codes/climate/1283.json) | AR-AB5 (Remote control)                     | Broadlink  |
 | [1284](../codes/climate/1284.json) | AR-REG1U (Remote control)                   | Broadlink  |
 | [1285](../codes/climate/1285.json) | AR-RCE1E (Remote control)                   | Broadlink  |
+| [3285](../codes/climate/3285.json) | AR-RCE1E (Remote control)                   | Xiaomi (v2)|
 | [1286](../codes/climate/1286.json) | AR-JE5 (Remote control)                     | Broadlink  |
 | [1287](../codes/climate/1287.json) | AR-REB1E (Remote control)                   | Broadlink  |
 
