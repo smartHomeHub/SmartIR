@@ -1,36 +1,11 @@
-[![buy me a coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/vassilis)
-
-SmartIR is a custom integration for controlling AC units, TV sets and fans via Infrared and RF controllers. An IR or RF controller such as Broadlink is required.
-
-## **Supported controllers**
+SmartIR is a custom integration for controlling **climate devices**, **media palyers** and **fans** via infrared controllers.<br>
+SmartIR currently supports the following controllers:
 * [Broadlink](https://www.home-assistant.io/integrations/broadlink/)
 * [Xiaomi IR Remote (ChuangmiIr)](https://www.home-assistant.io/integrations/remote.xiaomi_miio/)
 * [LOOK.in Remote](http://look-in.club/devices/remote)
-* [MQTT Publish service](https://www.home-assistant.io/docs/mqtt/service/)
 * [ESPHome User-defined service for remote transmitter](https://esphome.io/components/api.html#user-defined-services)
-  ```yml
-  api:
-    services:
-      - service: send_raw_command
-        variables:
-          command: int[]
-        then:
-          - remote_transmitter.transmit_raw:
-              code: !lambda 'return command;'
-  ```
+* [MQTT Publish service](https://www.home-assistant.io/docs/mqtt/service/)
 
-## **Platform setup instructions**
-<p align="center">
-  <a href="https://github.com/smartHomeHub/SmartIR/blob/master/docs/CLIMATE.md"><img src="https://raw.githubusercontent.com/smartHomeHub/SmartIR/master/docs/assets/smartir_climate.png" width="400" alt="SmartIR Climate"></a>
-</p>
-
-<p align="center">
-  <a href="https://github.com/smartHomeHub/SmartIR/blob/master/docs/MEDIA_PLAYER.md"><img src="https://raw.githubusercontent.com/smartHomeHub/SmartIR/master/docs/assets/smartir_mediaplayer.png" width="400" alt="SmartIR Media Player"></a>
-</p>
-
-<p align="center">
-  <a href="https://github.com/smartHomeHub/SmartIR/blob/master/docs/FAN.md"><img src="https://raw.githubusercontent.com/smartHomeHub/SmartIR/master/docs/assets/smartir_fan.png" width="400" alt="SmartIR Media Player"></a>
-</p>
-
-### Give this Project a Star :star:
-Star this repository if you had fun!
+More than 120 climate devices are currently supported out-of-the-box, mainly for the Broadlink controller, thanks to our awesome community.<br>
+Please don't forget to [**star**](https://github.com/smartHomeHub/SmartIR/) the repository if you had fun! [**"Buy Me A Coffee**"](https://www.buymeacoffee.com/vassilis) is also welcome. It will help in further development.<br>
+[Read the documents here for detailed instructions on how to configure SmartIR.](https://github.com/smartHomeHub/SmartIR/)
