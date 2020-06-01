@@ -100,15 +100,13 @@ HA configuration.yaml:
 ```yaml
 smartir:
 
-climate:
+media_player:
   - platform: smartir
-    name: Office AC
-    unique_id: office_ac
-    device_code: 8000
+    name: Living room TV
+    unique_id: living_room_tv
+    device_code: 2000
     controller_data: my_espir_send_raw_command
-    temperature_sensor: sensor.temperature
-    humidity_sensor: sensor.humidity
-    power_sensor: binary_sensor.ac_power
+    power_sensor: binary_sensor.tv_power
 ```
 
 ### Overriding Source Names
