@@ -86,8 +86,13 @@ climate:
 ```
 
 ## Example (using ESPHome):
-ESPHome API section:
+ESPHome configuration example:
 ```yaml
+esphome:
+  name: my_espir
+  platform: ESP8266
+  board: esp01_1m
+
 api:
   services:
     - service: send_raw_command
@@ -96,8 +101,12 @@ api:
       then:
         - remote_transmitter.transmit_raw:
             code: !lambda 'return command;'
+
+remote_transmitter:
+  pin: GPIO14
+  carrier_duty_percent: 50%
 ```
-configuration.yaml:
+HA configuration.yaml:
 ```yaml
 smartir:
 
@@ -106,7 +115,7 @@ climate:
     name: Office AC
     unique_id: office_ac
     device_code: 8000
-    controller_data: <esphome_name>_send_raw_command
+    controller_data: my_espir_send_raw_command
     temperature_sensor: sensor.temperature
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
@@ -114,7 +123,7 @@ climate:
 
 ## Available codes for climate devices:
 The following are the code files created by the amazing people in the community. Before you start creating your own code file, try if one of them works for your device. **Please open an issue if your device is working and not included in the supported models.**
-Your contribution with your own code files is welcome. However, we do not accept incomplete files as well as files related to MQTT controllers.
+Contributing to your own code files is welcome. However, we do not accept incomplete files as well as files related to MQTT controllers.
 
 #### Toyotomi
 | Code                               | Supported Models      | Controller |
