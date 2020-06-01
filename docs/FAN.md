@@ -73,6 +73,31 @@ fan:
     power_sensor: binary_sensor.fan_power
 ```
 
+## Example (using ESPHome):
+ESPHome API section:
+```yaml
+api:
+  services:
+    - service: send_raw_command
+      variables:
+        command: int[]
+      then:
+        - remote_transmitter.transmit_raw:
+            code: !lambda 'return command;'
+```
+configuration.yaml:
+```yaml
+smartir:
+
+fan:
+  - platform: smartir
+    name: Bedroom fan
+    unique_id: bedroom_fan
+    device_code: 8000
+    controller_data: 192.168.10.10
+    power_sensor: binary_sensor.fan_power
+```
+
 ## Available codes for Fan devices:
 Below are the code files created by the people in the community. Before you start creating your own code file, try if one of them works for your device. **Please open an issue if your device is working and not included in the supported models.**
 
