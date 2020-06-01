@@ -85,6 +85,33 @@ climate:
     power_sensor: binary_sensor.ac_power
 ```
 
+## Example (using ESPHome):
+ESPHome API section:
+```yaml
+api:
+  services:
+    - service: send_raw_command
+      variables:
+        command: int[]
+      then:
+        - remote_transmitter.transmit_raw:
+            code: !lambda 'return command;'
+```
+configuration.yaml:
+```yaml
+smartir:
+
+climate:
+  - platform: smartir
+    name: Office AC
+    unique_id: office_ac
+    device_code: 8000
+    controller_data: 192.168.10.10
+    temperature_sensor: sensor.temperature
+    humidity_sensor: sensor.humidity
+    power_sensor: binary_sensor.ac_power
+```
+
 ## Available codes for climate devices:
 Below are the code files created by the people in the community. Before you start creating your own code file, try if one of them works for your device. **Please open an issue if your device is working and not included in the supported models.**
 
@@ -164,7 +191,6 @@ Below are the code files created by the people in the community. Before you star
 | [1180](../codes/climate/1180.json) | Unknown model    | Broadlink                                       |
 | [1181](../codes/climate/1181.json) | Unknown model    | Broadlink                                       |
 | [3180](../codes/climate/3180.json) | YB0FB2 (Remote)  | Xiaomi                                          |
-| [5180](../codes/climate/5180.json) | Unknown model    | MQTT (Tested with Geeklink and Tasmota v6.7.1.) |
 
 #### Tosot
 | Code                               | Supported Models | Controller |
@@ -460,3 +486,8 @@ Below are the code files created by the people in the community. Before you star
 | Code                               | Supported Models        | Controller |
 | ---------------------------------- | ----------------------- | ---------- |
 | [2240](../codes/climate/2240.json) | PAC N82ECO<br>PAC AN111 | Broadlink  |
+
+#### Profio 
+| Code                               | Supported Models        | Controller |
+| ---------------------------------- | ----------------------- | ---------- |
+| [2260](../codes/climate/2260.json) | Unknown                 | Broadlink  |
