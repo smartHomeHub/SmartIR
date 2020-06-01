@@ -106,7 +106,7 @@ climate:
     name: Office AC
     unique_id: office_ac
     device_code: 8000
-    controller_data: 192.168.10.10
+    controller_data: <esphome_name>_send_raw_command
     temperature_sensor: sensor.temperature
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
