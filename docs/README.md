@@ -32,9 +32,7 @@ It should look similar to this:
 smartir:
 ```
 
-<br>
 SmartIR automatically detects updates after each HA startup and asks you to install them. It also has a mechanism that prevents you from updating if the last SmartIR version is incompatible with your HA instance. You can disable this feature by setting SmartIR as follows:
-
 ```yaml
 smartir:
   check_updates: false
@@ -51,13 +49,10 @@ If you want HACS to handle the updates, add SmartIR as a custom repository. In t
 <br><br>
 
 ## Platform setup instructions
-Click on the images below for instructions on how to configure each platform.
-<p align="center">
-  <a href="CLIMATE.md"><img src="assets/smartir_climate.png" width="250" alt="SmartIR Climate" style="margin-right: 30px"></a>
-  <a href="MEDIA_PLAYER.md"><img src="assets/smartir_mediaplayer.png" width="250" alt="SmartIR Media Player" style="margin-right: 30px"></a>
-  <a href="FAN.md"><img src="assets/smartir_fan.png" width="250" alt="SmartIR Media Player" style="margin-right: 30px"></a>
-</p>
-<br>
+Click on the links below for instructions on how to configure each platform.
+* [Climate platform](/docs/CLIMATE.md)
+* [Media Player platform](/docs/MEDIA_PLAYER.md)
+* [Fan platform](/docs/FAN.md)
 
 ## Links
 * [SmartIR Chat on Telegram](https://t.me/smartHomeHub)
