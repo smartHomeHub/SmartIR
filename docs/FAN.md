@@ -94,7 +94,7 @@ fan:
     name: Bedroom fan
     unique_id: bedroom_fan
     device_code: 8000
-    controller_data: 192.168.10.10
+    controller_data: <esphome_name>_send_raw_command
     power_sensor: binary_sensor.fan_power
 ```
 
