@@ -75,8 +75,33 @@ media_player:
     power_sensor: binary_sensor.tv_power
 ```
 
+## Example (using ESPHome):
+ESPHome API section:
+```yaml
+api:
+  services:
+    - service: send_raw_command
+      variables:
+        command: int[]
+      then:
+        - remote_transmitter.transmit_raw:
+            code: !lambda 'return command;'
+```
+configuration.yaml:
+```yaml
+smartir:
+
+media_player:
+  - platform: smartir
+    name: Living room TV
+    unique_id: living_room_tv
+    device_code: 8000
+    controller_data: 192.168.10.10
+    power_sensor: binary_sensor.tv_power
+```
+
 ### Overriding Source Names
-Source names in device files are usually set to the name that the media player uses. These often aren't very descriptive, so you can override these names in the configuration file. You can also remove a source by setting its name to `null`
+Source names in device files are usually set to the name that the media player uses. These often aren't very descriptive, so you can override these names in the configuration file. You can also remove a source by setting its name to `null`.
 
 ```yaml
 media_player:
@@ -92,7 +117,8 @@ media_player:
 ```
 
 ## Available codes for TV devices:
-Below are the code files created by the people in the community. Before you start creating your own code file, try if one of them works for your device. **Please open an issue if your device is working and not included in the supported models.**
+The following are the code files created by the amazing people in the community. Before you start creating your own code file, try if one of them works for your device. **Please open an issue if your device is working and not included in the supported models.**
+Your contribution with your own code files is welcome. However, we do not accept incomplete files as well as files related to MQTT controllers.
 
 #### Philips
 | Code | Supported Models | Controller |
