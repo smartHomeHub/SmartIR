@@ -44,19 +44,23 @@ smartir:
   update_branch: rc
 ```
 
+**(3)** Configure a platform.
+
 ### *HACS*
-If you want HACS to handle the updates, add SmartIR as a custom repository. In this case, it is recommended that you turn off automatic updates, as above.
+If you want HACS to handle installation and updates, add SmartIR as a custom repository. In this case, it is recommended that you turn off automatic updates, as above.
 <br><br>
+
 
 ## Platform setup instructions
 Click on the links below for instructions on how to configure each platform.
 * [Climate platform](/docs/CLIMATE.md)
 * [Media Player platform](/docs/MEDIA_PLAYER.md)
 * [Fan platform](/docs/FAN.md)
+<br><br>
 
-## Links
-* [SmartIR Chat on Telegram](https://t.me/smartHomeHub)
+## See also
 * [Discussion about SmartIR Climate (Home Assistant Community)](https://community.home-assistant.io/t/smartir-control-your-climate-tv-and-fan-devices-via-ir-rf-controllers/)
+* [SmartIR Chat on Telegram](https://t.me/smartHomeHub)
 
 <br><br>
 <p align="center">
