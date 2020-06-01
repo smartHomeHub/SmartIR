@@ -98,15 +98,13 @@ HA configuration.yaml:
 ```yaml
 smartir:
 
-climate:
+fan:
   - platform: smartir
-    name: Office AC
-    unique_id: office_ac
-    device_code: 8000
+    name: Bedroom fan
+    unique_id: bedroom_fan
+    device_code: 4000
     controller_data: my_espir_send_raw_command
-    temperature_sensor: sensor.temperature
-    humidity_sensor: sensor.humidity
-    power_sensor: binary_sensor.ac_power
+    power_sensor: binary_sensor.fan_power
 ```
 
 ## Available codes for Fan devices:
