@@ -7,6 +7,17 @@ SmartIR is a custom integration for controlling AC units, TV sets and fans via I
 * [Xiaomi IR Remote (ChuangmiIr)](https://www.home-assistant.io/integrations/remote.xiaomi_miio/)
 * [LOOK.in Remote](http://look-in.club/devices/remote)
 * [MQTT Publish service](https://www.home-assistant.io/docs/mqtt/service/)
+* [ESPHome User-defined service for remote transmitter](https://esphome.io/components/api.html#user-defined-services)
+  ```yml
+  api:
+    services:
+      - service: send_raw_command
+        variables:
+          command: int[]
+        then:
+          - remote_transmitter.transmit_raw:
+              code: !lambda 'return command;'
+  ```
 
 ## **Platform setup instructions**
 <p align="center">
