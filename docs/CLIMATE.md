@@ -507,3 +507,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models        | Controller |
 | ---------------------------------- | ----------------------- | ---------- |
 | [2280](../codes/climate/2280.json) | A018-12KR2              | Broadlink  |
+
+#### Zanussi 
+| Code                               | Supported Models        | Controller |
+| ---------------------------------- | ----------------------- | ---------- |
+| [2300](../codes/climate/2300.json) | ZH/TT-02 (Remote)       | Broadlink  |
