@@ -502,3 +502,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models        | Controller |
 | ---------------------------------- | ----------------------- | ---------- |
 | [2260](../codes/climate/2260.json) | Unknown                 | Broadlink  |
+
+#### Hantech 
+| Code                               | Supported Models        | Controller |
+| ---------------------------------- | ----------------------- | ---------- |
+| [2280](../codes/climate/2280.json) | A018-12KR2              | Broadlink  |
