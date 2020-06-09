@@ -129,7 +129,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         if 'play' in self._commands and self._commands['play'] is not None:
             self._support_flags = self._support_flags | SUPPORT_PLAY | SUPPORT_PAUSE | SUPPORT_STOP
        
-       if 'sources' in self._commands and self._commands['sources'] is not None:
+        if 'sources' in self._commands and self._commands['sources'] is not None:
             self._support_flags = self._support_flags | SUPPORT_SELECT_SOURCE
 
             for source, new_name in config.get(CONF_SOURCE_NAMES, {}).items():
