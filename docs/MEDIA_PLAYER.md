@@ -181,3 +181,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1180](../codes/media_player/1180.json)|55EP640|Broadlink
+
+#### Pace
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1200](../codes/media_player/1200.json)|TDS850NNZ <br> TDC850NF|Broadlink
