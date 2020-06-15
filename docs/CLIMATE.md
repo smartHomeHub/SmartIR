@@ -305,6 +305,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1520](../codes/climate/1520.json) | Unknown            | Broadlink  |
 | [1521](../codes/climate/1521.json) | Unknown            | Broadlink  |
 | [1522](../codes/climate/1522.json) | DG11R2-01 (Remote) | Broadlink  |
+| [5520](../codes/climate/5520.json) | AS-07UR4SYDD815G   | LOOKin  |
 
 #### Whirlpool
 | Code                               | Supported Models | Controller |
