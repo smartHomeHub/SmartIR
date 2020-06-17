@@ -509,6 +509,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models        | Controller |
 | ---------------------------------- | ----------------------- | ---------- |
 | [2280](../codes/climate/2280.json) | A018-12KR2              | Broadlink  |
+| [2281](../codes/climate/2281.json) | A016-09KR2/A            | Broadlink  |
 
 #### Zanussi 
 | Code                               | Supported Models        | Controller |
