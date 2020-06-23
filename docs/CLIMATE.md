@@ -195,6 +195,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
 | [1160](../codes/climate/1160.json) | Unknown model    | Broadlink  |
+| [1161](../codes/climate/1161.json) | 40GKX-024RB      | Broadlink  |
 
 #### Gree
 | Code                               | Supported Models | Controller                                      |
