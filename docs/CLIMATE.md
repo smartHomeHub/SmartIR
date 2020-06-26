@@ -146,6 +146,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1040](../codes/climate/1040.json) | Unknown model                                                                                  | Broadlink  |
 | [1041](../codes/climate/1041.json) | AE1PH09IWF<br>AE0PH09IWO<br>AE1PH12IWF<br>AE0PH12IWO<br>AE4PH18IWF<br>AE4PH18IWF<br>AE5PH18IWO | Broadlink  |
 | [1042](../codes/climate/1042.json) | ASHA09LCC                                                                                      | Broadlink  |
+| [1043](../codes/climate/1043.json) | ASWX09LECA                                                                                     | Broadlink  |
 
 #### LG
 | Code                               | Supported Models                        | Controller |
