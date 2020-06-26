@@ -517,3 +517,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models        | Controller |
 | ---------------------------------- | ----------------------- | ---------- |
 | [2300](../codes/climate/2300.json) | ZH/TT-02 (Remote)       | Broadlink  |
+
+#### Whynter
+| Code                               | Supported Models       | Controller |
+| ---------------------------------- | ---------------------- | ---------- |
+| [2320](../codes/climate/2320.json) | ARC-126MD / ARC-126MDB | Broadlink  |
