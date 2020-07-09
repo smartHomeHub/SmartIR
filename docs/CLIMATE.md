@@ -523,3 +523,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2320](../codes/climate/2320.json) | ARC-126MD / ARC-126MDB | Broadlink  |
+
+#### Vortex
+| Code                               | Supported Models       | Controller |
+| ---------------------------------- | ---------------------- | ---------- |
+| [2340](../codes/climate/2340.json) | VOR-12C3/407           | Broadlink  |
