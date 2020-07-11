@@ -47,6 +47,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_POWER_SENSOR): cv.entity_id
 })
 
+
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Set up the IR Climate platform."""
     device_code = config.get(CONF_DEVICE_CODE)
