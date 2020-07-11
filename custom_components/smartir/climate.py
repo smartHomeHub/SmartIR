@@ -47,6 +47,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_POWER_SENSOR): cv.entity_id
 })
 
+
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Set up the IR Climate platform."""
     device_code = config.get(CONF_DEVICE_CODE)
@@ -116,6 +117,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._hvac_mode = HVAC_MODE_OFF
         self._current_fan_mode = self._fan_modes[0]
         self._last_on_operation = None
+        self._turn_on_flag = True
 
         self._current_temperature = None
         self._current_humidity = None
@@ -141,6 +143,8 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         
         if last_state is not None:
             self._hvac_mode = last_state.state
+            if not self._hvac_mode.lower() == HVAC_MODE_OFF:
+                self._turn_on_flag = False
             self._current_fan_mode = last_state.attributes['fan_mode']
             self._target_temperature = last_state.attributes['temperature']
 
@@ -327,10 +331,12 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 target_temperature = '{0:g}'.format(self._target_temperature)
 
                 if operation_mode.lower() == HVAC_MODE_OFF:
+                    self._turn_on_flag = True
                     await self._controller.send(self._commands['off'])
                     return
 
-                if 'on' in self._commands:
+                if 'on' in self._commands and self._turn_on_flag:
+                    self._turn_on_flag = False
                     await self._controller.send(self._commands['on'])
                     await asyncio.sleep(0.5)
 
@@ -363,10 +369,12 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
         if new_state.state == STATE_ON and self._hvac_mode == HVAC_MODE_OFF:
             self._on_by_remote = True
+            self._turn_on_flag = False
             await self.async_update_ha_state()
 
         if new_state.state == HVAC_MODE_OFF:
             self._on_by_remote = False
+            self._turn_on_flag = True
             if self._hvac_mode != HVAC_MODE_OFF:
                 self._hvac_mode = HVAC_MODE_OFF
             await self.async_update_ha_state()
