@@ -105,6 +105,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._min_temperature = device_data['minTemperature']
         self._max_temperature = device_data['maxTemperature']
         self._precision = device_data['precision']
+        self._delay = device_data.get('delay')
 
         valid_hvac_modes = [x for x in device_data['operationModes'] if x in HVAC_MODES]
 
@@ -336,6 +337,9 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
                 await self._controller.send(
                     self._commands[operation_mode][fan_mode][target_temperature])
+
+                if self._delay:
+                    await asyncio.sleep(self._delay)
 
             except Exception as e:
                 _LOGGER.exception(e)
