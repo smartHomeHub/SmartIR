@@ -188,3 +188,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1200](../codes/media_player/1200.json)|TDS850NNZ <br> TDC850NF|Broadlink
+
+#### Silver
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1220](../codes/media_player/1220.json)|MEO|Broadlink
