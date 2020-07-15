@@ -187,6 +187,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1125](../codes/climate/1125.json) | MLZ-KP25VF<br>MLZ-KP35VF<br>MLZ-KP50VF                                                               | Broadlink  |
 | [1126](../codes/climate/1126.json) | MSX09-NV II <br> MSH-07RV <br> MSH-12RV                                                              | Broadlink  |
 | [1127](../codes/climate/1127.json) | MSZ-HJ25VA                                                                                           | Broadlink  |
+| [1128](../codes/climate/1128.json) | MSZ-HJ35VA                                                                                           | Broadlink  |
 
 #### Actron
 | Code                               | Supported Models | Controller |
