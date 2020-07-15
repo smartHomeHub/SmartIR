@@ -529,3 +529,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2340](../codes/climate/2340.json) | VOR-12C3/407           | Broadlink  |
+
+#### Flouu
+| Code                               | Supported Models       | Controller |
+| ---------------------------------- | ---------------------- | ---------- |
+| [2360](../codes/climate/2360.json) | Unknown                | Broadlink  |
