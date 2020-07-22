@@ -335,11 +335,36 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                     await asyncio.sleep(0.5)
 
                 await self._controller.send(
-                    self._commands[operation_mode][fan_mode][target_temperature])
+                    self._find_nearest_temperature_command(
+                        operation_mode, fan_mode, target_temperature
+                    )
+                )
 
             except Exception as e:
                 _LOGGER.exception(e)
-            
+
+    def _find_nearest_temperature_command(
+        self, operation_mode, fan_mode, target_temperature
+    ):
+        """Find the nearest temperature command.
+
+        When converting from metric to imperial units, the device
+        may only have a command for every other unit of
+        temperature.
+
+        We try the next highest one when heating, and
+        the next lowest one for all other modes if the exact
+        temperature does not have a command.
+        """
+        temp_to_command = self._commands[operation_mode][fan_mode]
+
+        if target_temperature in temp_to_command:
+            return temp_to_command[target_temperature]
+
+        offset = 1 if operation_mode == HVAC_MODE_HEAT else -1
+
+        return temp_to_command[str(int(target_temperature) + offset)]
+
     async def _async_temp_sensor_changed(self, entity_id, old_state, new_state):
         """Handle temperature sensor changes."""
         if new_state is None:
