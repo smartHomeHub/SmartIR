@@ -1,0 +1,28 @@
+{
+  "manufacturer":"Sony",
+  "supportedModels":[
+    "KDL-EX540"
+  ],
+  "supportedController":"MQTT",
+  "commandsEncoding":"Raw",
+  "commands":{
+    "off":"irsend {\"Protocol\":\"SONY\",\"Bits\":12,\"Data\":\"0xF50\"}",
+    "on":"irsend {\"Protocol\":\"SONY\",\"Bits\":12,\"Data\":\"0x750\"}",
+    "previousChannel":"irsend {\"Protocol\":\"SONY\",\"Bits\":12,\"Data\":\"0x890\"}",
+    "nextChannel":"irsend {\"Protocol\":\"SONY\",\"Bits\":12,\"Data\":\"0x090\"}",
+    "volumeDown":"irsend {\"Protocol\":\"SONY\",\"Bits\":12,\"Data\":\"0xC90\"}",
+    "volumeUp":"irsend {\"Protocol\":\"SONY\",\"Bits\":12,\"Data\":\"0x490\"}",
+    "mute":"irsend {\"Protocol\":\"SONY\",\"Bits\":12,\"Data\":\"0x290\"}",
+    "sources":{
+      "HDMI 1":"irsend {\"Protocol\":\"SONY\",\"Bits\":12,\"Data\":\"0x2D58\"}",
+      "HDMI 2":"irsend {\"Protocol\":\"SONY\",\"Bits\":12,\"Data\":\"0x6D58\"}",
+      "HDMI 3":"irsend {\"Protocol\":\"SONY\",\"Bits\":12,\"Data\":\"0x1D58\"}",
+      "HDMI 4":"irsend {\"Protocol\":\"SONY\",\"Bits\":12,\"Data\":\"0x5D58\"}",
+      "Video 1":"irsend {\"Protocol\":\"SONY\",\"Bits\":12,\"Data\":\"0x030\"}",
+      "Video 2":"irsend {\"Protocol\":\"SONY\",\"Bits\":12,\"Data\":\"0x830\"}",
+      "Video 3":"irsend {\"Protocol\":\"SONY\",\"Bits\":12,\"Data\":\"0x430\"}",
+      "PC":"irsend {\"Protocol\":\"SONY\",\"Bits\":12,\"Data\":\"0xC30\"}",
+      "DTV":"irsend {\"Protocol\":\"SONY\",\"Bits\":12,\"Data\":\"0x25EE\"}"
+    }
+  }
+}
