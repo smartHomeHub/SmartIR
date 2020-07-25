@@ -1,0 +1,23 @@
+{
+  "manufacturer":"Panasonic",
+  "supportedModels":[
+    "TX65FXW784"
+  ],
+  "supportedController":"MQTT",
+  "commandsEncoding":"Raw",
+  "commands":{
+    "off":"irsend {\"Protocol\":\"PANASONIC\",\"Bits\":48,\"Data\":\"0x40040100BCBD\"}",
+    "on":"irsend {\"Protocol\":\"PANASONIC\",\"Bits\":48,\"Data\":\"0x40040100BCBD\"}",
+    "previousChannel":"irsend {\"Protocol\":\"PANASONIC\",\"Bits\":48,\"Data\":\"0x40040100ACAD\"}",
+    "nextChannel":"irsend {\"Protocol\":\"PANASONIC\",\"Bits\":48,\"Data\":\"0x400401002C2D\"}",
+    "volumeDown":"irsend {\"Protocol\":\"PANASONIC\",\"Bits\":48,\"Data\":\"0x400401008485\"}",
+    "volumeUp":"irsend {\"Protocol\":\"PANASONIC\",\"Bits\":48,\"Data\":\"0x400401000405\"}",
+    "mute":"irsend {\"Protocol\":\"PANASONIC\",\"Bits\":48,\"Data\":\"0x400401004C4D\"}",
+    "sources":{
+      "Netflix":"irsend {\"Protocol\":\"PANASONIC\",\"Bits\":48,\"Data\":\"0x400401904FDE\"}",
+      "Apps":"irsend {\"Protocol\":\"PANASONIC\",\"Bits\":48,\"Data\":\"0x40040190F160\"}",
+      "AV":"irsend {\"Protocol\":\"PANASONIC\",\"Bits\":48,\"Data\":\"0x40040100A0A1\"}",
+      "TV":"irsend {\"Protocol\":\"PANASONIC\",\"Bits\":48,\"Data\":\"0x400401400C4D\"}"
+    }
+  }
+}
