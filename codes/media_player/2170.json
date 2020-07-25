@@ -1,0 +1,21 @@
+{
+  "manufacturer":"VU+",
+  "supportedModels":[
+    "Duo2"
+  ],
+  "supportedController":"MQTT",
+  "commandsEncoding":"Raw",
+  "commands":{
+    "off":"irsend {\"Protocol\":\"RC6\",\"Bits\":36,\"Data\":\"0xC8052900C\"}",
+    "on":"irsend {\"Protocol\":\"RC6\",\"Bits\":36,\"Data\":\"0xC8052900C\"}",
+    "previousChannel":"irsend {\"Protocol\":\"RC6\",\"Bits\":36,\"Data\":\"0xC80529021\"}",
+    "nextChannel":"irsend {\"Protocol\":\"RC6\",\"Bits\":36,\"Data\":\"0xC80529020\"}",
+    "volumeDown":"irsend {\"Protocol\":\"RC6\",\"Bits\":36,\"Data\":\"0xC80521011\"}",
+    "volumeUp":"irsend {\"Protocol\":\"RC6\",\"Bits\":36,\"Data\":\"0xC80529010\"}",
+    "mute":"irsend {\"Protocol\":\"RC6\",\"Bits\":36,\"Data\":\"0xC8052100D\"}",
+    "sources":{
+      "Radio":"irsend {\"Protocol\":\"RC6\",\"Bits\":36,\"Data\":\"0xC805290F2\"}",
+      "TV":"irsend {\"Protocol\":\"RC6\",\"Bits\":36,\"Data\":\"0xC805290E4\"}"
+    }
+  }
+}
