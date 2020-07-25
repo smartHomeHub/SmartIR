@@ -1,0 +1,24 @@
+{
+  "manufacturer":"LG",
+  "supportedModels":[
+    "55UH8509"
+  ],
+  "supportedController":"MQTT",
+  "commandsEncoding":"Raw",
+  "commands":{
+    "off":"irsend {\"Protocol\":\"NEC\",\"Bits\":32,\"Data\":\"0x20DF10EF\"}",
+    "on":"irsend {\"Protocol\":\"NEC\",\"Bits\":32,\"Data\":\"0x20DF23DC\"}",
+    "previousChannel":"irsend {\"Protocol\":\"NEC\",\"Bits\":32,\"Data\":\"0x20DF807F\"}",
+    "nextChannel":"irsend {\"Protocol\":\"NEC\",\"Bits\":32,\"Data\":\"0x20DF00FF\"}",
+    "volumeDown":"irsend {\"Protocol\":\"NEC\",\"Bits\":32,\"Data\":\"0x20DFC03F\"}",
+    "volumeUp":"irsend {\"Protocol\":\"NEC\",\"Bits\":32,\"Data\":\"0x20DF40BF\"}",
+    "mute":"irsend {\"Protocol\":\"NEC\",\"Bits\":32,\"Data\":\"0x20DF906F\"}",
+    "sources":{
+      "HDMI 1":"irsend {\"Protocol\":\"NEC\",\"Bits\":32,\"Data\":\"0x20DF738C\"}",
+      "HDMI 2":"irsend {\"Protocol\":\"NEC\",\"Bits\":32,\"Data\":\"0x20DF33CC\"}",
+      "HDMI 3":"irsend {\"Protocol\":\"NEC\",\"Bits\":32,\"Data\":\"0x20DF9768\"}",
+      "Component":"irsend {\"Protocol\":\"NEC\",\"Bits\":32,\"Data\":\"0x20DFFD02\"}",
+      "Live TV":"irsend {\"Protocol\":\"NEC\",\"Bits\":32,\"Data\":\"0x20DF3EC1\"}"
+    }
+  }
+}
