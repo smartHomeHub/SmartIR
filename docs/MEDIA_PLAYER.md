@@ -193,3 +193,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1220](../codes/media_player/1220.json)|MEO|Broadlink
+
+#### TurboX
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1240](../codes/media_player/1240.json)|TXV-2420|Broadlink
