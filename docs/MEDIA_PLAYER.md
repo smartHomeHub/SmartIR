@@ -21,7 +21,8 @@ switch:
   - platform: broadlink
     host: 192.168.10.10
     mac: '00:00:00:00:00:00'
-    
+    type: rm4_mini
+
 media_player:
   - platform: smartir
     name: Living room TV
