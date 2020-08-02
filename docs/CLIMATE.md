@@ -206,6 +206,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ---------------------------------- | ---------------- | ----------------------------------------------- |
 | [1180](../codes/climate/1180.json) | Unknown model    | Broadlink                                       |
 | [1181](../codes/climate/1181.json) | Unknown model    | Broadlink                                       |
+| [1182](../codes/climate/1182.json) | Y512/Y502 (Remote)    | Broadlink                                       |
 | [3180](../codes/climate/3180.json) | YB0FB2 (Remote)  | Xiaomi                                          |
 
 #### Tosot
@@ -462,63 +463,63 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ---------------------------------- | ---------------- | ---------- |
 | [2060](../codes/climate/2060.json) | GDPAC12RC        | Broadlink  |
 
-#### Sendo 
+#### Sendo
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
 | [2080](../codes/climate/2080.json) | SND-18IK         | Broadlink  |
 
-#### Mirage 
+#### Mirage
 | Code                               | Supported Models   | Controller |
 | ---------------------------------- | ------------------ | ---------- |
 | [2100](../codes/climate/2100.json) | Magnum Inverter 19 | Broadlink  |
 
-#### Technibel 
+#### Technibel
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
 | [2120](../codes/climate/2120.json) | MPAF13A0R5IAA    | Broadlink  |
 
-#### Unionaire 
+#### Unionaire
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
 | [2140](../codes/climate/2140.json) | Artify           | Broadlink  |
 
-#### Lennox 
+#### Lennox
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
 | [2160](../codes/climate/2160.json) | Unknown          | Broadlink  |
 
-#### Hokkaido 
+#### Hokkaido
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
 | [2180](../codes/climate/2180.json) | LA09-DUAL H1     | Broadlink  |
 
-#### IGC 
+#### IGC
 | Code                               | Supported Models   | Controller |
 | ---------------------------------- | ------------------ | ---------- |
 | [2200](../codes/climate/2200.json) | RAK-12NH<br>RAK-18NH | Broadlink  |
 
-#### Blueridge 
+#### Blueridge
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
 | [2220](../codes/climate/2220.json) | RG57A4<br>BGEFU1 | Broadlink  |
 
-#### Delonghi 
+#### Delonghi
 | Code                               | Supported Models        | Controller |
 | ---------------------------------- | ----------------------- | ---------- |
 | [2240](../codes/climate/2240.json) | PAC N82ECO<br>PAC AN111 | Broadlink  |
 
-#### Profio 
+#### Profio
 | Code                               | Supported Models        | Controller |
 | ---------------------------------- | ----------------------- | ---------- |
 | [2260](../codes/climate/2260.json) | Unknown                 | Broadlink  |
 
-#### Hantech 
+#### Hantech
 | Code                               | Supported Models        | Controller |
 | ---------------------------------- | ----------------------- | ---------- |
 | [2280](../codes/climate/2280.json) | A018-12KR2              | Broadlink  |
 | [2281](../codes/climate/2281.json) | A016-09KR2/A            | Broadlink  |
 
-#### Zanussi 
+#### Zanussi
 | Code                               | Supported Models        | Controller |
 | ---------------------------------- | ----------------------- | ---------- |
 | [2300](../codes/climate/2300.json) | ZH/TT-02 (Remote)       | Broadlink  |
