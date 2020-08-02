@@ -454,7 +454,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 #### Pioneer
 | Code                               | Supported Models                 | Controller |
 | ---------------------------------- | -------------------------------- | ---------- |
-| [2040](../codes/climate/2040.json) | WYS018GMFI17RL<br>WYS009GMFI17RL | Broadlink  |
+| [2040](../codes/climate/2040.json) | WYS018GMFI17RL<br>WYS009GMFI17RL<br>CB018GMFILCFHD<br>CB012GMFILCFHD | Broadlink  |
 
 #### Dimplex
 | Code                               | Supported Models | Controller |
