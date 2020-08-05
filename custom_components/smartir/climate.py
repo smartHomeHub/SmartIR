@@ -1,6 +1,7 @@
 import asyncio
 import json
 import logging
+import math
 import os.path
 
 import voluptuous as vol
@@ -210,6 +211,18 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     def target_temperature_step(self):
         """Return the supported step of target temperature."""
         return self._precision
+
+    @property
+    def precision(self):
+        """Return the display precision of the target temperature."""
+        # Find the coarsest precision that still allows every temperature step.
+        coarsest_precision = max(
+                (x for x in (PRECISION_TENTHS, PRECISION_HALVES, PRECISION_WHOLE)
+                 if x <= self._precision),
+                default = math.inf)
+        # If the standard precision for our temperature unit is smaller,
+        # use that precision instead.
+        return min(super().precision, coarsest_precision)
 
     @property
     def hvac_modes(self):
