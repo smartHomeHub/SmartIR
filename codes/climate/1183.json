@@ -1,7 +1,7 @@
 {
 	"manufacturer": "Gree",
 	"supportedModels": [
-		"Gree Smart inverter models. WiFi off. Health on. Fan modes: [fun]_[swing]_[light]"
+		"Gree Smart inverter models. WiFi off. Health on. Fan modes: [fan]_[swing]_[light]"
 	],
 	"commandsEncoding": "Base64",
 	"supportedController": "Broadlink",
