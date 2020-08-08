@@ -209,6 +209,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1180](../codes/climate/1180.json) | Unknown model    | Broadlink                                       |
 | [1181](../codes/climate/1181.json) | Unknown model    | Broadlink                                       |
 | [1182](../codes/climate/1182.json) | Y512/Y502 (Remote)    | Broadlink                                       |
+| [1183](../codes/climate/1183.json) | Gree Smart inverter    | Broadlink                                       |
 | [3180](../codes/climate/3180.json) | YB0FB2 (Remote)  | Xiaomi                                          |
 
 #### Tosot
