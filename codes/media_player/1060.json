@@ -1,7 +1,8 @@
 {
     "manufacturer": "Samsung",
     "supportedModels": [
-      "UE40F6500"
+      "UE40F6500",
+      "UE40H7000SL"
     ],
     "supportedController": "Broadlink",
     "commandsEncoding": "Base64",

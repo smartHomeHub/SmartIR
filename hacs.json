@@ -1,5 +1,10 @@
 {
+<<<<<<< HEAD
   "name": "SmartIR_CBROC",
   "homeassistant": "0.96.0",
+=======
+  "name": "SmartIR",
+  "homeassistant": "0.110.0b0",
+>>>>>>> 6d1d5cf2d13c946ce603801d6ca59b743d6a3aa6
   "persistent_directory": "codes"
 }

@@ -16,6 +16,9 @@ Issues not containing the minimum requirements will be closed:
 - Issues without configuration will be closed
 -->
 
+<!-- Your contribution with your own code files is welcome. However, we do not accept incomplete files as well as files related to MQTT controllers.
+-->
+
 **Home Assistant version**
 
 **SmartIR version**
