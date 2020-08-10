@@ -2,7 +2,9 @@
   "manufacturer": "Pioneer",
   "supportedModels": [
     "WYS018GMFI17RL",
-    "WYS009GMFI17RL"
+    "WYS009GMFI17RL",
+    "CB018GMFILCFHD",
+    "CB012GMFILCFHD"
   ],
   "commandsEncoding": "Base64",
   "supportedController": "Broadlink",
