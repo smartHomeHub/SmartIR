@@ -334,7 +334,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 await self._controller.send(
                     self._commands[operation_mode][fan_mode][target_temperature])
                 
-                await self.check_state(10)
+                asyncio.ensure_future(check_state(10))
             except Exception as e:
                 _LOGGER.exception(e)
             
@@ -357,7 +357,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     async def _async_power_sensor_changed(self, entity_id, old_state, new_state):
         """Handle power sensor changes."""
         if (old_state is None and new_state is not None) or (old_state is not None and new_state is not None and old_state.state != new_state.state):
-            await self.check_state(0)
+            asyncio.ensure_future(check_state(0))
 
     async def check_state(self, delay):
         """Compare power sensor state and climate state."""
