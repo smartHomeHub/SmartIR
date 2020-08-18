@@ -371,11 +371,11 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         if (power_sensor_state.state == STATE_ON and self._hvac_mode == HVAC_MODE_OFF) or (power_sensor_state.state == STATE_OFF and self._hvac_mode != HVAC_MODE_OFF):
             if self._retry_count < 10:
                 self._retry_count += 1
-                _LOGGER.error("Unable to change AC state: %d from 10, retry in 5 seconds", self._retry_count)
+                _LOGGER.error("Climate state '%s' not equal to power sensor state '%s'. Resend command, attempt: %d of 10", self._hvac_mode, power_sensor_state.state, self._retry_count)
                                
                 await self.send_command()
-            else:
-                self._retry_count = 0
+        else:
+            self._retry_count = 0
 
     @callback
     def _async_update_temp(self, state):
