@@ -334,7 +334,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 await self._controller.send(
                     self._commands[operation_mode][fan_mode][target_temperature])
                 
-                asyncio.ensure_future(check_state(10))
+                asyncio.ensure_future(self.check_state(10))
             except Exception as e:
                 _LOGGER.exception(e)
             
@@ -357,7 +357,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     async def _async_power_sensor_changed(self, entity_id, old_state, new_state):
         """Handle power sensor changes."""
         if (old_state is None and new_state is not None) or (old_state is not None and new_state is not None and old_state.state != new_state.state):
-            asyncio.ensure_future(check_state(0))
+            asyncio.ensure_future(self.check_state(0))
 
     async def check_state(self, delay):
         """Compare power sensor state and climate state."""
@@ -374,7 +374,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                         self._retry_count += 1
                         _LOGGER.error("Climate state '%s' not equal to power sensor state '%s'. Resend command, attempt: %d of 10", self._hvac_mode, power_sensor_state.state, self._retry_count)
                                
-                        self.send_command()
+                        await self.send_command()
                 else:           
                     self._retry_count = 0
 
