@@ -335,7 +335,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                     self._commands[operation_mode][fan_mode][target_temperature])
                 
                 if self._power_sensor:     
-                    await asyncio.sleep(2)
+                    await asyncio.sleep(5)
                                   
                     power_sensor_state = self.hass.states.get(self._power_sensor)
                     if power_sensor_state:                                           
