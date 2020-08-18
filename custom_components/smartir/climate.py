@@ -334,12 +334,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 await self._controller.send(
                     self._commands[operation_mode][fan_mode][target_temperature])
                 
-                if self._power_sensor:     
-                    await asyncio.sleep(10)
-                                  
-                    power_sensor_state = self.hass.states.get(self._power_sensor)
-                    if power_sensor_state:                                         
-                        self.check_state(power_sensor_state)
+                await self.check_state(10)
             except Exception as e:
                 _LOGGER.exception(e)
             
@@ -361,23 +356,27 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
     async def _async_power_sensor_changed(self, entity_id, old_state, new_state):
         """Handle power sensor changes."""
-        _LOGGER.error("_async_power_sensor_changed, state from %s to %s", old_state.state, new_state.state)
-        self.check_state(new_state)
+        if (old_state is None and new_state is not None) or (old_state is not None and new_state is not None and old_state.state != new_state.state):
+            await self.check_state(0)
 
-    def check_state(self, power_sensor_state):
+    async def check_state(self, delay):
         """Compare power sensor state and climate state."""
-        if power_sensor_state is None or power_sensor_state.state == STATE_UNKNOWN:
-            return
+        if self._power_sensor:   
+            await asyncio.sleep(delay)
+              
+            power_sensor_state = self.hass.states.get(self._power_sensor)
+            if power_sensor_state:                                                              
+                if power_sensor_state is None or power_sensor_state.state == STATE_UNKNOWN:
+                    return
                                  
-        if (power_sensor_state.state == STATE_ON and self._hvac_mode == HVAC_MODE_OFF) or (power_sensor_state.state == STATE_OFF and self._hvac_mode != HVAC_MODE_OFF):
-            if self._retry_count < 10:
-                self._retry_count += 1
-                _LOGGER.error("Climate state '%s' not equal to power sensor state '%s'. Resend command, attempt: %d of 10", self._hvac_mode, power_sensor_state.state, self._retry_count)
+                if (power_sensor_state.state == STATE_ON and self._hvac_mode == HVAC_MODE_OFF) or (power_sensor_state.state == STATE_OFF and self._hvac_mode != HVAC_MODE_OFF):
+                    if self._retry_count < 10:
+                        self._retry_count += 1
+                        _LOGGER.error("Climate state '%s' not equal to power sensor state '%s'. Resend command, attempt: %d of 10", self._hvac_mode, power_sensor_state.state, self._retry_count)
                                
-                self.send_command()
-        else:
-            
-            self._retry_count = 0
+                        self.send_command()
+                else:           
+                    self._retry_count = 0
 
     @callback
     def _async_update_temp(self, state):
