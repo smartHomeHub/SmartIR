@@ -337,7 +337,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 if self._power_sensor:                   
                     power_sensor_state = self.hass.states.get(self._power_sensor)
                     if power_sensor_state:                                           
-                        await self.check_state(power_sensor_state)
+                        self.check_state(power_sensor_state)
             except Exception as e:
                 _LOGGER.exception(e)
             
@@ -359,9 +359,9 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
     async def _async_power_sensor_changed(self, entity_id, old_state, new_state):
         """Handle power sensor changes."""
-        await self.check_state(new_state)
+        self.check_state(new_state)
 
-    async def check_state(self, power_sensor_state):
+    def check_state(self, power_sensor_state):
         """Compare power sensor state and climate state."""
         if power_sensor_state is None or power_sensor_state.state == STATE_UNKNOWN:
             return
@@ -371,7 +371,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 self._retry_count += 1
                 _LOGGER.error("Climate state '%s' not equal to power sensor state '%s'. Resend command, attempt: %d of 10", self._hvac_mode, power_sensor_state.state, self._retry_count)
                                
-                await self.send_command()
+                self.send_command()
         else:
             self._retry_count = 0
 
