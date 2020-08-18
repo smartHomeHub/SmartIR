@@ -97,6 +97,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._temperature_sensor = config.get(CONF_TEMPERATURE_SENSOR)
         self._humidity_sensor = config.get(CONF_HUMIDITY_SENSOR)
         self._power_sensor = config.get(CONF_POWER_SENSOR)
+        self._retry_count = 0
 
         self._manufacturer = device_data['manufacturer']
         self._supported_models = device_data['supportedModels']
@@ -332,7 +333,13 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
                 await self._controller.send(
                     self._commands[operation_mode][fan_mode][target_temperature])
-
+                
+                if self._power_sensor:
+                    await asyncio.sleep(5)
+                    
+                    power_sensor_state = self.hass.states.get(self._power_sensor)
+                    if power_sensor_state:                                           
+                        await self.check_state(power_sensor_state)
             except Exception as e:
                 _LOGGER.exception(e)
             
@@ -354,11 +361,21 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
     async def _async_power_sensor_changed(self, entity_id, old_state, new_state):
         """Handle power sensor changes."""
-        if new_state is None or new_state == STATE_UNKNOWN:
-            return
+        await self.check_state(new_state)
 
-        if (new_state.state == STATE_ON and self._hvac_mode == HVAC_MODE_OFF) or (new_state.state == STATE_OFF and self._hvac_mode != HVAC_MODE_OFF):
-            await self.send_command()
+    async def check_state(self, power_sensor_state):
+        """Compare power sensor state and climate state."""
+        if power_sensor_state is None or power_sensor_state.state == STATE_UNKNOWN:
+            return
+                
+        if (power_sensor_state.state == STATE_ON and self._hvac_mode == HVAC_MODE_OFF) or (power_sensor_state.state == STATE_OFF and self._hvac_mode != HVAC_MODE_OFF):
+            if self._retry_count < 10:
+                self._retry_count += 1
+                _LOGGER.error("Unable to change AC state: %d from 10, retry in 5 seconds", self._retry_count)
+                               
+                await self.send_command()
+            else:
+                self._retry_count = 0
 
     @callback
     def _async_update_temp(self, state):
