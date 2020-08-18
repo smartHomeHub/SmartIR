@@ -338,8 +338,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                     await asyncio.sleep(10)
                                   
                     power_sensor_state = self.hass.states.get(self._power_sensor)
-                    if power_sensor_state:           
-                        _LOGGER.error("check_state, state: %s", power_sensor_state.state)                                
+                    if power_sensor_state:                                         
                         self.check_state(power_sensor_state)
             except Exception as e:
                 _LOGGER.exception(e)
@@ -362,16 +361,14 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
     async def _async_power_sensor_changed(self, entity_id, old_state, new_state):
         """Handle power sensor changes."""
-        _LOGGER.error("_async_power_sensor_changed, state: %s", new_state.state)
+        _LOGGER.error("_async_power_sensor_changed, state from %s to %s", old_state.state, new_state.state)
         self.check_state(new_state)
 
     def check_state(self, power_sensor_state):
         """Compare power sensor state and climate state."""
         if power_sensor_state is None or power_sensor_state.state == STATE_UNKNOWN:
             return
-                
-        _LOGGER.error("check_state 1, state: %s, %s", self._hvac_mode, power_sensor_state.state)        
-                
+                                 
         if (power_sensor_state.state == STATE_ON and self._hvac_mode == HVAC_MODE_OFF) or (power_sensor_state.state == STATE_OFF and self._hvac_mode != HVAC_MODE_OFF):
             if self._retry_count < 10:
                 self._retry_count += 1
