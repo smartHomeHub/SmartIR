@@ -31,6 +31,8 @@ CONF_CONTROLLER_DATA = "controller_data"
 CONF_TEMPERATURE_SENSOR = 'temperature_sensor'
 CONF_HUMIDITY_SENSOR = 'humidity_sensor'
 CONF_POWER_SENSOR = 'power_sensor'
+CONF_RESEND_COUNT = 'resend_count'
+CONF_RESEND_TIMEOUT = 'resend_timeout'
 
 SUPPORT_FLAGS = (
     SUPPORT_TARGET_TEMPERATURE | 
@@ -44,7 +46,9 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_CONTROLLER_DATA): cv.string,
     vol.Optional(CONF_TEMPERATURE_SENSOR): cv.entity_id,
     vol.Optional(CONF_HUMIDITY_SENSOR): cv.entity_id,
-    vol.Optional(CONF_POWER_SENSOR): cv.entity_id
+    vol.Optional(CONF_POWER_SENSOR): cv.entity_id,
+    vol.Optional(CONF_RESEND_COUNT): cv.positive_int,
+    vol.Optional(CONF_RESEND_TIMEOUT): cv.positive_int
 })
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
@@ -52,7 +56,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
     device_code = config.get(CONF_DEVICE_CODE)
     device_files_subdir = os.path.join('codes', 'climate')
     device_files_absdir = os.path.join(COMPONENT_ABS_DIR, device_files_subdir)
-
+    
     if not os.path.isdir(device_files_absdir):
         os.makedirs(device_files_absdir)
 
@@ -97,7 +101,9 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._temperature_sensor = config.get(CONF_TEMPERATURE_SENSOR)
         self._humidity_sensor = config.get(CONF_HUMIDITY_SENSOR)
         self._power_sensor = config.get(CONF_POWER_SENSOR)
-        self._retry_count = 0
+        self._resend_count = config.get(CONF_RESEND_COUNT) or 10
+        self._resend_timeout = config.get(CONF_RESEND_TIMEOUT) or 10
+        self._resend_attempt_count = 0
 
         self._manufacturer = device_data['manufacturer']
         self._supported_models = device_data['supportedModels']
@@ -148,7 +154,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 self._last_on_operation = last_state.attributes['last_on_operation']
 
         if self._temperature_sensor:
-            async_track_state_change(self.hass, self._temperature_sensor, 
+            async_track_state_change_event(self.hass, self._temperature_sensor, 
                                      self._async_temp_sensor_changed)
 
             temp_sensor_state = self.hass.states.get(self._temperature_sensor)
@@ -156,7 +162,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 self._async_update_temp(temp_sensor_state)
 
         if self._humidity_sensor:
-            async_track_state_change(self.hass, self._humidity_sensor, 
+            async_track_state_change_event(self.hass, self._humidity_sensor, 
                                      self._async_humidity_sensor_changed)
 
             humidity_sensor_state = self.hass.states.get(self._humidity_sensor)
@@ -164,7 +170,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 self._async_update_humidity(humidity_sensor_state)
 
         if self._power_sensor:
-            async_track_state_change(self.hass, self._power_sensor, 
+            async_track_state_change_event(self.hass, self._power_sensor, 
                                      self._async_power_sensor_changed)
 
     @property
@@ -334,7 +340,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 await self._controller.send(
                     self._commands[operation_mode][fan_mode][target_temperature])
                 
-                asyncio.ensure_future(self.check_state(10))
+                asyncio.ensure_future(self.check_state(self._resend_timeout))
             except Exception as e:
                 _LOGGER.exception(e)
             
@@ -360,7 +366,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             asyncio.ensure_future(self.check_state(0))
 
     async def check_state(self, delay):
-        """Compare power sensor state and climate state."""
+        """Compare power sensor state and thermostat state."""
         if self._power_sensor:   
             await asyncio.sleep(delay)
               
@@ -370,13 +376,13 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                     return
                                  
                 if (power_sensor_state.state == STATE_ON and self._hvac_mode == HVAC_MODE_OFF) or (power_sensor_state.state == STATE_OFF and self._hvac_mode != HVAC_MODE_OFF):
-                    if self._retry_count < 10:
-                        self._retry_count += 1
-                        _LOGGER.error("Climate state '%s' not equal to power sensor state '%s'. Resend command, attempt: %d of 10", self._hvac_mode, power_sensor_state.state, self._retry_count)
+                    if self._resend_attempt_count < self._resend_count:
+                        self._resend_attempt_count += 1
+                        _LOGGER.error("Thermostat state '%s' not equal to power sensor state '%s'. Resend command, attempt: %d of 10", self._hvac_mode, power_sensor_state.state, self._retry_count)
                                
                         await self.send_command()
                 else:           
-                    self._retry_count = 0
+                    self._resend_attempt_count = 0
 
     @callback
     def _async_update_temp(self, state):
