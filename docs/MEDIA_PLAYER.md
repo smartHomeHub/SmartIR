@@ -14,21 +14,17 @@ Find your device's brand code [here](MEDIA_PLAYER.md#available-codes-for-tv-devi
 **source_names** (Optional): Override the names of sources as displayed in HomeAssistant (see below)<br />
 
 ## Example (using broadlink controller):
+Add a Broadlink RM device named "Bedroom" via config flow (read the [docs](https://www.home-assistant.io/integrations/broadlink/)).
+
 ```yaml
 smartir:
-
-switch:
-  - platform: broadlink
-    host: 192.168.10.10
-    mac: '00:00:00:00:00:00'
-    type: rm4_mini
 
 media_player:
   - platform: smartir
     name: Living room TV
     unique_id: living_room_tv
     device_code: 1000
-    controller_data: 192.168.10.10
+    controller_data: remote.bedroom_remote
     power_sensor: binary_sensor.tv_power
 ```
 

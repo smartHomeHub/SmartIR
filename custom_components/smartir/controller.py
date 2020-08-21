@@ -85,12 +85,12 @@ class Controller():
                                     "Pronto to Base64 encoding")
 
             service_data = {
-                'host': self._controller_data,
-                'packet': command
+                ATTR_ENTITY_ID: self._controller_data,
+                'command':  'b64:' + command
             }
 
             await self.hass.services.async_call(
-                'broadlink', 'send', service_data)
+                'remote', 'send_command', service_data)
 
 
         if self._controller == XIAOMI_CONTROLLER:
