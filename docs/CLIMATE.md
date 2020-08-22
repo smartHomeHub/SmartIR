@@ -394,6 +394,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
 | [1780](../codes/climate/1780.json) | YX1F6 (Remote)   | Broadlink  |
+| [1781](../codes/climate/1781.json) | YX1F (Remote)   | Broadlink  |
 
 #### BALLU
 | Code                               | Supported Models    | Controller |
