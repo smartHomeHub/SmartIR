@@ -545,4 +545,4 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 #### Yamatsu
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
-| [2360](../codes/climate/2380.json) | YAM-12KDA              | Broadlink  |
+| [2400](../codes/climate/2400.json) | YAM-12KDA              | Broadlink  |
