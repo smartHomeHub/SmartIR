@@ -547,3 +547,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2380](../codes/climate/2380.json) | Unknown                | Broadlink  |
+
+#### Yamatsu
+| Code                               | Supported Models       | Controller |
+| ---------------------------------- | ---------------------- | ---------- |
+| [2400](../codes/climate/2400.json) | YAM-12KDA              | Broadlink  |
