@@ -233,6 +233,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models                                                                                                 | Controller |
 | ---------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------- |
 | [1260](../codes/climate/1260.json) | RAS-13NKV-E / RAS-13NAV-E<br>RAS-13NKV-A / RAS-13NAV-A<br>RAS-16NKV-E / RAS-16NAV-E<br>RAS-16NKV-A / RAS-16NAV-A | Broadlink  |
+| [7260](../codes/climate/7260.json) | RAS-18NKV2-E                                                                                                     | ESPHome    |
 
 #### Fujitsu
 | Code                               | Supported Models                            | Controller |
