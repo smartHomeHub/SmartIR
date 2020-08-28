@@ -183,15 +183,16 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 #### Mitsubishi Electric
 | Code                               | Supported Models                                                                                     | Controller |
 | ---------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------- |
-| [1120](../codes/climate/1120.json) | MSZ-GL25VGD<br>MSZ-GL35VGD<br>MSZ-GL42VGD<br>MSZ-GL50VG<br>MSZ-GL60VGD<br>MSZ-GL71VGD<br>MSZ-GL80VGD | Broadlink  |
-| [1121](../codes/climate/1121.json) | MSZ-GA35VA                                                                                           | Broadlink  |
-| [1122](../codes/climate/1122.json) | MSZ-AP50VGKD                                                                                         | Broadlink  |
-| [1123](../codes/climate/1123.json) | SRK25ZSX<br>SRC25ZSX                                                                                 | Broadlink  |
-| [1124](../codes/climate/1124.json) | MSZ-SF25VE3<br>MSZ-SF35VE3<br>MSZ-SF42VE3<br>MSZ-SF50VE<br>MSZ-AP20VG                                | Broadlink  |
-| [1125](../codes/climate/1125.json) | MLZ-KP25VF<br>MLZ-KP35VF<br>MLZ-KP50VF                                                               | Broadlink  |
-| [1126](../codes/climate/1126.json) | MSX09-NV II <br> MSH-07RV <br> MSH-12RV                                                              | Broadlink  |
-| [1127](../codes/climate/1127.json) | MSZ-HJ25VA                                                                                           | Broadlink  |
-| [1128](../codes/climate/1128.json) | MSZ-HJ35VA                                                                                           | Broadlink  |
+| [1120](../codes/climate/1120.json) | MSZ-GL25VGD<br>MSZ-GL35VGD<br>MSZ-GL42VGD<br>MSZ-GL50VG<br>MSZ-GL60VGD<br>MSZ-GL71VGD<br>MSZ-GL80VGD | Broadlink  
+| [1121](../codes/climate/1121.json) | MSZ-GA35VA                                                                                           | Broadlink  
+| [1122](../codes/climate/1122.json) | MSZ-AP50VGKD                                                                                         | Broadlink  
+| [1123](../codes/climate/1123.json) | SRK25ZSX<br>SRC25ZSX                                                                                 | Broadlink  
+| [1124](../codes/climate/1124.json) | MSZ-SF25VE3<br>MSZ-SF35VE3<br>MSZ-SF42VE3<br>MSZ-SF50VE<br>MSZ-AP20VG                                | Broadlink  
+| [1125](../codes/climate/1125.json) | MLZ-KP25VF<br>MLZ-KP35VF<br>MLZ-KP50VF                                                               | Broadlink  
+| [1126](../codes/climate/1126.json) | MSX09-NV II <br> MSH-07RV <br> MSH-12RV                                                              | Broadlink  
+| [1127](../codes/climate/1127.json) | MSZ-HJ25VA                                                                                           | Broadlink  
+| [1128](../codes/climate/1128.json) | MSZ-HJ35VA                                                                                           | Broadlink  
+| [3129](../codes/climate/3129.json) | DXK18Z1-S                                                                                            | Xiaomi v2  
 
 #### Actron
 | Code                               | Supported Models | Controller |
