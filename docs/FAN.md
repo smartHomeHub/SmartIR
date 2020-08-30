@@ -122,6 +122,11 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ------------- | -------------------------- | ------------- |
 [1020](../codes/fan/1020.json)|Unknown|Broadlink
 
+#### IQAir
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[8888](../codes/fan/8888.json)|IQAir HealthPro 250|Broadlink
+
 #### Lucci Air
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
