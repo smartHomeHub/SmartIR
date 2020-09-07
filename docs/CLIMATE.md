@@ -158,6 +158,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1062](../codes/climate/1062.json) | LG InverterV P12RK                      | Broadlink  |
 | [1063](../codes/climate/1063.json) | LG Inverter P12EP1 (AKB74955603 Remote) | Broadlink  |
 | [1064](../codes/climate/1064.json) | Unknown model                           | Broadlink  |
+| [1064](../codes/climate/1065.json) | LG LA080EC,LAXXXEC (AKB73598011 remote) | Broadlink  |
 
 #### Hitachi
 | Code                               | Supported Models                                              | Controller |
