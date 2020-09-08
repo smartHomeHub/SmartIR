@@ -16,21 +16,17 @@ _Please note that the device_code field only accepts positive numbers. The .json
 **power_sensor** (Optional): *entity_id* for a sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor. (Accepts only on/off states)<br />
 
 ## Example (using broadlink controller):
+Add a Broadlink RM device named "Bedroom" via config flow (read the [docs](https://www.home-assistant.io/integrations/broadlink/)).
+
 ```yaml
 smartir:
-
-switch:
-  - platform: broadlink
-    host: 192.168.10.10
-    mac: '00:00:00:00:00:00'
-    type: rm4_mini
 
 climate:
   - platform: smartir
     name: Office AC
     unique_id: office_ac
     device_code: 1000
-    controller_data: 192.168.10.10
+    controller_data: remote.bedroom_remote
     temperature_sensor: sensor.temperature
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
