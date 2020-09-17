@@ -13,21 +13,17 @@ Find your device's brand code [here](FAN.md#available-codes-for-fan-devices) and
 **power_sensor** (Optional): *entity_id* for a sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor. (Accepts only on/off states)<br />
 
 ## Example (using broadlink controller):
+Add a Broadlink RM device named "Bedroom" via config flow (read the [docs](https://www.home-assistant.io/integrations/broadlink/)).
+
 ```yaml
 smartir:
-
-switch:
-  - platform: broadlink
-    host: 192.168.10.10
-    mac: '00:00:00:00:00:00'
-    type: rm4_mini
 
 fan:
   - platform: smartir
     name: Bedroom fan
     unique_id: bedroom_fan
     device_code: 1000
-    controller_data: 192.168.10.10
+    controller_data: remote.bedroom_remote
     power_sensor: binary_sensor.fan_power
 ```
 ## Example (using xiaomi controller):
