@@ -74,28 +74,36 @@ class BroadlinkController(AbstractController):
 
     async def send(self, command):
         """Send a command."""
-        if self._encoding == ENC_HEX:
-            try:
-                command = binascii.unhexlify(command)
-                command = b64encode(command).decode('utf-8')
-            except:
-                raise Exception("Error while converting "
-                                "Hex to Base64 encoding")
+        commands = []
 
-        if self._encoding == ENC_PRONTO:
-            try:
-                command = command.replace(' ', '')
-                command = bytearray.fromhex(command)
-                command = Helper.pronto2lirc(command)
-                command = Helper.lirc2broadlink(command)
-                command = b64encode(command).decode('utf-8')
-            except:
-                raise Exception("Error while converting "
-                                "Pronto to Base64 encoding")
+        if not isinstance(command, list): 
+            command = [command]
+
+        for _command in command:
+            if self._encoding == ENC_HEX:
+                try:
+                    _command = binascii.unhexlify(_command)
+                    _command = b64encode(_command).decode('utf-8')
+                except:
+                    raise Exception("Error while converting "
+                                    "Hex to Base64 encoding")
+
+            if self._encoding == ENC_PRONTO:
+                try:
+                    _command = _command.replace(' ', '')
+                    _command = bytearray.fromhex(_command)
+                    _command = Helper.pronto2lirc(_command)
+                    _command = Helper.lirc2broadlink(_command)
+                    _command = b64encode(_command).decode('utf-8')
+                except:
+                    raise Exception("Error while converting "
+                                    "Pronto to Base64 encoding")
+
+            commands.append('b64:' + _command)
 
         service_data = {
             ATTR_ENTITY_ID: self._controller_data,
-            'command':  'b64:' + command
+            'command':  commands
         }
 
         await self.hass.services.async_call(
