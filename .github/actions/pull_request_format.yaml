@@ -1,0 +1,20 @@
+name: Check formatting
+
+on:
+  pull_request:
+
+jobs:
+  style:
+    runs-on: ubuntu-latest
+    name: Check formatting
+    steps:
+        - name: Pull
+          uses: actions/checkout@v2
+        - name: Python
+          uses: actions/setup-python@v1
+          with:
+            python-version: 3.x
+        - name: Black
+          run: python3 -m pip install black
+        - name: Check
+          run: black . --check
