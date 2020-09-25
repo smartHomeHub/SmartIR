@@ -559,4 +559,4 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 #### VS
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
-| [7760](../codes/climate/7760.json) | YKR-F06                | Broadlink  |
+| [2420](../codes/climate/2420.json) | YKR-F06                | Broadlink  |
