@@ -1,0 +1,65 @@
+name: Validate
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  validate_hacs:
+    name: HACS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Validate
+        uses: hacs/integration/action@master
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CATEGORY: integration
+  validate_hassfest:
+    name: Hassfest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Validate
+        uses: home-assistant/actions/hassfest@master
+  test_advice_flake8:
+    name: Test + advice with flake8
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: pip-flake8
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip wheel
+          python -m pip install --upgrade flake8 wemake-python-styleguide
+      - name: Lint with flake8
+        run: |
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+      - name: Don't mind this
+        run: |
+          flake8 . --inline-quotes '"' --count --exit-zero --max-complexity=15 --max-line-length=90 --statistics --select=I,P,WPS305,C812,E203,W503,E800
+      - name: Docstrings
+        run: |
+          flake8 . --inline-quotes '"' --count --exit-zero --max-complexity=15 --max-line-length=90 --statistics --select=D,DAR
+      - name: Unused stuff
+        run: |
+          echo "Some stuff may not be used, but is used in commented out code."
+          echo "Make sure you check with the find command before you remove anything!"
+          flake8 . --inline-quotes '"' --count --exit-zero --max-complexity=15 --max-line-length=90 --statistics --select=F
+          echo "Some stuff may not be used, but is used in commented out code."
+          echo "Make sure you check with the find command before you remove anything!"
+      - name: General stats
+        run: |
+          flake8 . --inline-quotes '"' --count --exit-zero --max-complexity=15 --max-line-length=90 --statistics --ignore=I,P,WPS305,C812,E203,W503,E800,D,DAR,F
