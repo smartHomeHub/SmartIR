@@ -1,0 +1,47 @@
+name: Format
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  schedule:
+    - cron: "0 0 * * 0,3"
+
+jobs:
+  format:
+    name: Format with black and isort
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: pip-format
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip wheel
+          python -m pip install --upgrade black isort
+      - name: Pull again
+        run: git pull || true
+      - name: Run formatting
+        run: |
+          python -m isort -v --multi-line 3 --trailing-comma -l 88 --recursive .
+          python -m black -v .
+      - name: Commit files
+        run: |
+          if [ $(git diff HEAD | wc -l) -gt 30 ]
+          then
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "GitHub Actions"
+          git commit -m "Run formatting" -a || true
+          git push || true
+          fi
