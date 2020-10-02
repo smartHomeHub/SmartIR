@@ -560,3 +560,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2420](../codes/climate/2420.json) | YKR-F06                | Broadlink  |
+
+#### Vaillant
+| Code                               | Supported Models       | Controller |
+| ---------------------------------- | ---------------------- | ---------- |
+| [2440](../codes/climate/2440.json) | ClimaVair VAI 8-025    | Broadlink  |
