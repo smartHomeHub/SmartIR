@@ -195,3 +195,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1240](../codes/media_player/1240.json)|TXV-2420|Broadlink
+
+#### Thomson
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1260](../codes/media_player/1260.json)|40FA3203|Broadlink
