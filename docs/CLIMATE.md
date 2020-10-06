@@ -265,6 +265,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
 | [1340](../codes/climate/1340.json) | Unknown model    | Broadlink  |
+| [1341](../codes/climate/1341.json) | TAC490           | Broadlink  |
 
 #### Springer
 | Code                               | Supported Models       | Controller |
