@@ -200,3 +200,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1260](../codes/media_player/1260.json)|40FA3203|Broadlink
+
+#### Grunding
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1280](../codes/media_player/1280.json)|GSB-810|Broadlink
