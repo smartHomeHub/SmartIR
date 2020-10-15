@@ -204,4 +204,4 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 #### Grunding
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1300](../codes/media_player/13000.json)|GSB-810|Broadlink
+[1280](../codes/media_player/1280.json)|GSB-810|Broadlink
