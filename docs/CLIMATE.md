@@ -255,6 +255,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
 | [1300](../codes/climate/1300.json) | AY-B22DM         | Broadlink  |
+| [3300](../codes/climate/3300.json) | AH-A18EZN        | Xiaomi     |
 
 #### Haier
 | Code                               | Supported Models | Controller |
