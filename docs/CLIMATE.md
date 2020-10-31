@@ -497,6 +497,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
 | [2160](../codes/climate/2160.json) | Unknown          | Broadlink  |
+| [2161](../codes/climate/2161.json) | LNMTE026V2       | Broadlink  |
 
 #### Hokkaido
 | Code                               | Supported Models | Controller |
