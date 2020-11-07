@@ -206,3 +206,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1280](../codes/media_player/1280.json)|GSB-810|Broadlink
+
+#### OKI
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1290](../codes/media_player/1290.json)|V19B-LED4|Broadlink
