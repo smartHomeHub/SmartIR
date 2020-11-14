@@ -143,6 +143,11 @@ class SmartIRFan(FanEntity, RestoreEntity):
                                          self._async_power_sensor_changed)
 
     @property
+    def should_poll(self):
+        """Entity does not implement async_update."""
+        return False
+
+    @property
     def unique_id(self):
         """Return a unique ID."""
         return self._unique_id
@@ -210,14 +215,14 @@ class SmartIRFan(FanEntity, RestoreEntity):
             self._last_on_speed = speed
 
         await self.send_command()
-        await self.async_update_ha_state()
+        self.async_write_ha_state()
 
     async def async_oscillate(self, oscillating: bool) -> None:
         """Set oscillation of the fan."""
         self._oscillating = oscillating
 
         await self.send_command()
-        await self.async_update_ha_state()
+        self.async_write_ha_state()
 
     async def async_set_direction(self, direction: str):
         """Set the direction of the fan"""
@@ -226,7 +231,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
         if not self._speed.lower() == SPEED_OFF:
             await self.send_command()
 
-        await self.async_update_ha_state()
+        self.async_write_ha_state()
 
     async def async_turn_on(self, speed: str = None, **kwargs):
         """Turn on the fan."""
@@ -266,10 +271,11 @@ class SmartIRFan(FanEntity, RestoreEntity):
         if new_state.state == STATE_ON and self._speed == SPEED_OFF:
             self._on_by_remote = True
             self._speed = None
-            await self.async_update_ha_state()
+            self.async_write_ha_state()
 
         if new_state.state == STATE_OFF:
             self._on_by_remote = False
             if self._speed != SPEED_OFF:
                 self._speed = SPEED_OFF
-            await self.async_update_ha_state()
+            self.async_write_ha_state()
+
