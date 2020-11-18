@@ -571,3 +571,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2440](../codes/climate/2440.json) | ClimaVair VAI 8-025    | Broadlink  |
+
+#### FanWorld
+| Code                               | Supported Models       | Controller |
+| ---------------------------------- | ---------------------- | ---------- |
+| [2460](../codes/climate/2460.json) | FanWorld FW6-3000      | Broadlink  |
