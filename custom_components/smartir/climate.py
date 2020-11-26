@@ -361,6 +361,9 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         if new_state is None:
             return
 
+        if new_state.state == old_state.state:
+            return
+
         if new_state.state == STATE_ON and self._hvac_mode == HVAC_MODE_OFF:
             self._on_by_remote = True
             await self.async_update_ha_state()
