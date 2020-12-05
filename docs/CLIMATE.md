@@ -147,15 +147,16 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1043](../codes/climate/1043.json) | ASWX09LECA                                                                                     | Broadlink  |
 
 #### LG
-| Code                               | Supported Models                        | Controller |
-| ---------------------------------- | --------------------------------------- | ---------- |
-| [1060](../codes/climate/1060.json) | R09AWN<br>R24AWN<br>E09EK               | Broadlink  |
-| [1061](../codes/climate/1061.json) | Unknown model                           | Broadlink  |
-| [1062](../codes/climate/1062.json) | LG InverterV P12RK                      | Broadlink  |
-| [1063](../codes/climate/1063.json) | LG Inverter P12EP1 (AKB74955603 Remote) | Broadlink  |
-| [1064](../codes/climate/1064.json) | Unknown model                           | Broadlink  |
-| [1065](../codes/climate/1065.json) | LG LA080EC,LAXXXEC (AKB73598011 remote) | Broadlink  |
-| [3060](../codes/climate/3060.json) | G09LH                                   | Xiaomi     |
+| Code                               | Supported Models                                                     | Controller |
+| ---------------------------------- | -------------------------------------------------------------------- | ---------- |
+| [1060](../codes/climate/1060.json) | R09AWN<br>R24AWN<br>E09EK                                            | Broadlink  |
+| [1061](../codes/climate/1061.json) | Unknown model                                                        | Broadlink  |
+| [1062](../codes/climate/1062.json) | LG InverterV P12RK                                                   | Broadlink  |
+| [1063](../codes/climate/1063.json) | LG Inverter P12EP1 (AKB74955603 Remote)                              | Broadlink  |
+| [1064](../codes/climate/1064.json) | Unknown model                                                        | Broadlink  |
+| [1065](../codes/climate/1065.json) | LG LA080EC,LAXXXEC (AKB73598011 remote)                              | Broadlink  |
+| [1066](../codes/climate/1066.json) | LA090HYV<br>LA120HYV<br>LAN090HYV<b>LAN120HYV<b>(AKB73835312 remote) | Broadlink  |
+| [3060](../codes/climate/3060.json) | G09LH                                                                | Xiaomi     |
 
 #### Hitachi
 | Code                               | Supported Models                                              | Controller |
