@@ -211,3 +211,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1300](../codes/media_player/1300.json)|V19B-LED4|Broadlink
+
+#### Sky
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1320](../codes/media_player/1320.json)|SkyQ Black<br>SkyQ Mini|Broadlink
