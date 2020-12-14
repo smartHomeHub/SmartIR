@@ -579,3 +579,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2460](../codes/climate/2460.json) | FanWorld FW6-3000      | Broadlink  |
+
+#### Rotenso
+| Code                               | Supported Models                  | Controller |
+| ---------------------------------- | --------------------------------- | ---------- |
+| [2480](../codes/climate/2480.json) | Ukura<br>Maze (Remote control)    | Broadlink  |
