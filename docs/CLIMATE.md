@@ -581,4 +581,4 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 #### Rotenso
 | Code                               | Supported Models                  | Controller |
 | ---------------------------------- | --------------------------------- | ---------- |
-| [2130](../codes/climate/2130.json) | Ukura<br>Maze (Remote control)    | Broadlink  |
+| [2480](../codes/climate/2480.json) | Ukura<br>Maze (Remote control)    | Broadlink  |
