@@ -309,6 +309,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
 | [1480](../codes/climate/1480.json) | Excellence       | Broadlink  |
+| [1481](../codes/climate/1481.json) | Excellence (Auto Swing)  | Broadlink  |
 
 #### Sanyo
 | Code                               | Supported Models | Controller |
