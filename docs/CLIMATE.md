@@ -584,3 +584,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models                  | Controller |
 | ---------------------------------- | --------------------------------- | ---------- |
 | [2480](../codes/climate/2480.json) | Ukura<br>Maze (Remote control)    | Broadlink  |
+
+#### Endesa
+| Code                               | Supported Models                  | Controller |
+| ---------------------------------- | --------------------------------- | ---------- |
+| [2500](../codes/climate/2500.json) | DGR11    | Broadlink  |
