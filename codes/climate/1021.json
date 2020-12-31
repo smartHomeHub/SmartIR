@@ -2,7 +2,9 @@
   "manufacturer": "Panasonic",
   "supportedModels": [
     "CS-RE9GKE",
-    "CS-RE12GKE"
+    "CS-RE12GKE",
+    "CS-RE9PKR",
+    "CSCU-Z25TKR"
   ],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
