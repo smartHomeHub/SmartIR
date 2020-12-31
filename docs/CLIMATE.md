@@ -131,7 +131,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models                                                   | Controller |
 | ---------------------------------- | ------------------------------------------------------------------ | ---------- |
 | [1020](../codes/climate/1020.json) | CS-CE7HKEW<br>CS-CE9HKEW<br>CS-CE12HKEW<br>CS-PC24MKF<br>CS-C24PKF | Broadlink  |
-| [1021](../codes/climate/1021.json) | CS-RE9GKE<br>CS-RE12GKE                                            | Broadlink  |
+| [1021](../codes/climate/1021.json) | CS-RE9GKE<br>CS-RE12GKE<br> CS-RE9PKR<br>CSCU-Z25TKR               | Broadlink  |
 | [1022](../codes/climate/1022.json) | CS-Z25TK<br>CS-XN7SKJ                                              | Broadlink  |
 | [1023](../codes/climate/1023.json) | CS-HE9JKE<br>CS-HE12JKE<br>CS-HE9LKE                               | Broadlink  |
 | [1024](../codes/climate/1024.json) | CS-MRE7MKE                                                         | Broadlink  |
