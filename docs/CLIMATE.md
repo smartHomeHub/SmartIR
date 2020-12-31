@@ -156,6 +156,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1064](../codes/climate/1064.json) | Unknown model                                                        | Broadlink  |
 | [1065](../codes/climate/1065.json) | LG LA080EC,LAXXXEC (AKB73598011 remote)                              | Broadlink  |
 | [1066](../codes/climate/1066.json) | LA090HYV<br>LA120HYV<br>LAN090HYV<br>LAN120HYV<br>(AKB73835312 remote) | Broadlink  |
+| [1067](../codes/climate/1067.json) | W12TCM | Broadlink  |
 | [3060](../codes/climate/3060.json) | G09LH                                                                | Xiaomi     |
 
 #### Hitachi
