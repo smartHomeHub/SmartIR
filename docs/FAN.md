@@ -143,3 +143,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1120](../codes/fan/1120.json)|Unknown|Broadlink
+
+#### SMC
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1140](../codes/fan/1140.json)|SP486, SP483|Broadlink
