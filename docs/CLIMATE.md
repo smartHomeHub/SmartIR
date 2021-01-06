@@ -283,6 +283,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1381](../codes/climate/1381.json) | Unknown model                  | Broadlink  |
 | [1382](../codes/climate/1382.json) | MSY-12HRDN1                    | Broadlink  |
 | [1383](../codes/climate/1383.json) | KFR-35G                        | Broadlink  |
+| [1384](../codes/climate/1384.json) | MSMACU-18HRFN1-QRD0GW          | Broadlink  |
 | [3380](../codes/climate/3380.json) | MCD-24HRN1-Q1<br>RAS-10N3KVR-E | Xiaomi     |
 
 #### Samsung
