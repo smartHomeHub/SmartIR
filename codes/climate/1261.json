@@ -1,7 +1,8 @@
 {
   "manufacturer": " Toshiba",
   "supportedModels": [
-    "wh-ta05ne"
+    "WH-TA05NE",
+    "WH-TA11EJ"
   ],
   "commandsEncoding": "Base64",
   "supportedController": "Broadlink",
