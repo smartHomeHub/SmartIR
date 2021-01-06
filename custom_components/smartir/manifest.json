@@ -7,8 +7,8 @@
   "requirements": ["aiofiles==0.5.0"],
   "homeassistant": "0.115.0",
   "updater": {
-    "version": "1.13.2",
-    "releaseNotes": "-- Fixes Broadlink commands sequence #481",
+    "version": "1.14.0",
+    "releaseNotes": "-- Adds power_sensor_restore_state",
     "files": [
       "__init__.py",
       "climate.py",

@@ -31,6 +31,7 @@ CONF_CONTROLLER_DATA = "controller_data"
 CONF_TEMPERATURE_SENSOR = 'temperature_sensor'
 CONF_HUMIDITY_SENSOR = 'humidity_sensor'
 CONF_POWER_SENSOR = 'power_sensor'
+CONF_POWER_SENSOR_RESTORE_STATE = 'power_sensor_restore_state'
 
 SUPPORT_FLAGS = (
     SUPPORT_TARGET_TEMPERATURE | 
@@ -44,7 +45,8 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_CONTROLLER_DATA): cv.string,
     vol.Optional(CONF_TEMPERATURE_SENSOR): cv.entity_id,
     vol.Optional(CONF_HUMIDITY_SENSOR): cv.entity_id,
-    vol.Optional(CONF_POWER_SENSOR): cv.entity_id
+    vol.Optional(CONF_POWER_SENSOR): cv.entity_id,
+    vol.Optional(CONF_POWER_SENSOR_RESTORE_STATE, default=False): cv.boolean
 })
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
@@ -97,6 +99,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._temperature_sensor = config.get(CONF_TEMPERATURE_SENSOR)
         self._humidity_sensor = config.get(CONF_HUMIDITY_SENSOR)
         self._power_sensor = config.get(CONF_POWER_SENSOR)
+        self._power_sensor_restore_state = config.get(CONF_POWER_SENSOR_RESTORE_STATE)
 
         self._manufacturer = device_data['manufacturer']
         self._supported_models = device_data['supportedModels']
@@ -180,8 +183,6 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     @property
     def state(self):
         """Return the current state."""
-        if self._on_by_remote:
-            return STATE_ON
         if self.hvac_mode != HVAC_MODE_OFF:
             return self.hvac_mode
         return HVAC_MODE_OFF
@@ -363,6 +364,11 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
         if new_state.state == STATE_ON and self._hvac_mode == HVAC_MODE_OFF:
             self._on_by_remote = True
+            if self._power_sensor_restore_state == True and self._last_on_operation is not None:
+                self._hvac_mode = self._last_on_operation
+            else:
+                self._hvac_mode = STATE_ON
+
             await self.async_update_ha_state()
 
         if new_state.state == HVAC_MODE_OFF:
