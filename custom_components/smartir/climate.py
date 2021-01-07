@@ -12,7 +12,7 @@ from homeassistant.components.climate.const import (
     SUPPORT_TARGET_TEMPERATURE, SUPPORT_FAN_MODE,
     HVAC_MODES, ATTR_HVAC_MODE)
 from homeassistant.const import (
-    CONF_NAME, STATE_ON, STATE_UNKNOWN, ATTR_TEMPERATURE,
+    CONF_NAME, STATE_ON, STATE_OFF, STATE_UNKNOWN, ATTR_TEMPERATURE,
     PRECISION_TENTHS, PRECISION_HALVES, PRECISION_WHOLE)
 from homeassistant.core import callback
 from homeassistant.helpers.event import async_track_state_change
@@ -261,7 +261,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             'manufacturer': self._manufacturer,
             'supported_models': self._supported_models,
             'supported_controller': self._supported_controller,
-            'commands_encoding': self._commands_encoding,
+            'commands_encoding': self._commands_encoding
         }
 
     async def async_set_temperature(self, **kwargs):
@@ -362,6 +362,9 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         if new_state is None:
             return
 
+        if new_state.state == old_state.state:
+            return
+
         if new_state.state == STATE_ON and self._hvac_mode == HVAC_MODE_OFF:
             self._on_by_remote = True
             if self._power_sensor_restore_state == True and self._last_on_operation is not None:
@@ -371,7 +374,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
             await self.async_update_ha_state()
 
-        if new_state.state == HVAC_MODE_OFF:
+        if new_state.state == STATE_OFF:
             self._on_by_remote = False
             if self._hvac_mode != HVAC_MODE_OFF:
                 self._hvac_mode = HVAC_MODE_OFF
