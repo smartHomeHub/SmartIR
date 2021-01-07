@@ -137,6 +137,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1024](../codes/climate/1024.json) | CS-MRE7MKE                                                         | Broadlink  |
 | [1025](../codes/climate/1025.json) | CS-E18FKR                                                          | Broadlink  |
 | [1026](../codes/climate/1026.json) | CS-PC12QKT                                                         | Broadlink  |
+| [1027](../codes/climate/1027.json) | CS-SA9CKP                                                          | Broadlink  |
 
 #### General Electric
 | Code                               | Supported Models                                                                               | Controller |
