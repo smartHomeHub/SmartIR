@@ -7,8 +7,8 @@
   "requirements": ["aiofiles==0.5.0"],
   "homeassistant": "0.115.0",
   "updater": {
-    "version": "1.14.1",
-    "releaseNotes": "-- Fixes power_sensor",
+    "version": "1.15.0",
+    "releaseNotes": "-- Adds adjustable delay between commands for Broadlink controller",
     "files": [
       "__init__.py",
       "climate.py",

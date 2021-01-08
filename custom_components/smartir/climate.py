@@ -24,10 +24,12 @@ from .controller import get_controller
 _LOGGER = logging.getLogger(__name__)
 
 DEFAULT_NAME = "SmartIR Climate"
+DEFAULT_DELAY = 0.5
 
 CONF_UNIQUE_ID = 'unique_id'
 CONF_DEVICE_CODE = 'device_code'
 CONF_CONTROLLER_DATA = "controller_data"
+CONF_DELAY = "delay"
 CONF_TEMPERATURE_SENSOR = 'temperature_sensor'
 CONF_HUMIDITY_SENSOR = 'humidity_sensor'
 CONF_POWER_SENSOR = 'power_sensor'
@@ -43,6 +45,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
     vol.Required(CONF_DEVICE_CODE): cv.positive_int,
     vol.Required(CONF_CONTROLLER_DATA): cv.string,
+    vol.Optional(CONF_DELAY, default=DEFAULT_DELAY): cv.string,
     vol.Optional(CONF_TEMPERATURE_SENSOR): cv.entity_id,
     vol.Optional(CONF_HUMIDITY_SENSOR): cv.entity_id,
     vol.Optional(CONF_POWER_SENSOR): cv.entity_id,
@@ -96,6 +99,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._name = config.get(CONF_NAME)
         self._device_code = config.get(CONF_DEVICE_CODE)
         self._controller_data = config.get(CONF_CONTROLLER_DATA)
+        self._delay = config.get(CONF_DELAY)
         self._temperature_sensor = config.get(CONF_TEMPERATURE_SENSOR)
         self._humidity_sensor = config.get(CONF_HUMIDITY_SENSOR)
         self._power_sensor = config.get(CONF_POWER_SENSOR)
@@ -132,9 +136,10 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         #Init the IR/RF controller
         self._controller = get_controller(
             self.hass,
-            self._supported_controller, 
+            self._supported_controller,
             self._commands_encoding,
-            self._controller_data)
+            self._controller_data,
+            self._delay)
             
     async def async_added_to_hass(self):
         """Run when entity about to be added."""
@@ -333,7 +338,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
                 if 'on' in self._commands:
                     await self._controller.send(self._commands['on'])
-                    await asyncio.sleep(0.5)
+                    await asyncio.sleep(self._delay)
 
                 await self._controller.send(
                     self._commands[operation_mode][fan_mode][target_temperature])
