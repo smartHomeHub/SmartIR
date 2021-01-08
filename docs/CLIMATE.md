@@ -11,6 +11,7 @@ _Please note that the device_code field only accepts positive numbers. The .json
 **unique_id** (Optional): An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.<br />
 **device_code** (Required): .... (Accepts only positive numbers)<br />
 **controller_data** (Required): The data required for the controller to function. Enter the entity_id of the Broadlink remote **(must be an already configured device)**, or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands.<br />
+**delay** (Optional): Adjusts the delay in seconds between multiple commands. The default is 0.5s. <br />
 **temperature_sensor** (Optional): *entity_id* for a temperature sensor<br />
 **humidity_sensor** (Optional): *entity_id* for a humidity sensor<br />
 **power_sensor** (Optional): *entity_id* for a sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor. (Accepts only on/off states)<br />
@@ -284,7 +285,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ---------------------------------- | ------------------------------ | ---------- |
 | [1380](../codes/climate/1380.json) | Unknown model                  | Broadlink  |
 | [1381](../codes/climate/1381.json) | Unknown model                  | Broadlink  |
-| [1382](../codes/climate/1382.json) | MSY-12HRDN1                    | Broadlink  |
+| [1382](../codes/climate/1382.json) | MSY-12HRDN1 (Works also for Kastron AC / Remote RG57A2/BGEF)  | Broadlink  |
 | [1383](../codes/climate/1383.json) | KFR-35G                        | Broadlink  |
 | [1384](../codes/climate/1384.json) | MSMACU-18HRFN1-QRD0GW          | Broadlink  |
 | [3380](../codes/climate/3380.json) | MCD-24HRN1-Q1<br>RAS-10N3KVR-E | Xiaomi     |
