@@ -10,7 +10,9 @@ from homeassistant.components.climate.const import (
     HVAC_MODE_OFF, HVAC_MODE_HEAT, HVAC_MODE_COOL,
     HVAC_MODE_DRY, HVAC_MODE_FAN_ONLY, HVAC_MODE_AUTO,
     SUPPORT_TARGET_TEMPERATURE, SUPPORT_FAN_MODE,
-    HVAC_MODES, ATTR_HVAC_MODE)
+    HVAC_MODES, ATTR_HVAC_MODE,
+    CURRENT_HVAC_OFF, CURRENT_HVAC_HEAT, CURRENT_HVAC_COOL,
+    CURRENT_HVAC_DRY, CURRENT_HVAC_IDLE, CURRENT_HVAC_FAN)
 from homeassistant.const import (
     CONF_NAME, STATE_ON, STATE_OFF, STATE_UNKNOWN, ATTR_TEMPERATURE,
     PRECISION_TENTHS, PRECISION_HALVES, PRECISION_WHOLE)
@@ -191,6 +193,21 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         if self.hvac_mode != HVAC_MODE_OFF:
             return self.hvac_mode
         return HVAC_MODE_OFF
+
+    @property
+    def hvac_action(self):
+        """Return the current running hvac operation if supported."""
+        if self.hvac_mode == HVAC_MODE_OFF:
+            return CURRENT_HVAC_OFF
+        elif self.hvac_mode == HVAC_MODE_HEAT:
+            return CURRENT_HVAC_HEAT
+        elif self.hvac_mode == HVAC_MODE_COOL:
+            return CURRENT_HVAC_COOL
+        elif self.hvac_mode == HVAC_MODE_DRY:
+            return CURRENT_HVAC_DRY
+        elif self.hvac_mode == HVAC_MODE_FAN_ONLY:
+            return CURRENT_HVAC_FAN
+        return None
 
     @property
     def temperature_unit(self):
