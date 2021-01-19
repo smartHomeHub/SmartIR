@@ -217,3 +217,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1320](../codes/media_player/1320.json)|SkyQ Black<br>SkyQ Mini|Broadlink
+
+#### Bauhn
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1340](../codes/media_player/1340.json)|Aldi|Broadlink
