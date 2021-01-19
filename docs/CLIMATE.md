@@ -596,3 +596,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models                  | Controller |
 | ---------------------------------- | --------------------------------- | ---------- |
 | [2500](../codes/climate/2500.json) | DGR11    | Broadlink  |
+
+#### Galanz
+| Code                               | Supported Models       | Controller |
+| ---------------------------------- | ---------------------- | ---------- |
+| [2520](../codes/climate/2520.json) | GZ-1002B-E3 (Remote)   | Broadlink  |
