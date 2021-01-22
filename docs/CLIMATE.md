@@ -323,6 +323,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ---------------------------------- | ---------------- | ---------- |
 | [1500](../codes/climate/1500.json) | Unknown          | Broadlink  |
 | [1501](../codes/climate/1501.json) | SAP-KR124EHEA    | Broadlink  |
+| [1502](../codes/climate/1502.json) | REMOTE CONTROLLER WL-9S0  | Broadlink  |
 
 #### Hisense
 | Code                               | Supported Models   | Controller |
