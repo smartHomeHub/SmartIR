@@ -601,3 +601,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2520](../codes/climate/2520.json) | GZ-1002B-E3 (Remote)   | Broadlink  |
+
+#### Audinac
+| Code                               | Supported Models       | Controller |
+| ---------------------------------- | ---------------------- | ---------- |
+| [2540](../codes/climate/2540.json) | SP3500			      | Broadlink  |
