@@ -139,6 +139,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1025](../codes/climate/1025.json) | CS-E18FKR                                                          | Broadlink  |
 | [1026](../codes/climate/1026.json) | CS-PC12QKT                                                         | Broadlink  |
 | [1027](../codes/climate/1027.json) | CS-SA9CKP                                                          | Broadlink  |
+| [1028](../codes/climate/1028.json) | CS-U9RKR<br>CS-U12RKR                                              | Broadlink  |
 
 #### General Electric
 | Code                               | Supported Models                                                                               | Controller |
@@ -595,3 +596,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models                  | Controller |
 | ---------------------------------- | --------------------------------- | ---------- |
 | [2500](../codes/climate/2500.json) | DGR11    | Broadlink  |
+
+#### Galanz
+| Code                               | Supported Models       | Controller |
+| ---------------------------------- | ---------------------- | ---------- |
+| [2520](../codes/climate/2520.json) | GZ-1002B-E3 (Remote)   | Broadlink  |

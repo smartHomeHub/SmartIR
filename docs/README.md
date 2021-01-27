@@ -9,8 +9,9 @@ SmartIR currently supports the following controllers:
 * [ESPHome User-defined service for remote transmitter](https://esphome.io/components/api.html#user-defined-services)
 * [MQTT Publish service](https://www.home-assistant.io/docs/mqtt/service/)
 
-More than 120 climate devices are currently supported out-of-the-box, mainly for the Broadlink controller, thanks to our awesome community.<br>
-Please don't forget to **star** the repository if you had fun! [**"Buy Me A Coffee**"](https://www.buymeacoffee.com/vassilis) is also welcome. It will help in further development.<br><br>
+More than 120 climate devices are currently supported out-of-the-box, mainly for the Broadlink controller, thanks to our awesome community.<br><br>
+In a study of around half-a-million British adults, coffee drinkers were found to have a slightly lower risk of death over a 10-year follow-up period than non-coffee drinkers, so [**"Buy Me A Coffee**"](https://www.buymeacoffee.com/vassilis) is welcome :)<br>
+Also don't forget to **star** the repository if you had fun!<br><br>
 
 
 ## Installation

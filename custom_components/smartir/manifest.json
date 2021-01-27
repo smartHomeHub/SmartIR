@@ -4,11 +4,11 @@
   "documentation": "https://github.com/smartHomeHub/SmartIR",
   "dependencies": [],
   "codeowners": ["@smartHomeHub"],
-  "requirements": ["aiofiles==0.5.0"],
+  "requirements": ["aiofiles==0.6.0"],
   "homeassistant": "0.115.0",
   "updater": {
-    "version": "1.15.0",
-    "releaseNotes": "-- Adds adjustable delay between commands for Broadlink controller",
+    "version": "1.16.0",
+    "releaseNotes": "-- Adds support for swing mode",
     "files": [
       "__init__.py",
       "climate.py",
