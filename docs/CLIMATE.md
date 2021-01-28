@@ -198,6 +198,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1126](../codes/climate/1126.json) | MSX09-NV II <br> MSH-07RV <br> MSH-12RV                                                              | Broadlink
 | [1127](../codes/climate/1127.json) | MSZ-HJ25VA                                                                                           | Broadlink
 | [1128](../codes/climate/1128.json) | MSZ-HJ25VA<br>MSZ-HJ35VA                                                                             | Broadlink
+| [1129](../codes/climate/1129.json) | MSZ-GE22VA                                                                                           | Broadlink
 | [3129](../codes/climate/3129.json) | DXK18Z1-S                                                                                            | Xiaomi v2
 
 #### Actron
