@@ -608,3 +608,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2540](../codes/climate/2540.json) | SP3500			      | Broadlink  |
+
+#### Mistral
+| Code                               | Supported Models       | Controller |
+| ---------------------------------- | ---------------------- | ---------- |
+| [2560](../codes/climate/2560.json) | MPAC15CY28		      | Broadlink  |
