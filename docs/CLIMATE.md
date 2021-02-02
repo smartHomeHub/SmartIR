@@ -407,6 +407,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1760](../codes/climate/1760.json) | DS12U-RV (or any using R51M/E remote) | Broadlink  |
 | [1761](../codes/climate/1761.json) | DS-9KIDT                              | Broadlink  |
 | [1762](../codes/climate/1762.json) | ASD9KI-DT                             | Broadlink  |
+| [1763](../codes/climate/1763.json) | DOS12KIDB                             | Broadlink  |
 
 #### Trotec
 | Code                               | Supported Models | Controller |
