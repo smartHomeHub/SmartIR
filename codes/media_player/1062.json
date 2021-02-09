@@ -1,0 +1,38 @@
+{
+    "manufacturer": "Samsung",
+    "supportedModels": [
+      "UE55F8000",
+	  "UExxF8000"
+    ],
+    "supportedController": "MQTT",
+    "commandsEncoding": "Raw",
+    "commands": {
+        "off": "IRsend {\"Protocol\":\"SAMSUNG\",\"Bits\":32,\"Data\":\"0xE0E040BF\",\"DataLSB\":\"0x070702FD\",\"Repeat\":0}",
+        "on": "IRsend {\"Protocol\":\"SAMSUNG\",\"Bits\":32,\"Data\":\"0xE0E040BF\",\"DataLSB\":\"0x070702FD\",\"Repeat\":0}",
+        "previousChannel": "IRsend {\"Protocol\":\"SAMSUNG\",\"Bits\":32,\"Data\":\"0xE0E008F7\",\"DataLSB\":\"0x070710EF\",\"Repeat\":0}",
+        "nextChannel": "IRsend {\"Protocol\":\"SAMSUNG\",\"Bits\":32,\"Data\":\"0xE0E048B7\",\"DataLSB\":\"0x070712ED\",\"Repeat\":0}",
+        "volumeDown": "IRsend {\"Protocol\":\"SAMSUNG\",\"Bits\":32,\"Data\":\"0xE0E0D02F\",\"DataLSB\":\"0x07070BF4\",\"Repeat\":0}",
+        "volumeUp": "IRsend {\"Protocol\":\"SAMSUNG\",\"Bits\":32,\"Data\":\"0xE0E0E01F\",\"DataLSB\":\"0x070707F8\",\"Repeat\":0}",
+        "mute": "IRsend {\"Protocol\":\"SAMSUNG\",\"Bits\":32,\"Data\":\"0xE0E0F00F\",\"DataLSB\":\"0x07070FF0\",\"Repeat\":0}",
+        "sources": {
+            "DTV": "IRsend {\"Protocol\":\"SAMSUNG\",\"Bits\":32,\"Data\":\"0xE0E0C23D\",\"DataLSB\":\"0x070743BC\",\"Repeat\":0}",
+            "Antenna": "IRsend {\"Protocol\":\"SAMSUNG\",\"Bits\":32,\"Data\":\"0xE0E0D827\",\"DataLSB\":\"0x07071BE4\",\"Repeat\":0}",
+            "HDMI": "IRsend {\"Protocol\":\"SAMSUNG\",\"Bits\":32,\"Data\":\"0xE0E0D12E\",\"DataLSB\":\"0x07078B74\",\"Repeat\":0}",
+            "HDMI 1": "IRsend {\"Protocol\":\"SAMSUNG\",\"Bits\":32,\"Data\":\"0xE0E09768\",\"DataLSB\":\"0x0707E916\",\"Repeat\":0}",
+            "HDMI 2": "IRsend {\"Protocol\":\"SAMSUNG\",\"Bits\":32,\"Data\":\"0xE0E07D82\",\"DataLSB\":\"0x0707BE41\",\"Repeat\":0}",
+            "HDMI 3": "IRsend {\"Protocol\":\"SAMSUNG\",\"Bits\":32,\"Data\":\"0xE0E043BC\",\"DataLSB\":\"0x0707C23D\",\"Repeat\":0}",
+            "HDMI 4": "IRsend {\"Protocol\":\"SAMSUNG\",\"Bits\":32,\"Data\":\"0xE0E0A35C\",\"DataLSB\":\"0x0707C53A\",\"Repeat\":0}",
+			"3D": "IRsend {\"Protocol\":\"SAMSUNG\",\"Bits\":32,\"Data\":\"0xE0E08679\",\"DataLSB\":\"0x0707619E\",\"Repeat\":0}",
+			"Channel 0": "IRsend {\"Protocol\":\"SAMSUNG\",\"Bits\":32,\"Data\":\"0xE0E08877\",\"DataLSB\":\"0x070711EE\",\"Repeat\":0}",
+            "Channel 1": "IRsend {\"Protocol\":\"SAMSUNG\",\"Bits\":32,\"Data\":\"0xE0E020DF\",\"DataLSB\":\"0x070704FB\",\"Repeat\":0}",
+            "Channel 2": "IRsend {\"Protocol\":\"SAMSUNG\",\"Bits\":32,\"Data\":\"0xE0E0A05F\",\"DataLSB\":\"0x070705FA\",\"Repeat\":0}",
+            "Channel 3": "IRsend {\"Protocol\":\"SAMSUNG\",\"Bits\":32,\"Data\":\"0xE0E0609F\",\"DataLSB\":\"0x070706F9\",\"Repeat\":0}",
+            "Channel 4": "IRsend {\"Protocol\":\"SAMSUNG\",\"Bits\":32,\"Data\":\"0xE0E010EF\",\"DataLSB\":\"0x070708F7\",\"Repeat\":0}",
+            "Channel 5": "IRsend {\"Protocol\":\"SAMSUNG\",\"Bits\":32,\"Data\":\"0xE0E0906F\",\"DataLSB\":\"0x070709F6\",\"Repeat\":0}",
+            "Channel 6": "IRsend {\"Protocol\":\"SAMSUNG\",\"Bits\":32,\"Data\":\"0xE0E050AF\",\"DataLSB\":\"0x07070AF5\",\"Repeat\":0}",
+            "Channel 7": "IRsend {\"Protocol\":\"SAMSUNG\",\"Bits\":32,\"Data\":\"0xE0E030CF\",\"DataLSB\":\"0x07070CF3\",\"Repeat\":0}",
+            "Channel 8": "IRsend {\"Protocol\":\"SAMSUNG\",\"Bits\":32,\"Data\":\"0xE0E0B04F\",\"DataLSB\":\"0x07070DF2\",\"Repeat\":0}",
+            "Channel 9": "IRsend {\"Protocol\":\"SAMSUNG\",\"Bits\":32,\"Data\":\"0xE0E0708F\",\"DataLSB\":\"0x07070EF1\",\"Repeat\":0}"
+        }
+    }
+}
