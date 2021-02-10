@@ -353,6 +353,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
 | [1600](../codes/climate/1600.json) | BEVCA 120        | Broadlink  |
+| [1601](../codes/climate/1601.json) | BPAK 120         | Broadlink  |
 
 #### Tornado
 | Code                               | Supported Models | Controller |
