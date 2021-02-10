@@ -6,9 +6,10 @@
   "codeowners": ["@smartHomeHub"],
   "requirements": ["aiofiles==0.6.0"],
   "homeassistant": "0.115.0",
+  "version": "1.16.1",
   "updater": {
-    "version": "1.16.0",
-    "releaseNotes": "-- Adds support for swing mode",
+    "version": "1.16.1",
+    "releaseNotes": "-- Add version key to manifest file",
     "files": [
       "__init__.py",
       "climate.py",
