@@ -142,6 +142,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ------------- | -------------------------- | ------------- |
 [1040](../codes/media_player/1040.json)|22MT47DC|Broadlink
 [1041](../codes/media_player/1041.json)|LH6235D|Broadlink
+[1042](../codes/media_player/1042.json)|43UM7510PSB|Broadlink
 
 #### Samsung
 | Code | Supported Models | Controller |
