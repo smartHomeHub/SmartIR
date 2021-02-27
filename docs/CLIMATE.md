@@ -280,6 +280,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1340](../codes/climate/1340.json) | Unknown model    | Broadlink  |
 | [1341](../codes/climate/1341.json) | TAC490           | Broadlink  |
 | [1342](../codes/climate/1342.json) | 10i/15i/inv220a  | Broadlink  |
+| [1343](../codes/climate/1343.json) | Alpha Series     | Broadlink  |
 
 #### Springer
 | Code                               | Supported Models       | Controller |
