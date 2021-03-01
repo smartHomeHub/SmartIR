@@ -296,6 +296,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1382](../codes/climate/1382.json) | MSY-12HRDN1 (Works also for Kastron AC / Remote RG57A2/BGEF)  | Broadlink  |
 | [1383](../codes/climate/1383.json) | KFR-35G                        | Broadlink  |
 | [1384](../codes/climate/1384.json) | MSMACU-18HRFN1-QRD0GW          | Broadlink  |
+| [1385](../codes/climate/1385.json) | R11HG/E                        | Broadlink  |
 | [3380](../codes/climate/3380.json) | MCD-24HRN1-Q1<br>RAS-10N3KVR-E | Xiaomi     |
 
 #### Samsung
