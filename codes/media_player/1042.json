@@ -1,7 +1,8 @@
 {
     "manufacturer": "LG",
     "supportedModels": [
-      "43UM7510PSB"
+      "43UM7510PSB",
+      "OLED55B8SSC"
     ],
     "supportedController": "Broadlink",
     "commandsEncoding": "Base64",
