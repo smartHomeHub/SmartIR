@@ -624,3 +624,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2560](../codes/climate/2560.json) | MPAC15CY28		      | Broadlink  |
+
+#### Korel
+| Code                               | Supported Models       | Controller |
+| ---------------------------------- | ---------------------- | ---------- |
+| [2580](../codes/climate/2580.json) | KSAL2-09DCEH		      | Broadlink  |
