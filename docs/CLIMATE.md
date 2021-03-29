@@ -559,6 +559,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models        | Controller |
 | ---------------------------------- | ----------------------- | ---------- |
 | [2300](../codes/climate/2300.json) | ZH/TT-02 (Remote)       | Broadlink  |
+| [2301](../codes/climate/2301.json) | ZACS/I-07 HPF/A17/N1    | Broadlink  |
 
 #### Whynter
 | Code                               | Supported Models       | Controller |
