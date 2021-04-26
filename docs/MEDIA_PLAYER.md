@@ -186,10 +186,10 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ------------- | -------------------------- | ------------- |
 [1180](../codes/media_player/1180.json)|55EP640|Broadlink
 
-#### OPTOMA
+#### Optoma
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1199](../codes/media_player/1199.json)|TDS850NNZ <br> HD27|Broadlink
+[1199](../codes/media_player/1199.json)| HD27 |Broadlink
 
 #### Pace
 | Code | Supported Models | Controller |
