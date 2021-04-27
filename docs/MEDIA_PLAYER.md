@@ -186,11 +186,6 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ------------- | -------------------------- | ------------- |
 [1180](../codes/media_player/1180.json)|55EP640|Broadlink
 
-#### Optoma
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1199](../codes/media_player/1199.json)| HD27 |Broadlink
-
 #### Pace
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
@@ -230,3 +225,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1340](../codes/media_player/1340.json)|Aldi|Broadlink
+
+#### Optoma
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1360](../codes/media_player/1360.json)| HD27 |Broadlink
