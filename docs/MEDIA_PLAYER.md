@@ -225,3 +225,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1340](../codes/media_player/1340.json)|Aldi|Broadlink
+
+#### Optoma
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1360](../codes/media_player/1360.json)| HD27 |Broadlink
