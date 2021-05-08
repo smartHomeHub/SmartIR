@@ -10,24 +10,22 @@ Find your device's brand code [here](MEDIA_PLAYER.md#available-codes-for-tv-devi
 **unique_id** (Optional): An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.<br />
 **device_code** (Required): ...... (Accepts only positive numbers)<br />
 **controller_data** (Required): The data required for the controller to function. Enter the IP address of the Broadlink device **(must be an already configured device)**, or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands.<br />
+**delay** (Optional): Adjusts the delay in seconds between multiple commands. The default is 0.5 <br />
 **power_sensor** (Optional): *entity_id* for a sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor. (Accepts only on/off states)<br />
 **source_names** (Optional): Override the names of sources as displayed in HomeAssistant (see below)<br />
 
 ## Example (using broadlink controller):
+Add a Broadlink RM device named "Bedroom" via config flow (read the [docs](https://www.home-assistant.io/integrations/broadlink/)).
+
 ```yaml
 smartir:
 
-switch:
-  - platform: broadlink
-    host: 192.168.10.10
-    mac: '00:00:00:00:00:00'
-    
 media_player:
   - platform: smartir
     name: Living room TV
     unique_id: living_room_tv
     device_code: 1000
-    controller_data: 192.168.10.10
+    controller_data: remote.bedroom_remote
     power_sensor: binary_sensor.tv_power
 ```
 
@@ -144,6 +142,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ------------- | -------------------------- | ------------- |
 [1040](../codes/media_player/1040.json)|22MT47DC|Broadlink
 [1041](../codes/media_player/1041.json)|LH6235D|Broadlink
+[1042](../codes/media_player/1042.json)|43UM7510PSB<br>OLED55B8SSC|Broadlink
+[1043](../codes/media_player/1043.json)|32LC2R|Broadlink
 
 #### Samsung
 | Code | Supported Models | Controller |
@@ -167,6 +167,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 [1120](../codes/media_player/1120.json)|Unknown|Broadlink
 [1121](../codes/media_player/1121.json)|Yamaha RX-V375 and others (RAV463/ZA113500 remote)|Broadlink
 [1122](../codes/media_player/1122.json)|VR50590 remote|Broadlink
+[1123](../codes/media_player/1123.json)|AS201|Broadlink
 
 #### RME
 | Code | Supported Models | Controller |
@@ -178,6 +179,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ------------- | -------------------------- | ------------- |
 [1160](../codes/media_player/1160.json)|Z906|Broadlink
 [1161](../codes/media_player/1161.json)|Z-5500|Broadlink
+[1162](../codes/media_player/1162.json)|Z-5450|Broadlink
 
 #### TCL
 | Code | Supported Models | Controller |
@@ -188,3 +190,43 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1200](../codes/media_player/1200.json)|TDS850NNZ <br> TDC850NF|Broadlink
+
+#### Silver
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1220](../codes/media_player/1220.json)|MEO|Broadlink
+
+#### TurboX
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1240](../codes/media_player/1240.json)|TXV-2420|Broadlink
+
+#### Thomson
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1260](../codes/media_player/1260.json)|40FA3203|Broadlink
+
+#### Grunding
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1280](../codes/media_player/1280.json)|GSB-810|Broadlink
+
+#### OKI
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1300](../codes/media_player/1300.json)|V19B-LED4|Broadlink
+
+#### Sky
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1320](../codes/media_player/1320.json)|SkyQ Black<br>SkyQ Mini|Broadlink
+
+#### Bauhn
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1340](../codes/media_player/1340.json)|Aldi|Broadlink
+
+#### Optoma
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1360](../codes/media_player/1360.json)| HD27 |Broadlink
