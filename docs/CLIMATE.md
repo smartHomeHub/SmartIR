@@ -467,6 +467,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1940](../codes/climate/1940.json) | Unknown          | Broadlink  |
 | [1941](../codes/climate/1941.json) | iGo              | Broadlink  |
 | [1942](../codes/climate/1942.json) | Electra Classic  | Broadlink  |
+| [1942](../codes/climate/1943.json) | Electra Classic14| Broadlink  |
 
 #### AUX
 | Code                               | Supported Models | Controller |
