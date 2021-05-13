@@ -630,3 +630,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2580](../codes/climate/2580.json) | KSAL2-09DCEH		      | Broadlink  |
+
+#### Equation
+| Code                               | Supported Models       | Controller |
+| ---------------------------------- | ---------------------- | ---------- |
+| [2600](../codes/climate/2600.json) | RCH-143   		      | Broadlink  |
