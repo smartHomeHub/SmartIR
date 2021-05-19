@@ -637,3 +637,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2600](../codes/climate/2600.json) | RCH-143   		      | Broadlink  |
+
+#### Komeco
+| Code                               | Supported Models       | Controller |
+| ---------------------------------- | ---------------------- | ---------- |
+| [2700](../codes/climate/2700.json) | Unknown                | Broadlink  |
