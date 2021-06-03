@@ -1,8 +1,8 @@
 {
   "manufacturer": "Mitsubishi Electric",
   "supportedModels": [
-    "MSX09-NV II"
-    "MSH-07RV"
+    "MSX09-NV II",
+    "MSH-07RV",
     "MSH-12RV"
   ],
   "commandsEncoding": "Base64",
