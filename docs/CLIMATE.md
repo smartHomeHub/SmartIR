@@ -588,7 +588,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 #### Yamatsu
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
-| [2400](../codes/climate/2400.json) | YAM-12KDA              | Broadlink  |
+| [2400](../codes/climate/2400.json) | YAM-12KDA<br>AUS-07C53R013L24| Broadlink  |
 
 #### VS
 | Code                               | Supported Models       | Controller |

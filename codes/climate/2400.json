@@ -1,7 +1,8 @@
 {
 	"manufacturer": "Yamatsu",
 	"supportedModels": [
-		"YAM-12KDA"
+		"YAM-12KDA",
+		"AUS-07C53R013L24"
 	],
 	"commandsEncoding": "Base64",
 	"supportedController": "Broadlink",
