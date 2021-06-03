@@ -154,3 +154,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1160](../codes/fan/1160.json)|Efficio Fan|Broadlink
+
+#### Argo
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1180](../codes/fan/1180.json)|Standy|Broadlink
