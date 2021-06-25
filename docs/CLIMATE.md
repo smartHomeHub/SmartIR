@@ -648,3 +648,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2620](../codes/climate/2620.json) | Unknown                | Broadlink  |
+
+#### Fisher
+| Code                               | Supported Models       | Controller |
+| ---------------------------------- | ---------------------- | ---------- |
+| [2640](../codes/climate/2640.json) | FPR-91DE4-R<br>FPR-121DE4-R<br>FPR-141DE4-R | Broadlink  |
