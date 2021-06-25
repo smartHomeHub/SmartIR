@@ -228,6 +228,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1181](../codes/climate/1181.json) | Unknown model/Model: GWH09QB / YAN1F1 (Remote)    | Broadlink                                       |
 | [1182](../codes/climate/1182.json) | Y512/Y502 (Remote)    | Broadlink                                       |
 | [1183](../codes/climate/1183.json) | Smart inverter <b>(Swing mode)</b>    | Broadlink                                       |
+| [1184](../codes/climate/1184.json) | GWH09KF<br>GC-EAF09HR    | Broadlink                                       |
 | [3180](../codes/climate/3180.json) | YB0FB2 (Remote)  | Xiaomi                                          |
 | [3181](../codes/climate/3181.json) | YB1FA  (Remote)  | Xiaomi (v2)                                          |
 
