@@ -140,6 +140,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1026](../codes/climate/1026.json) | CS-PC12QKT                                                         | Broadlink  |
 | [1027](../codes/climate/1027.json) | CS-SA9CKP                                                          | Broadlink  |
 | [1028](../codes/climate/1028.json) | CS-U9RKR<br>CS-U12RKR                                              | Broadlink  |
+| [1029](../codes/climate/1029.json) | CS-LJ22~LJ90BA2(YA2)<br>C8024-9921 (Remote)                        | Broadlink  |
 
 #### General Electric
 | Code                               | Supported Models                                                                               | Controller |
