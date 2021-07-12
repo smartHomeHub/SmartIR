@@ -231,3 +231,9 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1360](../codes/media_player/1360.json)| HD27 |Broadlink
+
+
+#### Xiaomi
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1380](../codes/media_player/1380.json)| MiBox<br>MItv |Broadlink
