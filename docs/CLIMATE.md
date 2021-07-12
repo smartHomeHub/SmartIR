@@ -658,4 +658,4 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 #### Hyundai
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
-| [7750](../codes/climate/7750.json) | HSE09PH5V                | Broadlink  |
+| [2660](../codes/climate/2660.json) | HSE09PH5V                | Broadlink  |
