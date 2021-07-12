@@ -389,6 +389,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
 | [1660](../codes/climate/1660.json) | 08HPN1T1         | Broadlink  |
+| [1661](../codes/climate/1661.json) | RC-G25HN         | Broadlink  |
 
 #### Mitsubishi Heavy
 | Code                               | Supported Models                                     | Controller |
