@@ -661,3 +661,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2660](../codes/climate/2660.json) | HSE09PH5V                | Broadlink  |
+
+#### Apton
+| Code                               | Supported Models       | Controller |
+| ---------------------------------- | ---------------------- | ---------- |
+| [2680](../codes/climate/2680.json) | AFC-100T               | Broadlink  |
