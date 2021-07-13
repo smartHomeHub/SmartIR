@@ -163,6 +163,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1066](../codes/climate/1066.json) | LA090HYV<br>LA120HYV<br>LAN090HYV<br>LAN120HYV<br>(AKB73835312 remote) | Broadlink  |
 | [1067](../codes/climate/1067.json) | W12TCM | Broadlink  |
 | [1068](../codes/climate/1068.json) | AKB74295303 | Broadlink  |
+| [1069](../codes/climate/1069.json) | AKB74295304 | Broadlink  |
 | [3060](../codes/climate/3060.json) | G09LH                                                                | Xiaomi     |
 
 #### Hitachi
