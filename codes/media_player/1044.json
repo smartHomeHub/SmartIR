@@ -1,0 +1,33 @@
+{
+  "manufacturer": "LG",
+  "supportedModels": ["55UH8509"],
+  "supportedController": "ESPHome",
+  "commandsEncoding": "DataNbits",
+  "commands": {
+    "on": { "data": "20DF23DC", "nbits": 32 },
+    "off": { "data": "20DFA35C", "nbits": 32 },
+    "volumeDown": { "data": "20DFC03F", "nbits": 32 },
+    "volumeUp": { "data": "20DF40BF", "nbits": 32 },
+    "mute": { "data": "20DF906F", "nbits": 32 },
+    "previousChannel": { "data": "20DF807F", "nbits": 32 },
+    "nextChannel": { "data": "20DF00FF", "nbits": 32 },
+    "0": { "data": "20DF08F7", "nbits": 32 },
+    "1": { "data": "20DF8877", "nbits": 32 },
+    "2": { "data": "20DF48B7", "nbits": 32 },
+    "3": { "data": "20DFC837", "nbits": 32 },
+    "4": { "data": "20DF28D7", "nbits": 32 },
+    "5": { "data": "20DFA857", "nbits": 32 },
+    "6": { "data": "20DF6897", "nbits": 32 },
+    "7": { "data": "20DFE817", "nbits": 32 },
+    "8": { "data": "20DF18E7", "nbits": 32 },
+    "9": { "data": "20DF9867", "nbits": 32 },
+    "sources": {
+      "HDMI1": { "data": "20DF738C", "nbits": 32 },
+      "HDMI2": { "data": "20DF33CC", "nbits": 32 },
+      "HDMI3": { "data": "20DF9768", "nbits": 32 },
+      "USB": { "data": "20DF3EC1", "nbits": 32 },
+      "LiveTV": { "data": "20DF42BD", "nbits": 32 },
+      "AV": { "data": "20DF5AA5", "nbits": 32 }
+    }
+  }
+}

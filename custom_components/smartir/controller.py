@@ -20,12 +20,16 @@ ENC_BASE64 = 'Base64'
 ENC_HEX = 'Hex'
 ENC_PRONTO = 'Pronto'
 ENC_RAW = 'Raw'
+ENC_DATA = 'Data'
+ENC_DATA_NBITS = 'DataNbits'
+ENC_ADDRESS_COMMAND = 'AddressCommand'
 
 BROADLINK_COMMANDS_ENCODING = [ENC_BASE64, ENC_HEX, ENC_PRONTO]
 XIAOMI_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
 MQTT_COMMANDS_ENCODING = [ENC_RAW]
 LOOKIN_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
-ESPHOME_COMMANDS_ENCODING = [ENC_RAW]
+ESPHOME_COMMANDS_ENCODING = [ENC_RAW, ENC_DATA,
+                             ENC_DATA_NBITS, ENC_ADDRESS_COMMAND]
 
 
 def get_controller(hass, controller, encoding, controller_data, delay):
@@ -45,6 +49,7 @@ def get_controller(hass, controller, encoding, controller_data, delay):
 
 class AbstractController(ABC):
     """Representation of a controller."""
+
     def __init__(self, hass, controller, encoding, controller_data, delay):
         self.check_encoding(encoding)
         self.hass = hass
@@ -77,7 +82,7 @@ class BroadlinkController(AbstractController):
         """Send a command."""
         commands = []
 
-        if not isinstance(command, list): 
+        if not isinstance(command, list):
             command = [command]
 
         for _command in command:
@@ -165,7 +170,7 @@ class LookinController(AbstractController):
         """Send a command."""
         encoding = self._encoding.lower().replace('pronto', 'prontohex')
         url = f"http://{self._controller_data}/commands/ir/" \
-                f"{encoding}/{command}"
+            f"{encoding}/{command}"
         await self.hass.async_add_executor_job(requests.get, url)
 
 
@@ -177,10 +182,35 @@ class ESPHomeController(AbstractController):
         if encoding not in ESPHOME_COMMANDS_ENCODING:
             raise Exception("The encoding is not supported "
                             "by the ESPHome controller.")
-    
+
     async def send(self, command):
         """Send a command."""
-        service_data = {'command':  json.loads(command)}
+
+        if self._encoding == ENC_RAW:
+            service_data = {
+                'command':  command if type(command) != str else json.loads(command)
+            }
+
+        elif self._encoding == ENC_ADDRESS_COMMAND:
+
+            service_data = {
+                'address': int(command['address'], 16) if type(command.get('address')) == str else command['address'],
+                'command': int(command['command'], 16) if type(command.get('command')) == str else command['command']
+            }
+
+        elif self._encoding == ENC_DATA:
+            service_data = {
+                'data': int(command, 16) if type(command) == str else command
+            }
+
+        elif self._encoding == ENC_DATA_NBITS:
+
+            service_data = {
+                'data': int(command['data'], 16) if type(command.get('data')) == str else command['data']
+            }
+
+            if 'nbits' in command:
+                service_data['nbits'] = command['nbits']
 
         await self.hass.services.async_call(
             'esphome', self._controller_data, service_data)

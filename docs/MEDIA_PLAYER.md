@@ -74,7 +74,7 @@ media_player:
 ```
 
 ## Example (using ESPHome):
-ESPHome configuration example:
+### ESPHome configuration example:
 ```yaml
 esphome:
   name: my_espir
@@ -94,7 +94,56 @@ remote_transmitter:
   pin: GPIO14
   carrier_duty_percent: 50%
 ```
-HA configuration.yaml:
+Additionally to `raw` codes, brand specific encoders can also be used with the corresponding encodings in the json file.
+
+The ESPHome service should be changed to the matching `remote_transmitter.transmit_<brand>`
+with the appropriate parameters.
+
+Encoding: `Data` (for JVC, Samsung)
+```yaml
+api:
+  services:
+    - service: send_jvc_command
+      variables:
+        data: int
+      then:
+        - remote_transmitter.transmit_jvc:
+            data: !lambda 'return data;'
+```
+In the `json` codes' file, commands must be a plain integer or a string in hex.
+
+
+Encoding: `DataNbits` (for LG, Sony)
+```yaml
+api:
+  services:
+    - service: send_lg_command
+      variables:
+        data: int
+        nbits: int
+      then:
+        - remote_transmitter.transmit_lg:
+            data: !lambda 'return data;'
+            nbits: !lambda 'return nbits;'
+```
+In the `json` codes' file, commands must be an object with `data` and optionally `nbits` properties. `data` must be a plain integer or a string in hex.
+
+Encoding: `AddressCommand` (for NEC, RC5, Samsung36, Panasonic).
+```yaml
+api:
+  services:
+    - service: send_nec_command
+      variables:
+        address: int
+        command: int
+      then:
+        - remote_transmitter.transmit_nec:
+            address: !lambda 'return data;'
+            command: !lambda 'return nbits;'
+```
+In the `json` codes' file, commands must be an object with `address` and  `command` properties. Both must be plain integers or strings in hex.
+
+### HA configuration.yaml:
 ```yaml
 smartir:
 
@@ -107,7 +156,7 @@ media_player:
     power_sensor: binary_sensor.tv_power
 ```
 
-### Overriding Source Names
+## Overriding Source Names
 Source names in device files are usually set to the name that the media player uses. These often aren't very descriptive, so you can override these names in the configuration file. You can also remove a source by setting its name to `null`.
 
 ```yaml
@@ -144,6 +193,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 [1041](../codes/media_player/1041.json)|LH6235D|Broadlink
 [1042](../codes/media_player/1042.json)|43UM7510PSB<br>OLED55B8SSC|Broadlink
 [1043](../codes/media_player/1043.json)|32LC2R|Broadlink
+[1044](../codes/media_player/1044.json)|55UH8509|ESPHome
 
 #### Samsung
 | Code | Supported Models | Controller |
