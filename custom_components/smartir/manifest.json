@@ -6,10 +6,10 @@
   "codeowners": ["@smartHomeHub"],
   "requirements": ["aiofiles==0.6.0"],
   "homeassistant": "0.115.0",
-  "version": "1.16.1",
+  "version": "1.17.0",
   "updater": {
-    "version": "1.16.1",
-    "releaseNotes": "-- Add version key to manifest file",
+    "version": "1.17.0",
+    "releaseNotes": "-- Add play_media service",
     "files": [
       "__init__.py",
       "climate.py",
