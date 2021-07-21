@@ -123,6 +123,18 @@ media_player:
       VGA: null
 ```
 
+### Changing channels
+Most IR remotes can only send one key at a time (0 to 9) to change your TV channel, changing to other channels requires pressing 2 consecutive keys. SmartIR handles any channel for you with the standard Home Assistant service interface. Here is an example that changes your Kitchen TV to channel 51:
+
+```yaml
+service: media_player.play_media
+target:
+  entity_id: media_player.kitchen_tv
+data:
+  media_content_id: 51
+  media_content_type: "channel"
+```
+
 ## Available codes for TV devices:
 The following are the code files created by the amazing people in the community. Before you start creating your own code file, try if one of them works for your device. **Please open an issue if your device is working and not included in the supported models.**
 Contributing to your own code files is welcome. However, we do not accept incomplete files as well as files related to MQTT controllers.
