@@ -234,7 +234,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         """Turn the media player on."""
 
         if self._warm_up_delay > 0:
-            self._warmed_up_at = time.monotonic + self._warmed_up_delay
+            self._warmed_up_at = time.monotonic() + self._warm_up_delay
 
         await self.send_command(self._commands['on'], wait_for_warm_up=False)
 
@@ -294,7 +294,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         async with self._temp_lock:
 
             if wait_for_warm_up:
-                wait_for_warm_up()
+                await self.wait_for_warm_up()
 
             try:
                 await self._controller.send(command)
@@ -303,7 +303,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
 
     async def wait_for_warm_up(self):
         if self._warmed_up_at:
-            time_to_wait = self._warmed_up_at - time.monotonic
+            time_to_wait = self._warmed_up_at - time.monotonic()
             if time_to_wait > 0:
                 await asyncio.sleep(time_to_wait)
 
