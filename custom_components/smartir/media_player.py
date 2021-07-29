@@ -2,6 +2,7 @@ import asyncio
 import json
 import logging
 import os.path
+import time
 
 import voluptuous as vol
 
@@ -96,6 +97,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         self._manufacturer = device_data['manufacturer']
         self._supported_models = device_data['supportedModels']
         self._supported_controller = device_data['supportedController']
+        self._warm_up_delay = device_data['warmUpDelay']
         self._commands_encoding = device_data['commandsEncoding']
         self._commands = device_data['commands']
 
@@ -103,6 +105,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         self._sources_list = []
         self._source = None
         self._support_flags = 0
+        self._warmed_up_at = None
 
         self._device_class = config.get(CONF_DEVICE_CLASS)
 
@@ -228,8 +231,12 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
             await self.async_update_ha_state()
 
     async def async_turn_on(self):
-        """Turn the media player off."""
-        await self.send_command(self._commands['on'])
+        """Turn the media player on."""
+
+        if self._warm_up_delay > 0:
+            self._warmed_up_at = time.monotonic + self._warmed_up_delay
+
+        await self.send_command(self._commands['on'], wait_for_warm_up=False)
 
         if self._power_sensor is None:
             self._state = STATE_ON
@@ -283,13 +290,23 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
             await self.send_command(self._commands['sources']["Channel {}".format(digit)])
         await self.async_update_ha_state()
 
-    async def send_command(self, command):
+    async def send_command(self, command, wait_for_warm_up = True):
         async with self._temp_lock:
+
+            if wait_for_warm_up:
+                wait_for_warm_up()
+
             try:
                 await self._controller.send(command)
             except Exception as e:
                 _LOGGER.exception(e)
-            
+
+    async def wait_for_warm_up(self):
+        if self._warmed_up_at:
+            time_to_wait = self._warmed_up_at - time.monotonic
+            if time_to_wait > 0:
+                await asyncio.sleep(time_to_wait)
+
     async def async_update(self):
         if self._power_sensor is None:
             return
