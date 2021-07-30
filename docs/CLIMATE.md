@@ -264,7 +264,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models                            | Controller |
 | ---------------------------------- | ------------------------------------------- | ---------- |
 | [1280](../codes/climate/1280.json) | AR-RBE1E (Remote control)                   | Broadlink  |
-| [1281](../codes/climate/1281.json) | AR-RY3 (Remote control)<br>AR-RAE1/AR-RAE1E | Broadlink  |
+| [1281](../codes/climate/1281.json) | AR-RY3 (Remote control)<br>AR-RAE1/AR-RAE1E<br>AR-RAH1U | Broadlink  |
 | [1282](../codes/climate/1282.json) | AR-JW11 (Remote control)                    | Broadlink  |
 | [1283](../codes/climate/1283.json) | AR-AB5 (Remote control)                     | Broadlink  |
 | [1284](../codes/climate/1284.json) | AR-REG1U (Remote control)                   | Broadlink  |
