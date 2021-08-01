@@ -8,8 +8,6 @@
     "TEM-50CHSAKA",
     "TEM-35CHSABH",
     "TEM-35CHSF"
-
-
   ],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
