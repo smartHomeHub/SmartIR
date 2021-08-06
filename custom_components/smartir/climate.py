@@ -18,6 +18,7 @@ from homeassistant.core import callback
 from homeassistant.helpers.event import async_track_state_change
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
+from homeassistant.util.unit_system import IMPERIAL_SYSTEM, METRIC_SYSTEM
 from . import COMPONENT_ABS_DIR, Helper
 from .controller import get_controller
 
@@ -105,6 +106,14 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._power_sensor = config.get(CONF_POWER_SENSOR)
         self._power_sensor_restore_state = config.get(CONF_POWER_SENSOR_RESTORE_STATE)
 
+        # If the device JSON doesn't specify a temperature unit, guess it based
+        # on whether min_temperature is too low to be Fahrenheit.
+        device_temp_unit = device_data.get(
+            'temperatureUnit', 'celsius' if device_data['minTemperature'] < 40 else 'fahrenheit')
+
+        self._device_units = METRIC_SYSTEM if device_temp_unit == 'celsius' else IMPERIAL_SYSTEM
+        self._hass_units = hass.config.units
+
         self._manufacturer = device_data['manufacturer']
         self._supported_models = device_data['supportedModels']
         self._supported_controller = device_data['supportedController']
@@ -120,7 +129,13 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._swing_modes = device_data.get('swingModes')
         self._commands = device_data['commands']
 
-        self._target_temperature = self._min_temperature
+        # Target temperature, unlike the min/max settings from the device JSON,
+        # is stored in HASS units. So if the HASS instance is using Fahrenheit,
+        # and the device codes are specified in Celsius, target temperature is
+        # Fahrenheit, un-rounded. It is converted to Celsius and rounded based
+        # on the device's precision only when generating IR codes. This avoids
+        # issues, e.g. where 68F converts to 26C and then back to 69F.
+        self._target_temperature = self._hass_temperature(self._min_temperature)
         self._hvac_mode = HVAC_MODE_OFF
         self._current_fan_mode = self._fan_modes[0]
         self._current_swing_mode = None
@@ -129,8 +144,6 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._current_temperature = None
         self._current_humidity = None
 
-        self._unit = hass.config.units.temperature_unit
-        
         #Supported features
         self._support_flags = SUPPORT_FLAGS
         self._support_swing = False
@@ -206,22 +219,30 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     @property
     def temperature_unit(self):
         """Return the unit of measurement."""
-        return self._unit
+        return self._hass_units.temperature_unit
 
     @property
     def min_temp(self):
-        """Return the polling state."""
-        return self._min_temperature
+        """Return the device's maximum supported temperature.
+
+        The returned value is in the HASS instance's temperature units, rounded
+        to the nearest integer regardless of the device's precision setting.
+        """
+        return round(self._hass_temperature(self._min_temperature))
         
     @property
     def max_temp(self):
-        """Return the polling state."""
-        return self._max_temperature
+        """Return the device's minimum supported temperature.
+
+        The returned value is in the HASS instance's temperature units, rounded
+        to the nearest integer regardless of the device's precision setting.
+        """
+        return round(self._hass_temperature(self._max_temperature))
 
     @property
     def target_temperature(self):
         """Return the temperature we try to reach."""
-        return self._target_temperature
+        return self._apply_precision(self._target_temperature)
 
     @property
     def target_temperature_step(self):
@@ -297,15 +318,15 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
           
         if temperature is None:
             return
-            
-        if temperature < self._min_temperature or temperature > self._max_temperature:
+
+        # Here we use self.min_temp, rather than self._min_temperature, because
+        # the latter is in device temperature units, and we always receive and
+        # store the target temperature in HASS units.
+        if temperature < self.min_temp or temperature > self.max_temp:
             _LOGGER.warning('The temperature value is out of min/max range') 
             return
 
-        if self._precision == PRECISION_WHOLE:
-            self._target_temperature = round(temperature)
-        else:
-            self._target_temperature = round(temperature, 1)
+        self._target_temperature = temperature
 
         if hvac_mode:
             await self.async_set_hvac_mode(hvac_mode)
@@ -360,7 +381,11 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 operation_mode = self._hvac_mode
                 fan_mode = self._current_fan_mode
                 swing_mode = self._current_swing_mode
-                target_temperature = '{0:g}'.format(self._target_temperature)
+
+                temperature = self._apply_precision(
+                    self._device_temperature(self._target_temperature))
+                temperature = min(self._max_temperature, max(self._min_temperature, temperature))
+                target_temperature = '{0:g}'.format(temperature)
 
                 if operation_mode.lower() == HVAC_MODE_OFF:
                     await self._controller.send(self._commands['off'])
@@ -436,3 +461,15 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 self._current_humidity = float(state.state)
         except ValueError as ex:
             _LOGGER.error("Unable to update from humidity sensor: %s", ex)
+
+    def _apply_precision(self, value):
+        """Rounds a temperature value according to the device's precision."""
+        return round(value) if self._precision == PRECISION_WHOLE else round(value, 1)
+
+    def _device_temperature(self, value):
+        """Convert a HASS instance temperature into a device temperature."""
+        return self._device_units.temperature(value, self._hass_units.temperature_unit)
+
+    def _hass_temperature(self, value):
+        """Convert a device temperature into a HASS instance temperature."""
+        return self._hass_units.temperature(value, self._device_units.temperature_unit)
