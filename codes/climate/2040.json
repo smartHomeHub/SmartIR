@@ -8,6 +8,7 @@
   ],
   "commandsEncoding": "Base64",
   "supportedController": "Broadlink",
+  "temperatureUnit": "fahrenheit",
   "minTemperature": 62,
   "maxTemperature": 86,
   "precision": 1,
