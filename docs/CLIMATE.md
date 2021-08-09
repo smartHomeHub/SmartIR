@@ -329,6 +329,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
 | [1440](../codes/climate/1440.json) | Unknown model    | Broadlink  |
+| [1441](../codes/climate/1441.json) | TEM-26CHSAAK5<br>TEM-70CHSAAK5<br>TEM-26CHSAKA5<br>TEM-35CHSAKA<br>TEM-50CHSAKA<br>TEM-35CHSABH<br>TEM-35CHSF    | Broadlink  |
 
 #### Alliance
 | Code                               | Supported Models | Controller |
