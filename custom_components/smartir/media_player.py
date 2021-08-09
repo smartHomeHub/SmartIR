@@ -91,7 +91,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         self._name = config.get(CONF_NAME)
         self._device_code = config.get(CONF_DEVICE_CODE)
         self._controller_data = config.get(CONF_CONTROLLER_DATA)
-        self._delay = config.get(CONF_DELAY)
+        self._delay = float(config.get(CONF_DELAY))
         self._power_sensor = config.get(CONF_POWER_SENSOR)
 
         self._manufacturer = device_data['manufacturer']
@@ -297,8 +297,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
             except Exception as e:
                 _LOGGER.exception(e)
                 return
-            if init_time:
-                self._ready_at = time.monotonic() + init_time
+            self._ready_at = time.monotonic() + max(init_time or 0, self._delay)
 
     async def wait_until_ready(self):
         if self._ready_at:
