@@ -276,6 +276,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1288](../codes/climate/1288.json) | AR-REB1E (Remote control)                   | Broadlink  |
 | [1289](../codes/climate/1289.json) | AR-REW1E (Remote control)                   | Broadlink  |
 | [1290](../codes/climate/1290.json) | AR-RFL7J (Remote control)                   | Broadlink  |
+| [1291](../codes/climate/1291.json) | AR-REF1E (Remote control)                   | Broadlink  |
 
 #### Sharp
 | Code                               | Supported Models | Controller |
