@@ -681,3 +681,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2720](../codes/climate/2720.json) | AXP35U538CW            | Broadlink  |
+
+#### Danby
+| Code                               | Supported Models       | Controller |
+| ---------------------------------- | ---------------------- | ---------- |
+| [5550](../codes/climate/5550.json) | DPAC120068            | Broadlink  |
