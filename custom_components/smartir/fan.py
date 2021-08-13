@@ -254,7 +254,10 @@ class SmartIRFan(FanEntity, RestoreEntity):
             if speed.lower() == SPEED_OFF:
                 command = self._commands['off']
             elif oscillating:
-                command = self._commands['oscillate']
+                if isinstance(self._commands['oscillate'], dict):
+                    command = self._commands['oscillate'][speed]
+                else:
+                    command = self._commands['oscillate']
             else:
                 command = self._commands[direction][speed] 
 
