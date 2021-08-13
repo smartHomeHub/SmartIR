@@ -160,6 +160,11 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ------------- | -------------------------- | ------------- |
 [1180](../codes/fan/1180.json)|Standy|Broadlink
 
+#### Rowenta
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1190](../codes/fan/1190.json)|Turbo Silence Extreme|Broadlink
+
 #### DCG
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
