@@ -9,7 +9,6 @@
   "maxTemperature": 30.0,
   "precision": 1.0,
   "operationModes": [
-    "dry",
     "cool",
     "fan_only",
     "auto"
@@ -146,84 +145,7 @@
         "30": "JgDmAHMxECgPKBANDw0ODg4pDw0PDQ8oDygQDQ8oDw4ODQ8oDykPDg4oDykPDQ8NDygPDg4ODigPDg4ODg4ODg4ODg0PDQ4NDw0PDg4NDw0PDQ8oDw4ODg4NDygPDg4ODigQDQ4ODikPKA8ODgwQDg4NDw0PDQ8oDwwQDg4NDw0ODg4ODg4OKBANDikPDg4oDykPDg4NDw0PDQ4ODg4ODg4ODg0PDBANDg4ODg4ODg4ODQ8NDwwPDg4ODg4ODg4NDw0PDQ8NDg4ODg4NDw0PDg4NDwwPDg4ODigQDQ4ODikPKA8ODikPAA0FAAA="
       }
     },
-    "dry": {
-      "auto": {
-        "18": "",
-        "19": "",
-        "20": "",
-        "21": "",
-        "22": "",
-        "23": "",
-        "24": "",
-        "25": "",
-        "26": "",
-        "27": "",
-        "28": "",
-        "29": "",
-        "30": ""
-      },
-      "low": {
-        "18": "",
-        "19": "",
-        "20": "",
-        "21": "",
-        "22": "",
-        "23": "",
-        "24": "",
-        "25": "",
-        "26": "",
-        "27": "",
-        "28": "",
-        "29": "",
-        "30": ""
-      },
-      "mid": {
-        "18": "",
-        "19": "",
-        "20": "",
-        "21": "",
-        "22": "",
-        "23": "",
-        "24": "",
-        "25": "",
-        "26": "",
-        "27": "",
-        "28": "",
-        "29": "",
-        "30": ""
-      },
-      "high": {
-        "18": "",
-        "19": "",
-        "20": "",
-        "21": "",
-        "22": "",
-        "23": "",
-        "24": "",
-        "25": "",
-        "26": "",
-        "27": "",
-        "28": "",
-        "29": "",
-        "30": ""
-      }
-    },
     "fan_only": {
-      "auto": {
-        "18": "",
-        "19": "",
-        "20": "",
-        "21": "",
-        "22": "",
-        "23": "",
-        "24": "",
-        "25": "",
-        "26": "",
-        "27": "",
-        "28": "",
-        "29": "",
-        "30": ""
-      },
       "low": {
         "18": "JgDmAHQxDykPKA8NDw0PDQ8oDw0PDQ8pDygPDQ8pDwwQDA8pDygQDA8pDygQDA8NDykPDQ8MECgPDQ8NDw0PDBAMDw0PDQ8NDw0PDQ8MEAwPDQ8pDw0PDA8NDykPDQ8NDygPDQ8NDygPKQ8oEAwPDQ8NDw0PDQ8NDw0PDA8pDw0PDQ8MEAwPDQ8pDw0PDBAoDykPDBAMDw0PDQ8NDw0PDQ8MEAwPDQ8NDw0PDQ8NDwwQDA8NDw0PDQ8NDw0PDBAMDw0PDQ8NDw0PDQ8NDwwPDQ8NDw0PDQ8NDygPDQ8pDygPKQ8NDygPAA0FAAA=",
         "19": "JgDmAHQxDykPKA8NDw0PDQ8oDw0PDQ8pDygPDQ8pDwwQDA8pDygQDA8pDygQDA8NDykPDQ8MECgPDQ8NDw0PDBAMDw0PDQ8NDw0PDQ8MEAwPDQ8pDw0PDA8NDykPDQ8NDygPDQ8NDygPKQ8oEAwPDQ8NDw0PDQ8NDw0PDA8pDw0PDQ8MEAwPDQ8pDw0PDBAoDykPDBAMDw0PDQ8NDw0PDQ8MEAwPDQ8NDw0PDQ8NDwwQDA8NDw0PDQ8NDw0PDBAMDw0PDQ8NDw0PDQ8NDwwPDQ8NDw0PDQ8NDygPDQ8pDygPKQ8NDygPAA0FAAA=",
