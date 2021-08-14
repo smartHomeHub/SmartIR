@@ -1,0 +1,21 @@
+{
+    "manufacturer": "SMC",
+    "supportedModels": [
+      "SP486", "SP483"
+    ],
+    "supportedController": "Broadlink",
+    "commandsEncoding": "Base64",
+    "speed": [
+      "low",
+      "medium",
+      "high"
+    ],
+    "commands": {
+      "off": "JgBOACoNKg4OKg4pDioOKQ4pKg8NKg4pDykOAAEHKw0qDg4pDykOKQ8pDioqDQ8oDykOKg4AAQgqDSoNDykOKg4pDioOKSoODioOKQ8oDwANBQAAAAAAAAAAAAA=",
+      "default": {
+        "low": "JgBKACwMKg4OKQ8oDyksDA4pDykOKQ8pKg4s6iwLKg0PKQ8pDygrDQ8oDikPKg4pKwwr6ysMKw4PKA4pDyksCw8pDioOKQ8oKw0sAA0FAAAAAAAAAAAAAAAAAAA=",
+        "medium": "JgBOACsNKg0PKQ4qDikPKA8pDioOKSoODikPAAEHKg4pDg8pDikPKA8qDikPKA8pKg4OKg4AAQcqDioNDikPKQ8pDikPKQ4pDioqDg4pDgANBQAAAAAAAAAAAAA=",
+        "high": "JgBKACsNKg0PKQ4pDioOKg4pDikPKQ4qDikq7CoNKg4OKg4pDioOKQ8oDyoOKQ8oDykq6ysOKwwPKQ4pDikPKQ8pDikPKQ4pDiorAA0FAAAAAAAAAAAAAAAAAAA="
+      }
+    }
+  }
