@@ -164,3 +164,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1200](../codes/fan/1200.json)|Unknown|Broadlink
+
+#### Mitsubishi
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1220](../codes/fan/1220.json)|C56-RW5|Broadlink
