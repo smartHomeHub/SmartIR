@@ -681,3 +681,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2720](../codes/climate/2720.json) | AXP35U538CW            | Broadlink  |
+
+#### Bosch
+| Code                               | Supported Models       | Controller |
+| ---------------------------------- | ---------------------- | ---------- |
+| [2740](../codes/climate/2740.json) | 5000i		          | Broadlink  |
