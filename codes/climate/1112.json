@@ -1,7 +1,8 @@
 {
   "manufacturer":"Daikin",
   "supportedModels":[
-    "ATKC09TV2S"
+    "ATKC09TV2S",
+    "FTKQ12TV2S"
   ],
   "commandsEncoding":"Base64",
   "supportedController":"Broadlink",
