@@ -2,7 +2,9 @@
   "manufacturer": "Mitsubishi Heavy",
   "supportedModels": [
     "SRKM25H",
-    "SRK40HBE"
+    "SRK40HBE",
+	"RKS502A502",
+	"RKS502A503"
   ],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",

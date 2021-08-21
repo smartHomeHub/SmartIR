@@ -166,6 +166,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1068](../codes/climate/1068.json) | AKB74295303 | Broadlink  |
 | [1069](../codes/climate/1069.json) | AKB74295304 | Broadlink  |
 | [3060](../codes/climate/3060.json) | G09LH                                                                | Xiaomi     |
+| [7062](../codes/climate/7062.json) | LG InverterV P12RK                                                   | ESPHome     |
 
 #### Hitachi
 | Code                               | Supported Models                                              | Controller |
@@ -400,7 +401,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ---------------------------------- | ---------------------------------------------------- | ---------- |
 | [1680](../codes/climate/1680.json) | SRK25ZJ-S1                                           | Broadlink  |
 | [1681](../codes/climate/1681.json) | SRK71ZK-S                                            | Broadlink  |
-| [1682](../codes/climate/1681.json) | SRKM25H<br>SRK40HBE                                  | Broadlink  |
+| [1682](../codes/climate/1681.json) | SRKM25H<br>SRK40HBE<br>RKS502A502<br>RKS502A503      | Broadlink  |
 | [1683](../codes/climate/1683.json) | DXK12ZMA-S                                           | Broadlink  |
 | [1684](../codes/climate/1684.json) | DXK24ZRA                                             | Broadlink  |
 | [1685](../codes/climate/1685.json) | SRK50ZS-S                                            | Broadlink  |
@@ -681,6 +682,11 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2720](../codes/climate/2720.json) | AXP35U538CW            | Broadlink  |
+
+#### Bosch
+| Code                               | Supported Models       | Controller |
+| ---------------------------------- | ---------------------- | ---------- |
+| [2740](../codes/climate/2740.json) | 5000i		          | Broadlink  |
 
 #### Tristar
 | Code                               | Supported Models       | Controller |
