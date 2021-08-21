@@ -687,3 +687,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2740](../codes/climate/2740.json) | 5000i		          | Broadlink  |
+
+#### Tristar
+| Code                               | Supported Models       | Controller |
+| ---------------------------------- | ---------------------- | ---------- |
+| [2760](../codes/climate/3760.json) | AC-5400                | Broadlink  |
