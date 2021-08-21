@@ -504,11 +504,6 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ---------------------------------- | ---------------- | ---------- |
 | [2020](../codes/climate/2020.json) | A-IFWHxx-IGX     | Broadlink  |
 
-#### Tristar
-| Code                               | Supported Models       | Controller |
-| ---------------------------------- | ---------------------- | ---------- |
-| [2021](../codes/climate/2021.json) | AC-5400                | Broadlink  |
-
 #### Pioneer
 | Code                               | Supported Models                 | Controller |
 | ---------------------------------- | -------------------------------- | ---------- |
@@ -686,3 +681,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2720](../codes/climate/2720.json) | AXP35U538CW            | Broadlink  |
+
+#### Tristar
+| Code                               | Supported Models       | Controller |
+| ---------------------------------- | ---------------------- | ---------- |
+| [2760](../codes/climate/3760.json) | AC-5400                | Broadlink  |
