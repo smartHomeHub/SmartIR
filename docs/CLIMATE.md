@@ -692,3 +692,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2760](../codes/climate/2760.json) | AC-5400                | Broadlink  |
+
+#### Xiaomi
+| Code                               | Supported Models       | Controller |
+| ---------------------------------- | ---------------------- | ---------- |
+| [2780](../codes/climate/2780.json) | KFR-35G/F3C1           | Broadlink  |
