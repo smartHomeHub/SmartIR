@@ -370,12 +370,18 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                     await self._controller.send(self._commands['on'])
                     await asyncio.sleep(self._delay)
 
-                if self._support_swing == True:
-                    await self._controller.send(
-                        self._commands[operation_mode][fan_mode][swing_mode][target_temperature])
+                op_mode_data = self._commands[operation_mode]
+                fan_mode_data = op_mode_data.get(fan_mode) or op_mode_data.get('default')
+                if self._support_swing is True:
+                    swing_mode_data = fan_mode_data[swing_mode]
+                    if isinstance(swing_mode_data, dict):
+                        cmd = swing_mode_data[target_temperature]
+                    else:
+                        cmd = swing_mode_data
+
+                    await self._controller.send(cmd)
                 else:
-                    await self._controller.send(
-                        self._commands[operation_mode][fan_mode][target_temperature])
+                    await self._controller.send(fan_mode_data[target_temperature])
 
             except Exception as e:
                 _LOGGER.exception(e)

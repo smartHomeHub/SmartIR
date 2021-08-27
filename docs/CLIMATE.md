@@ -697,3 +697,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2780](../codes/climate/2780.json) | KFR-35G/F3C1           | Broadlink  |
+
+#### Cooper&Hunter
+| Code                               | Supported Models       | Controller |
+| ---------------------------------- | ---------------------- | ---------- |
+| [4545](../codes/climate/4545.json) | CH-S07FTX5 Winner<br>CH-S09FTX5 Winner | Broadlink |
