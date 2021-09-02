@@ -705,4 +705,4 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 #### Elgin
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
-| [2800](../codes/climate/2780.json) | HVQI18B2IA             | Broadlink  |
+| [2800](../codes/climate/2800.json) | HVQI18B2IA             | Broadlink  |
