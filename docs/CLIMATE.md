@@ -373,6 +373,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
 | [1580](../codes/climate/1580.json) | ZH/JT-03 (Remote)| Broadlink  |
+| [1581](../codes/climate/1581.json) | ZH/JT-03 (Remote)| Broadlink  |
 | [3580](../codes/climate/3580.json) | Unknown          | Xiaomi (v2)|
 
 #### Beko
