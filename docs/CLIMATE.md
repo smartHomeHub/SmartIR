@@ -406,11 +406,13 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1681](../codes/climate/1681.json) | SRK71ZK-S                                            | Broadlink  |
 | [1682](../codes/climate/1681.json) | SRKM25H<br>SRK40HBE<br>RKS502A502<br>RKS502A503      | Broadlink  |
 | [1683](../codes/climate/1683.json) | DXK12ZMA-S                                           | Broadlink  |
+| [1689](../codes/climate/1689.json) | DXK12ZSA-W                                           | Broadlink  |
 | [1684](../codes/climate/1684.json) | DXK24ZRA                                             | Broadlink  |
 | [1685](../codes/climate/1685.json) | SRK50ZS-S                                            | Broadlink  |
 | [1686](../codes/climate/1685.json) | SRK20ZSA-W<br>SRK25ZSA-W<br>SRK35ZSA-W<br>SRK50ZSA-W | Broadlink  |
 | [1687](../codes/climate/1687.json) | SRK35ZJX-S<br>SRK20ZJX-S                             | Broadlink  |
 | [1688](../codes/climate/1688.json) | SRK25ZSP-W<br>SRK35ZSP-W<br>SRK45ZSP-W               | Broadlink  |
+
 
 #### Electrolux
 | Code                               | Supported Models                                                                                                                                                                             | Controller |
