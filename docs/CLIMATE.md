@@ -706,3 +706,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2800](../codes/climate/2800.json) | HVQI18B2IA             | Broadlink  |
+
+#### Pearl
+| Code                               | Supported Models       | Controller |
+| ---------------------------------- | ---------------------- | ---------- |
+| [2820](../codes/climate/2820.json) | EXGC24FCBC1            | Broadlink  |
