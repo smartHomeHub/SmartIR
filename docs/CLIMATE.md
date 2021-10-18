@@ -712,3 +712,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2820](../codes/climate/2820.json) | EXGC24FCBC1            | Broadlink  |
+
+#### HTW
+| Code                               | Supported Models       | Controller |
+| ---------------------------------- | ---------------------- | ---------- |
+| [2840](../codes/climate/2840.json) | HTWS035IX21D2-R32-I    | Broadlink  |
