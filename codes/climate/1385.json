@@ -12,7 +12,7 @@
         "cool",
         "dry",
         "heat",
-        "fan",
+        "fan_only",
         "heat_cool"
     ],
     "fanModes": [
