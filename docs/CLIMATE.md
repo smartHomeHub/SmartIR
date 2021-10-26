@@ -344,6 +344,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ---------------------------------- | ---------------- | ---------- |
 | [1480](../codes/climate/1480.json) | Excellence       | Broadlink  |
 | [1481](../codes/climate/1481.json) | Excellence (Auto Swing)  | Broadlink  |
+| [1482](../codes/climate/1482.json) | Excellence-E - YT1F(Remote)  | Broadlink  |
 
 #### Sanyo
 | Code                               | Supported Models | Controller |
