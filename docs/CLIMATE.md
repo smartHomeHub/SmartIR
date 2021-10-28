@@ -225,12 +225,13 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1160](../codes/climate/1160.json) | Unknown model    | Broadlink  |
 | [1161](../codes/climate/1161.json) | 40GKX-024RB      | Broadlink  |
 | [1162](../codes/climate/1162.json) | 42TVGS024-703    | Broadlink  |
+| [1163](../codes/climate/1163.json) | 40MAQ*           | Broadlink  |
 
 #### Gree
 | Code                               | Supported Models | Controller                                      |
 | ---------------------------------- | ---------------- | ----------------------------------------------- |
 | [1180](../codes/climate/1180.json) | Unknown model    | Broadlink                                       |
-| [1181](../codes/climate/1181.json) | Unknown model/Model: GWH09QB / YAN1F1 (Remote)    | Broadlink                                       |
+| [1181](../codes/climate/1181.json) | Unknown model/Model: GWH09QB / YAN1F1 (Remote)    | Broadlink |
 | [1182](../codes/climate/1182.json) | Y512/Y502 (Remote)    | Broadlink                                       |
 | [1183](../codes/climate/1183.json) | Smart inverter <b>(Swing mode)</b>    | Broadlink                                       |
 | [1184](../codes/climate/1184.json) | GWH09KF<br>GC-EAF09HR    | Broadlink                                       |
