@@ -154,7 +154,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ------------- | -------------------------- | ------------- |
 [1040](../codes/media_player/1040.json)|22MT47DC|Broadlink
 [1041](../codes/media_player/1041.json)|LH6235D|Broadlink
-[1042](../codes/media_player/1042.json)|43UM7510PSB<br>OLED55B8SSC|Broadlink
+[1042](../codes/media_player/1042.json)|43UM7510PSB<br>OLED55B8SSC<br>OLED55B9PLA|Broadlink
 [1043](../codes/media_player/1043.json)|32LC2R|Broadlink
 
 #### Samsung
