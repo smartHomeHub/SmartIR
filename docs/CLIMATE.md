@@ -725,4 +725,4 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 #### Senville
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
-| [2900](../codes/climate/2900.json) | SENA/12HF/IZ           | Broadlink  |
+| [2860](../codes/climate/2860.json) | SENA/12HF/IZ           | Broadlink  |
