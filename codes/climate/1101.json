@@ -11,7 +11,9 @@
     "FTXS85LVMA",
     "FTXS95LVMA",
     "FVXS50FV1B",
-    "FTXL35J2V1B"
+    "FTXL35J2V1B",
+    "FTXM25UVMA",
+    "FTXM35UVMA"
   ],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
