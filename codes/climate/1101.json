@@ -14,7 +14,8 @@
     "FTXL35J2V1B",
     "FTXM25UVMA",
     "FTXM35UVMA",
-	"FTXD25DVMA"
+	"FTXD25DVMA",
+	"FTXS35G2V1B"
   ],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
