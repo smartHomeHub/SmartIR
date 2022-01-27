@@ -737,3 +737,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2900](../codes/climate/2900.json) | MSH123E21AXAA<br>MST183E20ACAA | Broadlink  |
+
+#### Best
+| Code                               | Supported Models       | Controller |
+| ---------------------------------- | ---------------------- | ---------- |
+| [2920](../codes/climate/2920.json) | BSTS18CNE2 | Broadlink  |
