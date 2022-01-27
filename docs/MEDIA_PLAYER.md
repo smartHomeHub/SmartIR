@@ -254,3 +254,9 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1400](../codes/media_player/1400.json)| X-CM56 |Broadlink
+
+#### JBL
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1420](../codes/media_player/1420.json)| Cinema SB160 |Broadlink
+

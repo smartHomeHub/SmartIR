@@ -181,8 +181,8 @@ class SmartIRFan(FanEntity, RestoreEntity):
         return self._oscillating
 
     @property
-    def direction(self):
-        """Return the oscillation state."""
+    def current_direction(self):
+        """Return the direction state."""
         return self._direction
 
     @property
