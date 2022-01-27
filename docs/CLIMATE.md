@@ -213,7 +213,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1130](../codes/climate/1130.json) | MS-SGD18VC                                                                                           | Broadlink
 | [1131](../codes/climate/1131.json) | PAR-FL32MA remote                                                                                    | Broadlink
 | [1132](../codes/climate/1132.json) | MSC-A12YV                                                                                            | Broadlink
-| [1133](../codes/climate/1133.json) | MSXY-FN10VE<br>MSXY-FN07VE<br>MSXY-FN13VE<br>MSXY-FN18VE                                             | Broadlink
+| [1133](../codes/climate/1133.json) | MSXY-FN10VE<br>MSXY-FN07VE<br>MSXY-FN13VE<br>MSXY-FN18VE <b>(Swing mode)</b>                         | Broadlink
 | [3129](../codes/climate/3129.json) | DXK18Z1-S                                                                                            | Xiaomi v2
 
 #### Actron
@@ -606,7 +606,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 #### Baxi
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
-| [2380](../codes/climate/2380.json) | Unknown                | Broadlink  |
+| [2380](../codes/climate/2380.json) | Unknown (It also works with Vortex VAI-A1221FFWR (YKR-H/009E remote))               | Broadlink  |
 
 #### Yamatsu
 | Code                               | Supported Models       | Controller |
