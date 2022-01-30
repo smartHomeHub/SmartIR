@@ -193,6 +193,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 [1160](../codes/media_player/1160.json)|Z906|Broadlink
 [1161](../codes/media_player/1161.json)|Z-5500|Broadlink
 [1162](../codes/media_player/1162.json)|Z-5450|Broadlink
+[1163](../codes/media_player/1163.json)|Z-906|Broadlink
 
 #### TCL
 | Code | Supported Models | Controller |
