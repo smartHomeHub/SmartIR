@@ -318,6 +318,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1384](../codes/climate/1384.json) | MSMACU-18HRFN1-QRD0GW          | Broadlink  |
 | [1385](../codes/climate/1385.json) | R11HG/E                        | Broadlink  |
 | [1386](../codes/climate/1386.json) | KFR-32GW                       | Broadlink  |
+| [1387](../codes/climate/1387.json) | RG70E/BGEF (Remote)            | Broadlink  |
 | [3380](../codes/climate/3380.json) | MCD-24HRN1-Q1<br>RAS-10N3KVR-E | Xiaomi     |
 | [3381](../codes/climate/3381.json) | RG70C1/BGEF | Xiaomi     |
 | [7386](../codes/climate/7386.json) | KFR-32GW                       | ESPHome    |
