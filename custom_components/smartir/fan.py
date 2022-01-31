@@ -181,8 +181,8 @@ class SmartIRFan(FanEntity, RestoreEntity):
         return self._oscillating
 
     @property
-    def direction(self):
-        """Return the oscillation state."""
+    def current_direction(self):
+        """Return the direction state."""
         return self._direction
 
     @property
@@ -196,7 +196,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
         return self._support_flags
 
     @property
-    def device_state_attributes(self) -> dict:
+    def extra_state_attributes(self):
         """Platform specific attributes."""
         return {
             'last_on_speed': self._last_on_speed,
