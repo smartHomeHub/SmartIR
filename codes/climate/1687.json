@@ -1,7 +1,8 @@
 {
     "manufacturer": "Mitsubishi Heavy",
     "supportedModels": [
-      "SRK35ZJX-S"
+      "SRK35ZJX-S",
+      "SRK20ZJX-S"
     ],
     "supportedController": "Broadlink",
     "commandsEncoding": "Base64",

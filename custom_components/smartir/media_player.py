@@ -10,7 +10,7 @@ from homeassistant.components.media_player import (
 from homeassistant.components.media_player.const import (
     SUPPORT_TURN_OFF, SUPPORT_TURN_ON, SUPPORT_PREVIOUS_TRACK,
     SUPPORT_NEXT_TRACK, SUPPORT_VOLUME_STEP, SUPPORT_VOLUME_MUTE, 
-    SUPPORT_SELECT_SOURCE, MEDIA_TYPE_CHANNEL)
+    SUPPORT_PLAY_MEDIA, SUPPORT_SELECT_SOURCE, MEDIA_TYPE_CHANNEL)
 from homeassistant.const import (
     CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN)
 import homeassistant.helpers.config_validation as cv
@@ -127,7 +127,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
             self._support_flags = self._support_flags | SUPPORT_VOLUME_MUTE
 
         if 'sources' in self._commands and self._commands['sources'] is not None:
-            self._support_flags = self._support_flags | SUPPORT_SELECT_SOURCE
+            self._support_flags = self._support_flags | SUPPORT_SELECT_SOURCE | SUPPORT_PLAY_MEDIA
 
             for source, new_name in config.get(CONF_SOURCE_NAMES, {}).items():
                 if source in self._commands['sources']:
@@ -264,6 +264,23 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         """Select channel from source."""
         self._source = source
         await self.send_command(self._commands['sources'][source])
+        await self.async_update_ha_state()
+
+    async def async_play_media(self, media_type, media_id, **kwargs):
+        """Support channel change through play_media service."""
+        if self._state == STATE_OFF:
+            await self.async_turn_on()
+
+        if media_type != MEDIA_TYPE_CHANNEL:
+            _LOGGER.error("invalid media type")
+            return
+        if not media_id.isdigit():
+            _LOGGER.error("media_id must be a channel number")
+            return
+
+        self._source = "Channel {}".format(media_id)
+        for digit in media_id:
+            await self.send_command(self._commands['sources']["Channel {}".format(digit)])
         await self.async_update_ha_state()
 
     async def send_command(self, command):
