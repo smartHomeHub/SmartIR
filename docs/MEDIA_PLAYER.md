@@ -154,7 +154,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ------------- | -------------------------- | ------------- |
 [1040](../codes/media_player/1040.json)|22MT47DC|Broadlink
 [1041](../codes/media_player/1041.json)|LH6235D|Broadlink
-[1042](../codes/media_player/1042.json)|43UM7510PSB<br>OLED55B8SSC|Broadlink
+[1042](../codes/media_player/1042.json)|43UM7510PSB<br>OLED55B8SSC<br>OLED55B9PLA|Broadlink
 [1043](../codes/media_player/1043.json)|32LC2R|Broadlink
 
 #### Samsung
@@ -198,6 +198,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1180](../codes/media_player/1180.json)|55EP640|Broadlink
+[1181](../codes/media_player/1181.json)|43S6500FS|Broadlink
 
 #### Pace
 | Code | Supported Models | Controller |
@@ -244,8 +245,18 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ------------- | -------------------------- | ------------- |
 [1360](../codes/media_player/1360.json)| HD27 |Broadlink
 
-
 #### Xiaomi
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1380](../codes/media_player/1380.json)| MiBox<br>MItv |Broadlink
+
+#### Pioneer
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1400](../codes/media_player/1400.json)| X-CM56 |Broadlink
+
+#### JBL
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1420](../codes/media_player/1420.json)| Cinema SB160 |Broadlink
+
