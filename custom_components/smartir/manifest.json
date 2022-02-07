@@ -5,11 +5,11 @@
   "dependencies": [],
   "codeowners": ["@smartHomeHub"],
   "requirements": ["aiofiles==0.6.0"],
-  "homeassistant": "0.115.0",
-  "version": "1.17.0",
+  "homeassistant": "2022.2.0",
+  "version": "1.17.5",
   "updater": {
-    "version": "1.17.0",
-    "releaseNotes": "-- Add play_media service",
+    "version": "1.17.5",
+    "releaseNotes": "-- Compliance with the breaking change of the new fan model",
     "files": [
       "__init__.py",
       "climate.py",

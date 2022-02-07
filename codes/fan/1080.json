@@ -1,7 +1,7 @@
 {
-  "manufacturer": "Hamilton Bay",
+  "manufacturer": "Harbor Breeze",
   "supportedModels": [
-    "Unknown"
+    "A25-TX001-R1"
   ],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",

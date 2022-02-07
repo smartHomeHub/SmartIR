@@ -130,10 +130,11 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ------------- | -------------------------- | ------------- |
 [1060](../codes/fan/1060.json)|A1|Broadlink
 
-#### Hampton Bay
+#### Harbor Breeze
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1080](../codes/fan/1080.json)|Unknown|Broadlink
+[1080](../codes/fan/1080.json)|A25-TX001-R1|Broadlink
+[1081](../codes/fan/1081.json)|A25-TX025|Broadlink
 
 #### Pacific
 | Code | Supported Models | Controller |
@@ -164,3 +165,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1200](../codes/fan/1200.json)|Unknown|Broadlink
+
+#### Mitsubishi
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1220](../codes/fan/1220.json)|C56-RW5|Broadlink
