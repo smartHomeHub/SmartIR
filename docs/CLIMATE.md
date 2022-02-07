@@ -395,6 +395,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ---------------------------------- | ---------------- | ---------- |
 | [1620](../codes/climate/1620.json) | Unknown          | Broadlink  |
 | [1621](../codes/climate/1621.json) | Super Legend 40  | Broadlink  |
+| [1622](../codes/climate/1622.json) | Master-22 X      | Broadlink  |
 
 #### Fujiko
 | Code                               | Supported Models | Controller |
@@ -747,3 +748,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2920](../codes/climate/2920.json) | BSTS18CNE2 | Broadlink  |
+
+#### SAGA
+| Code                               | Supported Models | Controller |
+|------------------------------------|------------------| ---------- |
+| [2940](../codes/climate/2940.json) | SAGA-A-22(CH)    | Broadlink  |
