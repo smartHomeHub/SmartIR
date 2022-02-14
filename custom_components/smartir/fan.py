@@ -16,6 +16,10 @@ from homeassistant.core import callback
 from homeassistant.helpers.event import async_track_state_change
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
+from homeassistant.util.percentage import (
+    ordered_list_item_to_percentage,
+    percentage_to_ordered_list_item
+)
 from . import COMPONENT_ABS_DIR, Helper
 from .controller import get_controller
 
@@ -93,7 +97,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
         self._supported_models = device_data['supportedModels']
         self._supported_controller = device_data['supportedController']
         self._commands_encoding = device_data['commandsEncoding']
-        self._speed_list = [SPEED_OFF] + device_data['speed']
+        self._speed_list = device_data['speed']
         self._commands = device_data['commands']
         
         self._speed = SPEED_OFF
@@ -161,19 +165,22 @@ class SmartIRFan(FanEntity, RestoreEntity):
     def state(self):
         """Return the current state."""
         if (self._on_by_remote or \
-            self.speed != SPEED_OFF):
+            self._speed != SPEED_OFF):
             return STATE_ON
         return SPEED_OFF
 
     @property
-    def speed_list(self):
-        """Get the list of available speeds."""
-        return self._speed_list
+    def percentage(self):
+        """Return speed percentage of the fan."""
+        if (self._speed == SPEED_OFF):
+            return 0
+
+        return ordered_list_item_to_percentage(self._speed_list, self._speed)
 
     @property
-    def speed(self):
-        """Return the current speed."""
-        return self._speed
+    def speed_count(self):
+        """Return the number of speeds the fan supports."""
+        return len(self._speed_list)
 
     @property
     def oscillating(self):
@@ -181,8 +188,8 @@ class SmartIRFan(FanEntity, RestoreEntity):
         return self._oscillating
 
     @property
-    def direction(self):
-        """Return the oscillation state."""
+    def current_direction(self):
+        """Return the direction state."""
         return self._direction
 
     @property
@@ -207,12 +214,16 @@ class SmartIRFan(FanEntity, RestoreEntity):
             'commands_encoding': self._commands_encoding,
         }
 
-    async def async_set_speed(self, speed: str):
-        """Set the speed of the fan."""
-        self._speed = speed
+    async def async_set_percentage(self, percentage: int):
+        """Set the desired speed for the fan."""
+        if (percentage == 0):
+             self._speed = SPEED_OFF
+        else:
+            self._speed = percentage_to_ordered_list_item(
+                self._speed_list, percentage)
 
-        if not speed == SPEED_OFF:
-            self._last_on_speed = speed
+        if not self._speed == SPEED_OFF:
+            self._last_on_speed = self._speed
 
         await self.send_command()
         await self.async_update_ha_state()
@@ -233,16 +244,17 @@ class SmartIRFan(FanEntity, RestoreEntity):
 
         await self.async_update_ha_state()
 
-    async def async_turn_on(self, speed: str = None, **kwargs):
+    async def async_turn_on(self, percentage: int = None, **kwargs):
         """Turn on the fan."""
-        if speed is None:
-            speed = self._last_on_speed or self._speed_list[1]
+        if percentage is None:
+            percentage = ordered_list_item_to_percentage(
+                self._speed_list, self._last_on_speed or self._speed_list[0])
 
-        await self.async_set_speed(speed)
+        await self.async_set_percentage(percentage)
 
     async def async_turn_off(self):
         """Turn off the fan."""
-        await self.async_set_speed(SPEED_OFF)
+        await self.async_set_percentage(0)
 
     async def send_command(self):
         async with self._temp_lock:
