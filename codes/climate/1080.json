@@ -1,7 +1,7 @@
 {
   "manufacturer": "Hitachi",
   "supportedModels": [
-    "Unknown"
+    "RAC-50HK1"
   ],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
