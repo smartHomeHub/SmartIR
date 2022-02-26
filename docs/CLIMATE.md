@@ -755,3 +755,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 |------------------------------------|------------------| ---------- |
 | [2940](../codes/climate/2940.json) | SAGA-A-22(CH)    | Broadlink  |
+
+#### EcoAir 
+| Code                               | Supported Models | Controller |
+|------------------------------------|------------------| ---------- |
+| [2960](../codes/climate/2960.json) | Unknown          | Broadlink  |
