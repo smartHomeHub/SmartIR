@@ -171,12 +171,13 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 #### Hitachi
 | Code                               | Supported Models                                              | Controller |
 | ---------------------------------- | ------------------------------------------------------------- | ---------- |
-| [1080](../codes/climate/1080.json) | Unknown model                                                 | Broadlink  |
+| [1080](../codes/climate/1080.json) | RAC-50HK1                                                     | Broadlink  |
 | [1081](../codes/climate/1081.json) | RAC-10EH1<br>RAC-18EH1<br>RAS-10EH1<br>RAS-10EH3<br>RAS-18EH1 | Broadlink  |
 | [1082](../codes/climate/1082.json) | RAS-25YHA<br>RAS-35YHA                                        | Broadlink  |
 | [1083](../codes/climate/1083.json) | RAS-32CNH2                                                    | Broadlink  |
 | [1084](../codes/climate/1084.json) | RAS-DX18HDK<br>RAK-35RPC                                      | Broadlink  |
 | [1085](../codes/climate/1085.json) | RPA24B3BL                                                     | Broadlink  |
+| [1086](../codes/climate/1086.json) | RAC-36NK1<br>RAC-28NK1                                        | Broadlink  |
 
 #### Daikin
 | Code                               | Supported Models                                                                                                                                               | Controller |
