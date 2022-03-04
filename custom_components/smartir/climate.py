@@ -300,7 +300,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     
     @staticmethod
     def _fahrenheit_to_celsius(self, temperature):
-        retrun round((temperature - 32) * 5 / 9)
+        return round((temperature - 32) * 5 / 9)
 
     async def async_set_temperature(self, **kwargs):
         """Set new target temperatures."""
