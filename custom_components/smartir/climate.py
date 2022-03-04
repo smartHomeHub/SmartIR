@@ -13,7 +13,7 @@ from homeassistant.components.climate.const import (
     SUPPORT_SWING_MODE, HVAC_MODES, ATTR_HVAC_MODE)
 from homeassistant.const import (
     CONF_NAME, STATE_ON, STATE_OFF, STATE_UNKNOWN, STATE_UNAVAILABLE, ATTR_TEMPERATURE,
-    PRECISION_TENTHS, PRECISION_HALVES, PRECISION_WHOLE)
+    PRECISION_TENTHS, PRECISION_HALVES, PRECISION_WHOLE, TEMP_FAHRENHEIT)
 from homeassistant.core import callback
 from homeassistant.helpers.event import async_track_state_change
 import homeassistant.helpers.config_validation as cv
@@ -119,6 +119,10 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._fan_modes = device_data['fanModes']
         self._swing_modes = device_data.get('swingModes')
         self._commands = device_data['commands']
+        
+        if self._unit == TEMP_FAHRENHEIT:
+            self._min_temperature = self._celsius_to_fahrenheit(self._min_temperature)
+            self._max_temperature = self._celsius_to_fahrenheit(self._max_temperature)
 
         self._target_temperature = self._min_temperature
         self._hvac_mode = HVAC_MODE_OFF
@@ -289,6 +293,14 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             'supported_controller': self._supported_controller,
             'commands_encoding': self._commands_encoding
         }
+    
+    @staticmethod
+    def _celsius_to_fahrenheit(self, temperature):
+        return round(temperature * 9 / 5) + 32
+    
+    @staticmethod
+    def _fahrenheit_to_celsius(self, temperature):
+        retrun round((temperature - 32) * 5 / 9)
 
     async def async_set_temperature(self, **kwargs):
         """Set new target temperatures."""
@@ -361,6 +373,9 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 fan_mode = self._current_fan_mode
                 swing_mode = self._current_swing_mode
                 target_temperature = '{0:g}'.format(self._target_temperature)
+                
+                if self._unit == TEMP_FAHRENHEIT:
+                    target_temperature = '{0:g}'.format(self._fahrenheit_to_celsius(self._target_temperature))
 
                 if operation_mode.lower() == HVAC_MODE_OFF:
                     await self._controller.send(self._commands['off'])
