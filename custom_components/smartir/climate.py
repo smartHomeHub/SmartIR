@@ -119,10 +119,6 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._fan_modes = device_data['fanModes']
         self._swing_modes = device_data.get('swingModes')
         self._commands = device_data['commands']
-        
-        if self._unit == TEMP_FAHRENHEIT:
-            self._min_temperature = self._celsius_to_fahrenheit(self._min_temperature)
-            self._max_temperature = self._celsius_to_fahrenheit(self._max_temperature)
 
         self._target_temperature = self._min_temperature
         self._hvac_mode = HVAC_MODE_OFF
@@ -134,6 +130,10 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._current_humidity = None
 
         self._unit = hass.config.units.temperature_unit
+        
+        if self._unit == TEMP_FAHRENHEIT:
+            self._min_temperature = self._celsius_to_fahrenheit(self._min_temperature)
+            self._max_temperature = self._celsius_to_fahrenheit(self._max_temperature)
         
         #Supported features
         self._support_flags = SUPPORT_FLAGS
@@ -293,12 +293,10 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             'supported_controller': self._supported_controller,
             'commands_encoding': self._commands_encoding
         }
-    
-    @staticmethod
+
     def _celsius_to_fahrenheit(self, temperature):
         return round(temperature * 9 / 5) + 32
-    
-    @staticmethod
+
     def _fahrenheit_to_celsius(self, temperature):
         return round((temperature - 32) * 5 / 9)
 
