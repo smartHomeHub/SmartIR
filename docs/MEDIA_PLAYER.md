@@ -260,3 +260,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ------------- | -------------------------- | ------------- |
 [1420](../codes/media_player/1420.json)| Cinema SB160 |Broadlink
 
+#### ZTE
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1430](../codes/media_player/1430.json)| B860H | ESPHome
