@@ -10,8 +10,7 @@ SmartIR currently supports the following controllers:
 * [MQTT Publish service](https://www.home-assistant.io/docs/mqtt/service/)
 
 More than 120 climate devices are currently supported out-of-the-box, mainly for the Broadlink controller, thanks to our awesome community.<br><br>
-In a study of around half-a-million British adults, coffee drinkers were found to have a slightly lower risk of death over a 10-year follow-up period than non-coffee drinkers, so [**"Buy Me A Coffee**"](https://www.buymeacoffee.com/vassilis) is welcome :)<br>
-Also don't forget to **star** the repository if you had fun!<br><br>
+Don't forget to **star** the repository if you had fun!<br><br>
 
 
 ## Installation

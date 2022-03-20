@@ -1,7 +1,8 @@
 {
   "manufacturer": "Mitsubishi Heavy",
   "supportedModels": [
-    "SRK25ZJ-S1"
+    "SRK25ZJ-S1",
+    "SRK13CRV-S1"
   ],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",

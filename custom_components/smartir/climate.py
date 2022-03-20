@@ -12,7 +12,7 @@ from homeassistant.components.climate.const import (
     SUPPORT_TARGET_TEMPERATURE, SUPPORT_FAN_MODE,
     SUPPORT_SWING_MODE, HVAC_MODES, ATTR_HVAC_MODE)
 from homeassistant.const import (
-    CONF_NAME, STATE_ON, STATE_OFF, STATE_UNKNOWN, ATTR_TEMPERATURE,
+    CONF_NAME, STATE_ON, STATE_OFF, STATE_UNKNOWN, STATE_UNAVAILABLE, ATTR_TEMPERATURE,
     PRECISION_TENTHS, PRECISION_HALVES, PRECISION_WHOLE)
 from homeassistant.core import callback
 from homeassistant.helpers.event import async_track_state_change
@@ -279,7 +279,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         return self._support_flags
 
     @property
-    def device_state_attributes(self) -> dict:
+    def extra_state_attributes(self):
         """Platform specific attributes."""
         return {
             'last_on_operation': self._last_on_operation,
@@ -401,7 +401,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         if new_state is None:
             return
 
-        if new_state.state == old_state.state:
+        if old_state is not None and new_state.state == old_state.state:
             return
 
         if new_state.state == STATE_ON and self._hvac_mode == HVAC_MODE_OFF:
@@ -423,7 +423,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     def _async_update_temp(self, state):
         """Update thermostat with latest state from temperature sensor."""
         try:
-            if state.state != STATE_UNKNOWN:
+            if state.state != STATE_UNKNOWN and state.state != STATE_UNAVAILABLE:
                 self._current_temperature = float(state.state)
         except ValueError as ex:
             _LOGGER.error("Unable to update from temperature sensor: %s", ex)
@@ -432,7 +432,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     def _async_update_humidity(self, state):
         """Update thermostat with latest state from humidity sensor."""
         try:
-            if state.state != STATE_UNKNOWN:
+            if state.state != STATE_UNKNOWN and state.state != STATE_UNAVAILABLE:
                 self._current_humidity = float(state.state)
         except ValueError as ex:
             _LOGGER.error("Unable to update from humidity sensor: %s", ex)
