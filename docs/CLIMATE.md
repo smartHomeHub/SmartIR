@@ -7,14 +7,16 @@ Find your device's brand code [here](CLIMATE.md#available-codes-for-climate-devi
 _Please note that the device_code field only accepts positive numbers. The .json extension is not required._
 
 ## Configuration variables:
-**name** (Optional): The name of the device<br />
-**unique_id** (Optional): An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.<br />
-**device_code** (Required): .... (Accepts only positive numbers)<br />
-**controller_data** (Required): The data required for the controller to function. Enter the entity_id of the Broadlink remote **(must be an already configured device)**, or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands.<br />
-**delay** (Optional): Adjusts the delay in seconds between multiple commands. The default is 0.5 <br />
-**temperature_sensor** (Optional): *entity_id* for a temperature sensor<br />
-**humidity_sensor** (Optional): *entity_id* for a humidity sensor<br />
-**power_sensor** (Optional): *entity_id* for a sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor. (Accepts only on/off states)<br />
+| Name | Type | Default | Description |
+| ---- | :--: | :-----: | ----------- |
+| `name` | string | optional | The name of the device |
+| `unique_id` | string | optional | An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception. |
+| `device_code` | number | required | (Accepts only positive numbers) |
+| `controller_data` | string | required | The data required for the controller to function. Enter the entity_id of the Broadlink remote **(must be an already configured device)**, or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands. |
+| `delay` | number | optional | Adjusts the delay in seconds between multiple commands. The default is 0.5 |
+| `temperature_sensor` | string | optional | *entity_id* for a temperature sensor |
+| `humidity_sensor` | string | optional | *entity_id* for a humidity sensor |
+| `power_sensor` | string | optional | *entity_id* for a sensor that monitors whether your device is actually `on` or `off`. This may be a power monitor sensor. (Accepts only on/off states) |
 
 ## Example (using broadlink controller):
 Add a Broadlink RM device named "Bedroom" via config flow (read the [docs](https://www.home-assistant.io/integrations/broadlink/)).
@@ -284,6 +286,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1288](../codes/climate/1288.json) | AR-REB1E (Remote control)                   | Broadlink  |
 | [1289](../codes/climate/1289.json) | AR-REW1E (Remote control)                   | Broadlink  |
 | [1290](../codes/climate/1290.json) | AR-RFL7J (Remote control)                   | Broadlink  |
+| [1291](../codes/climate/1291.json) | AR-REF1E (Remote control)                   | Broadlink  |
 
 #### Sharp
 | Code                               | Supported Models | Controller |
