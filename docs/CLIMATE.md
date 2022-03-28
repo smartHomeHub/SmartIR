@@ -271,22 +271,24 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [7260](../codes/climate/7260.json) | RAS-18NKV2-E                                                                                                     | ESPHome    |
 
 #### Fujitsu
-| Code                               | Supported Models                            | Controller |
-| ---------------------------------- | ------------------------------------------- | ---------- |
-| [1280](../codes/climate/1280.json) | AR-RBE1E (Remote control)                   | Broadlink  |
-| [1281](../codes/climate/1281.json) | AR-RY3 (Remote control)<br>AR-RAE1/AR-RAE1E<br>AR-RAH1U | Broadlink  |
-| [1282](../codes/climate/1282.json) | AR-JW11 (Remote control)                    | Broadlink  |
-| [1283](../codes/climate/1283.json) | AR-AB5 (Remote control)                     | Broadlink  |
-| [1284](../codes/climate/1284.json) | AR-REG1U (Remote control)                   | Broadlink  |
-| [1285](../codes/climate/1285.json) | AR-RCE1E (Remote control)                   | Broadlink  |
-| [3285](../codes/climate/3285.json) | AR-RCE1E (Remote control)                   | Xiaomi (v2)|
-| [7285](../codes/climate/7285.json) | AR-RCE1E (Remote control)                   | ESPHome    |
-| [1286](../codes/climate/1286.json) | AR-JE5 (Remote control)                     | Broadlink  |
-| [1287](../codes/climate/1287.json) | AR-REB1E (Remote control)                   | Broadlink  |
-| [1288](../codes/climate/1288.json) | AR-REB1E (Remote control)                   | Broadlink  |
-| [1289](../codes/climate/1289.json) | AR-REW1E (Remote control)                   | Broadlink  |
-| [1290](../codes/climate/1290.json) | AR-RFL7J (Remote control)                   | Broadlink  |
-| [1291](../codes/climate/1291.json) | AR-REF1E (Remote control)                   | Broadlink  |
+| Code                               | Supported Models                                                        | Controller  |
+| ---------------------------------- | ----------------------------------------------------------------------- | ----------- |
+| [1280](../codes/climate/1280.json) | AR-RBE1E (Remote control)                                               | Broadlink   |
+| [1281](../codes/climate/1281.json) | AR-RY3 (Remote control)<br>AR-RAE1/AR-RAE1E<br>AR-RAH1U                 | Broadlink   |
+| [1282](../codes/climate/1282.json) | AR-JW11 (Remote control)                                                | Broadlink   |
+| [1283](../codes/climate/1283.json) | AR-AB5 (Remote control)                                                 | Broadlink   |
+| [1284](../codes/climate/1284.json) | AR-REG1U (Remote control)                                               | Broadlink   |
+| [1285](../codes/climate/1285.json) | AR-RCE1E (Remote control)                                               | Broadlink   |
+| [3285](../codes/climate/3285.json) | AR-RCE1E (Remote control)                                               | Xiaomi (v2) |
+| [7285](../codes/climate/7285.json) | AR-RCE1E (Remote control)                                               | ESPHome     |
+| [1286](../codes/climate/1286.json) | AR-JE5 (Remote control)                                                 | Broadlink   |
+| [1287](../codes/climate/1287.json) | AR-REB1E (Remote control)                                               | Broadlink   |
+| [1288](../codes/climate/1288.json) | AR-REB1E (Remote control)                                               | Broadlink   |
+| [1289](../codes/climate/1289.json) | AR-REW1E (Remote control)                                               | Broadlink   |
+| [1290](../codes/climate/1290.json) | AR-RFL7J (Remote control)                                               | Broadlink   |
+| [1291](../codes/climate/1291.json) | AR-REF1E (Remote control)                                               | Broadlink   |
+| [1292](../codes/climate/1292.json) | AR-RY12 (Remote control) - <b>vertical and horizontal swing support</b> | Broadlink   |
+| [1293](../codes/climate/1293.json) | AR-REB1E (Remote control) - <b>vertical swing support</b>               | Broadlink   |
 
 #### Sharp
 | Code                               | Supported Models | Controller |
