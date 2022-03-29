@@ -309,6 +309,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1341](../codes/climate/1341.json) | TAC490           | Broadlink  |
 | [1342](../codes/climate/1342.json) | 10i/15i/inv220a  | Broadlink  |
 | [1343](../codes/climate/1343.json) | Alpha Series     | Broadlink  |
+| [1344](../codes/climate/1344.json) | YB1FA Remote (Control) (Swing support)    | Broadlink  |
 
 #### Springer
 | Code                               | Supported Models       | Controller |
@@ -508,6 +509,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1942](../codes/climate/1942.json) | Electra Classic  | Broadlink  |
 | [1943](../codes/climate/1943.json) | Electra Classic14| Broadlink  |
 | [1944](../codes/climate/1944.json) | Electra Platinum Plus Inverter| Broadlink  |
+| [1945](../codes/climate/1945.json) | Unknown model (Swing support) | Broadlink  |
 
 #### AUX
 | Code                               | Supported Models | Controller |
