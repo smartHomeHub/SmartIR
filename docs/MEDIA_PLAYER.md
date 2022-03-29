@@ -260,3 +260,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ------------- | -------------------------- | ------------- |
 [1420](../codes/media_player/1420.json)| Cinema SB160 |Broadlink
 
+#### Andersson
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1440](../codes/media_player/1440.json)| L4223FDC PVR |Broadlink
+
