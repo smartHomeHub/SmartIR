@@ -578,9 +578,9 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [2200](../codes/climate/2200.json) | RAK-12NH<br>RAK-18NH | Broadlink  |
 
 #### Blueridge
-| Code                               | Supported Models | Controller |
-| ---------------------------------- | ---------------- | ---------- |
-| [2220](../codes/climate/2220.json) | RG57A4<br>BGEFU1 | Broadlink  |
+| Code                               |      Supported Models      | Controller |
+| ---------------------------------- | -------------------------- | ---------- |
+| [2220](../codes/climate/2220.json) | RG57A4<br>RG57A6<br>BGEFU1 | Broadlink  |
 
 #### Delonghi
 | Code                               | Supported Models        | Controller |
