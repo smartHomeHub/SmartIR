@@ -12,7 +12,11 @@ from homeassistant.components.climate.const import (
     SUPPORT_TARGET_TEMPERATURE, SUPPORT_FAN_MODE,
     SUPPORT_SWING_MODE, HVAC_MODES, ATTR_HVAC_MODE)
 from homeassistant.const import (
+<<<<<<< HEAD
+    CONF_NAME, STATE_ON, STATE_OFF, STATE_UNKNOWN,STATE_UNAVAILABLE, ATTR_TEMPERATURE,
+=======
     CONF_NAME, STATE_ON, STATE_OFF, STATE_UNKNOWN, STATE_UNAVAILABLE, ATTR_TEMPERATURE,
+>>>>>>> 57e37df232dc38ed20ec3044fecb3fae940a6203
     PRECISION_TENTHS, PRECISION_HALVES, PRECISION_WHOLE)
 from homeassistant.core import callback
 from homeassistant.helpers.event import async_track_state_change
