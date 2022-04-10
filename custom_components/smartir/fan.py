@@ -6,10 +6,10 @@ import os.path
 import voluptuous as vol
 
 from homeassistant.components.fan import (
-    FanEntity, PLATFORM_SCHEMA, ATTR_SPEED, 
-    SPEED_OFF, SPEED_LOW, SPEED_MEDIUM, SPEED_HIGH, 
+    FanEntity, PLATFORM_SCHEMA,
     DIRECTION_REVERSE, DIRECTION_FORWARD,
-    SUPPORT_SET_SPEED, SUPPORT_DIRECTION, SUPPORT_OSCILLATE, ATTR_OSCILLATING )
+    SUPPORT_SET_SPEED, SUPPORT_DIRECTION, SUPPORT_OSCILLATE, 
+    ATTR_OSCILLATING )
 from homeassistant.const import (
     CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN)
 from homeassistant.core import callback
@@ -33,6 +33,8 @@ CONF_DEVICE_CODE = 'device_code'
 CONF_CONTROLLER_DATA = "controller_data"
 CONF_DELAY = "delay"
 CONF_POWER_SENSOR = 'power_sensor'
+
+SPEED_OFF = "off"
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_UNIQUE_ID): cv.string,
