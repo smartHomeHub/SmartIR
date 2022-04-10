@@ -772,3 +772,9 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 |------------------------------------|------------------| ---------- |
 | [2960](../codes/climate/2960.json) | Unknown          | Broadlink  |
+
+#### Agratto
+
+| Code                               | Supported Models            | Controller |
+|------------------------------------|-----------------------------|------------|
+| [3000](../codes/climate/3000.json) | ECST12FR4-02 ECST19QFIR4-02 | Broadlink  |
