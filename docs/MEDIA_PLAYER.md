@@ -263,4 +263,4 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 #### ZTE
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1430](../codes/media_player/1430.json)| B860H | ESPHome
+[7460](../codes/media_player/7460.json)| B860H | ESPHome
