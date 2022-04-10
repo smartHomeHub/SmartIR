@@ -164,6 +164,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 [1061](../codes/media_player/1061.json)|UE40C6000<br>UE40D6500<br>UE32H5500<br>UE22D5000|Broadlink
 [1062](../codes/media_player/1062.json)|UE40C6000<br>UE40D6500<br>UE32H5500<br>UE22D5000<br>UN46D6000SF|Broadlink
 [1063](../codes/media_player/1063.json)|UN55JU7500|Broadlink
+[7060](../codes/media_player/7060.json)|UA32EH5000M|ESPHome
 
 #### Insignia
 | Code | Supported Models | Controller |
