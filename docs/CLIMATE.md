@@ -170,6 +170,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1069](../codes/climate/1069.json) | AKB74295304 | Broadlink  |
 | [3060](../codes/climate/3060.json) | G09LH                                                                | Xiaomi     |
 | [7062](../codes/climate/7062.json) | LG InverterV P12RK                                                   | ESPHome     |
+| [7065](../codes/climate/7065.json) | LG080EC<br>LG100EC<br>LG150EC<br>LG200EC                             | ESPHome     |
 
 #### Hitachi
 | Code                               | Supported Models                                              | Controller |
