@@ -267,3 +267,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ------------- | -------------------------- | ------------- |
 [1440](../codes/media_player/1440.json)| L4223FDC PVR |Broadlink
 
+#### ZTE
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[7460](../codes/media_player/7460.json)| B860H | ESPHome
