@@ -244,10 +244,10 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1183](../codes/climate/1183.json) | Smart inverter <b>(Swing mode)</b>             | Broadlink   |
 | [1184](../codes/climate/1184.json) | GWH09KF<br>GC-EAF09HR                          | Broadlink   |
 | [1185](../codes/climate/1185.json) | KFR-50LW                                       | Broadlink   |
+| [1186](../codes/climate/1186.json) | GWH18ACD-D3DNA 1M                              | Broadlink   |
+| [1187](../codes/climate/1187.json) | Unknown model                                  | Broadlink   |
 | [3180](../codes/climate/3180.json) | YB0FB2 (Remote)                                | Xiaomi      |
 | [3181](../codes/climate/3181.json) | YB1FA  (Remote)                                | Xiaomi (v2) |
-| [3182](../codes/climate/3182.json) | GWH18ACD-D3DNA 1M                              | Broadlink   |
-| [3183](../codes/climate/3183.json) | Unknown model                                  | Broadlink   |
 
 #### Tosot
 | Code                               | Supported Models | Controller |
