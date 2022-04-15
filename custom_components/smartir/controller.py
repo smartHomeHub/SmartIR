@@ -15,6 +15,7 @@ XIAOMI_CONTROLLER = 'Xiaomi'
 MQTT_CONTROLLER = 'MQTT'
 LOOKIN_CONTROLLER = 'LOOKin'
 ESPHOME_CONTROLLER = 'ESPHome'
+IRPLUSLAN_CONTROLLER = 'irplusLAN'
 
 ENC_BASE64 = 'Base64'
 ENC_HEX = 'Hex'
@@ -26,7 +27,7 @@ XIAOMI_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
 MQTT_COMMANDS_ENCODING = [ENC_RAW]
 LOOKIN_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
 ESPHOME_COMMANDS_ENCODING = [ENC_RAW]
-
+IRPLUSLAN_COMMANDS_ENCODING = [ENC_RAW]
 
 def get_controller(hass, controller, encoding, controller_data, delay):
     """Return a controller compatible with the specification provided."""
@@ -35,7 +36,8 @@ def get_controller(hass, controller, encoding, controller_data, delay):
         XIAOMI_CONTROLLER: XiaomiController,
         MQTT_CONTROLLER: MQTTController,
         LOOKIN_CONTROLLER: LookinController,
-        ESPHOME_CONTROLLER: ESPHomeController
+        ESPHOME_CONTROLLER: ESPHomeController,
+        IRPLUSLAN_CONTROLLER: IrplusLANController
     }
     try:
         return controllers[controller](hass, controller, encoding, controller_data, delay)
@@ -184,3 +186,21 @@ class ESPHomeController(AbstractController):
 
         await self.hass.services.async_call(
             'esphome', self._controller_data, service_data)
+            
+class IrplusLANController(AbstractController):
+    """Controls a Lookin device."""
+
+    def check_encoding(self, encoding):
+        """Check if the encoding is supported by the controller."""
+        if encoding not in IRPLUSLAN_COMMANDS_ENCODING:
+            raise Exception("The encoding is not supported "
+                            "by the irplusLAN controller.")
+
+    async def send(self, command):
+        """Send a command."""
+        carier = command['carier']
+        code = command['code']
+        
+        url = f"http://{self._controller_data}/?carier={carier}&code={code}"
+                
+        await self.hass.async_add_executor_job(requests.get, url)
