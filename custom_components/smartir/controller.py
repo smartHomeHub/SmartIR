@@ -188,7 +188,7 @@ class ESPHomeController(AbstractController):
             'esphome', self._controller_data, service_data)
             
 class IrplusLANController(AbstractController):
-    """Controls a Lookin device."""
+    """Controls a irplusLAN device."""
 
     def check_encoding(self, encoding):
         """Check if the encoding is supported by the controller."""

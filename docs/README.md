@@ -8,8 +8,9 @@ SmartIR currently supports the following controllers:
 * [LOOK.in Remote](http://look-in.club/devices/remote)
 * [ESPHome User-defined service for remote transmitter](https://esphome.io/components/api.html#user-defined-services)
 * [MQTT Publish service](https://www.home-assistant.io/docs/mqtt/service/)
+* [irplus LAN](https://irplus-remote.github.io/#wifi)
 
-More than 120 climate devices are currently supported out-of-the-box, mainly for the Broadlink controller, thanks to our awesome community.<br><br>
+More than 250 climate devices are currently supported out-of-the-box, mainly for the Broadlink controller, thanks to our awesome community.<br><br>
 Don't forget to **star** the repository if you had fun!<br><br>
 
 
@@ -61,8 +62,3 @@ Click on the links below for instructions on how to configure each platform.
 ## See also
 * [Discussion about SmartIR Climate (Home Assistant Community)](https://community.home-assistant.io/t/smartir-control-your-climate-tv-and-fan-devices-via-ir-rf-controllers/)
 * [SmartIR Chat on Telegram](https://t.me/smartHomeHub)
-
-<br><br>
-<p align="center">
-  <a href="https://www.buymeacoffee.com/vassilis"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="SmartIR Climate"></a>
-</p>
