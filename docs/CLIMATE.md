@@ -182,6 +182,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1084](../codes/climate/1084.json) | RAS-DX18HDK<br>RAK-35RPC                                      | Broadlink  |
 | [1085](../codes/climate/1085.json) | RPA24B3BL                                                     | Broadlink  |
 | [1086](../codes/climate/1086.json) | RAC-36NK1<br>RAC-28NK1                                        | Broadlink  |
+| [1087](../codes/climate/1087.json) | RAS-25WX8<br>RAK-18QH8                                        | Broadlink  |
 
 #### Daikin
 | Code                               | Supported Models                                                                                                                                               | Controller |
