@@ -782,3 +782,9 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models            | Controller |
 |------------------------------------|-----------------------------|------------|
 | [2980](../codes/climate/2980.json) | ECST12FR4-02 ECST19QFIR4-02 | Broadlink  |
+
+#### Klasse
+
+| Code                               | Supported Models | Controller |
+|------------------------------------|------------------|------------|
+| [8000](../codes/climate/8000.json) | DOZ-S06JT        | Broadlink  |
