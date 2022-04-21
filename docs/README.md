@@ -47,7 +47,7 @@ smartir:
 **(3)** Configure a platform.
 
 ### *HACS*
-If you want HACS to handle installation and updates, add SmartIR as a custom repository. In this case, it is recommended that you turn off automatic updates, as above.
+If you want HACS to handle installation and updates, add SmartIR as a [custom repository](https://hacs.xyz/docs/faq/custom_repositories/). In this case, it is recommended that you turn off automatic updates, as above.
 <br><br>
 
 
