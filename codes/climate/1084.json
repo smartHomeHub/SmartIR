@@ -1,7 +1,8 @@
 {
   "manufacturer": "Hitachi",
   "supportedModels": [
-    "RAS-DX18HDK"
+    "RAS-DX18HDK",
+    "RAK-35RPC"
   ],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",

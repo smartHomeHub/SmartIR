@@ -5,11 +5,11 @@
   "dependencies": [],
   "codeowners": ["@smartHomeHub"],
   "requirements": ["aiofiles==0.6.0"],
-  "homeassistant": "0.115.0",
-  "version": "1.17.4",
+  "homeassistant": "2022.4.0",
+  "version": "1.17.6",
   "updater": {
-    "version": "1.17.4",
-    "releaseNotes": "-- Fixed typo #764",
+    "version": "1.17.6",
+    "releaseNotes": "-- Removes legacy imports to the fan component",
     "files": [
       "__init__.py",
       "climate.py",
