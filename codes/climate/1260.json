@@ -4,7 +4,8 @@
     "RAS-13NKV-E / RAS-13NAV-E",
     "RAS-13NKV-A / RAS-13NAV-A",
     "RAS-16NKV-E / RAS-16NAV-E",
-    "RAS-16NKV-A / RAS-16NAV-A"
+    "RAS-16NKV-A / RAS-16NAV-A",
+    "RAS-M10SKV-E"
   ],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
