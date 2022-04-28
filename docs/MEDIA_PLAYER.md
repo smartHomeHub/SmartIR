@@ -267,6 +267,11 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ------------- | -------------------------- | ------------- |
 [1440](../codes/media_player/1440.json)| L4223FDC PVR |Broadlink
 
+#### Edifier
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1460](../codes/media_player/1460.json)| R1280DB |Broadlink
+
 #### ZTE
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
