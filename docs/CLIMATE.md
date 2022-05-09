@@ -218,7 +218,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1130](../codes/climate/1130.json) | MS-SGD18VC                                                                                           | Broadlink
 | [1131](../codes/climate/1131.json) | PAR-FL32MA remote                                                                                    | Broadlink
 | [1132](../codes/climate/1132.json) | MSC-A12YV                                                                                            | Broadlink
-| [1133](../codes/climate/1133.json) | MSXY-FN10VE<br>MSXY-FN07VE<br>MSXY-FN13VE<br>MSXY-FN18VE <b>(Swing mode)</b>                         | Broadlink
+| [1133](../codes/climate/1133.json) | MSXY-FN10VE<br>MSXY-FN07VE<br>MSXY-FN13VE<br>MSXY-FN18VE <b>(Swing mode)</b> <br> MSY-GN18VF         | Broadlink
 | [1134](../codes/climate/1134.json) | MG-GN18VF                                                                                            |Broadlink
 | [4129](../codes/climate/4129.json) | DXK18Z1-S                                                                                            | Xiaomi v2
 
