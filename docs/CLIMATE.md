@@ -572,6 +572,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ---------------------------------- | ---------------- | ---------- |
 | [2160](../codes/climate/2160.json) | Unknown          | Broadlink  |
 | [2161](../codes/climate/2161.json) | LNMTE026V2       | Broadlink  |
+| [2162](../codes/climate/2162.json) | LNINVE052<br>LNINVC052       | Broadlink  |
 
 #### Hokkaido
 | Code                               | Supported Models | Controller |
@@ -751,11 +752,6 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2860](../codes/climate/2860.json) | SENA/12HF/IZ           | Broadlink  |
-
-#### Senville
-| Code                               | Supported Models       | Controller |
-| ---------------------------------- | ---------------------- | ---------- |
-| [2880](../codes/climate/2880.json) | LNINVE052<br>LNINVC052 | Broadlink  |
 
 #### Goodman
 | Code                               | Supported Models       | Controller |
