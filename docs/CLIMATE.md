@@ -786,3 +786,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models            | Controller |
 |------------------------------------|-----------------------------|------------|
 | [3000](../codes/climate/3000.json) | PAC9000ITQFM9W | Broadlink  |
+
+#### Klasse
+| Code                               | Supported Models | Controller |
+|------------------------------------|------------------|------------|
+| [3020](../codes/climate/3020.json) | DOZ-S06JT        | Broadlink  |
