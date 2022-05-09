@@ -793,3 +793,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 |------------------------------------|------------------|------------|
 | [3020](../codes/climate/3020.json) | DOZ-S06JT        | Broadlink  |
+
+#### Viessmann
+| Code                               | Supported Models | Controller |
+|------------------------------------|------------------|------------|
+| [3040](../codes/climate/3040.json) | Vitoclima 300-S  | Broadlink  |
