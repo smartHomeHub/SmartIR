@@ -754,6 +754,11 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ---------------------------------- | ---------------------- | ---------- |
 | [2860](../codes/climate/2860.json) | SENA/12HF/IZ           | Broadlink  |
 
+#### Bora
+| Code                               | Supported Models       | Controller |
+| ---------------------------------- | ---------------------- | ---------- |
+| [2880](../codes/climate/2880.json) | 18SRA-HE           | Broadlink  |
+
 #### Goodman
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
