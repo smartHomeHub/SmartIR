@@ -798,3 +798,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 |------------------------------------|------------------|------------|
 | [3040](../codes/climate/3040.json) | Vitoclima 300-S  | Broadlink  |
+
+#### HappyTree
+| Code                               | Supported Models | Controller |
+|------------------------------------|------------------|------------|
+| [3060](../codes/climate/3060.json) | TAC-12CHSD/XA81  | Broadlink  |
