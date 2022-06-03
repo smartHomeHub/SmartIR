@@ -16,7 +16,7 @@
   "fanModes":[
     "auto",
     "low",
-    "mid",
+    "medium",
     "high"
   ],
   "swingModes":[
@@ -62,7 +62,7 @@
           "27":"JgDEAF5hHyIfIh5FHiMeIz0jHiMfIx4jHkQeIz0kHiMeIx4jHiMeJB4jJxoeIx4jHiMeIx4jHiMeIx4jHiMeIx9EPSRjYh4jHiMeRR4jHiM9JB4jHiMeIx5EHyM8JB4jHiMfIx4jHiMeIx4jHiMeIx4jHiMeIx4kHiMeIx4jHiMeRD0lYmIfIh4jH0QeIx4jPSQeIx4jHiMeRR4jPSQeIx4jHiMeIx4jHiMeIx4jHiMeIx8jHiMeIx4jHiMeIx4jHkU9JIEADQUAAAAA"
         }
       },
-      "mid":{
+      "medium":{
         "static": {
           "22":"JgC+AF9gICEgIR5FPUU+Ih4kHiMeIx4jHkQeIx4jPyIeIx4kHSMfIx4jHiMeIx4jHiMeIx4jHiMeIx4jHyMeRD0kY2IeIx4jHkU9RT0kHiMeIx4jHiMeRR4jHiM9Ix4kHiMeIx4jHiMeIx4jHiMeIx4jHyMeIx4jHiMeIx5FPCRjYh4jHiMeRT1FPSQeIx4jHiMeIx5FHiMeIz0jHiQeIx4jHiMeIx4jHiMeIx4jHiMeIx4jHiMeJB4jHkQ9JIIADQUAAAAAAAAAAAAA",
           "23":"JgC+AF5hHyIfIh9DPkU+Ih8iICEgISBDPSQfIh4jHiMeIx4jHiMeIx4jHiQeIx4jHiMeIx4jHiMeIx4jHiMeRT0kY2IeIx4jHkU8Rj0jHiMfIh8jHkQ9JB4jHiMeIx4jHiMeIx4jHiQeIx4jHiMeIx4jHiMeIx4jHiMeIx5FPSRjYh4jHiMeRT1FPSQeIx4jHiMeRD0kHiMeIx4jHiMeIx4jHyMeIx4jHiMeIx4jHiMeIx4jHiMeIx8jH0M/IoQADQUAAAAAAAAAAAAA",

@@ -13,7 +13,7 @@
    ],
    "fanModes":[
       "low",
-      "mid",
+      "medium",
       "high",
       "auto"
    ],
@@ -37,7 +37,7 @@
             "29":"mkzm0wlk0mkxAEKczCWTGbAGlNQDCmoA5zABA5mAgoBEAMnNJwAOQAZADmBkgCFgMeAx4DEg24Az4HfgZdMZtNAmKA88DSQxIBw8F7wB/A50BCQdiAp8CCAWfC48WIxBfAI8AhJqMdQIqTIBE5mD2c0CRMBtAJGEa8LTQg/AywIvwGPAYSAA",
             "30":"mkzm0wlk0mkxmEsmoAZTGbTMAhZqAqQCGAM5NJwAOQAZzADLwECA68BCAGPA68BnwVPAh8AjwCPA08BnwXvAH4OQ5jNgKKAQwQ/xD4AP8PXwe/Cd8AjwTFmU1AIIarxVvA18JLwvEAYcAewGPAYyAA=="
          },
-         "mid":{
+         "medium":{
             "17":"mkzmkwlk0mkzAEKczCWTGbTYAgpxMJZNQAyAHOYzaagMuAQwDLgQyBlwDHgMeAxIEPgIeAh4R+giXNZiAQYYhgv+Cd4FazUAegIHmswAXYAfwB/AH8AdgR/CK4LcgpfAa8Brwr6mUyARIaqALYDLgHMgEIAZwP7wpvAY8DH5tMIA",
             "18":"mkzm0wlk0mkxmEsmoAZTGbTMAhZqAqQCGAM+BD4DHTABjwECAY8DrwEPAQ8DvwCPAI8E7wEPAH8AfwB/BI8Bjw44Cv8JTwS/AZ8AjwAymUyGlIarwavA18JTwevA68arwGFgAA==",
             "19":"mkzm0wlk0mkxmEsmoAZTGbTMAhZqAqQCGAM+BD4DHgMeAx4EPyyazABDwIfA78Ah5oAj4BHge+El4A/gD+CB4JPhdGBT4aXg9+Cn4BHgZ9MpkNKQ1Xg0+Br4NPgZeAx4XvgMLAA=",

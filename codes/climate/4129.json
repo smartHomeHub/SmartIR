@@ -17,7 +17,7 @@
     "fanModes":[
       "auto",
       "high",
-      "mid",
+      "medium",
       "low"
     ],
     "commands":{
@@ -53,7 +53,7 @@
           "29":"mcymEwlkxmwAhTObTCWTQAdpjMpiAhsznIDHgU5MwECmQDHgUsAR4EXgIeAR4QGgVOAOgO1AY+Cp4DPgQ+Ax4DHgMeCn4DPgEeAR4BHgEeAR4QfjNeAf4B/go+AR4YvgM1AA",
           "30":"mcymEwlkxmwAhTObTCWTQAdpjMpiAQsznIA+gMQBT4EMAMeAR4EXgIeAR4L1zMCopkBloHWgQFMZkAIQDPgl+BD4Q/B2+IN4KfgdOD9YEXgEeBZ4BHgEeHj4A/iQ+GZ4Ovgx+BX4BEwA"
         },
-        "mid":{
+        "medium":{
           "18":"mcxm8wlkxm0zmEsmc2mEsmkwAHWYzKYgIaAx4CHAfFNJkAx4FLAEeBF4CHgETNQIvAHKZzkJjwOvAx8BnwQ/Ay8BjwMfBT8BnwGfAI8AjwCPAI8GHwi/AH8B/wmfAI8GPwQ+gAA=",
           "19":"mcxm8wlkxm0zmEsmc2mEsmkwAHWYzKYgIaAx8smc5AQ8BBgKfAI8CLwEPAI8CLgZknAAZBbEEP8smYYxTGZBlsFD4Jfg7eBlQHXhueCn4DPgEeEzwEfgEeAR4gPhi+A/4E/go+AR4Mfgd5AA",
           "20":"mcymEwlkxmwAhTObTCWTQAc5qAgUymICGgDoAeQDGgIeAx4BHgqcAh4FXgZ+ERYA/gY8BS4Kngd+Ax4dvgY+Ax4EPg/SBF4BHgEeAR4BHhB+FZ4A/gD+Cj4BHgZ+AO8A",
@@ -115,7 +115,7 @@
           "29":"mcxm0wlkxmwAhTKczCWTQAdpjMpuAhs0mkwlkzmQDBzgBiQEFmYBCgUwCF8xmU1AqcBEgKkAyIBlQTKAz4DzwXvAH8EuAVPBCYL8gCEA78DLwGPEG8MqhKPCH8AiAK8ADKYzOYANeBZ4BHhOeAP4A/hVvMQD2B18MVhEGFl8I+5rMIAA",
           "30":"mcxmkwlkxm02mEsmcymEsmkzmEsmU5AQKZTcAhZoA6QDCAQNMZlNQGCAcKaAOEBToEJAD2AxABHgReAhk4Az8G8wgHBm8DrQKGAx8EtQu5AzcMMw1IAhYP5wj/Bt8J+wIeDt8Mvwb4Ca8CPwI/lk0mIA5ABkMlYTeAL+Afwrnhi+GL4BEQA="
         },
-        "mid":{
+        "medium":{
           "18":"mcxmkwlkxm02mEsmU5mEsmgA7TGZTcBDQGPAQqazCWTOZAU+BTQBHgREDkQGRzGZTgDPwKoAZYBFAXkAzIJDwOtAxsFTwf/Cy0DLwVPAQKZhCyFyoVHgZGAyoh5Bl+ARQEcAWcAjAGsAI+E5AXvAD+AP4cvgx/MQY/AH2AA=",
           "19":"mcxmkwlkxmwAhTMAMppM5hLJlOQECmU4AIWaTYAfQGEmcyAQKYgDrMZlNQEGApcEowGEm4GTgQsAjAJmAIaBnABBAvQCtAUJg7sEx4HWgy+CpoJZgQ+Hb4XVA4kAx4T/gl+Dt4BCzOYAEEBOQokTGZC3kKLglnhn+APYtDDZmIi4bvhM+AR4NngZ+AOUAA==",
           "20":"mcxm0wlkxmwAhTOYTCWTQAcplOQECmU3AIUBA5nMgBymYECgMYBSs4AQaaAUsCF4EMTGZTUCIpiBUwAZAIICZoEJgiEBnQN/AzeDd4GPhEeCXgYfh2wFIQQ0AIIDqQVHhUaCX4BHAVqHcwCKgxlMZkKsYBCB3+Aj4WtAZmEeQA6BWUJD4cvgo+DZ4svgxpNJhAA=",
@@ -194,7 +194,7 @@
           "29":"mcxm0wlkxmwAhTKczCWTQAdpjMpuAhs0mkwlkzmQDBzUAgpiAgwA5AU+CF4GTgdoAiQBBgdmAzgGfgZ8C94A/gYrOACOAZ8BmgzGAhkNRwECCgcO2AMfCo8DqQbeAZYCugCPAsoBrwCPDx8AfwB/Cz8GxgkFDVYGPwK/EBaAAA==",
           "30":"mcxm0wlkxm00mEsmYAZTQAMplOQECmU1AQKZAIEA6QCBgDmAeYDEgUxOAIZAHsCmAIYmMym4EXgIeBnIBEARcDuYTHgl4BjIFJzEH/Au6AHgCFAZPBUgNx5mDroNtApmCGQkGBl8Ez4KyAWcJH4EdA9mDCwUniM+BOgBZAimA/4Q/hD+Hx4YsQA="
         },
-        "mid":{
+        "medium":{
           "18":"mcxm0wlkxm00mEsmcxmEsmgBhTKcgIFMpwAQoCDzQCA5kAwc3AQ8CnwQoApYAjwIvAQ8H/Ab/AHUKmgOvBU8BA5qF34HfgQuAx4GPgDoCUoKcAEEBloXNgV+BH4DWAEcGfATnjJcAv4VfzQS0hMTBIUDQgh9BsWZgl+DHEAA",
           "19":"mcxm0wlkxm00mEsmcymEsmgBhTKcgIFMpqAhoA6TcBg5wBT4CBAQwAPQIUAEUCAQHaA2kBEoCBAZ/LJmA6QBCAReAOoVJzEG7ZnMAZfBU0BBgqpDt8DLw3Plk0mYGPhuYCeQEJg2+AR4DXgI+A14MMhOeA4c0ALIBfwB/FtcEjAbPDFsVkh9ugA=",
           "20":"mcxm0wlkxm00mEsmcymEsmgBhTKcgIFMpqAhoDHgIeAgUzAHIEYpoAGQDCzcCHgEUAqQCLwTPAIKcAReFDQIdgdSBj4KmzECKg1PAy8BjQbfDc8Q/wh/AIoBqA5oDv8AjwnPAH8AfxKXDuITGwUfAI8RmwO0ADIPdoAA",
