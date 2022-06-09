@@ -542,7 +542,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models                 | Controller |
 | ---------------------------------- | -------------------------------- | ---------- |
 | [2040](../codes/climate/2040.json) | WYS018GMFI17RL<br>WYS009GMFI17RL<br>CB018GMFILCFHD<br>CB012GMFILCFHD | Broadlink  |
-
+| [2041](../codes/climate/2041.json) | WT018GLFI19HLD | Broadlink  |
 #### Dimplex
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
