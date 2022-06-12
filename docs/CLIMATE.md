@@ -522,9 +522,10 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1945](../codes/climate/1945.json) | Unknown model (Swing support) | Broadlink  |
 
 #### AUX
-| Code                               | Supported Models | Controller |
-| ---------------------------------- | ---------------- | ---------- |
-| [1960](../codes/climate/1960.json) | Unknown          | Broadlink  |
+| Code                               | Supported Models     | Controller |
+| ---------------------------------- | -------------------- | ---------- |
+| [1960](../codes/climate/1960.json) | Unknown              | Broadlink  |
+| [1961](../codes/climate/1961.json) | AUX FREEDOM AUX-09FH | Broadlink  |
 
 #### Fuji
 | Code                               | Supported Models | Controller |
