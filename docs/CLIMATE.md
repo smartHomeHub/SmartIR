@@ -287,7 +287,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [4285](../codes/climate/4285.json) | AR-RCE1E (Remote control)                                               | Xiaomi (v2) |
 | [7285](../codes/climate/7285.json) | AR-RCE1E (Remote control)                                               | ESPHome     |
 | [1286](../codes/climate/1286.json) | AR-JE5 (Remote control)                                                 | Broadlink   |
-| [1287](../codes/climate/1287.json) | AR-REB1E (Remote control)                                               | Broadlink   |
+| [1287](../codes/climate/1287.json) | AR-REB1E (Remote control)<br>AR-REM7E<br>AR-REW2E                       | Broadlink   |
 | [1288](../codes/climate/1288.json) | AR-REB1E (Remote control)                                               | Broadlink   |
 | [1289](../codes/climate/1289.json) | AR-REW1E (Remote control)                                               | Broadlink   |
 | [1290](../codes/climate/1290.json) | AR-RFL7J (Remote control)                                               | Broadlink   |
