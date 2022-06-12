@@ -447,6 +447,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1701](../codes/climate/1701.json) | EACS-HA                                                                                                                                                                                      | Broadlink  |
 | [1702](../codes/climate/1702.json) | QI/QE09F<br>QI/QE09R<br>QI/QE12F<br>QI/QE12R<br>QI/QE18F<br>QI/QE18R<br>QI/QE22F<br>QI/QE22R<br>XI/XE09F<br>XI/XE09R<br>XI/XE12F<br>XI/XE12R<br>XI/XE18F<br>XI/XE18R<br>XI/XE22F<br>XI/XE22R | Broadlink  |
 | [1703](../codes/climate/1703.json) | EXP26U758CW   | Broadlink  |
+| [1704](../codes/climate/1704.json) | EPI12LEIWI   | Broadlink  |
 
 #### Erisson
 | Code                               | Supported Models | Controller |
