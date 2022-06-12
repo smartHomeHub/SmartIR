@@ -468,6 +468,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1761](../codes/climate/1761.json) | DS-9KIDT                              | Broadlink  |
 | [1762](../codes/climate/1762.json) | ASD9KI-DT                             | Broadlink  |
 | [1763](../codes/climate/1763.json) | DOS12KIDB                             | Broadlink  |
+| [1764](../codes/climate/1764.json) | DS-12KIDC(WD)                         | Broadlink  |
 
 #### Trotec
 | Code                               | Supported Models | Controller |
