@@ -808,3 +808,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 |------------------------------------|------------------|------------|
 | [3060](../codes/climate/3060.json) | TAC-12CHSD/XA81  | Broadlink  |
+
+### Voltas
+| Code                               | Supported Models | Controller |
+|------------------------------------|------------------|------------|
+| [99999](../codes/climate/99999.json) | VOLTAS INV/AC 1.5T 183V MZJ3 3S  | Broadlink  |
