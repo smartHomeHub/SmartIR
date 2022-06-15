@@ -812,4 +812,4 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 ### Voltas
 | Code                               | Supported Models | Controller |
 |------------------------------------|------------------|------------|
-| [99999](../codes/climate/99999.json) | INV/AC 1.5T 183V MZJ3 3S  | Broadlink  |
+| [3080](../codes/climate/3080.json) | INV/AC 1.5T 183V MZJ3 3S  | Broadlink  |
