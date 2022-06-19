@@ -281,6 +281,8 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         self._source = "Channel {}".format(media_id)
         for digit in media_id:
             await self.send_command(self._commands['sources']["Channel {}".format(digit)])
+        if 'OK' in self._commands['sources'] is not None:
+            await self.send_command(self._commands['sources']['OK'])
         await self.async_update_ha_state()
 
     async def send_command(self, command):
