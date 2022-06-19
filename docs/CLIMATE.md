@@ -814,3 +814,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 |------------------------------------|------------------|------------|
 | [3080](../codes/climate/3080.json) | INV/AC 1.5T 183V MZJ3 3S  | Broadlink  |
+
+### Casper
+| Code                               | Supported Models | Controller |
+|------------------------------------|------------------|------------|
+| [7750](../codes/climate/7750.json) | SC-09FS32  | Broadlink  |
