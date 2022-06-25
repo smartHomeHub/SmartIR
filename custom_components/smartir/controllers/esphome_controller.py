@@ -39,3 +39,5 @@ class ESPHomeController(AbstractController):
 
     await data.hass.services.async_call(
         'esphome', data._controller_data, service_data)
+
+ESPHomeController.register()
