@@ -10,6 +10,7 @@ Find your device's brand code [here](MEDIA_PLAYER.md#available-codes-for-tv-devi
 **unique_id** (Optional): An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.<br />
 **device_code** (Required): ...... (Accepts only positive numbers)<br />
 **controller_data** (Required): The data required for the controller to function. Enter the IP address of the Broadlink device **(must be an already configured device)**, or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands.<br />
+**controller** (Optional):  use the controller instead of `supportedController`
 **delay** (Optional): Adjusts the delay in seconds between multiple commands. The default is 0.5 <br />
 **power_sensor** (Optional): *entity_id* for a sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor. (Accepts only on/off states)<br />
 **source_names** (Optional): Override the names of sources as displayed in HomeAssistant (see below)<br />
@@ -37,7 +38,7 @@ remote:
   - platform: xiaomi_miio
     host: 192.168.10.10
     token: YOUR_TOKEN
-    
+
 media_player:
   - platform: smartir
     name: Living room TV

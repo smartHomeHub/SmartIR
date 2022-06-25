@@ -13,6 +13,7 @@ _Please note that the device_code field only accepts positive numbers. The .json
 | `unique_id` | string | optional | An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception. |
 | `device_code` | number | required | (Accepts only positive numbers) |
 | `controller_data` | string | required | The data required for the controller to function. Enter the entity_id of the Broadlink remote **(must be an already configured device)**, or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands. |
+| `controller` | string | optional | use the controller instead of `supportedController`|
 | `delay` | number | optional | Adjusts the delay in seconds between multiple commands. The default is 0.5 |
 | `temperature_sensor` | string | optional | *entity_id* for a temperature sensor |
 | `humidity_sensor` | string | optional | *entity_id* for a humidity sensor |
@@ -774,7 +775,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 |------------------------------------|------------------| ---------- |
 | [2940](../codes/climate/2940.json) | SAGA-A-22(CH)    | Broadlink  |
 
-#### EcoAir 
+#### EcoAir
 | Code                               | Supported Models | Controller |
 |------------------------------------|------------------| ---------- |
 | [2960](../codes/climate/2960.json) | Unknown          | Broadlink  |

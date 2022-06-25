@@ -6,9 +6,11 @@ from distutils.version import StrictVersion
 import json
 import logging
 import os.path
+from itsdangerous import base64_decode
 import requests
 import struct
 import voluptuous as vol
+import math
 
 from aiohttp import ClientSession
 from homeassistant.const import (
@@ -71,7 +73,7 @@ async def _update(hass, branch, do_update=False, notify_if_latest=True):
         async with aiohttp.ClientSession() as session:
             async with session.get(MANIFEST_URL.format(branch)) as response:
                 if response.status == 200:
-                    
+
                     data = await response.json(content_type='text/plain')
                     min_ha_version = data['homeassistant']
                     last_version = data['updater']['version']
@@ -80,7 +82,7 @@ async def _update(hass, branch, do_update=False, notify_if_latest=True):
                     if StrictVersion(last_version) <= StrictVersion(VERSION):
                         if notify_if_latest:
                             hass.components.persistent_notification.async_create(
-                                "You're already using the latest version!", 
+                                "You're already using the latest version!",
                                 title='SmartIR')
                         return
 
@@ -169,3 +171,39 @@ class Helper():
         if remainder:
             packet += bytearray(16 - remainder)
         return packet
+
+    @staticmethod
+    def broadlink2lirc(command):
+        result = list()
+        pulses = base64_decode(command) if type(command) is str else command
+        isIR = False
+        ix = 0
+        current = pulses[ix]
+        if current == 0x26:
+            # Mark the IR flag and set the 0 to the pules frequency
+            isIR = True
+        #     result.append(0)
+        else:
+            raise Exception("This broadlink data is not IR data")
+        #     result.append(currentByte)
+        ix += 1 # skip repeat byte
+        ix += 2 # skip length word(big endian)
+        mPulses = memoryview(pulses)
+        while ix < len(pulses):
+            current = pulses[ix]
+            # If its '00' it means the next hex pules value was larger then one byte
+            # So the broadlink mark by '00' byte that the next byte belong his following byte
+            # For example the 0x123 value will be in shown as '00' '01' '23'
+            # so we need to skip the '00' flag and combine the next tow bytes to one hex value
+            if current == 0:
+                ix+=1
+                subview = mPulses[ix:ix+2] # point to the word(big-endian)
+                current = struct.unpack('>H', subview)[0]
+                ix+=1
+            # Get the pulse lengths (revers the formula: µs * 2^-15)
+            current = math.floor(current / 269 * 8192)
+            result.append(current)
+            if isIR and mPulses[ix:ix+3] == b'\x00\x0d\x05':
+                break
+            ix+=1
+        return result
