@@ -74,10 +74,8 @@ class AbstractController(ABC):
   def register(cls):
     if 'name' not in cls.__dict__:
       raise Exception("Missing Controller Name to register")
-    _LOGGER.debug("register AbstractController.controllers= %s", AbstractController.controllers)
     cls.controllers[cls.name] = cls
 
   @staticmethod
   def get(name):
-    _LOGGER.debug("get AbstractController.controllers= %s", AbstractController.controllers)
     return AbstractController.controllers[name]()
