@@ -179,6 +179,7 @@ class Helper():
         isIR = False
         ix = 0
         current = pulses[ix]
+        ix += 1
         if current == 0x26:
             # Mark the IR flag and set the 0 to the pules frequency
             isIR = True
