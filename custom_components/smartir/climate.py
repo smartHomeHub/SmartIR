@@ -18,23 +18,17 @@ from homeassistant.core import callback
 from homeassistant.helpers.event import async_track_state_change
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
-from . import COMPONENT_ABS_DIR, Helper
+from . import (
+    COMPONENT_ABS_DIR, Helper,
+    CONF_UNIQUE_ID, CONF_DEVICE_CODE, CONF_CONTROLLER, CONF_CONTROLLER_TYPE, CONF_CONTROLLER_DATA,
+    CONF_DELAY, CONF_TEMPERATURE_SENSOR, CONF_HUMIDITY_SENSOR, CONF_POWER_SENSOR, CONF_POWER_SENSOR_RESTORE_STATE
+)
 from .controllers import get_controller
 
 _LOGGER = logging.getLogger(__name__)
 
 DEFAULT_NAME = "SmartIR Climate"
 DEFAULT_DELAY = 0.5
-
-CONF_UNIQUE_ID = 'unique_id'
-CONF_DEVICE_CODE = 'device_code'
-CONF_CONTROLLER = "controller"
-CONF_CONTROLLER_DATA = "controller_data"
-CONF_DELAY = "delay"
-CONF_TEMPERATURE_SENSOR = 'temperature_sensor'
-CONF_HUMIDITY_SENSOR = 'humidity_sensor'
-CONF_POWER_SENSOR = 'power_sensor'
-CONF_POWER_SENSOR_RESTORE_STATE = 'power_sensor_restore_state'
 
 SUPPORT_FLAGS = (
     SUPPORT_TARGET_TEMPERATURE |
@@ -47,6 +41,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_DEVICE_CODE): cv.positive_int,
     vol.Required(CONF_CONTROLLER_DATA): cv.string,
     vol.Optional(CONF_CONTROLLER): cv.string,
+    vol.Optional(CONF_CONTROLLER_TYPE): cv.string,
     vol.Optional(CONF_DELAY, default=DEFAULT_DELAY): cv.positive_float,
     vol.Optional(CONF_TEMPERATURE_SENSOR): cv.entity_id,
     vol.Optional(CONF_HUMIDITY_SENSOR): cv.entity_id,
@@ -101,6 +96,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._name = config.get(CONF_NAME)
         self._device_code = config.get(CONF_DEVICE_CODE)
         controller = config.get(CONF_CONTROLLER)
+        self._controller_type = config.get(CONF_CONTROLLER_TYPE)
         self._controller_data = config.get(CONF_CONTROLLER_DATA)
         self._delay = config.get(CONF_DELAY)
         self._temperature_sensor = config.get(CONF_TEMPERATURE_SENSOR)

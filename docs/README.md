@@ -8,6 +8,8 @@ SmartIR currently supports the following controllers:
 * [LOOK.in Remote](http://look-in.club/devices/remote)
 * [ESPHome User-defined service for remote transmitter](https://esphome.io/components/api.html#user-defined-services)
 * [MQTT Publish service](https://www.home-assistant.io/docs/mqtt/service/)
+  * [OpenMQTTGateway](https://github.com/1technophile/OpenMQTTGateway): defaults to `OpenMQTTGateway`
+  * [IRremoteESP8266 MQTTServer](https://github.com/crankyoldgit/IRremoteESP8266/blob/master/examples/IRMQTTServer/IRMQTTServer.ino): specified by `controller_type: IRremoteESP8266`
 
 More than 120 climate devices are currently supported out-of-the-box, mainly for the Broadlink controller, thanks to our awesome community.<br><br>
 Don't forget to **star** the repository if you had fun!<br><br>

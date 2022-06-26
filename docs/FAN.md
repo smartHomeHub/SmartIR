@@ -12,6 +12,7 @@ Find your device's brand code [here](FAN.md#available-codes-for-fan-devices) and
 **device_code** (Required): ...... (Accepts only positive numbers)<br />
 **controller_data** (Required): The data required for the controller to function. Enter the IP address of the Broadlink device **(must be an already configured device)**, or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands.<br />
 **controller** (Optional):  use the controller instead of `supportedController`
+**controller_type**(optional): required by MQTT controller. defaults to OpenMQTTGateway
 **delay** (Optional): Adjusts the delay in seconds between multiple commands. The default is 0.5 <br />
 **power_sensor** (Optional): *entity_id* for a sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor. (Accepts only on/off states)<br />
 

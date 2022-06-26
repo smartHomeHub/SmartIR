@@ -44,6 +44,17 @@ CONFIG_SCHEMA = vol.Schema({
     })
 }, extra=vol.ALLOW_EXTRA)
 
+CONF_UNIQUE_ID = 'unique_id'
+CONF_DEVICE_CODE = 'device_code'
+CONF_CONTROLLER = "controller"
+CONF_CONTROLLER_TYPE = 'controller_type'
+CONF_CONTROLLER_DATA = "controller_data"
+CONF_DELAY = "delay"
+CONF_TEMPERATURE_SENSOR = 'temperature_sensor'
+CONF_HUMIDITY_SENSOR = 'humidity_sensor'
+CONF_POWER_SENSOR = 'power_sensor'
+CONF_POWER_SENSOR_RESTORE_STATE = 'power_sensor_restore_state'
+
 async def async_setup(hass, config):
     """Set up the SmartIR component."""
     conf = config.get(DOMAIN)

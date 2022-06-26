@@ -20,7 +20,11 @@ from homeassistant.util.percentage import (
     ordered_list_item_to_percentage,
     percentage_to_ordered_list_item
 )
-from . import COMPONENT_ABS_DIR, Helper
+from . import (
+    COMPONENT_ABS_DIR, Helper,
+    CONF_UNIQUE_ID, CONF_DEVICE_CODE, CONF_CONTROLLER, CONF_CONTROLLER_TYPE, CONF_CONTROLLER_DATA,
+    CONF_DELAY, CONF_POWER_SENSOR
+)
 from .controllers import get_controller
 
 _LOGGER = logging.getLogger(__name__)
@@ -28,12 +32,6 @@ _LOGGER = logging.getLogger(__name__)
 DEFAULT_NAME = "SmartIR Fan"
 DEFAULT_DELAY = 0.5
 
-CONF_UNIQUE_ID = 'unique_id'
-CONF_DEVICE_CODE = 'device_code'
-CONF_CONTROLLER = "controller"
-CONF_CONTROLLER_DATA = "controller_data"
-CONF_DELAY = "delay"
-CONF_POWER_SENSOR = 'power_sensor'
 
 SPEED_OFF = "off"
 
@@ -42,6 +40,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
     vol.Required(CONF_DEVICE_CODE): cv.positive_int,
     vol.Required(CONF_CONTROLLER_DATA): cv.string,
+    vol.Optional(CONF_CONTROLLER_TYPE): cv.string,
     vol.Optional(CONF_CONTROLLER): cv.string,
     vol.Optional(CONF_DELAY, default=DEFAULT_DELAY): cv.string,
     vol.Optional(CONF_POWER_SENSOR): cv.entity_id
@@ -94,6 +93,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
         self._name = config.get(CONF_NAME)
         self._device_code = config.get(CONF_DEVICE_CODE)
         controller = config.get(CONF_CONTROLLER)
+        self._controller_type = config.get(CONF_CONTROLLER_TYPE)
         self._controller_data = config.get(CONF_CONTROLLER_DATA)
         self._delay = config.get(CONF_DELAY)
         self._power_sensor = config.get(CONF_POWER_SENSOR)

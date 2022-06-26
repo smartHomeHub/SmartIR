@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import logging
 
 BROADLINK_CONTROLLER = 'Broadlink'
 XIAOMI_CONTROLLER = 'Xiaomi'
@@ -10,6 +11,8 @@ ENC_BASE64 = 'Base64'
 ENC_HEX = 'Hex'
 ENC_PRONTO = 'Pronto'
 ENC_RAW = 'Raw'
+
+_LOGGER = logging.getLogger(__name__)
 
 def get_controller(name):
   return AbstractController.get(name)
@@ -71,8 +74,10 @@ class AbstractController(ABC):
   def register(cls):
     if 'name' not in cls.__dict__:
       raise Exception("Missing Controller Name to register")
+    _LOGGER.debug("register AbstractController.controllers= %s", AbstractController.controllers)
     cls.controllers[cls.name] = cls
 
   @staticmethod
   def get(name):
+    _LOGGER.debug("get AbstractController.controllers= %s", AbstractController.controllers)
     return AbstractController.controllers[name]()

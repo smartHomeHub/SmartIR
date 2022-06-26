@@ -14,6 +14,7 @@ _Please note that the device_code field only accepts positive numbers. The .json
 | `device_code` | number | required | (Accepts only positive numbers) |
 | `controller_data` | string | required | The data required for the controller to function. Enter the entity_id of the Broadlink remote **(must be an already configured device)**, or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands. |
 | `controller` | string | optional | use the controller instead of `supportedController`|
+| `controller_type` | string | optional | required by MQTT controller. defaults to OpenMQTTGateway |
 | `delay` | number | optional | Adjusts the delay in seconds between multiple commands. The default is 0.5 |
 | `temperature_sensor` | string | optional | *entity_id* for a temperature sensor |
 | `humidity_sensor` | string | optional | *entity_id* for a humidity sensor |
