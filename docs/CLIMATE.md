@@ -7,14 +7,16 @@ Find your device's brand code [here](CLIMATE.md#available-codes-for-climate-devi
 _Please note that the device_code field only accepts positive numbers. The .json extension is not required._
 
 ## Configuration variables:
-**name** (Optional): The name of the device<br />
-**unique_id** (Optional): An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.<br />
-**device_code** (Required): .... (Accepts only positive numbers)<br />
-**controller_data** (Required): The data required for the controller to function. Enter the entity_id of the Broadlink remote **(must be an already configured device)**, or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands.<br />
-**delay** (Optional): Adjusts the delay in seconds between multiple commands. The default is 0.5 <br />
-**temperature_sensor** (Optional): *entity_id* for a temperature sensor<br />
-**humidity_sensor** (Optional): *entity_id* for a humidity sensor<br />
-**power_sensor** (Optional): *entity_id* for a sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor. (Accepts only on/off states)<br />
+| Name | Type | Default | Description |
+| ---- | :--: | :-----: | ----------- |
+| `name` | string | optional | The name of the device |
+| `unique_id` | string | optional | An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception. |
+| `device_code` | number | required | (Accepts only positive numbers) |
+| `controller_data` | string | required | The data required for the controller to function. Enter the entity_id of the Broadlink remote **(must be an already configured device)**, or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands. |
+| `delay` | number | optional | Adjusts the delay in seconds between multiple commands. The default is 0.5 |
+| `temperature_sensor` | string | optional | *entity_id* for a temperature sensor |
+| `humidity_sensor` | string | optional | *entity_id* for a humidity sensor |
+| `power_sensor` | string | optional | *entity_id* for a sensor that monitors whether your device is actually `on` or `off`. This may be a power monitor sensor. (Accepts only on/off states) |
 
 ## Example (using broadlink controller):
 Add a Broadlink RM device named "Bedroom" via config flow (read the [docs](https://www.home-assistant.io/integrations/broadlink/)).
@@ -127,6 +129,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models      | Controller |
 | ---------------------------------- | --------------------- | ---------- |
 | [1000](../codes/climate/1000.json) | AKIRA GAN/GAG-A128 VL | Broadlink  |
+| [1001](../codes/climate/1000.json) | AKIRA GAN/GAG A135FW ML | Broadlink |
 
 #### Panasonic
 | Code                               | Supported Models                                                   | Controller |
@@ -165,8 +168,10 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1067](../codes/climate/1067.json) | W12TCM | Broadlink  |
 | [1068](../codes/climate/1068.json) | AKB74295303 | Broadlink  |
 | [1069](../codes/climate/1069.json) | AKB74295304 | Broadlink  |
-| [3060](../codes/climate/3060.json) | G09LH                                                                | Xiaomi     |
+| [1070](../codes/climate/1070.json) | PC09SQ NSJ | Broadlink  |
+| [4060](../codes/climate/4060.json) | G09LH                                                                | Xiaomi     |
 | [7062](../codes/climate/7062.json) | LG InverterV P12RK                                                   | ESPHome     |
+| [7065](../codes/climate/7065.json) | LG080EC<br>LG100EC<br>LG150EC<br>LG200EC                             | ESPHome     |
 
 #### Hitachi
 | Code                               | Supported Models                                              | Controller |
@@ -196,7 +201,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1111](../codes/climate/1111.json) | FTE09NV25                                                                                                                                           | Broadlink  |
 | [1112](../codes/climate/1112.json) | ATKC09TV2S<br>FTKQ12TV2S                                                                                                                                           | Broadlink  |
 | [1113](../codes/climate/1113.json) | FTXV35AV1B                                                                                                                                           | Broadlink  |
-| [3100](../codes/climate/3100.json) | FTXS25CVMB<br>FTXS35CVMB<br>FTXS60BVMB<br>FVXS25BVMB                                                                                                           | Xiaomi     |
+| [4100](../codes/climate/4100.json) | FTXS25CVMB<br>FTXS35CVMB<br>FTXS60BVMB<br>FVXS25BVMB                                                                                                           | Xiaomi     |
 
 #### Mitsubishi Electric
 | Code                               | Supported Models                                                                                     | Controller |
@@ -210,13 +215,13 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1126](../codes/climate/1126.json) | MSX09-NV II <br> MSH-07RV <br> MSH-12RV                                                              | Broadlink
 | [1127](../codes/climate/1127.json) | MSZ-HJ25VA                                                                                           | Broadlink
 | [1128](../codes/climate/1128.json) | MSZ-HJ25VA<br>MSZ-HJ35VA                                                                             | Broadlink
-| [1129](../codes/climate/1129.json) | MSZ-GE22VA<br>MSZ-EF35VE                                                                             | Broadlink
+| [1129](../codes/climate/1129.json) | MSZ-GE22VA<br>MSZ-EF35VE<br>MSZ-GL\*NA                                                               | Broadlink
 | [1130](../codes/climate/1130.json) | MS-SGD18VC                                                                                           | Broadlink
 | [1131](../codes/climate/1131.json) | PAR-FL32MA remote                                                                                    | Broadlink
 | [1132](../codes/climate/1132.json) | MSC-A12YV                                                                                            | Broadlink
-| [1133](../codes/climate/1133.json) | MSXY-FN10VE<br>MSXY-FN07VE<br>MSXY-FN13VE<br>MSXY-FN18VE <b>(Swing mode)</b>                         | Broadlink
-| [1134](../codes/climate/1134.json) | MG-GN18VF                                                                                            |Broadlink
-| [3129](../codes/climate/3129.json) | DXK18Z1-S                                                                                            | Xiaomi v2
+| [1133](../codes/climate/1133.json) | MSXY-FN10VE<br>MSXY-FN07VE<br>MSXY-FN13VE<br>MSXY-FN18VE <b>(Swing mode)</b> <br> MSY-GN18VF         | Broadlink
+| [1134](../codes/climate/1134.json) | MG-GN18VF<br>MS-GN18VF<br>MS-GN13VF                                                                  | Broadlink
+| [4129](../codes/climate/4129.json) | DXK18Z1-S                                                                                            | Xiaomi v2
 
 #### Actron
 | Code                               | Supported Models | Controller |
@@ -232,15 +237,18 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1163](../codes/climate/1163.json) | 40MAQ*           | Broadlink  |
 
 #### Gree
-| Code                               | Supported Models | Controller                                      |
-| ---------------------------------- | ---------------- | ----------------------------------------------- |
-| [1180](../codes/climate/1180.json) | Unknown model    | Broadlink                                       |
-| [1181](../codes/climate/1181.json) | Unknown model/Model: GWH09QB / YAN1F1 (Remote)    | Broadlink |
-| [1182](../codes/climate/1182.json) | Y512/Y502 (Remote)    | Broadlink                                       |
-| [1183](../codes/climate/1183.json) | Smart inverter <b>(Swing mode)</b>    | Broadlink                                       |
-| [1184](../codes/climate/1184.json) | GWH09KF<br>GC-EAF09HR    | Broadlink                                       |
-| [3180](../codes/climate/3180.json) | YB0FB2 (Remote)  | Xiaomi                                          |
-| [3181](../codes/climate/3181.json) | YB1FA  (Remote)  | Xiaomi (v2)                                          |
+| Code                               | Supported Models                               | Controller  |
+|------------------------------------|------------------------------------------------|-------------|
+| [1180](../codes/climate/1180.json) | Unknown model                                  | Broadlink   |
+| [1181](../codes/climate/1181.json) | Unknown model/Model: GWH09QB / YAN1F1 (Remote) | Broadlink   |
+| [1182](../codes/climate/1182.json) | Y512/Y502 (Remote)                             | Broadlink   |
+| [1183](../codes/climate/1183.json) | Smart inverter <b>(Swing mode)</b>             | Broadlink   |
+| [1184](../codes/climate/1184.json) | GWH09KF<br>GC-EAF09HR                          | Broadlink   |
+| [1185](../codes/climate/1185.json) | KFR-50LW                                       | Broadlink   |
+| [1186](../codes/climate/1186.json) | GWH18ACD-D3DNA 1M                              | Broadlink   |
+| [1187](../codes/climate/1187.json) | Unknown model                                  | Broadlink   |
+| [4180](../codes/climate/4180.json) | YB0FB2 (Remote)                                | Xiaomi      |
+| [4181](../codes/climate/4181.json) | YB1FA  (Remote)                                | Xiaomi (v2) |
 
 #### Tosot
 | Code                               | Supported Models | Controller |
@@ -269,26 +277,30 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [7260](../codes/climate/7260.json) | RAS-18NKV2-E                                                                                                     | ESPHome    |
 
 #### Fujitsu
-| Code                               | Supported Models                            | Controller |
-| ---------------------------------- | ------------------------------------------- | ---------- |
-| [1280](../codes/climate/1280.json) | AR-RBE1E (Remote control)                   | Broadlink  |
-| [1281](../codes/climate/1281.json) | AR-RY3 (Remote control)<br>AR-RAE1/AR-RAE1E<br>AR-RAH1U | Broadlink  |
-| [1282](../codes/climate/1282.json) | AR-JW11 (Remote control)                    | Broadlink  |
-| [1283](../codes/climate/1283.json) | AR-AB5 (Remote control)                     | Broadlink  |
-| [1284](../codes/climate/1284.json) | AR-REG1U (Remote control)                   | Broadlink  |
-| [1285](../codes/climate/1285.json) | AR-RCE1E (Remote control)                   | Broadlink  |
-| [3285](../codes/climate/3285.json) | AR-RCE1E (Remote control)                   | Xiaomi (v2)|
-| [7285](../codes/climate/7285.json) | AR-RCE1E (Remote control)                   | ESPHome    |
-| [1286](../codes/climate/1286.json) | AR-JE5 (Remote control)                     | Broadlink  |
-| [1287](../codes/climate/1287.json) | AR-REB1E (Remote control)                   | Broadlink  |
-| [1288](../codes/climate/1288.json) | AR-REB1E (Remote control)                   | Broadlink  |
-| [1289](../codes/climate/1289.json) | AR-REW1E (Remote control)                   | Broadlink  |
-| [1290](../codes/climate/1290.json) | AR-RFL7J (Remote control)                   | Broadlink  |
+| Code                               | Supported Models                                                        | Controller  |
+| ---------------------------------- | ----------------------------------------------------------------------- | ----------- |
+| [1280](../codes/climate/1280.json) | AR-RBE1E (Remote control)                                               | Broadlink   |
+| [1281](../codes/climate/1281.json) | AR-RY3 (Remote control)<br>AR-RAE1/AR-RAE1E<br>AR-RAH1U                 | Broadlink   |
+| [1282](../codes/climate/1282.json) | AR-JW11 (Remote control)                                                | Broadlink   |
+| [1283](../codes/climate/1283.json) | AR-AB5 (Remote control)                                                 | Broadlink   |
+| [1284](../codes/climate/1284.json) | AR-REG1U (Remote control)                                               | Broadlink   |
+| [1285](../codes/climate/1285.json) | AR-RCE1E (Remote control)                                               | Broadlink   |
+| [4285](../codes/climate/4285.json) | AR-RCE1E (Remote control)                                               | Xiaomi (v2) |
+| [7285](../codes/climate/7285.json) | AR-RCE1E (Remote control)                                               | ESPHome     |
+| [1286](../codes/climate/1286.json) | AR-JE5 (Remote control)                                                 | Broadlink   |
+| [1287](../codes/climate/1287.json) | AR-REB1E (Remote control)<br>AR-REM7E<br>AR-REW2E                       | Broadlink   |
+| [1288](../codes/climate/1288.json) | AR-REB1E (Remote control)                                               | Broadlink   |
+| [1289](../codes/climate/1289.json) | AR-REW1E (Remote control)                                               | Broadlink   |
+| [1290](../codes/climate/1290.json) | AR-RFL7J (Remote control)                                               | Broadlink   |
+| [1291](../codes/climate/1291.json) | AR-REF1E (Remote control)                                               | Broadlink   |
+| [1292](../codes/climate/1292.json) | AR-RY12 (Remote control) - <b>vertical and horizontal swing support</b> | Broadlink   |
+| [1293](../codes/climate/1293.json) | AR-REB1E (Remote control) - <b>vertical swing support</b>               | Broadlink   |
 
 #### Sharp
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
 | [1300](../codes/climate/1300.json) | AY-B22DM         | Broadlink  |
+| [7300](../codes/climate/7300.json) | AH-AP9GMY        | ESPHome    |
 
 #### Haier
 | Code                               | Supported Models | Controller |
@@ -304,6 +316,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1341](../codes/climate/1341.json) | TAC490           | Broadlink  |
 | [1342](../codes/climate/1342.json) | 10i/15i/inv220a  | Broadlink  |
 | [1343](../codes/climate/1343.json) | Alpha Series     | Broadlink  |
+| [1344](../codes/climate/1344.json) | YB1FA Remote (Control) (Swing support)    | Broadlink  |
 
 #### Springer
 | Code                               | Supported Models       | Controller |
@@ -321,8 +334,9 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1385](../codes/climate/1385.json) | R11HG/E                        | Broadlink  |
 | [1386](../codes/climate/1386.json) | KFR-32GW                       | Broadlink  |
 | [1387](../codes/climate/1387.json) | RG70E/BGEF (Remote)            | Broadlink  |
-| [3380](../codes/climate/3380.json) | MCD-24HRN1-Q1<br>RAS-10N3KVR-E | Xiaomi     |
-| [3381](../codes/climate/3381.json) | RG70C1/BGEF | Xiaomi     |
+| [1388](../codes/climate/1388.json) | 42MAQA09S5                     | Broadlink  |
+| [4380](../codes/climate/4380.json) | MCD-24HRN1-Q1<br>RAS-10N3KVR-E | Xiaomi     |
+| [4381](../codes/climate/4381.json) | RG70C1/BGEF | Xiaomi     |
 | [7386](../codes/climate/7386.json) | KFR-32GW                       | ESPHome    |
 
 #### Samsung
@@ -384,7 +398,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1580](../codes/climate/1580.json) | ZH/JT-03 (Remote)| Broadlink  |
 | [1581](../codes/climate/1581.json) | ZH/JT-03 (Remote)| Broadlink  |
 | [1582](../codes/climate/1582.json) | ZH/TT-14 (Remote)| Broadlink  |
-| [3580](../codes/climate/3580.json) | Unknown          | Xiaomi (v2)|
+| [4580](../codes/climate/4580.json) | Unknown          | Xiaomi (v2)|
 
 #### Beko
 | Code                               | Supported Models | Controller |
@@ -434,6 +448,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1701](../codes/climate/1701.json) | EACS-HA                                                                                                                                                                                      | Broadlink  |
 | [1702](../codes/climate/1702.json) | QI/QE09F<br>QI/QE09R<br>QI/QE12F<br>QI/QE12R<br>QI/QE18F<br>QI/QE18R<br>QI/QE22F<br>QI/QE22R<br>XI/XE09F<br>XI/XE09R<br>XI/XE12F<br>XI/XE12R<br>XI/XE18F<br>XI/XE18R<br>XI/XE22F<br>XI/XE22R | Broadlink  |
 | [1703](../codes/climate/1703.json) | EXP26U758CW   | Broadlink  |
+| [1704](../codes/climate/1704.json) | EPI12LEIWI   | Broadlink  |
 
 #### Erisson
 | Code                               | Supported Models | Controller |
@@ -453,6 +468,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1761](../codes/climate/1761.json) | DS-9KIDT                              | Broadlink  |
 | [1762](../codes/climate/1762.json) | ASD9KI-DT                             | Broadlink  |
 | [1763](../codes/climate/1763.json) | DOS12KIDB                             | Broadlink  |
+| [1764](../codes/climate/1764.json) | DS-12KIDC(WD)                         | Broadlink  |
 
 #### Trotec
 | Code                               | Supported Models | Controller |
@@ -503,11 +519,13 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1942](../codes/climate/1942.json) | Electra Classic  | Broadlink  |
 | [1943](../codes/climate/1943.json) | Electra Classic14| Broadlink  |
 | [1944](../codes/climate/1944.json) | Electra Platinum Plus Inverter| Broadlink  |
+| [1945](../codes/climate/1945.json) | Unknown model (Swing support) | Broadlink  |
 
 #### AUX
-| Code                               | Supported Models | Controller |
-| ---------------------------------- | ---------------- | ---------- |
-| [1960](../codes/climate/1960.json) | Unknown          | Broadlink  |
+| Code                               | Supported Models     | Controller |
+| ---------------------------------- | -------------------- | ---------- |
+| [1960](../codes/climate/1960.json) | Unknown              | Broadlink  |
+| [1961](../codes/climate/1961.json) | AUX FREEDOM AUX-09FH | Broadlink  |
 
 #### Fuji
 | Code                               | Supported Models | Controller |
@@ -528,7 +546,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models                 | Controller |
 | ---------------------------------- | -------------------------------- | ---------- |
 | [2040](../codes/climate/2040.json) | WYS018GMFI17RL<br>WYS009GMFI17RL<br>CB018GMFILCFHD<br>CB012GMFILCFHD | Broadlink  |
-
+| [2041](../codes/climate/2041.json) | WT018GLFI19HLD | Broadlink  |
 #### Dimplex
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
@@ -559,6 +577,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ---------------------------------- | ---------------- | ---------- |
 | [2160](../codes/climate/2160.json) | Unknown          | Broadlink  |
 | [2161](../codes/climate/2161.json) | LNMTE026V2       | Broadlink  |
+| [2162](../codes/climate/2162.json) | LNINVE052<br>LNINVC052       | Broadlink  |
 
 #### Hokkaido
 | Code                               | Supported Models | Controller |
@@ -571,14 +590,15 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [2200](../codes/climate/2200.json) | RAK-12NH<br>RAK-18NH | Broadlink  |
 
 #### Blueridge
-| Code                               | Supported Models | Controller |
-| ---------------------------------- | ---------------- | ---------- |
-| [2220](../codes/climate/2220.json) | RG57A4<br>BGEFU1 | Broadlink  |
+| Code                               |      Supported Models      | Controller |
+| ---------------------------------- | -------------------------- | ---------- |
+| [2220](../codes/climate/2220.json) | RG57A4<br>RG57A6<br>BGEFU1 | Broadlink  |
 
 #### Delonghi
 | Code                               | Supported Models        | Controller |
 | ---------------------------------- | ----------------------- | ---------- |
 | [2240](../codes/climate/2240.json) | PAC N82ECO<br>PAC AN111 | Broadlink  |
+| [2241](../codes/climate/2241.json) | PAC EM77                | Broadlink  |
 
 #### Profio
 | Code                               | Supported Models        | Controller |
@@ -681,6 +701,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2640](../codes/climate/2640.json) | FPR-91DE4-R<br>FPR-121DE4-R<br>FPR-141DE4-R | Broadlink  |
+| [2641](../codes/climate/2641.json) | FSOAI-SU-90AE2 | Broadlink  |
 
 #### Hyundai
 | Code                               | Supported Models       | Controller |
@@ -722,6 +743,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2800](../codes/climate/2800.json) | HVQI18B2IA             | Broadlink  |
+| [2801](../codes/climate/2801.json) | HVQI12B2FB             | Broadlink  |
 
 #### Pearl
 | Code                               | Supported Models       | Controller |
@@ -738,10 +760,10 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ---------------------------------- | ---------------------- | ---------- |
 | [2860](../codes/climate/2860.json) | SENA/12HF/IZ           | Broadlink  |
 
-#### Senville
+#### Bora
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
-| [2880](../codes/climate/2880.json) | LNINVE052<br>LNINVC052 | Broadlink  |
+| [2880](../codes/climate/2880.json) | 18SRA-HE           | Broadlink  |
 
 #### Goodman
 | Code                               | Supported Models       | Controller |
@@ -762,3 +784,33 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 |------------------------------------|------------------| ---------- |
 | [2960](../codes/climate/2960.json) | Unknown          | Broadlink  |
+
+#### Agratto
+| Code                               | Supported Models            | Controller |
+|------------------------------------|-----------------------------|------------|
+| [2980](../codes/climate/2980.json) | ECST12FR4-02 ECST19QFIR4-02 | Broadlink  |
+
+#### Philco
+| Code                               | Supported Models            | Controller |
+|------------------------------------|-----------------------------|------------|
+| [3000](../codes/climate/3000.json) | PAC9000ITQFM9W | Broadlink  |
+
+#### Klasse
+| Code                               | Supported Models | Controller |
+|------------------------------------|------------------|------------|
+| [3020](../codes/climate/3020.json) | DOZ-S06JT        | Broadlink  |
+
+#### Viessmann
+| Code                               | Supported Models | Controller |
+|------------------------------------|------------------|------------|
+| [3040](../codes/climate/3040.json) | Vitoclima 300-S  | Broadlink  |
+
+#### HappyTree
+| Code                               | Supported Models | Controller |
+|------------------------------------|------------------|------------|
+| [3060](../codes/climate/3060.json) | TAC-12CHSD/XA81  | Broadlink  |
+
+### Voltas
+| Code                               | Supported Models | Controller |
+|------------------------------------|------------------|------------|
+| [3080](../codes/climate/3080.json) | INV/AC 1.5T 183V MZJ3 3S  | Broadlink  |

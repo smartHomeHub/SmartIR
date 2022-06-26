@@ -1,7 +1,7 @@
 {
   "manufacturer": "Fujitsu",
   "supportedModels": [
-    "ASYG-LMCE","AR-REB1E"
+    "ASYG-LMCE","AR-REB1E","AR-REM7E","AR-REW2E"
   ],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
