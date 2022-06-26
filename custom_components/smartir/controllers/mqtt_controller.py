@@ -1,6 +1,7 @@
 from base64 import b64encode
 import binascii
 import json
+import logging
 
 from homeassistant.const import ATTR_ENTITY_ID
 from .abstract_controller import (
@@ -9,6 +10,8 @@ from .abstract_controller import (
   BROADLINK_CONTROLLER, ESPHOME_CONTROLLER, MQTT_CONTROLLER
 )
 from . import to_lirc
+
+_LOGGER = logging.getLogger(__name__)
 
 class MQTTController(AbstractController):
   """Controls a MQTT device."""
@@ -42,12 +45,15 @@ class MQTTController(AbstractController):
       command = ','.join(list(map(str, command)))
     else:
       command = { "raw": ','.join(list(map(str, command))), "protocol_name": "Raw"}
+      command = json.dumps(command, indent=None)
     return True, command
 
   def _decode(self, command, data):
     ok = data._commands_encoding == ENC_RAW
+
     if not data._controller_type or data._controller_type is "OpenMQTTGateway":
-      command = json.dumps(command, indent=None)
+      if type(command) is not str:
+        command = json.dumps(command, indent=None)
     return ok, command
 
   async def _send(self, command, data):
