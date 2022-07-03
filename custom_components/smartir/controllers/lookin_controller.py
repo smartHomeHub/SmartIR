@@ -1,4 +1,3 @@
-from base64 import b64encode
 import requests
 
 from .abstract_controller import (
