@@ -1,15 +1,10 @@
-from base64 import b64encode
-import binascii
 import json
 
 from .abstract_controller import (
   AbstractController,
   ENC_RAW,
   ESPHOME_CONTROLLER,
-  BROADLINK_CONTROLLER,
 )
-from .broadlink_controller import BroadlinkController
-
 class ESPHomeController(AbstractController):
   """Controls a ESPHome device."""
   name = ESPHOME_CONTROLLER

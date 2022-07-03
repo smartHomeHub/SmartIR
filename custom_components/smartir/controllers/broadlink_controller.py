@@ -1,6 +1,5 @@
 from base64 import b64encode
 import binascii
-import json
 
 from homeassistant.const import ATTR_ENTITY_ID
 from .abstract_controller import (

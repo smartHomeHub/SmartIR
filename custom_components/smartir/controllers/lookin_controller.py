@@ -1,6 +1,4 @@
 from base64 import b64encode
-import binascii
-import json
 import requests
 
 from .abstract_controller import (

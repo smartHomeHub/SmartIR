@@ -1,17 +1,10 @@
-from base64 import b64encode
-import binascii
 import json
-import logging
 
-from homeassistant.const import ATTR_ENTITY_ID
 from .abstract_controller import (
   AbstractController,
   ENC_RAW,
-  BROADLINK_CONTROLLER, ESPHOME_CONTROLLER, MQTT_CONTROLLER
+  MQTT_CONTROLLER
 )
-from . import to_lirc
-
-_LOGGER = logging.getLogger(__name__)
 
 class MQTTController(AbstractController):
   """Controls a MQTT device."""

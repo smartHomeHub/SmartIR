@@ -1,12 +1,8 @@
-from base64 import b64encode
-import binascii
-import json
-
 from homeassistant.const import ATTR_ENTITY_ID
 from .abstract_controller import (
   AbstractController,
-  ENC_BASE64, ENC_HEX, ENC_PRONTO, ENC_RAW,
-  ESPHOME_CONTROLLER, XIAOMI_CONTROLLER
+  ENC_PRONTO, ENC_RAW,
+  XIAOMI_CONTROLLER
 )
 
 class XiaomiController(AbstractController):

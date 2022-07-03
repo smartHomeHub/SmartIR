@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-import logging
 
 BROADLINK_CONTROLLER = 'Broadlink'
 XIAOMI_CONTROLLER = 'Xiaomi'
@@ -11,8 +10,6 @@ ENC_BASE64 = 'Base64'
 ENC_HEX = 'Hex'
 ENC_PRONTO = 'Pronto'
 ENC_RAW = 'Raw'
-
-_LOGGER = logging.getLogger(__name__)
 
 def get_controller(name):
   return AbstractController.get(name)
