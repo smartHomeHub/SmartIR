@@ -1,3 +1,4 @@
+import logging
 import json
 
 from .abstract_controller import (
@@ -6,6 +7,7 @@ from .abstract_controller import (
   MQTT_CONTROLLER
 )
 
+_LOGGER = logging.getLogger(__name__)
 class MQTTController(AbstractController):
   """Controls a MQTT device."""
   name = MQTT_CONTROLLER
@@ -44,9 +46,12 @@ class MQTTController(AbstractController):
   def _decode(self, command, data):
     ok = data._commands_encoding == ENC_RAW
 
-    if not data._controller_type or data._controller_type is "OpenMQTTGateway":
-      if type(command) is not str:
-        command = json.dumps(command, indent=None)
+    cmdType = type(command)
+    _LOGGER.debug("decode command:%s for %s", command, data._controller_type)
+    if cmdType is not str:
+      if cmdType is list:
+        command = { "raw": ','.join(list(map(str, command))), "protocol_name": "Raw"}
+      command = json.dumps(command, indent=None)
     return ok, command
 
   async def _send(self, command, data):
