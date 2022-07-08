@@ -99,6 +99,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         self._manufacturer = device_data['manufacturer']
         self._supported_models = device_data['supportedModels']
         self._supported_controller = device_data['supportedController']
+        self._supported_controller_type = device_data.get('controllerType')
         self._commands_encoding = device_data['commandsEncoding']
         self._commands = device_data['commands']
 

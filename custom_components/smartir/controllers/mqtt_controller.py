@@ -15,7 +15,7 @@ class MQTTController(AbstractController):
     ok = False
     if data._supported_controller == cls.name:
       if data._commands_encoding == ENC_RAW:
-        if data._controller_type == "IRremoteESP8266":
+        if data._supported_controller_type == "IRremoteESP8266":
           if type(command) is str:
             # IRremoteESP8266 MQTT
             command = list(map(int, command.split(",")))
