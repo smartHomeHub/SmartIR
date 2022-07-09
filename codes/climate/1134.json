@@ -1,6 +1,10 @@
 {
     "manufacturer": "Mitsubishi Electric",
-    "supportedModels": ["MG-GN18VF"],
+    "supportedModels": [
+        "MG-GN18VF",
+        "MS-GN18VF",
+        "MS-GN13VF"
+    ],
     "commandsEncoding": "Base64",
     "supportedController": "Broadlink",
     "minTemperature": 16,
