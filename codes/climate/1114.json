@@ -12,7 +12,8 @@
         "heat",
         "cool",
         "auto",
-        "fan_only"
+        "fan_only",
+        "dry"
     ],
     "fanModes": [
         "lowest",
