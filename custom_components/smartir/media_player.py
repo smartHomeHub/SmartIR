@@ -9,14 +9,18 @@ from homeassistant.components.media_player import (
     MediaPlayerEntity, PLATFORM_SCHEMA)
 from homeassistant.components.media_player.const import (
     SUPPORT_TURN_OFF, SUPPORT_TURN_ON, SUPPORT_PREVIOUS_TRACK,
-    SUPPORT_NEXT_TRACK, SUPPORT_VOLUME_STEP, SUPPORT_VOLUME_MUTE, 
+    SUPPORT_NEXT_TRACK, SUPPORT_VOLUME_STEP, SUPPORT_VOLUME_MUTE,
     SUPPORT_PLAY_MEDIA, SUPPORT_SELECT_SOURCE, MEDIA_TYPE_CHANNEL)
 from homeassistant.const import (
     CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN)
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
-from . import COMPONENT_ABS_DIR, Helper
-from .controller import get_controller
+from . import (
+    COMPONENT_ABS_DIR, Helper,
+    CONF_UNIQUE_ID, CONF_DEVICE_CODE, CONF_CONTROLLER, CONF_CONTROLLER_TYPE, CONF_CONTROLLER_DATA,
+    CONF_DELAY, CONF_POWER_SENSOR
+)
+from .controllers import get_controller
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -24,11 +28,6 @@ DEFAULT_NAME = "SmartIR Media Player"
 DEFAULT_DEVICE_CLASS = "tv"
 DEFAULT_DELAY = 0.5
 
-CONF_UNIQUE_ID = 'unique_id'
-CONF_DEVICE_CODE = 'device_code'
-CONF_CONTROLLER_DATA = "controller_data"
-CONF_DELAY = "delay"
-CONF_POWER_SENSOR = 'power_sensor'
 CONF_SOURCE_NAMES = 'source_names'
 CONF_DEVICE_CLASS = 'device_class'
 
@@ -37,6 +36,8 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
     vol.Required(CONF_DEVICE_CODE): cv.positive_int,
     vol.Required(CONF_CONTROLLER_DATA): cv.string,
+    vol.Optional(CONF_CONTROLLER_TYPE): cv.string,
+    vol.Optional(CONF_CONTROLLER): cv.string,
     vol.Optional(CONF_DELAY, default=DEFAULT_DELAY): cv.string,
     vol.Optional(CONF_POWER_SENSOR): cv.entity_id,
     vol.Optional(CONF_SOURCE_NAMES): dict,
@@ -89,6 +90,8 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         self._unique_id = config.get(CONF_UNIQUE_ID)
         self._name = config.get(CONF_NAME)
         self._device_code = config.get(CONF_DEVICE_CODE)
+        controller = config.get(CONF_CONTROLLER)
+        self._controller_type = config.get(CONF_CONTROLLER_TYPE)
         self._controller_data = config.get(CONF_CONTROLLER_DATA)
         self._delay = config.get(CONF_DELAY)
         self._power_sensor = config.get(CONF_POWER_SENSOR)
@@ -96,6 +99,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         self._manufacturer = device_data['manufacturer']
         self._supported_models = device_data['supportedModels']
         self._supported_controller = device_data['supportedController']
+        self._supported_controller_type = device_data.get('controllerType')
         self._commands_encoding = device_data['commandsEncoding']
         self._commands = device_data['commands']
 
@@ -143,12 +147,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         self._temp_lock = asyncio.Lock()
 
         #Init the IR/RF controller
-        self._controller = get_controller(
-            self.hass,
-            self._supported_controller, 
-            self._commands_encoding,
-            self._controller_data,
-            self._delay)
+        self._controller = get_controller(controller or self._supported_controller)
 
     async def async_added_to_hass(self):
         """Run when entity about to be added."""
@@ -197,7 +196,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
     @property
     def source_list(self):
         return self._sources_list
-        
+
     @property
     def source(self):
         return self._source
@@ -221,7 +220,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
     async def async_turn_off(self):
         """Turn the media player off."""
         await self.send_command(self._commands['off'])
-        
+
         if self._power_sensor is None:
             self._state = STATE_OFF
             self._source = None
@@ -254,7 +253,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         """Turn volume up for media player."""
         await self.send_command(self._commands['volumeUp'])
         await self.async_update_ha_state()
-    
+
     async def async_mute_volume(self, mute):
         """Mute the volume."""
         await self.send_command(self._commands['mute'])
@@ -286,10 +285,10 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
     async def send_command(self, command):
         async with self._temp_lock:
             try:
-                await self._controller.send(command)
+                await self._controller.send(command, self)
             except Exception as e:
                 _LOGGER.exception(e)
-            
+
     async def async_update(self):
         if self._power_sensor is None:
             return
