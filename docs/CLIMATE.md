@@ -596,9 +596,10 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 
 #### Delonghi
 | Code                               | Supported Models        | Controller |
-| ---------------------------------- | ----------------------- | ---------- |
+|------------------------------------|-------------------------| ---------- |
 | [2240](../codes/climate/2240.json) | PAC N82ECO<br>PAC AN111 | Broadlink  |
 | [2241](../codes/climate/2241.json) | PAC EM77                | Broadlink  |
+| [2242](../codes/climate/2242.json) | PAC AN140HPEW           | Broadlink  |
 
 #### Profio
 | Code                               | Supported Models        | Controller |
