@@ -100,6 +100,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         self._commands = device_data['commands']
 
         self._state = STATE_OFF
+        self._is_volume_muted = None
         self._sources_list = []
         self._source = None
         self._support_flags = 0
@@ -136,7 +137,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
 
                     del self._commands['sources'][source]
 
-            #Sources list
+            # Sources list
             for key in self._commands['sources']:
                 self._sources_list.append(key)
 
@@ -195,6 +196,10 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         return MEDIA_TYPE_CHANNEL
 
     @property
+    def is_volume_muted(self):
+        return self._is_volume_muted
+
+    @property
     def source_list(self):
         return self._sources_list
         
@@ -225,6 +230,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         if self._power_sensor is None:
             self._state = STATE_OFF
             self._source = None
+            self._is_volume_muted = None
             await self.async_update_ha_state()
 
     async def async_turn_on(self):
@@ -257,6 +263,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
     
     async def async_mute_volume(self, mute):
         """Mute the volume."""
+        self._is_volume_muted = mute
         await self.send_command(self._commands['mute'])
         await self.async_update_ha_state()
 
@@ -300,5 +307,6 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
             if power_state.state == STATE_OFF:
                 self._state = STATE_OFF
                 self._source = None
+                self._is_volume_muted = None
             elif power_state.state == STATE_ON:
                 self._state = STATE_ON
