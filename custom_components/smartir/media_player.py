@@ -30,6 +30,7 @@ CONF_DEVICE_CODE = 'device_code'
 CONF_CONTROLLER_DATA = "controller_data"
 CONF_DELAY = "delay"
 CONF_POWER_SENSOR = 'power_sensor'
+CONF_RETAIN = 'retain'
 CONF_SOUND_MODES = 'sound_modes'
 CONF_SOURCE_NAMES = 'source_names'
 CONF_DEVICE_CLASS = 'device_class'
@@ -41,6 +42,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_CONTROLLER_DATA): cv.string,
     vol.Optional(CONF_DELAY, default=DEFAULT_DELAY): cv.string,
     vol.Optional(CONF_POWER_SENSOR): cv.entity_id,
+    vol.Optional(CONF_RETAIN): list,
     vol.Optional(CONF_SOUND_MODES): dict,
     vol.Optional(CONF_SOURCE_NAMES): dict,
     vol.Optional(CONF_DEVICE_CLASS, default=DEFAULT_DEVICE_CLASS): cv.string
@@ -95,6 +97,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         self._controller_data = config.get(CONF_CONTROLLER_DATA)
         self._delay = config.get(CONF_DELAY)
         self._power_sensor = config.get(CONF_POWER_SENSOR)
+        self._retain = config.get(CONF_RETAIN, [])
 
         self._manufacturer = device_data['manufacturer']
         self._supported_models = device_data['supportedModels']
@@ -177,6 +180,9 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
 
         if last_state is not None:
             self._state = last_state.state
+            self._is_volume_muted = last_state.attributes.get('is_volume_muted', None)
+            self._sound_mode = last_state.attributes.get('sound_mode', None)
+            self._source = last_state.attributes.get('source', None)
         
         if self._sound_mode_list and self._state == STATE_ON:
             self._support_flags |= SUPPORT_SELECT_SOUND_MODE
@@ -258,9 +264,12 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         
         if self._power_sensor is None:
             self._state = STATE_OFF
-            self._sound_mode = None
-            self._source = None
-            self._is_volume_muted = None
+            if 'mute' not in self._retain:
+                self._is_volume_muted = None
+            if 'sound_mode' not in self._retain:
+                self._sound_mode = None
+            if 'source' not in self._retain:
+                self._source = None
             if self._sound_mode_list:
                 self._support_flags ^= SUPPORT_SELECT_SOUND_MODE
             await self.async_update_ha_state()
@@ -346,9 +355,12 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         if power_state:
             if power_state.state == STATE_OFF:
                 self._state = STATE_OFF
-                self._sound_mode = None
-                self._source = None
-                self._is_volume_muted = None
+                if 'mute' not in self._retain:
+                    self._is_volume_muted = None
+                if 'sound_mode' not in self._retain:
+                    self._sound_mode = None
+                if 'source' not in self._retain:
+                    self._source = None
                 if self._sound_mode_list:
                     self._support_flags ^= SUPPORT_SELECT_SOUND_MODE
             elif power_state.state == STATE_ON:
