@@ -10,7 +10,8 @@ from homeassistant.components.media_player import (
 from homeassistant.components.media_player.const import (
     SUPPORT_TURN_OFF, SUPPORT_TURN_ON, SUPPORT_PREVIOUS_TRACK,
     SUPPORT_NEXT_TRACK, SUPPORT_VOLUME_STEP, SUPPORT_VOLUME_MUTE, 
-    SUPPORT_PLAY_MEDIA, SUPPORT_SELECT_SOURCE, MEDIA_TYPE_CHANNEL)
+    SUPPORT_PLAY_MEDIA, SUPPORT_SELECT_SOURCE, MEDIA_TYPE_CHANNEL,
+    SUPPORT_SELECT_SOUND_MODE)
 from homeassistant.const import (
     CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN)
 import homeassistant.helpers.config_validation as cv
@@ -29,6 +30,7 @@ CONF_DEVICE_CODE = 'device_code'
 CONF_CONTROLLER_DATA = "controller_data"
 CONF_DELAY = "delay"
 CONF_POWER_SENSOR = 'power_sensor'
+CONF_SOUND_MODES = 'sound_modes'
 CONF_SOURCE_NAMES = 'source_names'
 CONF_DEVICE_CLASS = 'device_class'
 
@@ -39,6 +41,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_CONTROLLER_DATA): cv.string,
     vol.Optional(CONF_DELAY, default=DEFAULT_DELAY): cv.string,
     vol.Optional(CONF_POWER_SENSOR): cv.entity_id,
+    vol.Optional(CONF_SOUND_MODES): dict,
     vol.Optional(CONF_SOURCE_NAMES): dict,
     vol.Optional(CONF_DEVICE_CLASS, default=DEFAULT_DEVICE_CLASS): cv.string
 })
@@ -101,6 +104,8 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
 
         self._state = STATE_OFF
         self._is_volume_muted = None
+        self._sound_mode_list = []
+        self._sound_mode = None
         self._sources_list = []
         self._source = None
         self._support_flags = 0
@@ -127,6 +132,19 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         if 'mute' in self._commands and self._commands['mute'] is not None:
             self._support_flags = self._support_flags | SUPPORT_VOLUME_MUTE
 
+        if 'sound_modes' in self._commands and self._commands['sound_modes'] is not None:
+            
+            for sound_mode, new_name in config.get(CONF_SOUND_MODES, {}).items():
+                if sound_mode in self._commands['sound_modes']:
+                    if new_name is not None:
+                        self._commands['sound_modes'][new_name] = self._commands['sound_modes'][sound_mode]
+
+                    del self._commands['sound_modes'][sound_mode]
+            
+            # Sound Modes list
+            for key in self._commands['sound_modes']:
+                self._sound_mode_list.append(key)
+        
         if 'sources' in self._commands and self._commands['sources'] is not None:
             self._support_flags = self._support_flags | SUPPORT_SELECT_SOURCE | SUPPORT_PLAY_MEDIA
 
@@ -159,6 +177,9 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
 
         if last_state is not None:
             self._state = last_state.state
+        
+        if self._sound_mode_list and self._state == STATE_ON:
+            self._support_flags |= SUPPORT_SELECT_SOUND_MODE
 
     @property
     def should_poll(self):
@@ -200,6 +221,14 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         return self._is_volume_muted
 
     @property
+    def sound_mode_list(self):
+        return self._sound_mode_list
+
+    @property
+    def sound_mode(self):
+        return self._sound_mode
+
+    @property
     def source_list(self):
         return self._sources_list
         
@@ -229,8 +258,11 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         
         if self._power_sensor is None:
             self._state = STATE_OFF
+            self._sound_mode = None
             self._source = None
             self._is_volume_muted = None
+            if self._sound_mode_list:
+                self._support_flags ^= SUPPORT_SELECT_SOUND_MODE
             await self.async_update_ha_state()
 
     async def async_turn_on(self):
@@ -239,6 +271,8 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
 
         if self._power_sensor is None:
             self._state = STATE_ON
+            if self._sound_mode_list:
+                self._support_flags |= SUPPORT_SELECT_SOUND_MODE
             await self.async_update_ha_state()
 
     async def async_media_previous_track(self):
@@ -265,6 +299,12 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         """Mute the volume."""
         self._is_volume_muted = mute
         await self.send_command(self._commands['mute'])
+        await self.async_update_ha_state()
+
+    async def async_select_sound_mode(self, sound_mode: str):
+        """Select sound mode from list."""
+        self._sound_mode = sound_mode
+        await self.send_command(self._commands['sound_modes'][sound_mode])
         await self.async_update_ha_state()
 
     async def async_select_source(self, source):
@@ -306,7 +346,12 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         if power_state:
             if power_state.state == STATE_OFF:
                 self._state = STATE_OFF
+                self._sound_mode = None
                 self._source = None
                 self._is_volume_muted = None
+                if self._sound_mode_list:
+                    self._support_flags ^= SUPPORT_SELECT_SOUND_MODE
             elif power_state.state == STATE_ON:
                 self._state = STATE_ON
+                if self._sound_mode_list:
+                    self._support_flags |= SUPPORT_SELECT_SOUND_MODE
