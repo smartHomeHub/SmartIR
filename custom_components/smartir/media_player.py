@@ -100,13 +100,14 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         self._commands = device_data['commands']
 
         self._state = STATE_OFF
+        self._sources_list_commands = {}
         self._sources_list = []
         self._source = None
         self._support_flags = 0
 
         self._device_class = config.get(CONF_DEVICE_CLASS)
 
-        #Supported features
+        # Supported features
         if 'off' in self._commands and self._commands['off'] is not None:
             self._support_flags = self._support_flags | SUPPORT_TURN_OFF
 
@@ -129,20 +130,22 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         if 'sources' in self._commands and self._commands['sources'] is not None:
             self._support_flags = self._support_flags | SUPPORT_SELECT_SOURCE | SUPPORT_PLAY_MEDIA
 
+            self._sources_list_commands = self._commands['sources'].copy()
+            
             for source, new_name in config.get(CONF_SOURCE_NAMES, {}).items():
-                if source in self._commands['sources']:
+                if source in self._sources_list_commands:
                     if new_name is not None:
-                        self._commands['sources'][new_name] = self._commands['sources'][source]
+                        self._sources_list_commands[new_name] = self._sources_list_commands[source]
 
-                    del self._commands['sources'][source]
+                    del self._sources_list_commands[source]
 
-            #Sources list
-            for key in self._commands['sources']:
+            # Sources list
+            for key in self._sources_list_commands:
                 self._sources_list.append(key)
 
         self._temp_lock = asyncio.Lock()
 
-        #Init the IR/RF controller
+        # Init the IR/RF controller
         self._controller = get_controller(
             self.hass,
             self._supported_controller, 
@@ -263,7 +266,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
     async def async_select_source(self, source):
         """Select channel from source."""
         self._source = source
-        await self.send_command(self._commands['sources'][source])
+        await self.send_command(self._sources_list_commands[source])
         await self.async_update_ha_state()
 
     async def async_play_media(self, media_type, media_id, **kwargs):
