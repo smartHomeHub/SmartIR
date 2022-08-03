@@ -459,6 +459,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models              | Controller |
 | ---------------------------------- | ----------------------------- | ---------- |
 | [1740](../codes/climate/1740.json) | KSV25HRG (RG57A6/BGEF Remote) | Broadlink  |
+| [1741](../codes/climate/1741.json) | KSV26CRC<br/>KSV26HRC<br/>KSV35CRC<br/>KSV35HRC<br/>KSV53HRC<br/>KSV62HRC<br/>KSV70CRC<br/>KCV70HRC<br/>KSV80HRC | Broadlink  |
 | [7740](../codes/climate/7740.json) | KSV25HWH                      | ESPHome    |
 
 #### Daitsu
