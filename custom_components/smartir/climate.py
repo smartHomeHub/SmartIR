@@ -122,6 +122,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
         self._target_temperature = self._min_temperature
         self._hvac_mode = HVAC_MODE_OFF
+        self._previous_hvac_mode = HVAC_MODE_OFF
         self._current_fan_mode = self._fan_modes[0]
         self._current_swing_mode = None
         self._last_on_operation = None
@@ -322,6 +323,12 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         
         if not hvac_mode == HVAC_MODE_OFF:
             self._last_on_operation = hvac_mode
+
+            # Turn AC on if it requires a pre-command
+            if self._previous_hvac_mode == HVAC_MODE_OFF:  # only if it's previously off
+                if 'on_once' in self._commands:
+                    await self._controller.send(self._commands['on_once'])
+                    await asyncio.sleep(self._delay)
 
         await self.send_command()
         await self.async_update_ha_state()
