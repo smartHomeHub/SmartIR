@@ -204,6 +204,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1113](../codes/climate/1113.json) | FTXV35AV1B                                                                                                                                           | Broadlink  |
 | [1114](../codes/climate/1114.json) | FTXM35UVMZ                                                                                                                                           | Broadlink  |
 | [1115](../codes/climate/1115.json) | FTXB-C                                                                                                                                           | Broadlink  |
+| [1116](../codes/climate/1116.json) | FCQ100KAVEA                                  | Broadlink  |
 | [4100](../codes/climate/4100.json) | FTXS25CVMB<br>FTXS35CVMB<br>FTXS60BVMB<br>FVXS25BVMB                                                                                                           | Xiaomi     |
 
 #### Mitsubishi Electric
