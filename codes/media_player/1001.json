@@ -1,0 +1,36 @@
+{
+    "manufacturer": "Philips",
+    "supportedModels": [
+      "42PFL3007H/60"
+    ],
+    "supportedController": "Broadlink",
+    "commandsEncoding": "Base64",
+    "commands": {
+        "off": "JgAaAB0dOx4cHhweHR4cHhw8HR0dHhweOzsdAA0FAAAAAAAAAAAAAAAAAAA=",
+        "on": "JgAcABweHR07HhweHR0dHhw8HR0dHhweHB4dHhwADQUAAAAAAAAAAAAAAAA=",
+        "previousChannel": "JgAaAB0eHB46Hh0eHB4cHh07Ox4cHh0dHTwcAA0FAAAAAAAAAAAAAAAAAAA=",
+        "nextChannel": "JgAaAB0dHR47HR0dHR4dHRw8Ox4cHhweHR0dAA0FAAAAAAAAAAAAAAAAAAA=",
+        "volumeDown": "JgAaABwePBwfHBweHB4dHR0eHDw9Gx0eHDwdAA0FAAAAAAAAAAAAAAAAAAA=",
+        "volumeUp": "JgAaABweOx0fHBweHB4dHhweHDw7HR0eHB4dAA0FAAAAAAAAAAAAAAAAAAA=",
+        "mute": "JgAaAB0dOx4cHh0dHR4cHh0dHR4cPBwePDsdAA0FAAAAAAAAAAAAAAAAAAA=",
+        "sources": {
+            "TV": "JgAoAFUgDR4NEA0QKi4MEQwRDBEMEQwQDRANEBweDRAcEAwQDRANEA0ADQU=",
+            "SCART": "JgAYAB8bHxs9HB4cHzkfHDwcHxsfOjwcHwANBQ==",
+            "YPbPr": "JgAaAB8bPRsfHB4cHxsfHB46HxsfHDwcHzkfAA0FAAAAAAAAAAAAAAAAAAA=",
+            "VGA": "JgAaAB8bHxw8HB8bHzoeHB8bHxweHD0bHxsfAA0FAAAAAAAAAAAAAAAAAAA=",
+            "HDMI 1": "JgAaAB8cHxs9Gx8cHzkfGx8cHhwfGz0cHjofAA0FAAAAAAAAAAAAAAAAAAA=",
+            "HDMI 2": "JgAYAD06PBwfGx85HxwfGx8bHxw9OR8bHwANBQ==",
+            "HDMI Side": "JgAYAB8bPRwfGx8bHzoeHD0bHxweOh8bPQANBQ==",            
+            "Channel 1": "JgAsAFceDx0ODw4PDh0eDg4PDg8ODw4PDg8MEA0QDRAPDg8ODw4PDg8ODw4dAA0F",
+            "Channel 2": "JgAsAFUgDR4NEA0QDR8cEAwQDRANEA0QDRANEA0QDRANEA0QDRANEA0QHB4MAA0F",
+            "Channel 3": "JgAqAFUfDR8NEA0QKi0NEA0QDRANEA0QDRANEA0QDBEMEQwRDBANEBwQDAANBQ==",
+            "Channel 4": "JgAsAFceDh4NEA0QDR4dDw4PDg8NEA0QDQ8NEA4PDg8ODw4PDg8ODx0dDg8NAA0F",
+            "Channel 5": "JgAoAFUgDB8NEA0QKi0NEA0QDRANEA0QDRANEAwRDBEMEQwQDRAcHhwADQU=",
+            "Channel 6": "JgAsAFcdDx0ODw4PDh4dDg8ODw4PDg8ODg8ODw4PDg8ODw4ODw4PDh4ODh0PAA0F",
+            "Channel 7": "JgAqAFUgDR4NEA0QKi0NEA0QDRANEA0QDRANEA0QDRANEA0QDBEbEA0QDQANBQ==",
+            "Channel 8": "JgAsAFUgDB8NEA0QDR8bEA0QDRANEA0QDRANEA0QDBEMEQwRDBAcHg0QDRANAA0F",
+            "Channel 9": "JgAoAFUgDR4NEA0QKi4MEQwQDRANEA0QDRANEA0QDRANEA0QGx8NEBsADQU=",
+            "Channel 0": "JgAuAFUfDR8NEA0QDR8bEA0QDRANEA0QDRANEAwRDBEMEQwQDRANEA0QDRANEA0ADQU="
+        }
+    }
+}
