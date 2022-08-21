@@ -201,7 +201,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1111](../codes/climate/1111.json) | FTE09NV25                                                                                                                                           | Broadlink  |
 | [1112](../codes/climate/1112.json) | ATKC09TV2S<br>FTKQ12TV2S                                                                                                                                           | Broadlink  |
 | [1113](../codes/climate/1113.json) | FTXV35AV1B                                                                                                                                           | Broadlink  |
-| [1114](../codes/climate/1114.json) | FCQ100KAVEA                                                                                                                                           | Broadlink  |
+| [1116](../codes/climate/1116.json) | FCQ100KAVEA                                                                                                                                           | Broadlink  |
 | [4100](../codes/climate/4100.json) | FTXS25CVMB<br>FTXS35CVMB<br>FTXS60BVMB<br>FVXS25BVMB                                                                                                           | Xiaomi     |
 
 #### Mitsubishi Electric
