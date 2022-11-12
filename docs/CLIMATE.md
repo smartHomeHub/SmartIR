@@ -17,6 +17,7 @@ _Please note that the device_code field only accepts positive numbers. The .json
 | `temperature_sensor` | string | optional | *entity_id* for a temperature sensor |
 | `humidity_sensor` | string | optional | *entity_id* for a humidity sensor |
 | `power_sensor` | string | optional | *entity_id* for a sensor that monitors whether your device is actually `on` or `off`. This may be a power monitor sensor. (Accepts only on/off states) |
+| `power_sensor_restore_state` | boolean | optional | If `power_sensor` is set, and the device is likely to turn off and back on while still in the set mode (for instance, a minisplit cycling on and off while in heating or cooling mode), setting this to `true` will cause the climate state to update dynamically, following the state of the `power_sensor`. |
 
 ## Example (using broadlink controller):
 Add a Broadlink RM device named "Bedroom" via config flow (read the [docs](https://www.home-assistant.io/integrations/broadlink/)).
@@ -33,6 +34,7 @@ climate:
     temperature_sensor: sensor.temperature
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
+    power_sensor_restore_state: true
 ```
 
 ## Example (using xiaomi controller):
@@ -53,6 +55,7 @@ climate:
     temperature_sensor: sensor.temperature
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
+    power_sensor_restore_state: true
 ```
 
 ## Example (using mqtt controller):
@@ -68,6 +71,7 @@ climate:
     temperature_sensor: sensor.temperature
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
+    power_sensor_restore_state: true
 ```
 
 ## Example (using LOOKin controller):
@@ -83,6 +87,7 @@ climate:
     temperature_sensor: sensor.temperature
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
+    power_sensor_restore_state: true
 ```
 
 ## Example (using ESPHome):
@@ -119,6 +124,7 @@ climate:
     temperature_sensor: sensor.temperature
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
+    power_sensor_restore_state: true
 ```
 
 ## Available codes for climate devices:
