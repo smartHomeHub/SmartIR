@@ -828,7 +828,13 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 |------------------------------------|------------------|------------|
 | [3080](../codes/climate/3080.json) | INV/AC 1.5T 183V MZJ3 3S  | Broadlink  |
 
+#### Cecotec
+| Code                               | Supported Models | Controller |
+|------------------------------------|------------------|------------|
+| [3100](../codes/climate/3100.json) | EnergySilence 12000 AirClima (05290)  | Broadlink  |
+
 ### TechnoLux
 | Code                               | Supported Models | Controller |
 |------------------------------------|------------------|------------|
 | [4800](../codes/climate/4800.json) | KFR-25GW/F  | Xiaomi  |
+
