@@ -840,3 +840,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 |------------------------------------|------------------|------------|
 | [4800](../codes/climate/4800.json) | KFR-25GW/F  | Xiaomi  |
+
+### Cooper & Hunter
+| Code                               | Supported Models | Controller |
+|------------------------------------|------------------|------------|
+| [3120](../codes/climate/3120.json) | Unknown  | Broadlink  |
