@@ -9,7 +9,6 @@
   "maxTemperature": 30,
   "precision": 1,
   "operationModes": [
-    "auto",
     "cool",
     "heat",
     "fan",
@@ -17,7 +16,7 @@
   ],
   "fanModes": [
     "low",
-    "medium",
+    "mid",
     "high",
     "auto"
   ],
