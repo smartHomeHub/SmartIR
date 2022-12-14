@@ -737,6 +737,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2700](../codes/climate/2700.json) | RC-M7B1 (Remote) <b>(Swing mode)</b>| Broadlink  |
+| [8700](../codes/climate/8700.json) | KAG-145RSINV           | ESPHome    |
 
 #### AEG
 | Code                               | Supported Models       | Controller |
