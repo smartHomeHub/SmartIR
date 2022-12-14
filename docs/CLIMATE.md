@@ -850,3 +850,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 |------------------------------------|------------------|------------|
 | [3120](../codes/climate/3120.json) | Unknown  | Broadlink  |
+
+### Argo
+| Code                               | Supported Models | Controller |
+|------------------------------------|------------------|------------|
+| [3140](../codes/climate/3140.json) | Ulisse13  | Broadlink  |
