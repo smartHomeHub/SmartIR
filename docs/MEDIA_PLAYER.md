@@ -279,3 +279,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [7460](../codes/media_player/7460.json)| B860H | ESPHome
+
+#### Kanto
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1480](../codes/media_player/1480.json)|YU6|Broadlink
