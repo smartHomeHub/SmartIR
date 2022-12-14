@@ -3,7 +3,8 @@
    "supportedModels":[
       "RAS-B07J2KVSG-E",
       "RAS-B10J2KVSG-E",
-      "RAS-B13J2KVSG-E"
+      "RAS-B13J2KVSG-E",
+      "RAS-B10SKVP-E"
    ],
    "supportedController":"Broadlink",
    "commandsEncoding":"Base64",
