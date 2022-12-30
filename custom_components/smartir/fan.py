@@ -110,7 +110,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
 
         if (DIRECTION_REVERSE in self._commands and \
             DIRECTION_FORWARD in self._commands):
-            self._direction = DIRECTION_REVERSE
+            self._direction = DIRECTION_FORWARD
             self._support_flags = (
                 self._support_flags | SUPPORT_DIRECTION)
         if ('oscillate' in self._commands):
