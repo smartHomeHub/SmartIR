@@ -109,7 +109,8 @@ class SmartIRFan(FanEntity, RestoreEntity):
         self._support_flags = SUPPORT_SET_SPEED
 
         if (DIRECTION_REVERSE in self._commands and \
-            DIRECTION_FORWARD in self._commands):
+            DIRECTION_FORWARD in self._commands) \
+            or ('toggle_direction' in self._commands):
             self._direction = DIRECTION_FORWARD
             self._support_flags = (
                 self._support_flags | SUPPORT_DIRECTION)
@@ -121,6 +122,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
 
         self._temp_lock = asyncio.Lock()
         self._on_by_remote = False
+        self._prev_direction = DIRECTION_FORWARD
 
         #Init the IR/RF controller
         self._controller = get_controller(
@@ -262,20 +264,27 @@ class SmartIRFan(FanEntity, RestoreEntity):
         async with self._temp_lock:
             self._on_by_remote = False
             speed = self._speed
-            direction = self._direction or 'default'
+            direction = 'default' if ('toggle_direction' in self._commands) else (self._direction or 'default')
             oscillating = self._oscillating
 
             if speed.lower() == SPEED_OFF:
-                command = self._commands['off']
+                self._prev_direction = DIRECTION_FORWARD
+                await self.send_single_command(self._commands['off'])
+                return
             elif oscillating:
-                command = self._commands['oscillate']
+                await self.send_single_command(self._commands['oscillate'])
             else:
-                command = self._commands[direction][speed] 
+                await self.send_single_command(self._commands[direction][speed])
 
-            try:
-                await self._controller.send(command)
-            except Exception as e:
-                _LOGGER.exception(e)
+            if ('toggle_direction' in self._commands) and (self._direction != self._prev_direction):
+                self._prev_direction = self._direction
+                await self.send_single_command(self._commands['toggle_direction'])
+
+    async def send_single_command(self, command):
+        try:
+            await self._controller.send(command)
+        except Exception as e:
+            _LOGGER.exception(e)
 
     async def _async_power_sensor_changed(self, entity_id, old_state, new_state):
         """Handle power sensor changes."""
