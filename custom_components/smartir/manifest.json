@@ -15,6 +15,7 @@
       "climate.py",
       "media_player.py",
       "fan.py",
+      "light.py",  
       "controller.py",
       "manifest.json",
       "services.yaml"
