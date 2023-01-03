@@ -146,31 +146,31 @@ class SmartIRLight(LightEntity, RestoreEntity):
 
         self._temp_lock = asyncio.Lock()
         self._on_by_remote = False
-        self._support_color_modes = ColorMode.UNKNOWN
+        self._support_color_modes = []
 
         if (
             CMD_COLORMODE_COLDER in self._commands
             and CMD_COLORMODE_WARMER in self._commands
         ):
             self._colortemp = self.max_color_temp_kelvin
-            self._support_color_modes = ColorMode.COLOR_TEMP
+            self._support_color_modes += ColorMode.COLOR_TEMP
 
         if CMD_NIGHTLIGHT in self._commands or (
             CMD_BRIGHTNESS_INCREASE in self._commands
             and CMD_BRIGHTNESS_DECREASE in self._commands
         ):
             self._brightness = 100
-            if self._support_color_modes == ColorMode.UNKNOWN:
-                self._support_color_modes = ColorMode.BRIGHTNESS
+            if self._support_color_modes:
+                self._support_color_modes += ColorMode.WHITE
             else:
-                self._support_color_modes |= ColorMode.WHITE
+                self._support_color_modes += ColorMode.BRIGHTNESS
 
         if (
             CMD_POWER_OFF in self._commands
             and CMD_POWER_ON in self._commands
-            and self._support_color_modes == ColorMode.UNKNOWN
+            and not self._support_color_modes
         ):
-            self._support_color_modes = ColorMode.ONOFF
+            self._support_color_modes += ColorMode.ONOFF
 
         # Init the IR/RF controller
         self._controller = get_controller(
