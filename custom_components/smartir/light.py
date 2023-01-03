@@ -62,7 +62,7 @@ async def async_setup_platform(
 ):
     """Set up the IR Light platform."""
     device_code = config.get(CONF_DEVICE_CODE)
-    device_files_subdir = os.path.join("codes", "fan")
+    device_files_subdir = os.path.join("codes", "light")
     device_files_absdir = os.path.join(COMPONENT_ABS_DIR, device_files_subdir)
 
     if not os.path.isdir(device_files_absdir):
