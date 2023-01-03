@@ -6,17 +6,27 @@
     "supportedController": "Broadlink",
     "commandsEncoding": "Base64",
     "brightness": [
+        26,
         51,
+        77,
         102,
+        128,
         153,
+        179,
         204,
+        230,
         255
     ],
     "colorTemperature": [
         2700,
-        3300,
-        4000,
-        5300,
+        3122,
+        3544,
+        3967,
+        4389,
+        4811,
+        5233,
+        5656,
+        6078,
         6500
     ],
     "commands": {
