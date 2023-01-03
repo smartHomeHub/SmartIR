@@ -119,6 +119,8 @@ def closest_match(value, list):
             if diff_lo < diff_hi:
                 return index - 1
             return index
+        prev_val = entry
+
     return len(list) - 1
 
 
@@ -160,8 +162,11 @@ class SmartIRLight(LightEntity, RestoreEntity):
             and CMD_BRIGHTNESS_DECREASE in self._commands
         ):
             self._brightness = 100
+            self._support_brightness = True
             if self._support_color_mode == ColorMode.UNKNOWN:
                 self._support_color_mode = ColorMode.BRIGHTNESS
+        else:
+            self._support_brightness = False
 
         if (
             CMD_POWER_OFF in self._commands
@@ -261,11 +266,15 @@ class SmartIRLight(LightEntity, RestoreEntity):
             ATTR_COLOR_TEMP_KELVIN in params
             and ColorMode.COLOR_TEMP == self._support_color_mode
         ):
+            target = params.get(ATTR_COLOR_TEMP_KELVIN)
             old_color_temp = closest_match(self._colortemp, self._colortemps)
-            new_color_temp = closest_match(
-                params.get(ATTR_COLOR_TEMP_KELVIN), self._colortemps
+            new_color_temp = closest_match(target, self._colortemps)
+            _LOGGER.debug(
+                f"Changing color temp from {self._colortemp}K step {old_color_temp} to {target}K step {new_color_temp}"
             )
+
             steps = new_color_temp - old_color_temp
+            did_something = True
             if steps < 0:
                 cmd = CMD_COLORMODE_WARMER
                 # if we are heading for the lowest value, take the opportunity
@@ -283,23 +292,24 @@ class SmartIRLight(LightEntity, RestoreEntity):
 
             if steps > 0 and cmd:
                 self._colortemp = self._colortemps[new_color_temp]
-                did_something = True
                 await self.send_command(cmd, steps)
 
-        if ATTR_BRIGHTNESS in params and (
-            ColorMode.BRIGHTNESS == self._support_color_mode
-        ):
+        if ATTR_BRIGHTNESS in params and self._support_brightness:
             # before checking the supported brightnesses, make a special case
             # when a nightlight is fitted for brightness of 1
             if params.get(ATTR_BRIGHTNESS) == 1 and CMD_NIGHTLIGHT in self._commands:
                 self._brightness = 1
                 self._power = STATE_ON
+                did_something = True
                 await self.send_command(CMD_NIGHTLIGHT)
 
             elif self._brightnesses:
+                target = params.get(ATTR_BRIGHTNESS)
                 old_brightness = closest_match(self._brightness, self._brightnesses)
-                new_brightness = closest_match(
-                    params.get(ATTR_BRIGHTNESS), self._brightnesses
+                new_brightness = closest_match(target, self._brightnesses)
+                did_something = True
+                _LOGGER.debug(
+                    f"Changing brightness from {self._brightness} step {old_brightness} to {target} step {new_brightness}"
                 )
                 steps = new_brightness - old_brightness
                 if steps < 0:
@@ -341,6 +351,7 @@ class SmartIRLight(LightEntity, RestoreEntity):
         if cmd not in self._commands:
             _LOGGER.error(f"Unknown command '{cmd}'")
             return
+        _LOGGER.debug(f"Sending {cmd} remote command {count} times.")
         remote_cmd = self._commands.get(cmd)
         async with self._temp_lock:
             self._on_by_remote = False
