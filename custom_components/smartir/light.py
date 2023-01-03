@@ -160,9 +160,7 @@ class SmartIRLight(LightEntity, RestoreEntity):
             and CMD_BRIGHTNESS_DECREASE in self._commands
         ):
             self._brightness = 100
-            if self._support_color_modes:
-                self._support_color_modes += ColorMode.WHITE
-            else:
+            if not self._support_color_modes:
                 self._support_color_modes += ColorMode.BRIGHTNESS
 
         if (
