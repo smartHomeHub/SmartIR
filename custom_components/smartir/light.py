@@ -215,7 +215,11 @@ class SmartIRLight(LightEntity, RestoreEntity):
 
     @property
     def color_mode(self):
-        return self._support_color_modes ^ ColorMode.WHITE
+        return (
+            self._support_color_modes[0]
+            if self._support_color_modes
+            else ColorMode.UNKNOWN
+        )
 
     @property
     def color_temp_kelvin(self):
@@ -261,7 +265,7 @@ class SmartIRLight(LightEntity, RestoreEntity):
 
         if (
             ATTR_COLOR_TEMP_KELVIN in params
-            and self._support_color_modes & ColorMode.COLOR_TEMP
+            and ColorMode.COLOR_TEMP in self._support_color_modes
         ):
             old_color_temp = closest_match(self._colortemp, self._colortemps)
             new_color_temp = closest_match(
@@ -289,8 +293,8 @@ class SmartIRLight(LightEntity, RestoreEntity):
                 await self.send_command(cmd, steps)
 
         if ATTR_BRIGHTNESS in params and (
-            self._support_color_modes & ColorMode.BRIGHTNESS
-            or self._support_color_modes & ColorMode.WHITE
+            ColorMode.BRIGHTNESS in self._support_color_modes
+            or ColorMode.WHITE in self._support_color_modes
         ):
             # before checking the supported brightnesses, make a special case
             # when a nightlight is fitted for brightness of 1
