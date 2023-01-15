@@ -287,6 +287,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         async with self._temp_lock:
             try:
                 await self._controller.send(command)
+                await asyncio.sleep(int(self._delay))
             except Exception as e:
                 _LOGGER.exception(e)
             
