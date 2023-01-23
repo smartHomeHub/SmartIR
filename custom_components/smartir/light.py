@@ -277,20 +277,16 @@ class SmartIRLight(LightEntity, RestoreEntity):
             did_something = True
             if steps < 0:
                 cmd = CMD_COLORMODE_WARMER
-                # if we are heading for the lowest value, take the opportunity
-                # to resync by issuing enough commands to go the full range.
-                if new_color_temp == 0:
-                    steps = len(self._colortemps)
-                else:
-                    steps = abs(steps)
+                steps = abs(steps)
             else:
                 cmd = CMD_COLORMODE_COLDER
-                # If we are heading for the highest value, take the opportunity
-                # to resync by issuing enough commands to go the full range.
-                if new_color_temp == len(self._colortemps) - 1:
-                    steps = len(self._colortemps)
 
             if steps > 0 and cmd:
+                # If we are heading for the highest or lowest value,
+                # take the opportunity to resync by issuing enough
+                # commands to go the full range.
+                if new_color_temp == len(self._colortemps) - 1 or new_color_temp == 0:
+                    steps = len(self._colortemps)
                 self._colortemp = self._colortemps[new_color_temp]
                 await self.send_command(cmd, steps)
 
@@ -314,16 +310,19 @@ class SmartIRLight(LightEntity, RestoreEntity):
                 steps = new_brightness - old_brightness
                 if steps < 0:
                     cmd = CMD_BRIGHTNESS_DECREASE
-                    if new_brightness == 0:
-                        steps = len(self._colortemps)
-                    else:
-                        steps = abs(steps)
+                    steps = abs(steps)
                 else:
                     cmd = CMD_BRIGHTNESS_INCREASE
-                    if new_brightness == len(self._brightnesses) - 1:
-                        steps = len(self._colortemps)
 
                 if steps > 0 and cmd:
+                    # If we are heading for the highest or lowest value,
+                    # take the opportunity to resync by issuing enough
+                    # commands to go the full range.
+                    if (
+                        new_brightness == len(self._brightnesses) - 1
+                        or new_brightness == 0
+                    ):
+                        steps = len(self._colortemps)
                     did_something = True
                     self._brightness = self._brightnesses[new_brightness]
                     await self.send_command(cmd, steps)
