@@ -803,7 +803,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 |------------------------------------|------------------| ---------- |
 | [2940](../codes/climate/2940.json) | SAGA-A-22(CH)    | Broadlink  |
 
-#### EcoAir 
+#### EcoAir
 | Code                               | Supported Models | Controller |
 |------------------------------------|------------------| ---------- |
 | [2960](../codes/climate/2960.json) | Unknown          | Broadlink  |
@@ -857,3 +857,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 |------------------------------------|------------------|------------|
 | [3140](../codes/climate/3140.json) | Ulisse13  | Broadlink  |
+
+### Aqua Thermal
+| Code                               | Supported Models | Controller |
+|------------------------------------|------------------|------------|
+| [3160](../codes/climate/3160.json) | LM AURI-12  | Broadlink  |
