@@ -1,10 +1,10 @@
 {
-   "manufacturer":"",
+   "manufacturer":"AquaThermal",
    "supportedModels":[
       "LM AURI-12"
    ],
-   "supportedController":"",
-   "commandsEncoding":"",
+   "supportedController":"Broadlink",
+   "commandsEncoding":"Base64",
    "minTemperature":16.0,
    "maxTemperature":31.0,
    "precision":1.0,
