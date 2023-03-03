@@ -210,6 +210,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1116](../codes/climate/1116.json) | FCQ100KAVEA                                  | Broadlink  |
 | [1117](../codes/climate/1117.json) | DTXF35TVMA                                                                                           | Broadlink  |
 | [1118](../codes/climate/1118.json) | ARC452A21<br>FTXS09LVJU<br>FTXS12LVJU<br>FTXS15LVJU<br>FTXS18LVJU<br>FTXS24LVJU<br> | Broadlink  |
+| [1119](../codes/climate/1119.json) | ARC455A42<br>CTKM20RVMA<br>CTKM25RVM4<br>CTKM25RVMA<br>CTKM25RVMV<br>CTKM25VVMG<br>CTKM35RVM4<br>CTKM35RVMA<br>CTKM35RVMV<br>CTKM35VVMG<br>CTKM46RVMA<br>CTKM50VVMG<br>CTKP25VVMG<br>CTKP35VVMG<br>CTKP50VVMG<br> | Broadlink  |
 | [4100](../codes/climate/4100.json) | FTXS25CVMB<br>FTXS35CVMB<br>FTXS60BVMB<br>FVXS25BVMB                                                                                                           | Xiaomi     |
 
 #### Mitsubishi Electric
