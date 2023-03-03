@@ -599,6 +599,11 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [2161](../codes/climate/2161.json) | LNMTE026V2       | Broadlink  |
 | [2162](../codes/climate/2162.json) | LNINVE052<br>LNINVC052       | Broadlink  |
 
+#### Devanti
+| Code                               | Supported Models | Controller |
+| ---------------------------------- | ---------------- | ---------- |
+| [2170](../codes/climate/2170.json) | WAC-05C-WH       | Broadlink  |
+
 #### Hokkaido
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
