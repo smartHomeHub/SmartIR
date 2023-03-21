@@ -857,3 +857,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 |------------------------------------|------------------|------------|
 | [3140](../codes/climate/3140.json) | Ulisse13  | Broadlink  |
+
+#### Friedrich
+| Code                               | Supported Models | Controller |
+| ---------------------------------- | -----------------| ---------- |
+| [3300](../codes/climate/3300.json) | CP12G10B         | Broadlink  |
