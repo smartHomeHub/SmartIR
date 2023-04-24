@@ -857,3 +857,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 |------------------------------------|------------------|------------|
 | [3140](../codes/climate/3140.json) | Ulisse13  | Broadlink  |
+
+### Micromax
+| Code                               | Supported Models | Controller |
+|------------------------------------|------------------|------------|
+| [5001](../codes/climate/5001.json) | ACS18C3T3QS6HW  | Broadlink  |
