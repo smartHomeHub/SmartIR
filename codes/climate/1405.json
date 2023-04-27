@@ -1,7 +1,7 @@
 {
   "manufacturer": "Samsung",
   "supportedModels": [
-    "ARXXTSHQBURN"
+    "AR**TSHQBURN"
   ],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
