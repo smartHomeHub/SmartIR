@@ -284,3 +284,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1480](../codes/media_player/1480.json)|YU6|Broadlink
+
+#### JVC
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1500](../codes/media_player/1500.json)|RX-5022R|Broadlink
