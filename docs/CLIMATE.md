@@ -489,6 +489,11 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1763](../codes/climate/1763.json) | DOS12KIDB                             | Broadlink  |
 | [1764](../codes/climate/1764.json) | DS-12KIDC(WD)                         | Broadlink  |
 
+#### Danby
+| Code                               | Supported Models | Controller |
+|------------------------------------|------------------| ---------- |
+| [1188](../codes/climate/1188.json) | Unknown          | Broadlink  |
+
 #### Trotec
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
