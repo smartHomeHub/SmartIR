@@ -1,6 +1,6 @@
 {
     "manufacturer": "TCL",
-    "supportedModels": [ "43S6500FS" ],
+    "supportedModels": [ "43S6500FS", "32A325" ],
     "supportedController": "Broadlink",
     "commandsEncoding": "Base64",
     "commands": {
