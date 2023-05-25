@@ -1,7 +1,7 @@
 {
-  "manufacturer": "Polario",
+  "manufacturer": "Midea",
   "supportedModels": [
-    "MPPHB-09CRN7-Q"
+    "MPPHB-09CRN7-QB6-N"
   ],
   "commandsEncoding": "Base64",
   "supportedController": "Broadlink",
