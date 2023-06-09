@@ -6,9 +6,9 @@
   "codeowners": ["@smartHomeHub"],
   "requirements": ["aiofiles==0.6.0"],
   "homeassistant": "2023.5.0",
-  "version": "1.17.7",
+  "version": "1.17.8",
   "updater": {
-    "version": "1.17.7",
+    "version": "1.17.8",
     "releaseNotes": "-- Removes legacy imports to the fan component",
     "files": [
       "__init__.py",
