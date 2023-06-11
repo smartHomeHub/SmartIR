@@ -908,3 +908,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | -----------------| ---------- |
 | [3260](../codes/climate/3260.json) | 12WIFI           | Broadlink  |
+
+#### Sigma
+| Code                               | Supported Models | Controller |
+| ---------------------------------- | -----------------| ---------- |
+| [3280](../codes/climate/3280.json) | SGS32H13NE       | Broadlink  |
