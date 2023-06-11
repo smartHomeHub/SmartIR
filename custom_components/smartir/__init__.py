@@ -1,4 +1,4 @@
-import aiofiles
+
 import aiohttp
 import asyncio
 import binascii
@@ -129,8 +129,9 @@ class Helper():
         async with aiohttp.ClientSession() as session:
             async with session.get(source) as response:
                 if response.status == 200:
-                    async with aiofiles.open(dest, mode='wb') as f:
-                        await f.write(await response.read())
+                    f = open(dest, mode='wb')
+                    f.write(await response.read())
+                    f.close()
                 else:
                     raise Exception("File not found")
 
