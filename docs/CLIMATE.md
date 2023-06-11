@@ -189,6 +189,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1087](../codes/climate/1087.json) | RAS-E25YHAB<br>RAS-E35YHAB<br>RAS-E50YHAB                     | Broadlink  |
 | [1088](../codes/climate/1088.json) | RAF-25REX<br>RAF-35REX<br>RAF-50REX                           | Broadlink  |
 | [1089](../codes/climate/1089.json) | RAK-35RXE                                                     | Broadlink  |
+| [1090](../codes/climate/1090.json) | RAK-50RPE                                                     | Broadlink  |
 
 #### Daikin
 | Code                               | Supported Models                                                                                                                                               | Controller |
