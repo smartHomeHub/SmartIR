@@ -4,12 +4,12 @@
   "documentation": "https://github.com/smartHomeHub/SmartIR",
   "dependencies": [],
   "codeowners": ["@smartHomeHub"],
-  "requirements": ["aiofiles==0.6.0"],
+  "requirements": ["aiofiles>=0.6.0"],
   "homeassistant": "2022.4.0",
-  "version": "1.17.6",
+  "version": "1.17.7",
   "updater": {
-    "version": "1.17.6",
-    "releaseNotes": "-- Removes legacy imports to the fan component",
+    "version": "1.17.7",
+    "releaseNotes": "-- Fixes #1025",
     "files": [
       "__init__.py",
       "climate.py",
