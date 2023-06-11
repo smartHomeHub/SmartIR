@@ -565,7 +565,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ---------------------------------- | -------------------- | ---------- |
 | [1960](../codes/climate/1960.json) | Unknown              | Broadlink  |
 | [1961](../codes/climate/1961.json) | AUX FREEDOM AUX-09FH | Broadlink  |
-| [1962](../codes/climate/1962.json) | iClima ICI-09A (YKR-H/101E remote) | Broadlink  |
+| [1962](../codes/climate/1962.json) | iClima ICI-09A (YKR-H/101E remote) (Also works with Mundo Clima MUPR-12-H9A) | Broadlink  |
 
 #### Fuji
 | Code                               | Supported Models | Controller |
