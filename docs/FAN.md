@@ -144,6 +144,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1040](../codes/fan/1040.json)|Aria|Broadlink
+[1041](../codes/fan/1041.json)|Whitehaven DC|Broadlink
 [7040](../codes/fan/7040.json)|Aria|ESPHome
 
 #### Super Fan
