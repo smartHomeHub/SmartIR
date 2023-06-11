@@ -274,6 +274,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1460](../codes/media_player/1460.json)| R1280DB |Broadlink
+[1461](../codes/media_player/1461.json)| R2000DB |Broadlink
 
 #### ZTE
 | Code | Supported Models | Controller |
