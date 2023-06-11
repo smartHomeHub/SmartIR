@@ -318,6 +318,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
 | [1300](../codes/climate/1300.json) | AY-B22DM         | Broadlink  |
+| [1301](../codes/climate/1301.json) | AY-X##BE         | Broadlink  |
 | [7300](../codes/climate/7300.json) | AH-AP9GMY        | ESPHome    |
 
 #### Haier
