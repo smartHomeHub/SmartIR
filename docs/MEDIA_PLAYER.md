@@ -300,3 +300,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1540](../codes/media_player/1540.json)|MG-850HD|Broadlink
+
+#### Cambridge Audio
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1560](../codes/media_player/1560.json)|AXR100|Broadlink
