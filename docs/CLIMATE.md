@@ -869,3 +869,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 |------------------------------------|------------------|------------|
 | [3160](../codes/climate/3160.json) | LM AURI-12  | Broadlink  |
+
+#### Devanti
+| Code                               | Supported Models | Controller |
+| ---------------------------------- | ---------------- | ---------- |
+| [3180](../codes/climate/3180.json) | WAC-05C-WH       | Broadlink  |
