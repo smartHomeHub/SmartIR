@@ -459,6 +459,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1689](../codes/climate/1689.json) | DXK12ZSA-W                                           | Broadlink  |
 | [1690](../codes/climate/1690.json) | FDUM VF2                                             | Broadlink  |
 | [1691](../codes/climate/1691.json) | SRK71ZRA-W                                           | Broadlink  |
+| [1692](../codes/climate/1692.json) | DXK12Z3-S<br>DXK09Z5-S<br>DXK15Z5-S                  | Broadlink  |
 
 #### Electrolux
 | Code                               | Supported Models                                                                                                                                                                             | Controller |
