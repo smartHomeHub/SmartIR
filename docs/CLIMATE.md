@@ -507,6 +507,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models    | Controller |
 | ---------------------------------- | ------------------- | ---------- |
 | [1800](../codes/climate/1800.json) | YKR-K/002E (Remote) | Broadlink  |
+| [1801](../codes/climate/1801.json) | BSD/in-09HN1_20Y | Broadlink  |
 
 #### Riello
 | Code                               | Supported Models  | Controller |
