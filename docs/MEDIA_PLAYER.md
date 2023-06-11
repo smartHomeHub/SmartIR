@@ -281,4 +281,4 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 #### Onkyo
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1480](../codes/media_player/1480.json)| TX-SR508, TX-SR700 |Broadlink
+[1500](../codes/media_player/1500.json)| TX-SR508, TX-SR700 |Broadlink
