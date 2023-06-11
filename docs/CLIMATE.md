@@ -875,3 +875,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
 | [3180](../codes/climate/3180.json) | WAC-05C-WH       | Broadlink  |
+
+#### Friedrich
+| Code                               | Supported Models | Controller |
+| ---------------------------------- | -----------------| ---------- |
+| [3200](../codes/climate/3200.json) | CP12G10B         | Broadlink  |
