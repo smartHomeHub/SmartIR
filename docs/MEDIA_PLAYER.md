@@ -305,3 +305,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1560](../codes/media_player/1560.json)|AXR100|Broadlink
+
+#### Dialog
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1580](../codes/media_player/1580.json)| J-103BF |Broadlink
