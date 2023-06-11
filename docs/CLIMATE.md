@@ -508,6 +508,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ---------------------------------- | ---------------- | ---------- |
 | [1780](../codes/climate/1780.json) | YX1F6 (Remote)   | Broadlink  |
 | [1781](../codes/climate/1781.json) | YX1F (Remote)   | Broadlink  |
+| [1782](../codes/climate/1782.json) | RG57H3(B)/BGCEF-M<br>PAC 2100 X<br>PAC 2600 X  | Broadlink  |
 
 #### BALLU
 | Code                               | Supported Models    | Controller |
