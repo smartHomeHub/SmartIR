@@ -1,7 +1,8 @@
 {
     "manufacturer": "Philips",
     "supportedModels": [
-      "42PFL3007H/60"
+      "42PFL3007H/60",
+      "37PF9641D/10"
     ],
     "supportedController": "Broadlink",
     "commandsEncoding": "Base64",

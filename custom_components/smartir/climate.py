@@ -54,6 +54,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Set up the IR Climate platform."""
+    _LOGGER.debug("Setting up the startir platform")
     device_code = config.get(CONF_DEVICE_CODE)
     device_files_subdir = os.path.join('codes', 'climate')
     device_files_absdir = os.path.join(COMPONENT_ABS_DIR, device_files_subdir)
@@ -83,7 +84,9 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
 
     with open(device_json_path) as j:
         try:
+            _LOGGER.debug(f"loading json file {device_json_path}")
             device_data = json.load(j)
+            _LOGGER.debug(f"{device_json_path} file loaded")
         except Exception:
             _LOGGER.error("The device Json file is invalid")
             return
@@ -94,6 +97,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
 
 class SmartIRClimate(ClimateEntity, RestoreEntity):
     def __init__(self, hass, config, device_data):
+        _LOGGER.debug(f"SmartIRClimate init started for device {config.get(CONF_NAME)} supported models {device_data['supportedModels']}")
         self.hass = hass
         self._unique_id = config.get(CONF_UNIQUE_ID)
         self._name = config.get(CONF_NAME)
@@ -154,6 +158,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     async def async_added_to_hass(self):
         """Run when entity about to be added."""
         await super().async_added_to_hass()
+        _LOGGER.debug(f"async_added_to_hass {self} {self.name} {self.supported_features}")
     
         last_state = await self.async_get_last_state()
         
