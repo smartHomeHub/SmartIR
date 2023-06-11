@@ -896,3 +896,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | -----------------| ---------- |
 | [3220](../codes/climate/3220.json) | MUPR-09-H9A<br>MUPR-12-H9A<br>MUPR-18-H9A<br>MUPR-24-H9A<br>MUPR-09-H5A<br>MUPR-12-H5A<br>MUPR-18-H5A<br>MUPR-24-H5A      | Broadlink  |
+
+#### Casper
+| Code                               | Supported Models | Controller |
+| ---------------------------------- | -----------------| ---------- |
+| [3240](../codes/climate/3240.json) | SC-09FS32        | Broadlink  |
