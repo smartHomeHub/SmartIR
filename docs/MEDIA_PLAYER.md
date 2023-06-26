@@ -13,6 +13,7 @@ Find your device's brand code [here](MEDIA_PLAYER.md#available-codes-for-tv-devi
 **delay** (Optional): Adjusts the delay in seconds between multiple commands. The default is 0.5 <br />
 **power_sensor** (Optional): *entity_id* for a sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor. (Accepts only on/off states)<br />
 **source_names** (Optional): Override the names of sources as displayed in HomeAssistant (see below)<br />
+**retain** (Optional): The device to which this setting is applied, when turned on, will display the same settings that were set before turning it off. (see below)<br />
 
 ## Example (using broadlink controller):
 Add a Broadlink RM device named "Bedroom" via config flow (read the [docs](https://www.home-assistant.io/integrations/broadlink/)).
@@ -121,6 +122,22 @@ media_player:
       HDMI1: DVD Player
       HDMI2: Xbox
       VGA: null
+```
+
+### Retaining State
+Some (many) devices may retain the selected state after being turned off. This setting will allow you to remotely see what state the device is in: what signal source is selected, what sound mode and whether the sound is muted. But all this without feedback from the device. Three options are supported: `mute`, `sound_mode`, `source`. The device to which this setting is applied, when turned on, will display the same settings that were set before turning it off.
+
+```yaml
+media_player:
+  - platform: smartir
+    name: Living room TV
+    unique_id: living_room_tv
+    device_code: 1000
+    controller_data: 192.168.10.10
+    retain:
+        - mute
+        - source
+        - sound_mode
 ```
 
 ### Changing channels
