@@ -913,3 +913,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | -----------------| ---------- |
 | [3280](../codes/climate/3280.json) | SGS32H13NE       | Broadlink  |
+
+#### Wide
+| Code                               | Supported Models | Controller |
+| ---------------------------------- | -----------------| ---------- |
+| [3300](../codes/climate/3290.json) | WDS12ECO         | Broadlink  |
