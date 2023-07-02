@@ -904,11 +904,6 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ---------------------------------- | -----------------| ---------- |
 | [3240](../codes/climate/3240.json) | SC-09FS32        | Broadlink  |
 
-#### Family
-| Code                               | Supported Models | Controller |
-| ---------------------------------- | -----------------| ---------- |
-| [3260](../codes/climate/3260.json) | 12WIFI           | Broadlink  |
-
 #### Sigma
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | -----------------| ---------- |
