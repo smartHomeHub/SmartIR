@@ -331,13 +331,14 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1322](../codes/climate/1322.json) | HSU-09HPL03/R03  | Broadlink  |
 
 #### Tadiran
-| Code                               | Supported Models | Controller |
-| ---------------------------------- | ---------------- | ---------- |
-| [1340](../codes/climate/1340.json) | Unknown model    | Broadlink  |
-| [1341](../codes/climate/1341.json) | TAC490           | Broadlink  |
-| [1342](../codes/climate/1342.json) | 10i/15i/inv220a  | Broadlink  |
-| [1343](../codes/climate/1343.json) | Alpha Series     | Broadlink  |
-| [1344](../codes/climate/1344.json) | YB1FA Remote (Control) (Swing support)    | Broadlink  |
+| Code                               | Supported Models                       | Controller |
+| ---------------------------------- | -------------------------------------- | ---------- |
+| [1340](../codes/climate/1340.json) | Unknown model                          | Broadlink  |
+| [1341](../codes/climate/1341.json) | TAC490                                 | Broadlink  |
+| [1342](../codes/climate/1342.json) | 10i/15i/inv220a                        | Broadlink  |
+| [1343](../codes/climate/1343.json) | Alpha Series                           | Broadlink  |
+| [1344](../codes/climate/1344.json) | YB1FA Remote (Control) (Swing support) | Broadlink  |
+| [1345](../codes/climate/1345.json) | TAC-297 Remote (Control)               | Broadlink  |
 
 #### Springer
 | Code                               | Supported Models       | Controller |
