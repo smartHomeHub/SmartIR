@@ -13,7 +13,7 @@ from homeassistant.components.climate.const import (
     SUPPORT_SWING_MODE, HVAC_MODES, ATTR_HVAC_MODE)
 from homeassistant.const import (
     CONF_NAME, STATE_ON, STATE_OFF, STATE_UNKNOWN, STATE_UNAVAILABLE, ATTR_TEMPERATURE,
-    PRECISION_TENTHS, PRECISION_HALVES, PRECISION_WHOLE)
+    PRECISION_TENTHS, PRECISION_HALVES, PRECISION_WHOLE, TEMP_FAHRENHEIT)
 from homeassistant.core import callback
 from homeassistant.helpers.event import async_track_state_change
 import homeassistant.helpers.config_validation as cv
@@ -54,7 +54,6 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Set up the IR Climate platform."""
-    _LOGGER.debug("Setting up the startir platform")
     device_code = config.get(CONF_DEVICE_CODE)
     device_files_subdir = os.path.join('codes', 'climate')
     device_files_absdir = os.path.join(COMPONENT_ABS_DIR, device_files_subdir)
@@ -84,9 +83,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
 
     with open(device_json_path) as j:
         try:
-            _LOGGER.debug(f"loading json file {device_json_path}")
             device_data = json.load(j)
-            _LOGGER.debug(f"{device_json_path} file loaded")
         except Exception:
             _LOGGER.error("The device Json file is invalid")
             return
@@ -97,7 +94,6 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
 
 class SmartIRClimate(ClimateEntity, RestoreEntity):
     def __init__(self, hass, config, device_data):
-        _LOGGER.debug(f"SmartIRClimate init started for device {config.get(CONF_NAME)} supported models {device_data['supportedModels']}")
         self.hass = hass
         self._unique_id = config.get(CONF_UNIQUE_ID)
         self._name = config.get(CONF_NAME)
@@ -135,6 +131,10 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
         self._unit = hass.config.units.temperature_unit
         
+        if self._unit == TEMP_FAHRENHEIT:
+            self._min_temperature = self._celsius_to_fahrenheit(self._min_temperature)
+            self._max_temperature = self._celsius_to_fahrenheit(self._max_temperature)
+        
         #Supported features
         self._support_flags = SUPPORT_FLAGS
         self._support_swing = False
@@ -158,7 +158,6 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     async def async_added_to_hass(self):
         """Run when entity about to be added."""
         await super().async_added_to_hass()
-        _LOGGER.debug(f"async_added_to_hass {self} {self.name} {self.supported_features}")
     
         last_state = await self.async_get_last_state()
         
@@ -295,6 +294,12 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             'commands_encoding': self._commands_encoding
         }
 
+    def _celsius_to_fahrenheit(self, temperature):
+        return round(temperature * 9 / 5) + 32
+
+    def _fahrenheit_to_celsius(self, temperature):
+        return round((temperature - 32) * 5 / 9)
+
     async def async_set_temperature(self, **kwargs):
         """Set new target temperatures."""
         hvac_mode = kwargs.get(ATTR_HVAC_MODE)  
@@ -366,6 +371,9 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 fan_mode = self._current_fan_mode
                 swing_mode = self._current_swing_mode
                 target_temperature = '{0:g}'.format(self._target_temperature)
+                
+                if self._unit == TEMP_FAHRENHEIT:
+                    target_temperature = '{0:g}'.format(self._fahrenheit_to_celsius(self._target_temperature))
 
                 if operation_mode.lower() == HVAC_MODE_OFF:
                     await self._controller.send(self._commands['off'])
@@ -441,3 +449,4 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 self._current_humidity = float(state.state)
         except ValueError as ex:
             _LOGGER.error("Unable to update from humidity sensor: %s", ex)
+
