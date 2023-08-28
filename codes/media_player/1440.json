@@ -1,0 +1,31 @@
+{
+  "manufacturer": "Andersson",
+  "supportedModels": [
+    "L4223FDC PVR"
+  ],
+  "supportedController": "Broadlink",
+  "commandsEncoding": "Base64",
+  "commands": {
+    "on": "JgAwABceOx4dHR0eHR0dOzsdHToeHTsdHQALjhweOR8dHR0eHR4dOjsdHTsdHjoeHQANBQAAAAAAAAAA",
+    "off": "JgAwABceOx4dHR0eHR0dOzsdHToeHTsdHQALjhweOR8dHR0eHR4dOjsdHTsdHjoeHQANBQAAAAAAAAAA",
+    "previousChannel": "JgA0ABgcPB0eHB8cHhwfOR4dPBweHB8cHjkfAAtuHR08HB4cHxweHB85Hxw8HB4cHxweOR8ADQUAAAAA",
+    "nextChannel": "JgA0ABgdHhw8HB8cHhwfOR4dPBweHB8cHh0eAAuCGhwfHDwcHxweHB85Hhw8HR4cHxweHB8ADQUAAAAA",
+    "volumeDown": "JgAwABocPBwfHB4cHxweOTw5PRweHB85HgALbxweOh4cHxweHB8cOzo7Oh8cHh07HAANBQAAAAAAAAAA",
+    "volumeUp": "JgAwABgeHB85HxweHR4cOzo8Oh4cHh0eHAALgx0cHhw8HR4cHh0eOTw6Ox0eHB8cHgANBQAAAAAAAAAA",
+    "mute": "JgAwABocHhw8HB8cHxweOTwcHzkeHDw5HwALYh4cHhw8HB8cHh0eOTwcHzkeHDw5HwANBQAAAAAAAAAA",
+    "sources": {
+      "0": "JgA0ABkcPRweHB8cHhwfOTwcHxweHB8cHhwfAAuKHh07HR4cHxweHB85PBweHR4cHxweHB8ADQUAAAAA",
+      "1": "JgAaABocHxw8HB4cHxweOTwdHhwfHB4dHjkeAA0FAAAAAAAAAAAAAAAAAAA=",
+      "2": "JgBIABkdPBweHB8cHh0eOTwcHxweHB85PAALix4cPBwfHB4cHxweOT0cHhwfHB45PAALjRwcPBwfHB4dHhwfOTwcHhwfHB85PAANBQ==",
+      "3": "JgA0ABscHxw8HB4dHhwfOTwcHhwfHB46HhweAAtxGxwfHDwcHhwfHB46PBweHB8cHjkfHB4ADQUAAAAA",
+      "4": "JgAwABkcPBweHR4cHxweOTwdHhwfOTwcHgALjhocPRwfGx8cHhwfOTwcHh0eOTwcHwANBQAAAAAAAAAA",
+      "5": "JgAwABkcHxw8HB8cHhwfOTwcHh0eOTw5HgALbh4cHxw8HB8cHhwfOTwcHh0eOTw5HgANBQAAAAAAAAAA",
+      "6": "JgAwABkcPB0eHB8cHhwfOTwcHxweOR8cPAALih8cPBweHB8cHh0eOTwcHxweOR8cPAANBQAAAAAAAAAA",
+      "7": "JgA0ABocHxw8HB4dHhwfOTwcHhwfOR8cHhwfAAtuHRwfHDwcHxweHB85PBweHR45HxweHB8ADQUAAAAA",
+      "8": "JgAwABocPBwfHB4cHxweOTwdHjk8HB8cHgALix4cPBwfHB8cHhwfOTwcHjk9HB4cHwANBQAAAAAAAAAA",
+      "9": "JgAwABkcHxw8HB4cHxwfOTwcHjk8HB85HgALbR8cHxw8HB4dHhwfOTwcHjk8HB85HgANBQAAAAAAAAAA",
+      "Source": "JgA0ABocHhw9HB4cHxweOR8cHhwfHDwcHxweAAuMHB0eHDwcHxweHB85Hh0eHB8cPBweHB8ADQUAAAAA",
+      "TV": "JgAwABocPBwfHB4cHxweOR8cPBwfOR4cPAALix4cPBwfHB4cHxweOR8cPBwfOR4dPAANBQAAAAAAAAAA",
+    }
+  }
+}

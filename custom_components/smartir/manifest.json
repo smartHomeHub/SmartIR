@@ -4,12 +4,12 @@
   "documentation": "https://github.com/smartHomeHub/SmartIR",
   "dependencies": [],
   "codeowners": ["@smartHomeHub"],
-  "requirements": ["aiofiles==0.6.0"],
-  "homeassistant": "2022.2.0",
-  "version": "1.17.5",
+  "requirements": ["aiofiles>=0.6.0"],
+  "homeassistant": "2022.4.0",
+  "version": "1.17.7",
   "updater": {
-    "version": "1.17.5",
-    "releaseNotes": "-- Compliance with the breaking change of the new fan model",
+    "version": "1.17.7",
+    "releaseNotes": "-- Fixes #1025",
     "files": [
       "__init__.py",
       "climate.py",
