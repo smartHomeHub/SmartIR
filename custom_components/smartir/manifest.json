@@ -4,7 +4,7 @@
   "documentation": "https://github.com/smartHomeHub/SmartIR",
   "dependencies": [],
   "codeowners": ["@smartHomeHub"],
-  "requirements": ["aiofiles>=0.6.0"],
+  "requirements": ["aiofiles>=0.6.0", "pyhvac"],
   "homeassistant": "2025.5.0",
   "version": "1.18.1",
   "updater": {
@@ -15,7 +15,7 @@
       "climate.py",
       "media_player.py",
       "fan.py",
-      "light.py",  
+      "light.py",
       "controller.py",
       "manifest.json",
       "services.yaml"
