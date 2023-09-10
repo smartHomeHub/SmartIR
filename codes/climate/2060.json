@@ -8,6 +8,7 @@
     "minTemperature": 13.0,
     "maxTemperature": 32.0,
     "precision": 1.0,
+    "unit": "°C",
     "operationModes": [
         "cool",
         "heat",

@@ -133,7 +133,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._current_temperature = None
         self._current_humidity = None
 
-        self._unit = hass.config.units.temperature_unit
+        self._unit = device_data['unit']
         
         #Supported features
         self._support_flags = SUPPORT_FLAGS

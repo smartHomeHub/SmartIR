@@ -8,6 +8,7 @@
   "minTemperature": 60,
   "maxTemperature": 86,
   "precision": 1,
+  "unit": "°F",
   "operationModes": [
     "cool",
     "dry",

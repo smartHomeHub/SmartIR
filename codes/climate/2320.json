@@ -12,6 +12,7 @@
    "minTemperature":62,
    "maxTemperature":88,
    "precision":2,
+   "unit": "°F",
    "operationModes":[
       "cool",
       "dry",
