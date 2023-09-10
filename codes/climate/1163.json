@@ -570,6 +570,7 @@
     "fan_only"
   ],
   "precision": 1,
+  "unit": "°F",
   "supportedController": "Broadlink",
   "supportedModels": [
     "40MAQB12B--3",

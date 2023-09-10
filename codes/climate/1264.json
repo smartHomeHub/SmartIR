@@ -6,6 +6,7 @@
   "minTemperature": 17,
   "maxTemperature": 30,
   "precision": 1,
+  "unit": "°C",
   "operationModes": ["cool", "heat", "dry", "auto", "fan"],
   "fanModes": ["auto", "level1", "level2", "level3", "level4", "level5"],
   "commands": {

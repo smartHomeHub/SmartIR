@@ -10,6 +10,7 @@
   "minTemperature": 16,
   "maxTemperature": 31,
   "precision": 1,
+  "unit": "°C",
   "operationModes": [
     "auto",
     "cool",
