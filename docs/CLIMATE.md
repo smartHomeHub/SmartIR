@@ -448,6 +448,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1622](../codes/climate/1622.json) | Master-22 X      | Broadlink  |
 | [1623](../codes/climate/1623.json) | Inverter VRF     | Broadlink  |
 | [1624](../codes/climate/1624.json) | Saga by tornado  | Broadlink  |
+| [1625](../codes/climate/1625.json) | Inverter VRF BOX | Broadlink  |
 
 #### Fujiko
 | Code                               | Supported Models | Controller |
