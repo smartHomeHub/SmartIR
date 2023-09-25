@@ -214,6 +214,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1117](../codes/climate/1117.json) | DTXF35TVMA                                                                                           | Broadlink  |
 | [1118](../codes/climate/1118.json) | ARC452A21<br>FTXS09LVJU<br>FTXS12LVJU<br>FTXS15LVJU<br>FTXS18LVJU<br>FTXS24LVJU<br> | Broadlink  |
 | [1119](../codes/climate/1119.json) | FTXS60FVMA                                                                                           | Broadlink  |
+| [1119](../codes/climate/1188.json) | ARC433B51                                                                                            | Broadlink  |
 | [4100](../codes/climate/4100.json) | FTXS25CVMB<br>FTXS35CVMB<br>FTXS60BVMB<br>FVXS25BVMB                                                 | Xiaomi     |
 | [4100](../codes/climate/4100.json) | FTXS25CVMB<br>FTXS35CVMB<br>FTXS60BVMB<br>FVXS25BVMB                                                                                                           | Xiaomi     |
 
