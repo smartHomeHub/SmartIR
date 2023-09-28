@@ -14,6 +14,7 @@ XIAOMI_CONTROLLER = 'Xiaomi'
 MQTT_CONTROLLER = 'MQTT'
 LOOKIN_CONTROLLER = 'LOOKin'
 ESPHOME_CONTROLLER = 'ESPHome'
+UFOR11_CONTROLLER = 'UFOR11'
 
 ENC_BASE64 = 'Base64'
 ENC_HEX = 'Hex'
@@ -35,7 +36,8 @@ def get_controller(hass, controller, encoding, controller_data, delay):
         XIAOMI_CONTROLLER: XiaomiController,
         MQTT_CONTROLLER: MQTTController,
         LOOKIN_CONTROLLER: LookinController,
-        ESPHOME_CONTROLLER: ESPHomeController
+        ESPHOME_CONTROLLER: ESPHomeController,
+        UFOR11_CONTROLLER: UFOR11Controller
     }
     try:
         return controllers[controller](hass, controller, encoding, controller_data, delay)
