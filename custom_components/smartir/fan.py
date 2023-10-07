@@ -248,6 +248,14 @@ class SmartIRFan(FanEntity, RestoreEntity):
 
     async def async_turn_on(self, percentage: int = None, **kwargs):
         """Turn on the fan."""
+        if 'on' in self._commands:
+            command = self._commands['on']
+            try:
+                await self._controller.send(command)
+                await asyncio.sleep(1)
+            except Exception as e:
+                _LOGGER.exception(e)
+
         if percentage is None:
             percentage = ordered_list_item_to_percentage(
                 self._speed_list, self._last_on_speed or self._speed_list[0])
