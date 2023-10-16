@@ -310,3 +310,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1580](../codes/media_player/1580.json)| J-103BF |Broadlink
+
+#### Sharp
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1600](../codes/media_player/1600.json)| LC-32LE700E LC-32LE700S LC-40LE700E LC-40LE700S LC-46LE700E LC-46LE700S LC-52LE700E LC-52LE700S LC-32LX700E LC-40LX700E LC-46LX700E LC-32LU700E LC-32LU700S LC-40LU700E LC-40LU700S LC-46LU700E LC-46LU700S LC-32LE705E LC-32LE705 LC-40LE705E LC-40LE705S LC-46LE705E LC-46LE705S LC-52LE705E LC-52LE705S LC-32LX705E LC-40LX705E LC-46LX705E LC-32LU705E LC-32LU705S LC-40LU705E LC-40LU705S LC-46LU705E LC-46LU705S |Broadlink
