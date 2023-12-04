@@ -215,7 +215,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1118](../codes/climate/1118.json) | ARC452A21<br>FTXS09LVJU<br>FTXS12LVJU<br>FTXS15LVJU<br>FTXS18LVJU<br>FTXS24LVJU<br> | Broadlink  |
 | [1119](../codes/climate/1119.json) | FTXS60FVMA                                                                                           | Broadlink  |
 | [4100](../codes/climate/4100.json) | FTXS25CVMB<br>FTXS35CVMB<br>FTXS60BVMB<br>FVXS25BVMB                                                 | Xiaomi     |
-| [4100](../codes/climate/4100.json) | FTXS25CVMB<br>FTXS35CVMB<br>FTXS60BVMB<br>FVXS25BVMB                                                                                                           | Xiaomi     |
+| [4101](../codes/climate/4101.json) | ATXS20G2V1B<br>ATXS25G2V1B<br>ATXS35G2V1B<br>ATXS42G2V1B<br>ATXS50G2V1B<br>FTXS20G2V1B<br>FTXS25G2V1B<br>FTXS35G2V1B<br>FTXS42G2V1B<br>FTXS50G2V1B | BroadLink  |
 
 #### Mitsubishi Electric
 | Code                               | Supported Models                                                                                     | Controller |
