@@ -909,12 +909,12 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ---------------------------------- | -----------------| ---------- |
 | [3240](../codes/climate/3240.json) | SC-09FS32        | Broadlink  |
 
-#### Family
-| Code                               | Supported Models | Controller |
-| ---------------------------------- | -----------------| ---------- |
-| [3260](../codes/climate/3260.json) | 12WIFI           | Broadlink  |
-
 #### Sigma
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | -----------------| ---------- |
 | [3280](../codes/climate/3280.json) | SGS32H13NE       | Broadlink  |
+
+#### Wide
+| Code                               | Supported Models | Controller |
+| ---------------------------------- | -----------------| ---------- |
+| [3300](../codes/climate/3290.json) | WDS12ECO         | Broadlink  |
