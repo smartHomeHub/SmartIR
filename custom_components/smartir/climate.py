@@ -413,6 +413,8 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             self._on_by_remote = True
             if self._power_sensor_restore_state == True and self._last_on_operation is not None:
                 self._hvac_mode = self._last_on_operation
+            elif HVAC_MODE_AUTO in self._operation_modes:
+                self._hvac_mode = HVAC_MODE_AUTO
             else:
                 self._hvac_mode = STATE_ON
 
