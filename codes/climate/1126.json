@@ -3,7 +3,8 @@
   "supportedModels": [
     "MSX09-NV II",
     "MSH-07RV",
-    "MSH-12RV"
+    "MSH-12RV",
+    "MS-24RV"
   ],
   "commandsEncoding": "Base64",
   "supportedController": "Broadlink",
