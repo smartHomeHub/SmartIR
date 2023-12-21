@@ -13,7 +13,7 @@
         "cool",
         "heat",
         "dry",
-        "fan"
+        "fan_only"
     ],
     "fanModes": [
         "auto",
@@ -977,7 +977,7 @@
                 }
             }
         },
-        "fan": {
+        "fan_only": {
             "auto": {
                 "3dauto": {
                     "18": "JgA2AWgzDgwOJg8LDgwPJg4MDiYODA4MDiYOJg4mDgwPJQ8MDiYOJg4mDgwODA4MDgwOJg8mDgwOJg4MDiYOJg4MDgwODA4mDwsPJg4MDgwOJg4mDiYODA4MDyUPDA4mDiYOJg4mDiYOJg8LDyYODA4MDgwODA4MDiYODA4MDiYOJg8mDiYOJg4MDiYOJg4MDgwPCw8LDyYOJg4mDiYOJg4mDiYPJg4MDgwODA4MDgwODA4MDgwOJg4mDyUPJg4mDgwOJg4mDwsODA4MDwsPCw8mDgwODA4MDgwODA4mDiYODA4mDyYOJg4mDiYODA4MDiYODA4MDyUPJg4mDiYOJg4mDiYPJQ8MDgwODA4MDgwODA4MDgwOJg4mDiYPJg4mDiYOJg4MDgwODA4MDgwODA8LDwwOJg4ADQU===",
