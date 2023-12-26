@@ -204,6 +204,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ------------- | -------------------------- | ------------- |
 [1180](../codes/media_player/1180.json)|55EP640|Broadlink
 [1181](../codes/media_player/1181.json)|43S6500FS <br> 32A325|Broadlink
+[1182](../codes/media_player/1182.json)|55C845|Broadlink
 
 #### Pace
 | Code | Supported Models | Controller |
