@@ -28,6 +28,7 @@ The following are the code files created by the amazing people in the community.
 <tr ><td class="file-td td_text">1162.json</td><td class="manufacturer-td td_text">Logitech</td><td class="models-td td_text">Z-5450</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1180.json</td><td class="manufacturer-td td_text">TCL</td><td class="models-td td_text">55EP640</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1181.json</td><td class="manufacturer-td td_text">TCL</td><td class="models-td td_text">43S6500FS, 32A325</td><td class="controller-td td_text">Broadlink</td></tr>
+<tr ><td class="file-td td_text">1182.json</td><td class="manufacturer-td td_text">TCL</td><td class="models-td td_text">55C845</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1200.json</td><td class="manufacturer-td td_text">Pace</td><td class="models-td td_text">TDS850NNZ, TDC850NF</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1220.json</td><td class="manufacturer-td td_text">Silver</td><td class="models-td td_text">MEO</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1240.json</td><td class="manufacturer-td td_text">TurboX</td><td class="models-td td_text">TXV-2420</td><td class="controller-td td_text">Broadlink</td></tr>
