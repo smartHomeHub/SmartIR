@@ -440,6 +440,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1601](../codes/climate/1601.json) | BPAK 120         | Broadlink  |
 | [1602](../codes/climate/1602.json) | BXK 120          | Broadlink  |
 | [1603](../codes/climate/1603.json) | BXEU 090         | Broadlink  |
+| [1604](../codes/climate/1604.json) | BEU 120         | Broadlink  |
 
 #### Tornado
 | Code                               | Supported Models | Controller |
