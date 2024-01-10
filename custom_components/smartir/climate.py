@@ -126,6 +126,10 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
         self._target_temperature = self._min_temperature
         self._hvac_mode = HVAC_MODE_OFF
+
+        ##ADDED
+        self._was_off = True
+
         self._current_fan_mode = self._fan_modes[0]
         self._current_swing_mode = None
         self._last_on_operation = None
@@ -164,6 +168,11 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         
         if last_state is not None:
             self._hvac_mode = last_state.state
+            
+            # ##ADDED
+            if self._hvac_mode.lower() != HVAC_MODE_OFF:
+                self._was_off = False
+            
             self._current_fan_mode = last_state.attributes['fan_mode']
             self._current_swing_mode = last_state.attributes.get('swing_mode')
             self._target_temperature = last_state.attributes['temperature']
@@ -295,6 +304,11 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             'commands_encoding': self._commands_encoding
         }
 
+    # @property
+    # def was_off(self):
+    #     """Return the value of the was_off flag"""
+    #     return self._was_off
+
     async def async_set_temperature(self, **kwargs):
         """Set new target temperatures."""
         hvac_mode = kwargs.get(ATTR_HVAC_MODE)  
@@ -369,9 +383,11 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
                 if operation_mode.lower() == HVAC_MODE_OFF:
                     await self._controller.send(self._commands['off'])
+                    self._was_off = True
                     return
 
-                if 'on' in self._commands:
+                if 'on' in self._commands and self._was_off == True:
+                    self._was_off = False
                     await self._controller.send(self._commands['on'])
                     await asyncio.sleep(self._delay)
 
