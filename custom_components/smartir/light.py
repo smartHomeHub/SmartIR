@@ -111,7 +111,7 @@ async def async_setup_platform(
 def closest_match(value, list):
     prev_val = None
     for index, entry in enumerate(list):
-        if entry > value:
+        if entry > value or 0:
             if prev_val is None:
                 return index
             diff_lo = value - prev_val
