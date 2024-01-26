@@ -918,3 +918,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | -----------------| ---------- |
 | [3280](../codes/climate/3280.json) | SGS32H13NE       | Broadlink  |
+
+#### Universal A/C Controler
+| Code                               | Supported Models | Controller |
+| ---------------------------------- | ---------------- | ---------- |
+| [8900](../codes/climate/8900.json) | QD-U03A Universal Air Conditioner PCB Board<br>(KT13D-u03a Remote)    | Broadlink  |
