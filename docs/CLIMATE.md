@@ -146,6 +146,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1029](../codes/climate/1029.json) | CS-LJ22~LJ90BA2(YA2)<br>C8024-9921 (Remote)                        | Broadlink  |
 | [1030](../codes/climate/1030.json) | CS-E12JKDW <b>(Swing mode)</b>	    							  | Broadlink  |
 | [1031](../codes/climate/1031.json) | SRK25ZMP-S<br>SRK35ZMP-S<br>SRK45ZMP-S	    					  | Broadlink  |
+| [7032](../codes/climate/7032.json) | A75C443 (Remote)                                                   | ESPHome    |
 
 #### General Electric
 | Code                               | Supported Models                                                                               | Controller |
