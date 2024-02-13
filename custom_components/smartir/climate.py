@@ -77,38 +77,37 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
     """Set up the IR Climate platform."""
     _LOGGER.debug("Setting up the smartir platform")
     device_code = config.get(CONF_DEVICE_CODE)
-    device_files_absdir = Path(COMPONENT_ABS_DIR) / "codes" / "climate"
+    if device_code.isdigit():
+        device_files_absdir = COMPONENT_ABS_DIR / "codes" / "climate"
 
-    if not device_files_absdir.is_dir():
-        device_files_absdir.mkdir(parents=True)
+        device_files_absdir.mkdir(parents=True, exist_ok=True)
 
-    device_json_filename = str(device_code) + ".json"
-    device_json_path = device_files_absdir / device_json_filename
+        device_json_path = device_files_absdir / (str(device_code) + ".json")
 
-    if not device_json_path.exists():
-        _LOGGER.warning(
-            "Couldn't find the device Json file. The component will "
-            "try to download it from the GitHub repo."
-        )
-
-        try:
-            codes_source = (
-                "https://raw.githubusercontent.com/"
-                "smartHomeHub/SmartIR/master/"
-                "codes/climate/{}.json"
+        if not device_json_path.exists():
+            _LOGGER.warning(
+                "Couldn't find the device Json file. The component will "
+                "try to download it from the GitHub repo."
             )
 
-            await Helper.downloader(
-                codes_source.format(device_code), str(device_json_path)
-            )
-        except Exception:
-            _LOGGER.error(
-                "There was an error while downloading the device Json file. "
-                "Please check your internet connection or if the device code "
-                "exists on GitHub. If the problem still exists please "
-                "place the file manually in the proper directory."
-            )
-            return
+            try:
+                codes_source = (
+                    "https://raw.githubusercontent.com/"
+                    "smartHomeHub/SmartIR/master/"
+                    "codes/climate/{}.json"
+                )
+
+                await Helper.downloader(
+                    codes_source.format(device_code), str(device_json_path)
+                )
+            except Exception:
+                _LOGGER.error(
+                    "There was an error while downloading the device Json file. "
+                    "Please check your internet connection or if the device code "
+                    "exists on GitHub. If the problem still exists please "
+                    "place the file manually in the proper directory."
+                )
+                return
 
     try:
         async with aiofiles.open(device_json_path, mode="r") as j:
@@ -120,21 +119,18 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
         _LOGGER.error("The device JSON file is invalid")
         return
 
-    if "irType" in device_data and device_data["irType"] == "generated":
+        async_add_entities([SmartIRClimate(hass, config, device_data)])
+    else:
         try:
-            hvac = importlib.import_module(
-                f"pyhvac.plugins.{device_data['manufacturer'].lower()}"
-            )
+            hvac = importlib.import_module(f"pyhvac.plugins.{device_code.lower()}")
             pobj = hvac.PluginObject()
             device = pobj.get_device(config.get(CONF_MODEL))
             async_add_entities(
                 [VerySmartIRClimate(hass, config, device, pobj.all_models(device))]
             )
         except Exception:
-            _LOGGER.error("The device Json file is invalid")
+            _LOGGER.error("The device manufacturer/model is invalid")
             return
-    else:
-        async_add_entities([SmartIRClimate(hass, config, device_data)])
 
 
 class SmartIRClimate(ClimateEntity, RestoreEntity):

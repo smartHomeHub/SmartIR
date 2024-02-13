@@ -2,7 +2,6 @@ import asyncio
 import aiofiles
 import json
 import logging
-import os.path
 
 import voluptuous as vol
 
@@ -48,16 +47,13 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Set up the IR Media Player platform."""
     device_code = config.get(CONF_DEVICE_CODE)
-    device_files_subdir = os.path.join("codes", "media_player")
-    device_files_absdir = os.path.join(COMPONENT_ABS_DIR, device_files_subdir)
+    device_files_absdir = COMPONENT_ABS_DIR / "codes" / "media_player"
 
-    if not os.path.isdir(device_files_absdir):
-        os.makedirs(device_files_absdir)
+    device_files_absdir.mkdir(parents=True, exist_ok=True)
 
-    device_json_filename = str(device_code) + ".json"
-    device_json_path = os.path.join(device_files_absdir, device_json_filename)
+    device_json_path = device_files_absdir / (str(device_code) + ".json")
 
-    if not os.path.exists(device_json_path):
+    if not device_json_path.exists():
         _LOGGER.warning(
             "Couldn't find the device Json file. The component will "
             "try to download it from the GitHub repo."
