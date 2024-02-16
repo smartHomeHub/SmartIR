@@ -124,12 +124,12 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
         try:
             hvac = importlib.import_module(f"pyhvac.plugins.{device_code.lower()}")
             pobj = hvac.PluginObject()
-            device = pobj.get_device(config.get(CONF_MODEL))
+            device = pobj.get_device(config.get(CONF_MODEL, "Not set"))
             async_add_entities(
                 [VerySmartIRClimate(hass, config, device, pobj.all_models(device))]
             )
-        except Exception:
-            _LOGGER.error("The device manufacturer/model is invalid")
+        except Exception as e:
+            _LOGGER.error(f"Could not load remote for {device_code}/{device}: {e}")
             return
 
 
