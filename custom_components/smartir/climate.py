@@ -121,10 +121,11 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
 
         async_add_entities([SmartIRClimate(hass, config, device_data)])
     else:
+        device = "Not set"
         try:
             hvac = importlib.import_module(f"pyhvac.plugins.{device_code.lower().replace(' & ','_').replace(' ','_')}")
             pobj = hvac.PluginObject()
-            device = pobj.get_device(config.get(CONF_MODEL, "Not set"))
+            device = pobj.get_device(config.get(CONF_MODEL))
             async_add_entities(
                 [VerySmartIRClimate(hass, config, device, pobj.all_models(device))]
             )
