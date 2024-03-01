@@ -2,6 +2,7 @@ import asyncio
 import json
 import logging
 import os.path
+import time
 
 import voluptuous as vol
 
@@ -90,7 +91,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         self._name = config.get(CONF_NAME)
         self._device_code = config.get(CONF_DEVICE_CODE)
         self._controller_data = config.get(CONF_CONTROLLER_DATA)
-        self._delay = config.get(CONF_DELAY)
+        self._delay = float(config.get(CONF_DELAY))
         self._power_sensor = config.get(CONF_POWER_SENSOR)
 
         self._manufacturer = device_data['manufacturer']
@@ -103,6 +104,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         self._sources_list = []
         self._source = None
         self._support_flags = 0
+        self._ready_at = None
 
         self._device_class = config.get(CONF_DEVICE_CLASS)
 
@@ -139,6 +141,10 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
             #Sources list
             for key in self._commands['sources']:
                 self._sources_list.append(key)
+
+        #Initialization times
+        self._warm_up_delay = device_data['warmUpDelay'] if 'warmUpDelay' in device_data else None
+        self._cool_down_delay = device_data['coolDownDelay'] if 'coolDownDelay' in device_data else None
 
         self._temp_lock = asyncio.Lock()
 
@@ -220,7 +226,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
 
     async def async_turn_off(self):
         """Turn the media player off."""
-        await self.send_command(self._commands['off'])
+        await self.send_command(self._commands['off'], init_time=self._cool_down_delay)
         
         if self._power_sensor is None:
             self._state = STATE_OFF
@@ -228,8 +234,8 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
             self.async_write_ha_state()
 
     async def async_turn_on(self):
-        """Turn the media player off."""
-        await self.send_command(self._commands['on'])
+        """Turn the media player on."""
+        await self.send_command(self._commands['on'], init_time=self._warm_up_delay)
 
         if self._power_sensor is None:
             self._state = STATE_ON
@@ -283,13 +289,23 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
             await self.send_command(self._commands['sources']["Channel {}".format(digit)])
         self.async_write_ha_state()
 
-    async def send_command(self, command):
+    async def send_command(self, command, init_time=None):
         async with self._temp_lock:
+            await self.wait_until_ready()
             try:
                 await self._controller.send(command)
             except Exception as e:
                 _LOGGER.exception(e)
-            
+                return
+            self._ready_at = time.monotonic() + max(init_time or 0, self._delay)
+
+    async def wait_until_ready(self):
+        if self._ready_at:
+            time_to_wait = self._ready_at - time.monotonic()
+            if time_to_wait > 0:
+                await asyncio.sleep(time_to_wait)
+            self._ready_at = None
+
     async def async_update(self):
         if self._power_sensor is None:
             return
