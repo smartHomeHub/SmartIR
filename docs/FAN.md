@@ -10,7 +10,7 @@ Find your device's brand code [here](FAN.md#available-codes-for-fan-devices) and
 **name** (Optional): The name of the device<br />
 **unique_id** (Optional): An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.<br />
 **device_code** (Required): ...... (Accepts only positive numbers)<br />
-**controller_data** (Required): The data required for the controller to function. Enter the IP address of the Broadlink device **(must be an already configured device)**, or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands.<br />
+**controller_data** (Required): The data required for the controller to function. Enter the entity_id of the Broadlink remote (must be an already configured device), or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands.<br />
 **delay** (Optional): Adjusts the delay in seconds between multiple commands. The default is 0.5 <br />
 **power_sensor** (Optional): *entity_id* for a sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor. (Accepts only on/off states)<br />
 
@@ -144,6 +144,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1040](../codes/fan/1040.json)|Aria|Broadlink
+[1041](../codes/fan/1041.json)|Whitehaven DC|Broadlink
 [7040](../codes/fan/7040.json)|Aria|ESPHome
 
 #### Super Fan
