@@ -310,3 +310,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1580](../codes/media_player/1580.json)| J-103BF |Broadlink
+
+#### Noblex
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1600](../codes/media_player/1600.json)|Noblex 32LC818H<br>Sansei TLS1032H<br>Admiral TLC3200A<br>Fisher FTL320H<br>Recco RLCD32H10)|Broadlink
