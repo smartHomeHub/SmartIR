@@ -565,6 +565,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1944](../codes/climate/1944.json) | Electra Platinum Plus Inverter| Broadlink  |
 | [1945](../codes/climate/1945.json) | Unknown model (Swing support) | Broadlink  |
 | [1946](../codes/climate/1946.json) | RC-3 | Broadlink  |
+| [1947](../codes/climate/1947.json) | Electra Damper | Broadlink  |
 
 #### AUX
 | Code                               | Supported Models     | Controller |
