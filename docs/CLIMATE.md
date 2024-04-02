@@ -366,6 +366,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1391](../codes/climate/1391.json) | RG58E3/BGEF (Remote)           | Broadlink  |
 | [1392](../codes/climate/1392.json) | MPD-12CRN7                     | Broadlink  |
 | [1393](../codes/climate/1393.json) | Polario MPPHB-09CRN7-Q         | Broadlink  |
+| [1394](../codes/climate/1394.json) | RG70C/BGEF (Remote)            | Broadlink  |
 | [4380](../codes/climate/4380.json) | MCD-24HRN1-Q1<br>RAS-10N3KVR-E | Xiaomi     |
 | [4381](../codes/climate/4381.json) | RG70C1/BGEF | Xiaomi     |
 | [7386](../codes/climate/7386.json) | KFR-32GW                       | ESPHome    |
