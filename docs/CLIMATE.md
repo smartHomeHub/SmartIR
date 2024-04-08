@@ -319,6 +319,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1291](../codes/climate/1291.json) | AR-REF1E (Remote control)                                               | Broadlink   |
 | [1292](../codes/climate/1292.json) | AR-RY12 (Remote control) - <b>vertical and horizontal swing support</b> | Broadlink   |
 | [1293](../codes/climate/1293.json) | AR-REB1E (Remote control) - <b>vertical swing support</b>               | Broadlink   |
+| [1294](../codes/climate/1294.json) | AR-REG1U (Remote control)<br>ASMG18CMCA                                 | Broadlink   |
 
 #### Sharp
 | Code                               | Supported Models | Controller |
