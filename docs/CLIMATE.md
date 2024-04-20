@@ -381,6 +381,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1404](../codes/climate/1404.json) | AR##TSHZ##       | Broadlink  |
 | [1405](../codes/climate/1405.json) | AR##TSHQBURN     | Broadlink  |
 | [1406](../codes/climate/1406.json) | AQV12PWD         | Xiaomi     |
+| [1407](../codes/climate/1407.json) | AR12AVHZDWKNAZ   | Broadlink  |
 
 #### Sintech
 | Code                               | Supported Models | Controller |
@@ -551,6 +552,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 |------------------------------------|-------------------| ---------- |
 | [1900](../codes/climate/1900.json) | TAC-12CHSD/XA21I  | Broadlink  |
 | [1901](../codes/climate/1901.json) | TAC-12CHSD/XA71IN | Broadlink  |
+| [1902](../codes/climate/1902.json) | TAC-18CHSA1       | MQTT       |
 
 #### Aokesi
 | Code                               | Supported Models | Controller |
@@ -798,6 +800,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ---------------------------------- | ---------------------- | ---------- |
 | [2800](../codes/climate/2800.json) | HVQI18B2IA             | Broadlink  |
 | [2801](../codes/climate/2801.json) | HVQI12B2FB             | Broadlink  |
+| [2802](../codes/climate/2802.json) | Echo Plus 12000 BTUs   | Broadlink  |
+
 
 #### Pearl
 | Code                               | Supported Models       | Controller |
