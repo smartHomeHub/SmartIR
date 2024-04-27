@@ -310,3 +310,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1580](../codes/media_player/1580.json)| J-103BF |Broadlink
+
+#### Kivi
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1600](../codes/media_player/1600.json)| 40F600GU |Broadlink
