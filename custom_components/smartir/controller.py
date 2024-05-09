@@ -15,6 +15,8 @@ XIAOMI_CONTROLLER = 'Xiaomi'
 MQTT_CONTROLLER = 'MQTT'
 LOOKIN_CONTROLLER = 'LOOKin'
 ESPHOME_CONTROLLER = 'ESPHome'
+#ZHA controller only tested with Tuya1201 / Moes Universal Remote
+ZHA_CONTROLLER = 'ZHA'
 
 ENC_BASE64 = 'Base64'
 ENC_HEX = 'Hex'
@@ -26,6 +28,7 @@ XIAOMI_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
 MQTT_COMMANDS_ENCODING = [ENC_RAW]
 LOOKIN_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
 ESPHOME_COMMANDS_ENCODING = [ENC_RAW]
+ZHA_COMMANDS_ENCODING = [ENC_BASE64]
 
 
 def get_controller(hass, controller, encoding, controller_data, delay):
@@ -35,7 +38,8 @@ def get_controller(hass, controller, encoding, controller_data, delay):
         XIAOMI_CONTROLLER: XiaomiController,
         MQTT_CONTROLLER: MQTTController,
         LOOKIN_CONTROLLER: LookinController,
-        ESPHOME_CONTROLLER: ESPHomeController
+        ESPHOME_CONTROLLER: ESPHomeController,
+        ZHA_CONTROLLER: ZHAController
     }
     try:
         return controllers[controller](hass, controller, encoding, controller_data, delay)
@@ -77,7 +81,7 @@ class BroadlinkController(AbstractController):
         """Send a command."""
         commands = []
 
-        if not isinstance(command, list): 
+        if not isinstance(command, list):
             command = [command]
 
         for _command in command:
@@ -177,10 +181,35 @@ class ESPHomeController(AbstractController):
         if encoding not in ESPHOME_COMMANDS_ENCODING:
             raise Exception("The encoding is not supported "
                             "by the ESPHome controller.")
-    
+
     async def send(self, command):
         """Send a command."""
         service_data = {'command':  json.loads(command)}
 
         await self.hass.services.async_call(
             'esphome', self._controller_data, service_data)
+
+class ZHAController(AbstractController):
+    """Controls a ZHA-based device."""
+
+    def check_encoding(self, encoding):
+        """Check if the encoding is supported by the controller."""
+        if encoding not in ZHA_COMMANDS_ENCODING:
+            raise Exception("The encoding is not supported "
+                            "by the zha controller.")
+
+    async def send(self, command):
+        """Send a command."""
+        service_data = {
+            'ieee': self._controller_data,
+            'endpoint_id': 1, #ZosungIRControl (Endpoint id: 1)
+            'cluster_id': 57348, #ZosungIRControl (Id: 0xe004)
+            'command': 2, #IRSend (id: 0x0002)
+            'command_type': 'server',
+            'params': {
+                'code': command
+            }
+        }
+
+        await self.hass.services.async_call(
+            'zha', 'issue_zigbee_cluster_command', service_data)
