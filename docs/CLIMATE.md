@@ -12,7 +12,7 @@ _Please note that the device_code field only accepts positive numbers. The .json
 | `name` | string | optional | The name of the device |
 | `unique_id` | string | optional | An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception. |
 | `device_code` | number | required | (Accepts only positive numbers) |
-| `controller_data` | string | required | The data required for the controller to function. Enter the entity_id of the Broadlink remote **(must be an already configured device)**, or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands. |
+| `controller_data` | string | required | The data required for the controller to function. Enter the entity_id of the Broadlink remote **(must be an already configured device)**, or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands, or the IEEE-address of the Moes IR blaster connected through ZHA. |
 | `delay` | number | optional | Adjusts the delay in seconds between multiple commands. The default is 0.5 |
 | `temperature_sensor` | string | optional | *entity_id* for a temperature sensor |
 | `humidity_sensor` | string | optional | *entity_id* for a humidity sensor |
@@ -82,6 +82,21 @@ climate:
     unique_id: office_ac
     device_code: 4000
     controller_data: 192.168.10.10
+    temperature_sensor: sensor.temperature
+    humidity_sensor: sensor.humidity
+    power_sensor: binary_sensor.ac_power
+```
+
+## Example (using Tuya1201 ZHA controller):
+```yaml
+smartir:
+
+climate:
+  - platform: smartir
+    name: Office AC
+    unique_id: office_ac
+    device_code: 1705
+    controller_data: "0c:ae:5f:ff:fe:22:49:d9" 
     temperature_sensor: sensor.temperature
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
@@ -491,6 +506,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1702](../codes/climate/1702.json) | QI/QE09F<br>QI/QE09R<br>QI/QE12F<br>QI/QE12R<br>QI/QE18F<br>QI/QE18R<br>QI/QE22F<br>QI/QE22R<br>XI/XE09F<br>XI/XE09R<br>XI/XE12F<br>XI/XE12R<br>XI/XE18F<br>XI/XE18R<br>XI/XE22F<br>XI/XE22R | Broadlink  |
 | [1703](../codes/climate/1703.json) | EXP26U758CW   | Broadlink  |
 | [1704](../codes/climate/1704.json) | EPI12LEIWI   | Broadlink  |
+| [1705](../codes/climate/1705.json) | EXP34U338CW (YK-H/531E Remote)  | ZHA  |
 
 #### Erisson
 | Code                               | Supported Models | Controller |
