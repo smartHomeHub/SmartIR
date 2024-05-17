@@ -339,7 +339,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
     async def async_set_temperature(self, **kwargs):
         """Set new target temperatures."""
-        hvac_mode = kwargs.get(ATTR_HVAC_MODE)
+        hvac_mode = kwargs.get(ATTR_HVAC_MODE, self._hvac_mode)
         temperature = kwargs.get(ATTR_TEMPERATURE)
 
         if temperature is None:
@@ -358,7 +358,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             self._target_temperature = temperature
         else:
             await self.send_command(
-                self._hvac_mode, self._fan_mode, self._swing_mode, temperature
+                hvac_mode, self._fan_mode, self._swing_mode, temperature
             )
 
     async def async_set_fan_mode(self, fan_mode):
