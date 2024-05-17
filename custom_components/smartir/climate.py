@@ -560,8 +560,8 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 and self._last_on_operation is not None
             ):
                 self._hvac_mode = self._last_on_operation
-            else:
-                self._hvac_mode = STATE_ON
+            elif len(self._operation_modes) > 1:
+                self._hvac_mode = self._operation_modes[1]
             await self._async_update_hvac_action()
         elif new_state.state == STATE_OFF:
             self._on_by_remote = False
