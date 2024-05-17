@@ -206,8 +206,8 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     @property
     def state(self):
         """Return the current state."""
-        if self.hvac_mode != HVACMode.OFF:
-            return self.hvac_mode
+        if self._hvac_mode != HVACMode.OFF:
+            return self._hvac_mode
         return HVACMode.OFF
 
     @property
