@@ -21,6 +21,11 @@ jobs:
           current="$(jq --raw-output .version manifest.json | sed 's/\./\\./g')"
           sed -i s/$current/${{ github.event.release.tag_name }}/ manifest.json
 
+      - name: "Copy codes"
+        working-directory: ./
+        run: |
+          mv codes custom_components/smartir/codes
+
       - name: "Zip component"
         run: |
           zip smartir.zip -r ./
