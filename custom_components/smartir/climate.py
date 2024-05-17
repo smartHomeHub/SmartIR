@@ -7,7 +7,7 @@ import voluptuous as vol
 
 from homeassistant.components.climate import ClimateEntity, PLATFORM_SCHEMA
 from homeassistant.components.climate.const import (
-    ClimateEntityFeature, HVACMode, HVAC_MODES, ATTR_HVAC_MODE)
+    ClimateEntityFeature, HVACMode, HVACAction, HVAC_MODES, ATTR_HVAC_MODE)
 from homeassistant.const import (
     CONF_NAME, STATE_ON, STATE_OFF, STATE_UNKNOWN, STATE_UNAVAILABLE, ATTR_TEMPERATURE,
     PRECISION_TENTHS, PRECISION_HALVES, PRECISION_WHOLE)
@@ -125,6 +125,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._swing_modes = device_data.get('swingModes')
         self._commands = device_data['commands']
 
+        self._hvac_action = None
         self._target_temperature = self._min_temperature
         self._hvac_mode = HVACMode.OFF
         self._fan_mode = self._fan_modes[0]
@@ -283,6 +284,11 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     def supported_features(self):
         """Return the list of supported features."""
         return self._support_flags
+    
+    @property
+    def hvac_action(self) -> HVACAction | None:
+        """Return the current running hvac operation if supported."""
+        return self._hvac_action
 
     @property
     def extra_state_attributes(self):
@@ -299,7 +305,6 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     async def async_set_hvac_mode(self, hvac_mode):
         """Set operation mode."""
         await self.send_command(hvac_mode, self._fan_mode, self._swing_mode, self._target_temperature)
-        self.async_write_ha_state()
 
     async def async_set_temperature(self, **kwargs):
         """Set new target temperatures."""
@@ -322,7 +327,6 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             self._target_temperature = temperature
         else:
             await self.send_command(self._hvac_mode, self._fan_mode, self._swing_mode, temperature)
-        self.async_write_ha_state()
 
     async def async_set_fan_mode(self, fan_mode):
         """Set fan mode."""
@@ -330,7 +334,6 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             self._fan_mode = fan_mode
         else:
             await self.send_command(self._hvac_mode, fan_mode, self._swing_mode, self._target_temperature)
-        self.async_write_ha_state()
 
     async def async_set_swing_mode(self, swing_mode):
         """Set swing mode."""
@@ -338,7 +341,6 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             self._swing_mode = swing_mode
         else:
             await self.send_command(self._hvac_mode, self._fan_mode, swing_mode, self._target_temperature)
-        self.async_write_ha_state()
 
     async def async_turn_off(self):
         """Turn off."""
@@ -413,6 +415,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 self._target_temperature = temperature
                 if hvac_mode != HVACMode.OFF:
                     self._last_on_operation = hvac_mode
+                await self._async_update_hvac_action()
 
             except Exception as e:
                 _LOGGER.exception(e)
@@ -425,7 +428,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             return
             
         self._async_update_temp(new_state)
-        self.async_write_ha_state()
+        await self._async_update_hvac_action()
 
     async def _async_humidity_sensor_changed(self, event: Event[EventStateChangedData]) -> None:
         """Handle humidity sensor changes."""
@@ -435,7 +438,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             return
 
         self._async_update_humidity(new_state)
-        self.async_write_ha_state()
+        await self._async_update_hvac_action()
 
     async def _async_power_sensor_changed(self, event: Event[EventStateChangedData]) -> None:
         """Handle power sensor changes."""
@@ -453,14 +456,41 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 self._hvac_mode = self._last_on_operation
             else:
                 self._hvac_mode = STATE_ON
-
-            self.async_write_ha_state()
-
-        if new_state.state == STATE_OFF:
+            await self._async_update_hvac_action()
+        elif new_state.state == STATE_OFF:
             self._on_by_remote = False
             if self._hvac_mode != HVACMode.OFF:
                 self._hvac_mode = HVACMode.OFF
+            await self._async_update_hvac_action()
+
+    async def _async_update_hvac_action(self):
+        """Update thermostat current hvac action."""
+        if not self._temperature_sensor:
             self.async_write_ha_state()
+            return
+        
+        if self._hvac_mode == HVACMode.OFF:
+            self._hvac_action = HVACAction.OFF
+        elif (
+            ( self._hvac_mode == HVACMode.HEAT or self._hvac_mode == HVACMode.HEAT_COOL )
+            and self._current_temperature is not None
+            and self._current_temperature < self._target_temperature
+        ):
+            self._hvac_action = HVACAction.HEATING
+        elif (
+            ( self._hvac_mode == HVACMode.COOL or self._hvac_mode == HVACMode.HEAT_COOL )
+            and self._current_temperature is not None
+            and self._current_temperature > self._target_temperature
+        ):
+            self._hvac_action = HVACAction.COOLING
+        elif self._hvac_mode == HVACMode.DRY:
+            self._hvac_action = HVACAction.DRYING
+        elif self._hvac_mode == HVACMode.FAN_ONLY:
+            self._hvac_action = HVACAction.FAN
+        else:
+            self._hvac_action = HVACAction.IDLE
+        self.async_write_ha_state()
+        
 
     @callback
     def _async_update_temp(self, state):
