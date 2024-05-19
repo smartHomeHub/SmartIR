@@ -140,173 +140,173 @@ The following are the code files created by the amazing people in the community.
 Contributing to your own code files is welcome. However, we do not accept incomplete files as well as files related to MQTT controllers.
 
 #### Philips
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1000](../codes/media_player/1000.json)|26PFL560H|Broadlink
-[1001](../codes/media_player/1001.json)|42PFL3007H/60<br>37PF9641D/10|Broadlink
+| Code                                    | Supported Models              | Controller |
+| --------------------------------------- | ----------------------------- | ---------- |
+| [1000](../codes/media_player/1000.json) | 26PFL560H                     | Broadlink  |
+| [1001](../codes/media_player/1001.json) | 42PFL3007H/60<br>37PF9641D/10 | Broadlink  |
 
 #### Sony
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1020](../codes/media_player/1020.json)|KDL-46HX800|Broadlink
+| Code                                    | Supported Models | Controller |
+| --------------------------------------- | ---------------- | ---------- |
+| [1020](../codes/media_player/1020.json) | KDL-46HX800      | Broadlink  |
 
 #### LG
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1040](../codes/media_player/1040.json)|22MT47DC|Broadlink
-[1041](../codes/media_player/1041.json)|LH6235D|Broadlink
-[1042](../codes/media_player/1042.json)|43UM7510PSB<br>OLED55B8SSC<br>OLED55B9PLA|Broadlink
-[1043](../codes/media_player/1043.json)|32LC2R|Broadlink
+| Code                                    | Supported Models                          | Controller |
+| --------------------------------------- | ----------------------------------------- | ---------- |
+| [1040](../codes/media_player/1040.json) | 22MT47DC                                  | Broadlink  |
+| [1041](../codes/media_player/1041.json) | LH6235D                                   | Broadlink  |
+| [1042](../codes/media_player/1042.json) | 43UM7510PSB<br>OLED55B8SSC<br>OLED55B9PLA | Broadlink  |
+| [1043](../codes/media_player/1043.json) | 32LC2R                                    | Broadlink  |
 
 #### Samsung
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1060](../codes/media_player/1060.json)|UE40F6500<br>LE40D550<br>UE40H6400<br>UE40H7000SL|Broadlink
-[1061](../codes/media_player/1061.json)|UE40C6000<br>UE40D6500<br>UE32H5500<br>UE22D5000|Broadlink
-[1062](../codes/media_player/1062.json)|UE40C6000<br>UE40D6500<br>UE32H5500<br>UE22D5000<br>UN46D6000SF|Broadlink
-[1063](../codes/media_player/1063.json)|UN55JU7500|Broadlink
-[1064](../codes/media_player/1064.json)|QE49Q7FAM|Broadlink
-[1065](../codes/media_player/1065.json)|QE65Q67RAUXRU|Broadlink
-[7060](../codes/media_player/7060.json)|UA32EH5000M|ESPHome
+| Code                                    | Supported Models                                                | Controller |
+| --------------------------------------- | --------------------------------------------------------------- | ---------- |
+| [1060](../codes/media_player/1060.json) | UE40F6500<br>LE40D550<br>UE40H6400<br>UE40H7000SL               | Broadlink  |
+| [1061](../codes/media_player/1061.json) | UE40C6000<br>UE40D6500<br>UE32H5500<br>UE22D5000                | Broadlink  |
+| [1062](../codes/media_player/1062.json) | UE40C6000<br>UE40D6500<br>UE32H5500<br>UE22D5000<br>UN46D6000SF | Broadlink  |
+| [1063](../codes/media_player/1063.json) | UN55JU7500                                                      | Broadlink  |
+| [1064](../codes/media_player/1064.json) | QE49Q7FAM                                                       | Broadlink  |
+| [1065](../codes/media_player/1065.json) | QE65Q67RAUXRU                                                   | Broadlink  |
+| [7060](../codes/media_player/7060.json) | UA32EH5000M                                                     | ESPHome    |
 
 #### Insignia
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1080](../codes/media_player/1080.json)|NS-42D510NA15|Broadlink
+| Code                                    | Supported Models | Controller |
+| --------------------------------------- | ---------------- | ---------- |
+| [1080](../codes/media_player/1080.json) | NS-42D510NA15    | Broadlink  |
 
 #### Toshiba
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1100](../codes/media_player/1100.json)|42C3530D|Broadlink
+| Code                                    | Supported Models | Controller |
+| --------------------------------------- | ---------------- | ---------- |
+| [1100](../codes/media_player/1100.json) | 42C3530D         | Broadlink  |
 
 #### Yamaha
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1120](../codes/media_player/1120.json)|Unknown|Broadlink
-[1121](../codes/media_player/1121.json)|Yamaha RX-V375 and others (RAV463/ZA113500 remote)|Broadlink
-[1122](../codes/media_player/1122.json)|VR50590 remote|Broadlink
-[1123](../codes/media_player/1123.json)|AS201|Broadlink
+| Code                                    | Supported Models                                   | Controller |
+| --------------------------------------- | -------------------------------------------------- | ---------- |
+| [1120](../codes/media_player/1120.json) | Unknown                                            | Broadlink  |
+| [1121](../codes/media_player/1121.json) | Yamaha RX-V375 and others (RAV463/ZA113500 remote) | Broadlink  |
+| [1122](../codes/media_player/1122.json) | VR50590 remote                                     | Broadlink  |
+| [1123](../codes/media_player/1123.json) | AS201                                              | Broadlink  |
 
 #### RME
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1140](../codes/media_player/1140.json)|ADI-2 DAC FS|Broadlink
+| Code                                    | Supported Models | Controller |
+| --------------------------------------- | ---------------- | ---------- |
+| [1140](../codes/media_player/1140.json) | ADI-2 DAC FS     | Broadlink  |
 
 #### Logitech
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1160](../codes/media_player/1160.json)|Z906|Broadlink
-[1161](../codes/media_player/1161.json)|Z-5500|Broadlink
-[1162](../codes/media_player/1162.json)|Z-5450|Broadlink
+| Code                                    | Supported Models | Controller |
+| --------------------------------------- | ---------------- | ---------- |
+| [1160](../codes/media_player/1160.json) | Z906             | Broadlink  |
+| [1161](../codes/media_player/1161.json) | Z-5500           | Broadlink  |
+| [1162](../codes/media_player/1162.json) | Z-5450           | Broadlink  |
 
 #### TCL
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1180](../codes/media_player/1180.json)|55EP640|Broadlink
-[1181](../codes/media_player/1181.json)|43S6500FS <br> 32A325|Broadlink
+| Code                                    | Supported Models      | Controller |
+| --------------------------------------- | --------------------- | ---------- |
+| [1180](../codes/media_player/1180.json) | 55EP640               | Broadlink  |
+| [1181](../codes/media_player/1181.json) | 43S6500FS <br> 32A325 | Broadlink  |
 
 #### Pace
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1200](../codes/media_player/1200.json)|TDS850NNZ <br> TDC850NF|Broadlink
+| Code                                    | Supported Models        | Controller |
+| --------------------------------------- | ----------------------- | ---------- |
+| [1200](../codes/media_player/1200.json) | TDS850NNZ <br> TDC850NF | Broadlink  |
 
 #### Silver
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1220](../codes/media_player/1220.json)|MEO|Broadlink
+| Code                                    | Supported Models | Controller |
+| --------------------------------------- | ---------------- | ---------- |
+| [1220](../codes/media_player/1220.json) | MEO              | Broadlink  |
 
 #### TurboX
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1240](../codes/media_player/1240.json)|TXV-2420|Broadlink
+| Code                                    | Supported Models | Controller |
+| --------------------------------------- | ---------------- | ---------- |
+| [1240](../codes/media_player/1240.json) | TXV-2420         | Broadlink  |
 
 #### Thomson
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1260](../codes/media_player/1260.json)|40FA3203|Broadlink
+| Code                                    | Supported Models | Controller |
+| --------------------------------------- | ---------------- | ---------- |
+| [1260](../codes/media_player/1260.json) | 40FA3203         | Broadlink  |
 
 #### Grunding
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1280](../codes/media_player/1280.json)|GSB-810|Broadlink
+| Code                                    | Supported Models | Controller |
+| --------------------------------------- | ---------------- | ---------- |
+| [1280](../codes/media_player/1280.json) | GSB-810          | Broadlink  |
 
 #### OKI
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1300](../codes/media_player/1300.json)|V19B-LED4|Broadlink
+| Code                                    | Supported Models | Controller |
+| --------------------------------------- | ---------------- | ---------- |
+| [1300](../codes/media_player/1300.json) | V19B-LED4        | Broadlink  |
 
 #### Sky
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1320](../codes/media_player/1320.json)|SkyQ Black<br>SkyQ Mini|Broadlink
+| Code                                    | Supported Models        | Controller |
+| --------------------------------------- | ----------------------- | ---------- |
+| [1320](../codes/media_player/1320.json) | SkyQ Black<br>SkyQ Mini | Broadlink  |
 
 #### Bauhn
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1340](../codes/media_player/1340.json)|Aldi|Broadlink
+| Code                                    | Supported Models | Controller |
+| --------------------------------------- | ---------------- | ---------- |
+| [1340](../codes/media_player/1340.json) | Aldi             | Broadlink  |
 
 #### Optoma
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1360](../codes/media_player/1360.json)| HD27 |Broadlink
+| Code                                    | Supported Models | Controller |
+| --------------------------------------- | ---------------- | ---------- |
+| [1360](../codes/media_player/1360.json) | HD27             | Broadlink  |
 
 #### Xiaomi
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1380](../codes/media_player/1380.json)| MiBox<br>MItv |Broadlink
+| Code                                    | Supported Models | Controller |
+| --------------------------------------- | ---------------- | ---------- |
+| [1380](../codes/media_player/1380.json) | MiBox<br>MItv    | Broadlink  |
 
 #### Pioneer
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1400](../codes/media_player/1400.json)| X-CM56 |Broadlink
+| Code                                    | Supported Models | Controller |
+| --------------------------------------- | ---------------- | ---------- |
+| [1400](../codes/media_player/1400.json) | X-CM56           | Broadlink  |
 
 #### JBL
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1420](../codes/media_player/1420.json)| Cinema SB160 |Broadlink
+| Code                                    | Supported Models | Controller |
+| --------------------------------------- | ---------------- | ---------- |
+| [1420](../codes/media_player/1420.json) | Cinema SB160     | Broadlink  |
 
 #### Andersson
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1440](../codes/media_player/1440.json)| L4223FDC PVR |Broadlink
+| Code                                    | Supported Models | Controller |
+| --------------------------------------- | ---------------- | ---------- |
+| [1440](../codes/media_player/1440.json) | L4223FDC PVR     | Broadlink  |
 
 #### Edifier
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1460](../codes/media_player/1460.json)| R1280DB |Broadlink
-[1461](../codes/media_player/1461.json)| R2000DB |Broadlink
+| Code                                    | Supported Models | Controller |
+| --------------------------------------- | ---------------- | ---------- |
+| [1460](../codes/media_player/1460.json) | R1280DB          | Broadlink  |
+| [1461](../codes/media_player/1461.json) | R2000DB          | Broadlink  |
 
 #### ZTE
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[7460](../codes/media_player/7460.json)| B860H | ESPHome
+| Code                                    | Supported Models | Controller |
+| --------------------------------------- | ---------------- | ---------- |
+| [7460](../codes/media_player/7460.json) | B860H            | ESPHome    |
 
 #### Kanto
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1480](../codes/media_player/1480.json)|YU6|Broadlink
+| Code                                    | Supported Models | Controller |
+| --------------------------------------- | ---------------- | ---------- |
+| [1480](../codes/media_player/1480.json) | YU6              | Broadlink  |
 
 #### Onkyo
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1500](../codes/media_player/1500.json)| TX-SR508, TX-SR700 |Broadlink
+| Code                                    | Supported Models   | Controller |
+| --------------------------------------- | ------------------ | ---------- |
+| [1500](../codes/media_player/1500.json) | TX-SR508, TX-SR700 | Broadlink  |
 
 #### JVC
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1520](../codes/media_player/1520.json)|RX-5022R|Broadlink
+| Code                                    | Supported Models | Controller |
+| --------------------------------------- | ---------------- | ---------- |
+| [1520](../codes/media_player/1520.json) | RX-5022R         | Broadlink  |
 
 #### Epson
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1540](../codes/media_player/1540.json)|MG-850HD|Broadlink
+| Code                                    | Supported Models | Controller |
+| --------------------------------------- | ---------------- | ---------- |
+| [1540](../codes/media_player/1540.json) | MG-850HD         | Broadlink  |
 
 #### Cambridge Audio
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1560](../codes/media_player/1560.json)|AXR100|Broadlink
+| Code                                    | Supported Models | Controller |
+| --------------------------------------- | ---------------- | ---------- |
+| [1560](../codes/media_player/1560.json) | AXR100           | Broadlink  |
 
 #### Dialog
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1580](../codes/media_player/1580.json)| J-103BF |Broadlink
+| Code                                    | Supported Models | Controller |
+| --------------------------------------- | ---------------- | ---------- |
+| [1580](../codes/media_player/1580.json) | J-103BF          | Broadlink  |
