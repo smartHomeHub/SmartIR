@@ -4,7 +4,6 @@
   "codeowners": ["@smartHomeHub", "@litinoveweedle"],
   "dependencies": [],
   "documentation": "https://github.com/litinoveweedle/SmartIR",
-  "homeassistant": "2024.4.0",
   "iot_class": "assumed_state",
   "issue_tracker": "https://github.com/litinoveweedle/SmartIR/issues",
   "requirements": ["aiofiles>=0.6.0"],
