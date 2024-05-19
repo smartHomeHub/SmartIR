@@ -20,7 +20,6 @@ from homeassistant.components.media_player.const import (
 from homeassistant.const import CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
-from . import COMPONENT_ABS_DIR, Helper
 from .controller import get_controller
 
 _LOGGER = logging.getLogger(__name__)
@@ -51,11 +50,15 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 )
 
 
-async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
+async def async_setup_platform(
+    hass: HomeAssistant, config: ConfigType, async_add_entities, discovery_info=None
+):
     """Set up the IR Media Player platform."""
     device_code = config.get(CONF_DEVICE_CODE)
     device_files_subdir = os.path.join("codes", "media_player")
-    device_files_absdir = os.path.join(COMPONENT_ABS_DIR, device_files_subdir)
+    device_files_absdir = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), device_files_subdir
+    )
 
     if not os.path.isdir(device_files_absdir):
         os.makedirs(device_files_absdir)
@@ -64,31 +67,14 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
     device_json_path = os.path.join(device_files_absdir, device_json_filename)
 
     if not os.path.exists(device_json_path):
-        _LOGGER.warning(
-            "Couldn't find the device Json file. The component will "
-            "try to download it from the GitHub repo."
-        )
-
-        try:
-            codes_source = (
-                "https://raw.githubusercontent.com/"
-                "smartHomeHub/SmartIR/master/"
-                "codes/media_player/{}.json"
-            )
-
-            await Helper.downloader(codes_source.format(device_code), device_json_path)
-        except Exception:
-            _LOGGER.error(
-                "There was an error while downloading the device Json file. "
-                "Please check your internet connection or if the device code "
-                "exists on GitHub. If the problem still exists please "
-                "place the file manually in the proper directory."
-            )
-            return
+        _LOGGER.error("Couldn't find the device Json file %s!", device_json_filename)
+        return
 
     with open(device_json_path) as j:
         try:
+            _LOGGER.debug(f"loading json file {device_json_path}")
             device_data = json.load(j)
+            _LOGGER.debug(f"{device_json_path} file loaded")
         except Exception:
             _LOGGER.error("The device JSON file is invalid")
             return
