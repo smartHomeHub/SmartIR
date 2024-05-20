@@ -24,10 +24,11 @@ from homeassistant.const import (
     PRECISION_HALVES,
     PRECISION_WHOLE,
 )
-from homeassistant.core import Event, EventStateChangedData, callback
+from homeassistant.core import HomeAssistant, Event, EventStateChangedData, callback
 from homeassistant.helpers.event import async_track_state_change_event
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
+from homeassistant.helpers.typing import ConfigType
 from .controller import get_controller
 
 _LOGGER = logging.getLogger(__name__)
@@ -90,8 +91,43 @@ async def async_setup_platform(
             device_data = json.load(j)
             _LOGGER.debug(f"{device_json_path} file loaded")
         except Exception:
-            _LOGGER.error("The device Json file is invalid")
+            _LOGGER.error(
+                "The device JSON file '%s' is not valid json!", device_json_filename
+            )
             return
+
+    if not isinstance(device_data, dict):
+        _LOGGER.error("Invalid device code file '%s.", device_json_filename)
+        return
+
+    for key in [
+        "manufacturer",
+        "supportedModels",
+        "supportedController",
+        "commandsEncoding",
+        "minTemperature",
+        "maxTemperature",
+        "precision",
+        "operationModes",
+        "fanModes",
+    ]:
+        if not (key in device_data and device_data[key]):
+            _LOGGER.error(
+                "Invalid device JSON file '%s, missing or not defined '%s'!",
+                device_json_filename,
+                key,
+            )
+            return
+
+    if not (
+        "commands" in device_data
+        and isinstance(device_data["commands"], dict)
+        and len(device_data["commands"])
+    ):
+        _LOGGER.error(
+            "Invalid device JSON file '%s, missing 'commands'!", device_json_filename
+        )
+        return
 
     async_add_entities([SmartIRClimate(hass, config, device_data)])
 
@@ -238,6 +274,8 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     @property
     def target_temperature(self):
         """Return the temperature we try to reach."""
+        if self._hvac_mode == STATE_UNKNOWN:
+            return STATE_UNKNOWN
         return self._target_temperature
 
     @property
@@ -268,6 +306,8 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     @property
     def fan_mode(self):
         """Return the fan setting."""
+        if self._hvac_mode == STATE_UNKNOWN:
+            return STATE_UNKNOWN
         return self._fan_mode
 
     @property
@@ -278,6 +318,8 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     @property
     def swing_mode(self):
         """Return the current swing mode."""
+        if self._hvac_mode == STATE_UNKNOWN:
+            return STATE_UNKNOWN
         return self._swing_mode
 
     @property
@@ -298,6 +340,8 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     @property
     def hvac_action(self) -> HVACAction | None:
         """Return the current running hvac operation if supported."""
+        if self._hvac_mode == STATE_UNKNOWN:
+            return STATE_UNKNOWN
         return self._hvac_action
 
     @property
@@ -379,26 +423,20 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 if hvac_mode == HVACMode.OFF:
                     if (
                         self._last_on_operation == HVACMode.COOL
-                        and isinstance(self._commands, dict)
                         and "off_cool" in self._commands.keys()
                     ):
                         await self._controller.send(self._commands["off_cool"])
                     elif (
                         self._last_on_operation == HVACMode.HEAT
-                        and isinstance(self._commands, dict)
                         and "off_heat" in self._commands.keys()
                     ):
                         await self._controller.send(self._commands["off_heat"])
                     elif (
                         self._last_on_operation == HVACMode.FAN_ONLY
-                        and isinstance(self._commands, dict)
                         and "off_fan" in self._commands.keys()
                     ):
                         await self._controller.send(self._commands["off_fan"])
-                    elif (
-                        isinstance(self._commands, dict)
-                        and "off" in self._commands.keys()
-                    ):
+                    elif "off" in self._commands.keys():
                         await self._controller.send(self._commands["off"])
                     else:
                         _LOGGER.error(
@@ -406,20 +444,14 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                         )
                         return
                 else:
-                    if not (
-                        isinstance(self._commands, dict)
-                        and "on" in self._commands.keys()
-                    ):
+                    if not "on" in self._commands.keys():
                         """if on code is not present, the on bit can be still set in the all operation/fan codes"""
                         pass
                     else:
                         await self._controller.send(self._commands["on"])
                         await asyncio.sleep(self._delay)
 
-                    if not (
-                        isinstance(self._commands, dict)
-                        and hvac_mode in self._commands.keys()
-                    ):
+                    if not hvac_mode in self._commands.keys():
                         _LOGGER.error(
                             "Missing device IR code for %s operation mode.", hvac_mode
                         )
@@ -541,8 +573,8 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 and self._last_on_operation is not None
             ):
                 self._hvac_mode = self._last_on_operation
-            elif len(self._operation_modes) > 1:
-                self._hvac_mode = self._operation_modes[1]
+            else:
+                self._hvac_mode = STATE_UNKNOWN
             await self._async_update_hvac_action()
         elif new_state.state == STATE_OFF:
             self._on_by_remote = False

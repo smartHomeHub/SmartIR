@@ -16,10 +16,11 @@ from homeassistant.components.fan import (
     ATTR_OSCILLATING,
 )
 from homeassistant.const import CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN
-from homeassistant.core import Event, EventStateChangedData
+from homeassistant.core import HomeAssistant, Event, EventStateChangedData
 from homeassistant.helpers.event import async_track_state_change_event
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
+from homeassistant.helpers.typing import ConfigType
 from homeassistant.util.percentage import (
     ordered_list_item_to_percentage,
     percentage_to_ordered_list_item,
@@ -36,8 +37,11 @@ CONF_DEVICE_CODE = "device_code"
 CONF_CONTROLLER_DATA = "controller_data"
 CONF_DELAY = "delay"
 CONF_POWER_SENSOR = "power_sensor"
+CONF_POWER_SENSOR_RESTORE_STATE = "power_sensor_restore_state"
 
 SPEED_OFF = "off"
+
+SUPPORT_FLAGS = SUPPORT_SET_SPEED
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
@@ -47,6 +51,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
         vol.Required(CONF_CONTROLLER_DATA): cv.string,
         vol.Optional(CONF_DELAY, default=DEFAULT_DELAY): cv.string,
         vol.Optional(CONF_POWER_SENSOR): cv.entity_id,
+        vol.Optional(CONF_POWER_SENSOR_RESTORE_STATE, default=False): cv.boolean,
     }
 )
 
@@ -77,8 +82,39 @@ async def async_setup_platform(
             device_data = json.load(j)
             _LOGGER.debug(f"{device_json_path} file loaded")
         except Exception:
-            _LOGGER.error("The device JSON file is invalid")
+            _LOGGER.error(
+                "The device JSON file '%s' is not valid json!", device_json_filename
+            )
             return
+
+    if not isinstance(device_data, dict):
+        _LOGGER.error("Invalid device JSON file '%s.", device_json_filename)
+        return
+
+    for key in [
+        "manufacturer",
+        "supportedModels",
+        "supportedController",
+        "commandsEncoding",
+        "speed",
+    ]:
+        if not (key in device_data and device_data[key]):
+            _LOGGER.error(
+                "Invalid device JSON file '%s, missing or not defined '%s'!",
+                device_json_filename,
+                key,
+            )
+            return
+
+    if not (
+        "commands" in device_data
+        and isinstance(device_data["commands"], dict)
+        and len(device_data["commands"])
+    ):
+        _LOGGER.error(
+            "Invalid device JSON file '%s, missing 'commands'!", device_json_filename
+        )
+        return
 
     async_add_entities([SmartIRFan(hass, config, device_data)])
 
@@ -92,6 +128,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
         self._controller_data = config.get(CONF_CONTROLLER_DATA)
         self._delay = config.get(CONF_DELAY)
         self._power_sensor = config.get(CONF_POWER_SENSOR)
+        self._power_sensor_restore_state = config.get(CONF_POWER_SENSOR_RESTORE_STATE)
 
         self._manufacturer = device_data["manufacturer"]
         self._supported_models = device_data["supportedModels"]
@@ -101,13 +138,13 @@ class SmartIRFan(FanEntity, RestoreEntity):
         self._commands = device_data["commands"]
 
         self._speed = SPEED_OFF
-        self._direction = None
+        self._current_direction = None
         self._last_on_speed = None
         self._oscillating = None
-        self._support_flags = SUPPORT_SET_SPEED
+        self._support_flags = SUPPORT_FLAGS
 
         if DIRECTION_REVERSE in self._commands and DIRECTION_FORWARD in self._commands:
-            self._direction = DIRECTION_REVERSE
+            self._current_direction = DIRECTION_REVERSE
             self._support_flags = self._support_flags | SUPPORT_DIRECTION
         if "oscillate" in self._commands:
             self._oscillating = False
@@ -138,10 +175,16 @@ class SmartIRFan(FanEntity, RestoreEntity):
             # If _direction has a value the direction controls appears
             # in UI even if SUPPORT_DIRECTION is not provided in the flags
             if (
-                "direction" in last_state.attributes
+                "current_direction" in last_state.attributes
                 and self._support_flags & SUPPORT_DIRECTION
             ):
-                self._direction = last_state.attributes["direction"]
+                self._current_direction = last_state.attributes["current_direction"]
+
+            if (
+                "oscillating" in last_state.attributes
+                and self._support_flags & SUPPORT_OSCILLATE
+            ):
+                self._oscillating = last_state.attributes["oscillating"]
 
             if "last_on_speed" in last_state.attributes:
                 self._last_on_speed = last_state.attributes["last_on_speed"]
@@ -164,13 +207,15 @@ class SmartIRFan(FanEntity, RestoreEntity):
     @property
     def state(self):
         """Return the current state."""
-        if self._on_by_remote or self._speed != SPEED_OFF:
+        if self._speed != SPEED_OFF:
             return STATE_ON
         return SPEED_OFF
 
     @property
     def percentage(self):
         """Return speed percentage of the fan."""
+        if self._speed == STATE_UNKNOWN:
+            return STATE_UNKNOWN
         if self._speed == SPEED_OFF:
             return 0
 
@@ -184,12 +229,16 @@ class SmartIRFan(FanEntity, RestoreEntity):
     @property
     def oscillating(self):
         """Return the oscillation state."""
+        if self._speed == STATE_UNKNOWN:
+            return STATE_UNKNOWN
         return self._oscillating
 
     @property
     def current_direction(self):
         """Return the direction state."""
-        return self._direction
+        if self._speed == STATE_UNKNOWN:
+            return STATE_UNKNOWN
+        return self._current_direction
 
     @property
     def last_on_speed(self):
@@ -235,7 +284,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
 
     async def async_set_direction(self, direction: str):
         """Set the direction of the fan"""
-        self._direction = direction
+        self._current_direction = direction
 
         if not self._speed.lower() == SPEED_OFF:
             await self.send_command()
@@ -261,7 +310,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
         async with self._temp_lock:
             self._on_by_remote = False
             speed = self._speed
-            direction = self._direction or "default"
+            direction = self._current_direction or "default"
             oscillating = self._oscillating
 
             if speed.lower() == SPEED_OFF:
@@ -290,10 +339,15 @@ class SmartIRFan(FanEntity, RestoreEntity):
 
         if new_state.state == STATE_ON and self._speed == SPEED_OFF:
             self._on_by_remote = True
-            self._speed = None
+            if (
+                self._power_sensor_restore_state == True
+                and self._last_on_speed is not None
+            ):
+                self._speed = self._last_on_speed
+            else:
+                self._speed = STATE_UNKNOWN
             self.async_write_ha_state()
-
-        if new_state.state == STATE_OFF:
+        elif new_state.state == STATE_OFF:
             self._on_by_remote = False
             if self._speed != SPEED_OFF:
                 self._speed = SPEED_OFF
