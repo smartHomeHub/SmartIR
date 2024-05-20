@@ -528,7 +528,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         """Handle power sensor changes."""
         old_state = event.data["old_state"]
         new_state = event.data["new_state"]
-        if new_state is None or new_state == old_state:
+        if new_state is None:
             return
 
         if old_state is not None and new_state.state == old_state.state:
