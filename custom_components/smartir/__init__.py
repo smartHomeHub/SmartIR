@@ -42,12 +42,14 @@ class DeviceData:
                 _LOGGER.error(
                     "Device Json file '%s' doesn't exists!", device_json_filename
                 )
-                return
+                return None
         else:
             _LOGGER.error(
                 "Devices Json files directory '%s' doesn't exists!", device_files_absdir
             )
-            return
+            return None
+
+        return None
 
     @staticmethod
     def check_file(device_json_filename, device_json_path, required_keys):
@@ -60,11 +62,11 @@ class DeviceData:
                 _LOGGER.error(
                     "The device JSON file '%s' is not valid json!", device_json_filename
                 )
-                return
+                return None
 
         if not isinstance(device_data, dict):
             _LOGGER.error("Invalid device code file '%s.", device_json_filename)
-            return
+            return None
 
         for key in required_keys:
             if not (key in device_data and device_data[key]):
@@ -73,7 +75,7 @@ class DeviceData:
                     device_json_filename,
                     key,
                 )
-                return
+                return None
 
         if not (
             "commands" in device_data
@@ -84,6 +86,6 @@ class DeviceData:
                 "Invalid device JSON file '%s', missing 'commands'!",
                 device_json_filename,
             )
-            return
+            return None
 
         return device_data
