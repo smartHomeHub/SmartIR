@@ -122,76 +122,76 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 
 #### Kaze
 
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1000](../codes/fan/1000.json)|Unknown|Broadlink
+| Code                           | Supported Models | Controller |
+| ------------------------------ | ---------------- | ---------- |
+| [1000](../codes/fan/1000.json) | Unknown          | Broadlink  |
 
 #### Acorn
 
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1020](../codes/fan/1020.json)|Unknown|Broadlink
+| Code                           | Supported Models | Controller |
+| ------------------------------ | ---------------- | ---------- |
+| [1020](../codes/fan/1020.json) | Unknown          | Broadlink  |
 
 #### Atomberg
 
-| Code | Supported Models | Notes |Controller |
-| ------------- | ----- | ----- | ------------- |
-[1160](../codes/fan/1160.json)|Efficio||Broadlink
-[1170](../codes/fan/1170.json)|Renesa|Speeds `1,2,3,4,5` is mapped to `2,3,4,5,Boost` on the remote|Broadlink
+| Code                           | Supported Models | Notes                                                         | Controller |
+| ------------------------------ | ---------------- | ------------------------------------------------------------- | ---------- |
+| [1160](../codes/fan/1160.json) | Efficio          |                                                               | Broadlink  |
+| [1170](../codes/fan/1170.json) | Renesa           | Speeds `1,2,3,4,5` is mapped to `2,3,4,5,Boost` on the remote | Broadlink  |
 
 #### Lucci Air
 
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1040](../codes/fan/1040.json)|Aria|Broadlink
-[1041](../codes/fan/1041.json)|Whitehaven DC|Broadlink
-[7040](../codes/fan/7040.json)|Aria|ESPHome
+| Code                           | Supported Models | Controller |
+| ------------------------------ | ---------------- | ---------- |
+| [1040](../codes/fan/1040.json) | Aria             | Broadlink  |
+| [1041](../codes/fan/1041.json) | Whitehaven DC    | Broadlink  |
+| [7040](../codes/fan/7040.json) | Aria             | ESPHome    |
 
 #### Super Fan
 
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1060](../codes/fan/1060.json)|A1|Broadlink
+| Code                           | Supported Models | Controller |
+| ------------------------------ | ---------------- | ---------- |
+| [1060](../codes/fan/1060.json) | A1               | Broadlink  |
 
 #### Harbor Breeze
 
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1080](../codes/fan/1080.json)|A25-TX001-R1|Broadlink
-[1081](../codes/fan/1081.json)|A25-TX025|Broadlink
+| Code                           | Supported Models | Controller |
+| ------------------------------ | ---------------- | ---------- |
+| [1080](../codes/fan/1080.json) | A25-TX001-R1     | Broadlink  |
+| [1081](../codes/fan/1081.json) | A25-TX025        | Broadlink  |
 
 #### Pacific
 
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1100](../codes/fan/1100.json)|Unknown|Broadlink
+| Code                           | Supported Models | Controller |
+| ------------------------------ | ---------------- | ---------- |
+| [1100](../codes/fan/1100.json) | Unknown          | Broadlink  |
 
 #### Europace
 
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1120](../codes/fan/1120.json)|Unknown|Broadlink
+| Code                           | Supported Models | Controller |
+| ------------------------------ | ---------------- | ---------- |
+| [1120](../codes/fan/1120.json) | Unknown          | Broadlink  |
 
 #### SMC
 
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1140](../codes/fan/1140.json)|SP486, SP483|Broadlink
+| Code                           | Supported Models | Controller |
+| ------------------------------ | ---------------- | ---------- |
+| [1140](../codes/fan/1140.json) | SP486, SP483     | Broadlink  |
 
 #### Argo
 
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1180](../codes/fan/1180.json)|Standy|Broadlink
+| Code                           | Supported Models | Controller |
+| ------------------------------ | ---------------- | ---------- |
+| [1180](../codes/fan/1180.json) | Standy           | Broadlink  |
 
 #### DCG
 
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1200](../codes/fan/1200.json)|Unknown|Broadlink
+| Code                           | Supported Models | Controller |
+| ------------------------------ | ---------------- | ---------- |
+| [1200](../codes/fan/1200.json) | Unknown          | Broadlink  |
 
 #### Mitsubishi
 
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1220](../codes/fan/1220.json)|C56-RW5|Broadlink
+| Code                           | Supported Models | Controller |
+| ------------------------------ | ---------------- | ---------- |
+| [1220](../codes/fan/1220.json) | C56-RW5          | Broadlink  |

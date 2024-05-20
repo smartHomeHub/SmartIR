@@ -15,7 +15,7 @@ Don't forget to **star** the repository if you had fun!<br><br>
 
 ## Installation
 ### *Manual*
-**(1)** Place the `custom_components` folder in your configuration directory (or add its contents to an existing `custom_components` folder).
+Place the `custom_components` folder in your configuration directory (or add its contents to an existing `custom_components` folder).
 It should look similar to this:
 ```
 <config directory>/
@@ -23,28 +23,20 @@ It should look similar to this:
 |   |-- smartir/
 |       |-- __init__.py
 |       |-- climate.py
+        |-- controller.py
 |       |-- fan.py
 |       |-- media_player.py
-|       |-- etc...
+|       |-- codes/
+|           |-- climate/
+|               |-- 1000.json
+|               |-- .....
+|           |-- fan/
+|               |-- 1000.json
+|               |-- .....
+|           |-- media_player/
+|               |-- 1000.json
+|               |-- .....
 ```
-**(2)** Add the following to your configuration.yaml file.
-```yaml
-smartir:
-```
-
-SmartIR automatically detects updates after each HA startup and asks you to install them. It also has a mechanism that prevents you from updating if the last SmartIR version is incompatible with your HA instance. You can disable this feature by setting SmartIR as follows:
-```yaml
-smartir:
-  check_updates: false
-```
-
-If you would like to get updates from the rc branch (Release Candidate), configure SmartIR as follows:
-```yaml
-smartir:
-  update_branch: rc
-```
-
-**(3)** Configure a platform.
 
 ### *HACS*
 If you want HACS to handle installation and updates, add SmartIR as a [custom repository](https://hacs.xyz/docs/faq/custom_repositories/). In this case, it is recommended that you turn off automatic updates, as above.
@@ -62,7 +54,3 @@ Click on the links below for instructions on how to configure each platform.
 * [Discussion about SmartIR Climate (Home Assistant Community)](https://community.home-assistant.io/t/smartir-control-your-climate-tv-and-fan-devices-via-ir-rf-controllers/)
 * [SmartIR Chat on Telegram](https://t.me/smartHomeHub)
 
-<br><br>
-<p align="center">
-  <a href="https://www.buymeacoffee.com/vassilis"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="SmartIR Climate"></a>
-</p>
