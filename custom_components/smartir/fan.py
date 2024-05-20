@@ -16,8 +16,8 @@ from homeassistant.components.fan import (
     ATTR_OSCILLATING,
 )
 from homeassistant.const import CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN
-from homeassistant.core import callback
-from homeassistant.helpers.event import async_track_state_change
+from homeassistant.core import Event, EventStateChangedData
+from homeassistant.helpers.event import async_track_state_change_event
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
 from homeassistant.util.percentage import (
@@ -146,10 +146,10 @@ class SmartIRFan(FanEntity, RestoreEntity):
             if "last_on_speed" in last_state.attributes:
                 self._last_on_speed = last_state.attributes["last_on_speed"]
 
-            if self._power_sensor:
-                async_track_state_change(
-                    self.hass, self._power_sensor, self._async_power_sensor_changed
-                )
+        if self._power_sensor:
+            async_track_state_change_event(
+                self.hass, self._power_sensor, self._async_power_sensor_changed
+            )
 
     @property
     def unique_id(self):
@@ -276,12 +276,16 @@ class SmartIRFan(FanEntity, RestoreEntity):
             except Exception as e:
                 _LOGGER.exception(e)
 
-    async def _async_power_sensor_changed(self, entity_id, old_state, new_state):
+    async def _async_power_sensor_changed(
+        self, event: Event[EventStateChangedData]
+    ) -> None:
         """Handle power sensor changes."""
+        old_state = event.data["old_state"]
+        new_state = event.data["new_state"]
         if new_state is None:
             return
 
-        if new_state.state == old_state.state:
+        if old_state is not None and new_state.state == old_state.state:
             return
 
         if new_state.state == STATE_ON and self._speed == SPEED_OFF:
