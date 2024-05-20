@@ -1,7 +1,5 @@
 import asyncio
-import json
 import logging
-import os.path
 
 import voluptuous as vol
 
@@ -25,6 +23,7 @@ from homeassistant.util.percentage import (
     ordered_list_item_to_percentage,
     percentage_to_ordered_list_item,
 )
+from . import DeviceData
 from .controller import get_controller
 
 _LOGGER = logging.getLogger(__name__)
@@ -60,60 +59,21 @@ async def async_setup_platform(
     hass: HomeAssistant, config: ConfigType, async_add_entities, discovery_info=None
 ):
     """Set up the IR Fan platform."""
-    device_code = config.get(CONF_DEVICE_CODE)
-    device_files_subdir = os.path.join("codes", "fan")
-    device_files_absdir = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), device_files_subdir
-    )
-
-    if not os.path.isdir(device_files_absdir):
-        os.makedirs(device_files_absdir)
-
-    device_json_filename = str(device_code) + ".json"
-    device_json_path = os.path.join(device_files_absdir, device_json_filename)
-
-    if not os.path.exists(device_json_path):
-        _LOGGER.error("Couldn't find the device Json file %s!", device_json_filename)
-        return
-
-    with open(device_json_path) as j:
-        try:
-            _LOGGER.debug(f"loading json file {device_json_path}")
-            device_data = json.load(j)
-            _LOGGER.debug(f"{device_json_path} file loaded")
-        except Exception:
-            _LOGGER.error(
-                "The device JSON file '%s' is not valid json!", device_json_filename
-            )
-            return
-
-    if not isinstance(device_data, dict):
-        _LOGGER.error("Invalid device JSON file '%s.", device_json_filename)
-        return
-
-    for key in [
-        "manufacturer",
-        "supportedModels",
-        "supportedController",
-        "commandsEncoding",
-        "speed",
-    ]:
-        if not (key in device_data and device_data[key]):
-            _LOGGER.error(
-                "Invalid device JSON file '%s, missing or not defined '%s'!",
-                device_json_filename,
-                key,
-            )
-            return
-
+    _LOGGER.debug("Setting up the smartir fan platform")
     if not (
-        "commands" in device_data
-        and isinstance(device_data["commands"], dict)
-        and len(device_data["commands"])
-    ):
-        _LOGGER.error(
-            "Invalid device JSON file '%s, missing 'commands'!", device_json_filename
+        device_data := DeviceData.load_file(
+            config.get(CONF_DEVICE_CODE),
+            "fan",
+            [
+                "manufacturer",
+                "supportedModels",
+                "supportedController",
+                "commandsEncoding",
+                "speed",
+            ],
         )
+    ):
+        _LOGGER.error("Smartir fan device data init failed!")
         return
 
     async_add_entities([SmartIRFan(hass, config, device_data)])
