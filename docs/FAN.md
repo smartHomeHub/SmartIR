@@ -6,16 +6,17 @@ For this platform to work, we need a .json file containing all the necessary IR 
 Find your device's brand code [here](FAN.md#available-codes-for-fan-devices) and add the number in the `device_code` field. The compoenent will download it to the correct folder. If your device is not working, you will need to learn your own codes and place the .json file in `smartir/codes/fan/` subfolders. Please note that the `device_code` field only accepts positive numbers. The .json extension is not required.
 
 ## Configuration variables
-
-**name** (Optional): The name of the device<br />
-**unique_id** (Optional): An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.<br />
-**device_code** (Required): ...... (Accepts only positive numbers)<br />
-**controller_data** (Required): The data required for the controller to function. Enter the entity_id of the Broadlink remote (must be an already configured device), or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands.<br />
-**delay** (Optional): Adjusts the delay in seconds between multiple commands. The default is 0.5 <br />
-**power_sensor** (Optional): *entity_id* for a sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor. (Accepts only on/off states)<br />
+| Name                         |  Type   | Default  | Description                                                                                                                                                                                                                                                                                                                               |
+| ---------------------------- | :-----: | :------: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`                       | string  | optional | The name of the device                                                                                                                                                                                                                                                                                                                    |
+| `unique_id`                  | string  | optional | An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.                                                                                                                                                                                                               |
+| `device_code`                | number  | required | (Accepts only positive numbers)                                                                                                                                                                                                                                                                                                           |
+| `controller_data`            | string  | required | The data required for the controller to function. Enter the entity_id of the Broadlink remote **(must be an already configured device)**, or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands.                                                                                                      |
+| `delay`                      | number  | optional | Adjusts the delay in seconds between multiple commands. The default is 0.5                                                                                                                                                                                                                                                                |
+| `power_sensor`               | string  | optional | *entity_id* for a sensor that monitors whether your device is actually `on` or `off`. This may be a power monitor sensor. (Accepts only on/off states)                                                                                                                                                                                    |
+| `power_sensor_restore_state` | boolean | optional | If `power_sensor` is set, and the device is likely to decrease power consumption bellow `power_sensors` threshold (for instance, a fan with speed in auto fluctuating mode), setting this to `true` will cause the entity fan state to update dynamically between OFF and last known ON speed, following the state of the `power_sensor`. |
 
 ## Example (using broadlink controller)
-
 Add a Broadlink RM device named "Bedroom" via config flow (read the [docs](https://www.home-assistant.io/integrations/broadlink/)).
 
 ```yaml

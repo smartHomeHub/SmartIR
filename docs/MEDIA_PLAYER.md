@@ -6,13 +6,15 @@ For this platform to work, we need a .json file containing all the necessary IR 
 Find your device's brand code [here](MEDIA_PLAYER.md#available-codes-for-tv-devices) and add the number in the `device_code` field. The compoenent will download it to the correct folder. If your device is not working, you will need to learn your own codes and place the .json file in `smartir/codes/media_player/` subfolders. Please note that the `device_code` field only accepts positive numbers. The .json extension is not required.
 
 ## Configuration variables:
-**name** (Optional): The name of the device<br />
-**unique_id** (Optional): An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.<br />
-**device_code** (Required): ...... (Accepts only positive numbers)<br />
-**controller_data** (Required): The data required for the controller to function. Enter the IP address of the Broadlink device **(must be an already configured device)**, or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands.<br />
-**delay** (Optional): Adjusts the delay in seconds between multiple commands. The default is 0.5 <br />
-**power_sensor** (Optional): *entity_id* for a sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor. (Accepts only on/off states)<br />
-**source_names** (Optional): Override the names of sources as displayed in HomeAssistant (see below)<br />
+| Name              |  Type  | Default  | Description                                                                                                                                                                                                                          |
+| ----------------- | :----: | :------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `name`            | string | optional | The name of the device                                                                                                                                                                                                               |
+| `unique_id`       | string | optional | An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.                                                                                                          |
+| `device_code`     | number | required | (Accepts only positive numbers)                                                                                                                                                                                                      |
+| `controller_data` | string | required | The data required for the controller to function. Enter the entity_id of the Broadlink remote **(must be an already configured device)**, or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands. |
+| `delay`           | number | optional | Adjusts the delay in seconds between multiple commands. The default is 0.5                                                                                                                                                           |
+| `power_sensor`    | string | optional | *entity_id* for a sensor that monitors whether your device is actually `on` or `off`. This may be a power monitor sensor. (Accepts only on/off states)                                                                               |
+| `source_names`    |  dict  | optional | Override the names of sources as displayed in HomeAssistant (see below)                                                                                                                                                              |
 
 ## Example (using broadlink controller):
 Add a Broadlink RM device named "Bedroom" via config flow (read the [docs](https://www.home-assistant.io/integrations/broadlink/)).
