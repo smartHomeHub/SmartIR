@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 from base64 import b64encode
 import binascii
 import requests
-import logging
 import struct
 import json
 
