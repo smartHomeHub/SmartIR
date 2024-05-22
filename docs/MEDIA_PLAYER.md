@@ -143,6 +143,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1000](../codes/media_player/1000.json)|26PFL560H|Broadlink
+[1001](../codes/media_player/1001.json)|42PFL3007H/60<br>37PF9641D/10|Broadlink
 
 #### Sony
 | Code | Supported Models | Controller |
@@ -164,6 +165,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 [1061](../codes/media_player/1061.json)|UE40C6000<br>UE40D6500<br>UE32H5500<br>UE22D5000|Broadlink
 [1062](../codes/media_player/1062.json)|UE40C6000<br>UE40D6500<br>UE32H5500<br>UE22D5000<br>UN46D6000SF|Broadlink
 [1063](../codes/media_player/1063.json)|UN55JU7500|Broadlink
+[1064](../codes/media_player/1064.json)|QE49Q7FAM|Broadlink
+[1065](../codes/media_player/1065.json)|QE65Q67RAUXRU|Broadlink
 [7060](../codes/media_player/7060.json)|UA32EH5000M|ESPHome
 
 #### Insignia
@@ -271,8 +274,39 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1460](../codes/media_player/1460.json)| R1280DB |Broadlink
+[1461](../codes/media_player/1461.json)| R2000DB |Broadlink
 
 #### ZTE
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [7460](../codes/media_player/7460.json)| B860H | ESPHome
+
+#### Kanto
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1480](../codes/media_player/1480.json)|YU6|Broadlink
+
+#### Onkyo
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1500](../codes/media_player/1500.json)| TX-SR508, TX-SR700 |Broadlink
+
+#### JVC
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1520](../codes/media_player/1520.json)|RX-5022R|Broadlink
+
+#### Epson
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1540](../codes/media_player/1540.json)|MG-850HD|Broadlink
+
+#### Cambridge Audio
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1560](../codes/media_player/1560.json)|AXR100|Broadlink
+
+#### Dialog
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1580](../codes/media_player/1580.json)| J-103BF |Broadlink
