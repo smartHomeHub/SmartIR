@@ -54,6 +54,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Set up the IR Climate platform."""
+    _LOGGER.debug("Setting up the startir platform")
     device_code = config.get(CONF_DEVICE_CODE)
     device_files_subdir = os.path.join('codes', 'climate')
     device_files_absdir = os.path.join(COMPONENT_ABS_DIR, device_files_subdir)
@@ -83,7 +84,9 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
 
     with open(device_json_path) as j:
         try:
+            _LOGGER.debug(f"loading json file {device_json_path}")
             device_data = json.load(j)
+            _LOGGER.debug(f"{device_json_path} file loaded")
         except Exception:
             _LOGGER.error("The device Json file is invalid")
             return
@@ -94,6 +97,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
 
 class SmartIRClimate(ClimateEntity, RestoreEntity):
     def __init__(self, hass, config, device_data):
+        _LOGGER.debug(f"SmartIRClimate init started for device {config.get(CONF_NAME)} supported models {device_data['supportedModels']}")
         self.hass = hass
         self._unique_id = config.get(CONF_UNIQUE_ID)
         self._name = config.get(CONF_NAME)
@@ -154,6 +158,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     async def async_added_to_hass(self):
         """Run when entity about to be added."""
         await super().async_added_to_hass()
+        _LOGGER.debug(f"async_added_to_hass {self} {self.name} {self.supported_features}")
     
         last_state = await self.async_get_last_state()
         
@@ -314,7 +319,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         if not self._hvac_mode.lower() == HVAC_MODE_OFF:
             await self.send_command()
 
-        await self.async_update_ha_state()
+        self.async_write_ha_state()
 
     async def async_set_hvac_mode(self, hvac_mode):
         """Set operation mode."""
@@ -324,7 +329,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             self._last_on_operation = hvac_mode
 
         await self.send_command()
-        await self.async_update_ha_state()
+        self.async_write_ha_state()
 
     async def async_set_fan_mode(self, fan_mode):
         """Set fan mode."""
@@ -332,7 +337,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         
         if not self._hvac_mode.lower() == HVAC_MODE_OFF:
             await self.send_command()      
-        await self.async_update_ha_state()
+        self.async_write_ha_state()
 
     async def async_set_swing_mode(self, swing_mode):
         """Set swing mode."""
@@ -340,7 +345,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
         if not self._hvac_mode.lower() == HVAC_MODE_OFF:
             await self.send_command()
-        await self.async_update_ha_state()
+        self.async_write_ha_state()
 
     async def async_turn_off(self):
         """Turn off."""
@@ -386,7 +391,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             return
 
         self._async_update_temp(new_state)
-        await self.async_update_ha_state()
+        self.async_write_ha_state()
 
     async def _async_humidity_sensor_changed(self, entity_id, old_state, new_state):
         """Handle humidity sensor changes."""
@@ -394,7 +399,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             return
 
         self._async_update_humidity(new_state)
-        await self.async_update_ha_state()
+        self.async_write_ha_state()
 
     async def _async_power_sensor_changed(self, entity_id, old_state, new_state):
         """Handle power sensor changes."""
@@ -411,13 +416,13 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             else:
                 self._hvac_mode = STATE_ON
 
-            await self.async_update_ha_state()
+            self.async_write_ha_state()
 
         if new_state.state == STATE_OFF:
             self._on_by_remote = False
             if self._hvac_mode != HVAC_MODE_OFF:
                 self._hvac_mode = HVAC_MODE_OFF
-            await self.async_update_ha_state()
+            self.async_write_ha_state()
 
     @callback
     def _async_update_temp(self, state):
