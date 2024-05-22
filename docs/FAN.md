@@ -1,9 +1,7 @@
-<p align="center">
-  <a href="#"><img src="assets/smartir_fan.png" width="350" alt="SmartIR Media Player"></a>
-</p>
+# SmartIR Fan
 
 For this platform to work, we need a .json file containing all the necessary IR or RF commands.
-Find your device's brand code [here](FAN.md#available-codes-for-fan-devices) and add the number in the `device_code` field. The compoenent will download it to the correct folder. If your device is not working, you will need to learn your own codes and place the .json file in `smartir/codes/fan/` subfolders. Please note that the `device_code` field only accepts positive numbers. The .json extension is not required.
+Find your device's brand code [here](FAN.md#available-codes-for-fan-devices) and add the number in the `device_code` field. If your device is not working, you will need to learn your own codes and place the .json file in `smartir/custom_codes/fan/` subfolders. Please note that the `device_code` field only accepts positive numbers. The .json extension is not required.
 
 ## Configuration variables
 | Name                         |  Type   | Default  | Description                                                                                                                                                                                                                                                                                                                               |
@@ -20,8 +18,6 @@ Find your device's brand code [here](FAN.md#available-codes-for-fan-devices) and
 Add a Broadlink RM device named "Bedroom" via config flow (read the [docs](https://www.home-assistant.io/integrations/broadlink/)).
 
 ```yaml
-smartir:
-
 fan:
   - platform: smartir
     name: Bedroom fan
@@ -34,8 +30,6 @@ fan:
 ## Example (using xiaomi controller)
 
 ```yaml
-smartir:
-
 remote:
   - platform: xiaomi_miio
     host: 192.168.10.10
@@ -53,8 +47,6 @@ fan:
 ## Example (using mqtt controller)
 
 ```yaml
-smartir:
-
 fan:
   - platform: smartir
     name: Bedroom fan
@@ -67,8 +59,6 @@ fan:
 ## Example (using LOOKin controller)
 
 ```yaml
-smartir:
-
 fan:
   - platform: smartir
     name: Bedroom fan
@@ -105,8 +95,6 @@ remote_transmitter:
 HA configuration.yaml:
 
 ```yaml
-smartir:
-
 fan:
   - platform: smartir
     name: Bedroom fan

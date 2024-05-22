@@ -1,9 +1,7 @@
-<p align="center">
-  <a href="#"><img src="assets/smartir_climate.png" width="350" alt="SmartIR Climate"></a>
-</p>
+# SmartIR Climate
 
 For this platform to work, we need a .json file containing all the necessary IR commands.
-Find your device's brand code [here](CLIMATE.md#available-codes-for-climate-devices) and add the number in the `device_code` field. If your device is not working, you will need to learn your own codes and place the Json file in `smartir/codes/climate` subfolders. Please note that the device_code field only accepts positive numbers. The .json extension is not required.
+Find your device's brand code [here](CLIMATE.md#available-codes-for-climate-devices) and add the number in the `device_code` field. If your device is not working, you will need to learn your own codes and place the Json file in `smartir/custom_codes/climate` subfolders. Please note that the device_code field only accepts positive numbers. The .json extension is not required.
 
 ## Configuration variables:
 | Name                         |  Type   | Default  | Description                                                                                                                                                                                                                                                                                                                                                                    |
@@ -22,8 +20,6 @@ Find your device's brand code [here](CLIMATE.md#available-codes-for-climate-devi
 Add a Broadlink RM device named "Bedroom" via config flow (read the [docs](https://www.home-assistant.io/integrations/broadlink/)).
 
 ```yaml
-smartir:
-
 climate:
   - platform: smartir
     name: Office AC
@@ -37,8 +33,6 @@ climate:
 
 ## Example (using xiaomi controller):
 ```yaml
-smartir:
-
 remote:
   - platform: xiaomi_miio
     host: 192.168.10.10
@@ -57,8 +51,6 @@ climate:
 
 ## Example (using mqtt controller):
 ```yaml
-smartir:
-
 climate:
   - platform: smartir
     name: Office AC
@@ -73,8 +65,6 @@ climate:
 
 ## Example (using LOOKin controller):
 ```yaml
-smartir:
-
 climate:
   - platform: smartir
     name: Office AC
@@ -109,8 +99,6 @@ remote_transmitter:
 ```
 HA configuration.yaml:
 ```yaml
-smartir:
-
 climate:
   - platform: smartir
     name: Office AC

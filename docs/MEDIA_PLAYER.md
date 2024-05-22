@@ -1,9 +1,7 @@
-<p align="center">
-  <a href="#"><img src="assets/smartir_mediaplayer.png" width="350" alt="SmartIR Media Player"></a>
-</p>
+# SmartIR Media Player
 
 For this platform to work, we need a .json file containing all the necessary IR commands.
-Find your device's brand code [here](MEDIA_PLAYER.md#available-codes-for-tv-devices) and add the number in the `device_code` field. The compoenent will download it to the correct folder. If your device is not working, you will need to learn your own codes and place the .json file in `smartir/codes/media_player/` subfolders. Please note that the `device_code` field only accepts positive numbers. The .json extension is not required.
+Find your device's brand code [here](MEDIA_PLAYER.md#available-codes-for-tv-devices) and add the number in the `device_code` field. If your device is not working, you will need to learn your own codes and place the .json file in `smartir/custom_codes/media_player/` subfolders. Please note that the `device_code` field only accepts positive numbers. The .json extension is not required.
 
 ## Configuration variables:
 | Name              |  Type  | Default  | Description                                                                                                                                                                                                                          |
@@ -20,8 +18,6 @@ Find your device's brand code [here](MEDIA_PLAYER.md#available-codes-for-tv-devi
 Add a Broadlink RM device named "Bedroom" via config flow (read the [docs](https://www.home-assistant.io/integrations/broadlink/)).
 
 ```yaml
-smartir:
-
 media_player:
   - platform: smartir
     name: Living room TV
@@ -33,8 +29,6 @@ media_player:
 
 ## Example (using xiaomi controller):
 ```yaml
-smartir:
-
 remote:
   - platform: xiaomi_miio
     host: 192.168.10.10
@@ -51,8 +45,6 @@ media_player:
 
 ## Example (using mqtt controller):
 ```yaml
-smartir:
-
 media_player:
   - platform: smartir
     name: Living room TV
@@ -64,8 +56,6 @@ media_player:
 
 ## Example (using LOOKin controller):
 ```yaml
-smartir:
-
 media_player:
   - platform: smartir
     name: Living room TV
@@ -98,8 +88,6 @@ remote_transmitter:
 ```
 HA configuration.yaml:
 ```yaml
-smartir:
-
 media_player:
   - platform: smartir
     name: Living room TV
