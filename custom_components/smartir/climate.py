@@ -338,8 +338,13 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
         if self._precision == PRECISION_WHOLE:
             temperature = round(temperature)
-        else:
+        elif self._precision == PRECISION_HALVES:
+            temperature = round(temperature * 2) / 2
+        elif self._precision == PRECISION_TENTHS:
             temperature = round(temperature, 1)
+        else:
+            _LOGGER.warning("Unknown temperature precision")
+            temperature = round(temperature)
 
         if self._hvac_mode == HVACMode.OFF:
             self._target_temperature = temperature
@@ -406,10 +411,8 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                         )
                         return
                 else:
-                    if not "on" in self._commands.keys():
-                        """if on code is not present, the on bit can be still set in the all operation/fan codes"""
-                        pass
-                    else:
+                    if "on" in self._commands.keys():
+                        """if on code is not present, the on bit can be still set later in the all operation/fan codes"""
                         await self._controller.send(self._commands["on"])
                         await asyncio.sleep(self._delay)
 
@@ -496,7 +499,6 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self, event: Event[EventStateChangedData]
     ) -> None:
         """Handle temperature sensor changes."""
-        old_state = event.data["old_state"]
         new_state = event.data["new_state"]
         if new_state is None:
             return
@@ -508,7 +510,6 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self, event: Event[EventStateChangedData]
     ) -> None:
         """Handle humidity sensor changes."""
-        old_state = event.data["old_state"]
         new_state = event.data["new_state"]
         if new_state is None:
             return

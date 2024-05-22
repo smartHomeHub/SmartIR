@@ -8,8 +8,6 @@ import json
 
 from homeassistant.const import ATTR_ENTITY_ID
 
-_LOGGER = logging.getLogger(__name__)
-
 BROADLINK_CONTROLLER = "Broadlink"
 XIAOMI_CONTROLLER = "Xiaomi"
 MQTT_CONTROLLER = "MQTT"
@@ -49,7 +47,6 @@ class AbstractController(ABC):
     """Representation of a controller."""
 
     def __init__(self, hass, controller, encoding, controller_data, delay):
-        self.check_encoding(encoding)
         self.hass = hass
         self._controller = controller
         self._encoding = encoding

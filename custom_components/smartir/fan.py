@@ -11,7 +11,6 @@ from homeassistant.components.fan import (
     SUPPORT_SET_SPEED,
     SUPPORT_DIRECTION,
     SUPPORT_OSCILLATE,
-    ATTR_OSCILLATING,
 )
 from homeassistant.const import CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN
 from homeassistant.core import HomeAssistant, Event, EventStateChangedData
@@ -39,6 +38,7 @@ CONF_POWER_SENSOR = "power_sensor"
 CONF_POWER_SENSOR_RESTORE_STATE = "power_sensor_restore_state"
 
 SPEED_OFF = "off"
+OSCILLATING = "oscillate"
 
 SUPPORT_FLAGS = SUPPORT_SET_SPEED
 
@@ -106,7 +106,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
         if DIRECTION_REVERSE in self._commands and DIRECTION_FORWARD in self._commands:
             self._current_direction = DIRECTION_REVERSE
             self._support_flags = self._support_flags | SUPPORT_DIRECTION
-        if "oscillate" in self._commands:
+        if OSCILLATING in self._commands:
             self._oscillating = False
             self._support_flags = self._support_flags | SUPPORT_OSCILLATE
 
