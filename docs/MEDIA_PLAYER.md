@@ -12,6 +12,7 @@ Find your device's brand code [here](MEDIA_PLAYER.md#available-codes-for-tv-devi
 **controller_data** (Required): The data required for the controller to function. Enter the IP address of the Broadlink device **(must be an already configured device)**, or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands.<br />
 **delay** (Optional): Adjusts the delay in seconds between multiple commands. The default is 0.5 <br />
 **power_sensor** (Optional): *entity_id* for a sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor. (Accepts only on/off states)<br />
+**sound_modes** (Optional): Override the names of sound modes as displayed in HomeAssistant (see below)<br />
 **source_names** (Optional): Override the names of sources as displayed in HomeAssistant (see below)<br />
 
 ## Example (using broadlink controller):
@@ -105,6 +106,22 @@ media_player:
     device_code: 2000
     controller_data: my_espir_send_raw_command
     power_sensor: binary_sensor.tv_power
+```
+
+### Overriding Sound Modes
+Sound modes in device files are usually set to the name that the media player uses. If they aren't very descriptive, so you can override these names in the configuration file. You can also remove a mode by setting its name to `null`.
+
+```yaml
+media_player:
+  - platform: smartir
+    name: Living room TV
+    unique_id: living_room_tv
+    device_code: 1000
+    controller_data: 192.168.10.10
+    sound_modes:
+      5.1: Home Theater
+      2.1: Speakers
+      TV: null
 ```
 
 ### Overriding Source Names
