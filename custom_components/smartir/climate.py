@@ -21,11 +21,13 @@ from homeassistant.const import (
     PRECISION_TENTHS,
     PRECISION_HALVES,
     PRECISION_WHOLE,
+    UnitOfTemperature,
 )
 from homeassistant.core import HomeAssistant, Event, EventStateChangedData, callback
 from homeassistant.helpers.event import async_track_state_change_event
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
+from homeassistant.helpers.temperature import display_temp
 from homeassistant.helpers.typing import ConfigType
 from . import DeviceData
 from .controller import get_controller
@@ -99,7 +101,9 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
     def __init__(self, hass, config, device_data):
         _LOGGER.debug(
-            f"SmartIRClimate init started for device {config.get(CONF_NAME)} supported models {device_data['supportedModels']}"
+            "SmartIRClimate init started for device %s supported models %s",
+            config.get(CONF_NAME),
+            device_data["supportedModels"],
         )
         self.hass = hass
         self._unique_id = config.get(CONF_UNIQUE_ID)
@@ -111,14 +115,37 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._humidity_sensor = config.get(CONF_HUMIDITY_SENSOR)
         self._power_sensor = config.get(CONF_POWER_SENSOR)
         self._power_sensor_restore_state = config.get(CONF_POWER_SENSOR_RESTORE_STATE)
+        self._temperature_unit = hass.config.units.temperature_unit
 
+        self._data_temperature_unit = UnitOfTemperature.CELSIUS
+        if "temperatureUnit" in device_data:
+            if device_data["temperatureUnit"] == "F":
+                self._data_temperature_unit = UnitOfTemperature.FAHRENHEIT
+            elif device_data["temperatureUnit"] != "C":
+                _LOGGER.warning(
+                    "Invalid temperatureUnit value in device data file, can be either 'C' or 'K'."
+                )
+        else:
+            _LOGGER.info(
+                "Device data file is missing temperatureUnit, using 'C' as default."
+            )
         self._manufacturer = device_data["manufacturer"]
         self._supported_models = device_data["supportedModels"]
         self._supported_controller = device_data["supportedController"]
         self._commands_encoding = device_data["commandsEncoding"]
-        self._min_temperature = device_data["minTemperature"]
-        self._max_temperature = device_data["maxTemperature"]
         self._precision = device_data["precision"]
+        self._min_temperature = display_temp(
+            self.hass,
+            device_data["minTemperature"],
+            self._data_temperature_unit,
+            self._precision,
+        )
+        self._max_temperature = display_temp(
+            self.hass,
+            device_data["maxTemperature"],
+            self._data_temperature_unit,
+            self._precision,
+        )
 
         valid_hvac_modes = [x for x in device_data["operationModes"] if x in HVAC_MODES]
 
@@ -136,8 +163,6 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
         self._current_temperature = None
         self._current_humidity = None
-
-        self._unit = hass.config.units.temperature_unit
 
         # Supported features
         self._support_flags = SUPPORT_FLAGS
@@ -221,7 +246,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     @property
     def temperature_unit(self):
         """Return the unit of measurement."""
-        return self._unit
+        return self._temperature_unit
 
     @property
     def min_temp(self):
@@ -385,7 +410,9 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     async def send_command(self, hvac_mode, fan_mode, swing_mode, temperature):
         async with self._temp_lock:
             try:
-                target_temperature = "{0:g}".format(temperature)
+                target_temperature = display_temp(
+                    self.hass, temperature, self._data_temperature_unit, self._precision
+                )
 
                 if hvac_mode == HVACMode.OFF:
                     if (
