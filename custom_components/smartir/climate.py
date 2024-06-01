@@ -380,6 +380,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
     async def async_set_fan_mode(self, fan_mode):
         """Set fan mode."""
+        fan_mode = str(fan_mode)
         if self._hvac_mode == HVACMode.OFF:
             self._fan_mode = fan_mode
         else:
@@ -389,6 +390,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
     async def async_set_swing_mode(self, swing_mode):
         """Set swing mode."""
+        swing_mode = str(swing_mode)
         if self._hvac_mode == HVACMode.OFF:
             self._swing_mode = swing_mode
         else:
@@ -410,8 +412,13 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     async def send_command(self, hvac_mode, fan_mode, swing_mode, temperature):
         async with self._temp_lock:
             try:
-                target_temperature = display_temp(
-                    self.hass, temperature, self._data_temperature_unit, self._precision
+                target_temperature = str(
+                    display_temp(
+                        self.hass,
+                        temperature,
+                        self._data_temperature_unit,
+                        self._precision,
+                    )
                 )
 
                 if hvac_mode == HVACMode.OFF:
@@ -445,7 +452,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
                     if not hvac_mode in self._commands.keys():
                         _LOGGER.error(
-                            "Missing device IR code for %s operation mode.", hvac_mode
+                            "Missing device IR code for '%s' operation mode.", hvac_mode
                         )
                         return
                     elif not (
@@ -453,7 +460,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                         and fan_mode in self._commands[hvac_mode].keys()
                     ):
                         _LOGGER.error(
-                            "Missing device IR code for %s fan mode.", fan_mode
+                            "Missing device IR code for '%s' fan mode.", fan_mode
                         )
                         return
                     elif self._support_swing == True:
@@ -462,7 +469,8 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                             and swing_mode in self._commands[hvac_mode][fan_mode].keys()
                         ):
                             _LOGGER.error(
-                                "Missing device IR code for swing mode." + swing_mode
+                                "Missing device IR code for '%s' swing mode.",
+                                swing_mode,
                             )
                             return
                         elif hvac_mode == HVACMode.FAN_ONLY:
@@ -477,7 +485,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                             in self._commands[hvac_mode][fan_mode][swing_mode].keys()
                         ):
                             _LOGGER.error(
-                                "Missing device IR code %s target temperature.",
+                                "Missing device IR code '%s' target temperature.",
                                 target_temperature,
                             )
                             return
@@ -501,7 +509,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                             in self._commands[hvac_mode][fan_mode].keys()
                         ):
                             _LOGGER.error(
-                                "Missing device IR code for %s target temperature.",
+                                "Missing device IR code for '%s' target temperature.",
                                 target_temperature,
                             )
                             return
