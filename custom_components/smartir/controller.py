@@ -216,7 +216,7 @@ class ZHAController(AbstractController):
         )
 
 
-class UFOR11Controller(AbstractController):
+class UFOR11Controller(MQTTController):
     """Controls a UFO-R11 device."""
 
     def check_encoding(self, encoding):
