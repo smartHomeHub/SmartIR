@@ -12,6 +12,7 @@ XIAOMI_CONTROLLER = "Xiaomi"
 MQTT_CONTROLLER = "MQTT"
 LOOKIN_CONTROLLER = "LOOKin"
 ESPHOME_CONTROLLER = "ESPHome"
+ZHA_CONTROLLER = "ZHA"
 
 ENC_BASE64 = "Base64"
 ENC_HEX = "Hex"
@@ -23,6 +24,7 @@ XIAOMI_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
 MQTT_COMMANDS_ENCODING = [ENC_RAW]
 LOOKIN_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
 ESPHOME_COMMANDS_ENCODING = [ENC_RAW]
+ZHA_COMMANDS_ENCODING = [ENC_RAW]
 
 
 def get_controller(hass, controller, encoding, controller_data, delay):
@@ -33,6 +35,7 @@ def get_controller(hass, controller, encoding, controller_data, delay):
         MQTT_CONTROLLER: MQTTController,
         LOOKIN_CONTROLLER: LookinController,
         ESPHOME_CONTROLLER: ESPHomeController,
+        ZHA_CONTROLLER: ZHAController,
     }
     try:
         return controllers[controller](
@@ -179,6 +182,34 @@ class ESPHomeController(AbstractController):
 
         await self.hass.services.async_call(
             "esphome", self._controller_data, service_data
+        )
+
+
+class ZHAController(AbstractController):
+    """Controls a ZHA device."""
+
+    def check_encoding(self, encoding):
+        """Check if the encoding is supported by the controller."""
+        if encoding not in ZHA_COMMANDS_ENCODING:
+            raise Exception(
+                "The encoding is not supported " "by the ESPHome controller."
+            )
+
+    async def send(self, command):
+        """Send a command."""
+        service_data = json.loads(self._controller_data)
+        if not isinstance(service_data, dict):
+            raise Exception("Wrong json config for ZHA controller")
+        for key in ["ieee", "endpoint_id", "cluster_id", "cluster_type", "command"]:
+            if not service_data.get(key):
+                raise Exception(
+                    "Missing '%s' parameter in config for ZHA controller", key
+                )
+        service_data["params"] = {
+            "code": command,
+        }
+        await self.hass.services.async_call(
+            "zha", "issue_zigbee_cluster_command", service_data
         )
 
 

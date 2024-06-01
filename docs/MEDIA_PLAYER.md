@@ -4,15 +4,15 @@ For this platform to work, we need a .json file containing all the necessary IR 
 Find your device's brand code [here](MEDIA_PLAYER.md#available-codes-for-tv-devices) and add the number in the `device_code` field. If your device is not working, you will need to learn your own codes and place the .json file in `smartir/custom_codes/media_player/` subfolders. Please note that the `device_code` field only accepts positive numbers. The .json extension is not required.
 
 ## Configuration variables:
-| Name              |  Type  | Default  | Description                                                                                                                                                                                                                          |
-| ----------------- | :----: | :------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `name`            | string | optional | The name of the device                                                                                                                                                                                                               |
-| `unique_id`       | string | optional | An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.                                                                                                          |
-| `device_code`     | number | required | (Accepts only positive numbers)                                                                                                                                                                                                      |
-| `controller_data` | string | required | The data required for the controller to function. Enter the entity_id of the Broadlink remote **(must be an already configured device)**, or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands. |
-| `delay`           | number | optional | Adjusts the delay in seconds between multiple commands. The default is 0.5                                                                                                                                                           |
-| `power_sensor`    | string | optional | *entity_id* for a sensor that monitors whether your device is actually `on` or `off`. This may be a power monitor sensor. (Accepts only on/off states)                                                                               |
-| `source_names`    |  dict  | optional | Override the names of sources as displayed in HomeAssistant (see below)                                                                                                                                                              |
+| Name              |  Type  | Default  | Description                                                                                                                                                                                                                                                                         |
+| ----------------- | :----: | :------: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`            | string | optional | The name of the device                                                                                                                                                                                                                                                              |
+| `unique_id`       | string | optional | An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.                                                                                                                                                         |
+| `device_code`     | number | required | (Accepts only positive numbers)                                                                                                                                                                                                                                                     |
+| `controller_data` | string | required | The data required for the controller to function. Enter the entity_id of the Broadlink remote **(must be an already configured device)**, or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands, or the ZHA zigbee cluster to send commands to. |
+| `delay`           | number | optional | Adjusts the delay in seconds between multiple commands. The default is 0.5                                                                                                                                                                                                          |
+| `power_sensor`    | string | optional | *entity_id* for a sensor that monitors whether your device is actually `on` or `off`. This may be a power monitor sensor. (Accepts only on/off states)                                                                                                                              |
+| `source_names`    |  dict  | optional | Override the names of sources as displayed in HomeAssistant (see below)                                                                                                                                                                                                             |
 
 ## Example (using broadlink controller):
 Add a Broadlink RM device named "Bedroom" via config flow (read the [docs](https://www.home-assistant.io/integrations/broadlink/)).
@@ -94,6 +94,24 @@ media_player:
     unique_id: living_room_tv
     device_code: 2000
     controller_data: my_espir_send_raw_command
+    power_sensor: binary_sensor.tv_power
+```
+
+## Example (using ZHA controller and a TuYa ZS06):
+```yaml
+media_player:
+  - platform: smartir
+    name: Living room TV
+    unique_id: living_room_tv
+    device_code: 5000
+    controller_data: '{
+     "ieee":"XX:XX:XX:XX:XX:XX:XX:XX",
+     "endpoint_id": 1,
+     "cluster_id": 57348,
+     "cluster_type": "in",
+     "command": 2,
+     "command_type": "server"
+    }'
     power_sensor: binary_sensor.tv_power
 ```
 
