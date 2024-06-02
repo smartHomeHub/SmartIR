@@ -13,6 +13,7 @@ MQTT_CONTROLLER = "MQTT"
 LOOKIN_CONTROLLER = "LOOKin"
 ESPHOME_CONTROLLER = "ESPHome"
 ZHA_CONTROLLER = "ZHA"
+UFOR11_CONTROLLER = "UFOR11"
 
 ENC_BASE64 = "Base64"
 ENC_HEX = "Hex"
@@ -25,6 +26,7 @@ MQTT_COMMANDS_ENCODING = [ENC_RAW]
 LOOKIN_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
 ESPHOME_COMMANDS_ENCODING = [ENC_RAW]
 ZHA_COMMANDS_ENCODING = [ENC_RAW]
+UFOR11_COMMANDS_ENCODING = [ENC_RAW]
 
 
 def get_controller(hass, controller, encoding, controller_data, delay):
@@ -36,6 +38,7 @@ def get_controller(hass, controller, encoding, controller_data, delay):
         LOOKIN_CONTROLLER: LookinController,
         ESPHOME_CONTROLLER: ESPHomeController,
         ZHA_CONTROLLER: ZHAController,
+        UFOR11_CONTROLLER: UFOR11Controller,
     }
     try:
         return controllers[controller](
@@ -211,6 +214,24 @@ class ZHAController(AbstractController):
         await self.hass.services.async_call(
             "zha", "issue_zigbee_cluster_command", service_data
         )
+
+
+class UFOR11Controller(MQTTController):
+    """Controls a UFO-R11 device."""
+
+    def check_encoding(self, encoding):
+        """Check if the encoding is supported by the controller."""
+        if encoding not in UFOR11_COMMANDS_ENCODING:
+            raise Exception("The encoding is not supported by the UFO-R11 controller.")
+
+    async def send(self, command):
+        """Send a command."""
+        service_data = {
+            "topic": self._controller_data,
+            "payload": json.dumps({"ir_code_to_send": command}),
+        }
+
+        await self.hass.services.async_call("mqtt", "publish", service_data)
 
 
 class Helper:

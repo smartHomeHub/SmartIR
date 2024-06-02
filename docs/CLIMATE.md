@@ -49,7 +49,7 @@ climate:
     power_sensor: binary_sensor.ac_power
 ```
 
-## Example (using mqtt controller):
+## Example (using mqtt/Z06/UFO-R11 controller):
 ```yaml
 climate:
   - platform: smartir

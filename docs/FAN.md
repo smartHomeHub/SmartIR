@@ -28,7 +28,6 @@ fan:
 ```
 
 ## Example (using xiaomi controller)
-
 ```yaml
 remote:
   - platform: xiaomi_miio
@@ -44,8 +43,7 @@ fan:
     power_sensor: binary_sensor.fan_power
 ```
 
-## Example (using mqtt controller)
-
+## Example (using mqtt/Z06/UFO-R11 controller)
 ```yaml
 fan:
   - platform: smartir
@@ -57,7 +55,6 @@ fan:
 ```
 
 ## Example (using LOOKin controller)
-
 ```yaml
 fan:
   - platform: smartir
@@ -69,9 +66,7 @@ fan:
 ```
 
 ## Example (using ESPHome)
-
 ESPHome configuration example:
-
 ```yaml
 esphome:
   name: my_espir
@@ -93,7 +88,6 @@ remote_transmitter:
 ```
 
 HA configuration.yaml:
-
 ```yaml
 fan:
   - platform: smartir
@@ -105,7 +99,6 @@ fan:
 ```
 
 ## Example (using ZHA controller and a TuYa ZS06):
-
 ```yaml
 fan:
   - platform: smartir
