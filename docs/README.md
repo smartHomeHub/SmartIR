@@ -9,6 +9,8 @@ SmartIR currently supports the following controllers:
 * [LOOK.in Remote](http://look-in.club/devices/remote)
 * [ESPHome User-defined service for remote transmitter](https://esphome.io/components/api.html#user-defined-services)
 * [MQTT Publish service](https://www.home-assistant.io/docs/mqtt/service/)
+  * [Tuya Z06/Moes UFO-R11](https://www.zigbee2mqtt.io/devices/UFO-R11.html) 
+* [ZHA Zigbee IR remote](https://www.home-assistant.io/integrations/zha/) (May require custom zha quirk for given controller)
 
 More than 120 climate devices are currently supported out-of-the-box, mainly for the Broadlink controller, thanks to our awesome community.
 
@@ -17,6 +19,10 @@ Don't forget to **star** the repository if you had fun!
 ## Disclaimer ##
 
 This is a fork of the original repository smartHomeHub/SmartIR which seems to be unmaintained at the time with many pull requests pending. As some of those were useful to my usage I decided to fork and merge the work of the corresponding authors to allow for simple usage of the integration through HACS. Therefore all the corresponding rights belong to the original authors. I also lately started to fix some additional users issues, implementing HomeAssistant future compatibility changes and adding some functionality, trying to keep compatibility but please note, that there may be some **breaking changes** from the original version.
+
+### WARNING - custom codes! ###
+
+If you use any own/custom codes json files please backup such json files before migrating to this integration from the original one. After instalation (using HACS) please place your custom files into new `custom_codes` directory. `codes` directory is managed by HACS and you will loose all changes during any HACS update!
 
 ## Installation
 ### *HACS*
