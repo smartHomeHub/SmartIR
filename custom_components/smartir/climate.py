@@ -122,7 +122,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             if device_data["temperatureUnit"] == "F":
                 self._data_temperature_unit = UnitOfTemperature.FAHRENHEIT
             elif device_data["temperatureUnit"] != "C":
-                _LOGGER.warning(
+                _LOGGER.info(
                     "Invalid temperatureUnit value in device data file, can be either 'C' or 'K'."
                 )
         else:
