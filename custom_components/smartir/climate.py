@@ -418,70 +418,78 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
                     if not hvac_mode in self._commands.keys():
                         _LOGGER.error(
-                            "Missing device IR code for %s operation mode.", hvac_mode
+                            "Missing device IR code for '%s' operation mode.", hvac_mode
                         )
                         return
                     elif not (
                         isinstance(self._commands[hvac_mode], dict)
                         and fan_mode in self._commands[hvac_mode].keys()
+                        and isinstance(self._commands[hvac_mode][fan_mode], dict)
                     ):
                         _LOGGER.error(
-                            "Missing device IR code for %s fan mode.", fan_mode
+                            "Missing device IR codes for '%s' fan mode.", fan_mode
                         )
                         return
                     elif self._support_swing == True:
                         if not (
-                            isinstance(self._commands[hvac_mode][fan_mode], dict)
-                            and swing_mode in self._commands[hvac_mode][fan_mode].keys()
-                        ):
-                            _LOGGER.error(
-                                "Missing device IR code for swing mode." + swing_mode
-                            )
-                            return
-                        elif hvac_mode == HVACMode.FAN_ONLY:
-                            await self._controller.send(
-                                self._commands[hvac_mode][fan_mode][swing_mode]
-                            )
-                        elif not (
-                            isinstance(
+                            swing_mode in self._commands[hvac_mode][fan_mode].keys()
+                            and isinstance(
                                 self._commands[hvac_mode][fan_mode][swing_mode], dict
                             )
-                            and target_temperature
-                            in self._commands[hvac_mode][fan_mode][swing_mode].keys()
                         ):
                             _LOGGER.error(
-                                "Missing device IR code %s target temperature.",
-                                target_temperature,
+                                "Missing device IR codes for '%s' swing mode.",
+                                swing_mode,
                             )
                             return
-                        else:
+                        elif (
+                            target_temperature
+                            in self._commands[hvac_mode][fan_mode][swing_mode].keys()
+                        ):
                             await self._controller.send(
                                 self._commands[hvac_mode][fan_mode][swing_mode][
                                     target_temperature
                                 ]
                             )
-                    else:
-                        if (
-                            not isinstance(self._commands[hvac_mode][fan_mode], dict)
-                            and hvac_mode == HVACMode.FAN_ONLY
+                        elif (
+                            hvac_mode == HVACMode.FAN_ONLY
+                            and "-"
+                            in self._commands[hvac_mode][fan_mode][swing_mode].keys()
                         ):
+                            # fan_only mode sometimes do not support temperatures
+                            # (same code is used for all temperatures)
                             await self._controller.send(
-                                self._commands[hvac_mode][fan_mode]
+                                self._commands[hvac_mode][fan_mode][swing_mode]["-"]
                             )
-                        elif not (
-                            isinstance(self._commands[hvac_mode][fan_mode], dict)
-                            and target_temperature
-                            in self._commands[hvac_mode][fan_mode].keys()
-                        ):
+                        else:
                             _LOGGER.error(
-                                "Missing device IR code for %s target temperature.",
+                                "Missing device IR code '%s' for target temperature.",
                                 target_temperature,
                             )
                             return
-                        else:
+                    else:
+                        if (
+                            target_temperature
+                            in self._commands[hvac_mode][fan_mode].keys()
+                        ):
                             await self._controller.send(
                                 self._commands[hvac_mode][fan_mode][target_temperature]
                             )
+                        elif (
+                            hvac_mode == HVACMode.FAN_ONLY
+                            and "-" in self._commands[hvac_mode][fan_mode].keys()
+                        ):
+                            # fan_only mode sometimes do not support temperatures
+                            # (same code is used for all temperatures)
+                            await self._controller.send(
+                                self._commands[hvac_mode][fan_mode]["-"]
+                            )
+                        else:
+                            _LOGGER.error(
+                                "Missing device IR code for '%s' target temperature.",
+                                target_temperature,
+                            )
+                            return
 
                 self._on_by_remote = False
                 self._hvac_mode = hvac_mode
