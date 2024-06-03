@@ -3,6 +3,7 @@
   "supportedModels": ["FSOAI-SU-90AE2"],
   "commandsEncoding": "Base64",
   "supportedController": "Broadlink",
+  "temperatureUnit": "C",
   "minTemperature": 17,
   "maxTemperature": 30,
   "precision": 1,
