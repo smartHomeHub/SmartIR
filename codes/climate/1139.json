@@ -10,6 +10,7 @@
   "supportedController": "Broadlink",
   
   "_comment_temp": "Temperature below look to be in units of Farenheit.  The limits are based on what the remote allows you to set",
+  "temperatureUnit": "C",
   "minTemperature": 61,
   "maxTemperature": 88,
   "precision": 1,

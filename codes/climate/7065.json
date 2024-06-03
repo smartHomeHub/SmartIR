@@ -8,7 +8,8 @@
     ],
     "supportedController": "ESPHome",
     "commandsEncoding": "Raw",
-    "minTemperature": 16.0,
+    "temperatureUnit": "C",
+  "minTemperature": 16.0,
     "maxTemperature": 30.0,
     "precision": 1.0,
     "operationModes": [

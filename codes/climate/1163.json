@@ -561,6 +561,7 @@
   ],
   "manufacturer": "Carrier",
   "maxTemperature": 86,
+  "temperatureUnit": "C",
   "minTemperature": 62,
   "operationModes": [
     "cool",

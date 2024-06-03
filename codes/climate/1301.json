@@ -5,7 +5,8 @@
     ],
     "supportedController":"Broadlink",
     "commandsEncoding":"Base64",
-    "minTemperature":18.0,
+    "temperatureUnit": "C",
+  "minTemperature":18.0,
     "maxTemperature":32.0,
     "precision":1.0,
     "operationModes":[

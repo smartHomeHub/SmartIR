@@ -3,6 +3,7 @@
   "supportedModels": ["ECST12FR4-02", "ECST19QFIR4-02"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 16.0,
   "maxTemperature": 31.0,
   "precision": 0.5,
