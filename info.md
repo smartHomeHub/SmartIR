@@ -2,7 +2,7 @@
 
 [![HACS Badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg?style=for-the-badge)](https://github.com/hacs/integration)
 [![License](https://img.shields.io/github/license/litinoveweedle/smartir?style=for-the-badge)](https://github.com/litinoveweedle/smartir/blob/main/LICENSE)
-[![Latest Release](https://img.shields.io/github/v/release/litinoveweedle/smartir?style=for-the-badge)
+[![Latest Release](https://img.shields.io/github/v/release/litinoveweedle/smartir?style=for-the-badge)](https://github.com/litinoveweedle/smartir/releases)
 [![Code style](https://img.shields.io/badge/code%20style-black-000000.svg?style=for-the-badge)](https://github.com/psf/black)
 
 ## Overview
