@@ -1,7 +1,7 @@
 {
     "manufacturer": "Yamaha",
     "supportedModels": [
-      "VR50590"
+        "VR50590"
     ],
     "supportedController": "Broadlink",
     "commandsEncoding": "Base64",

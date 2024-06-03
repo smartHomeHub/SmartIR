@@ -1,14 +1,23 @@
 {
     "manufacturer": "Tornado",
-    "supportedModels": ["Inverter VRF"],
+    "supportedModels": [
+        "Inverter VRF"
+    ],
     "supportedController": "Broadlink",
     "commandsEncoding": "Base64",
     "temperatureUnit": "C",
-  "minTemperature": 16.0,
+    "minTemperature": 16.0,
     "maxTemperature": 30.0,
     "precision": 1.0,
-    "operationModes": ["heat", "cool"],
-    "fanModes": ["low", "mid", "high"],
+    "operationModes": [
+        "heat",
+        "cool"
+    ],
+    "fanModes": [
+        "low",
+        "mid",
+        "high"
+    ],
     "commands": {
         "off": "JgDIAMfzEjYTNRM1EjYTNRM1EzUTNRMRFBAUEBUPFBAUEBQQFBAVDxQ0EzUTNRQ0EzUTNRM1FTMTERQQFBAUEBQQFBAVDxUzEzUVMxM1EzUTNRM1EzUUEBUQFBAUEBQQFBATERMQFTQSNRM1ExEVDxQQFTMTNRMRFQ8UEBUzFDQTNhISFBAUEBQ0EjYTERQ0EhIUNBI2EzUSEhQQFDQSEhQ0EhIUEBQQFDQSEhQ0FBAUNBMRFQ8VMxMRFTMVDxUzEhIVMxI2EvITAA0F",
         "heat": {

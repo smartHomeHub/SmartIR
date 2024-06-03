@@ -1,7 +1,7 @@
 {
     "manufacturer": "LG",
     "supportedModels": [
-      "LH6235D"
+        "LH6235D"
     ],
     "supportedController": "Broadlink",
     "commandsEncoding": "Base64",

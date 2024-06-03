@@ -1,8 +1,8 @@
 {
     "manufacturer": "Philips",
     "supportedModels": [
-      "42PFL3007H/60",
-      "37PF9641D/10"
+        "42PFL3007H/60",
+        "37PF9641D/10"
     ],
     "supportedController": "Broadlink",
     "commandsEncoding": "Base64",
@@ -21,7 +21,7 @@
             "VGA": "JgAaAB8bHxw8HB8bHzoeHB8bHxweHD0bHxsfAA0FAAAAAAAAAAAAAAAAAAA=",
             "HDMI 1": "JgAaAB8cHxs9Gx8cHzkfGx8cHhwfGz0cHjofAA0FAAAAAAAAAAAAAAAAAAA=",
             "HDMI 2": "JgAYAD06PBwfGx85HxwfGx8bHxw9OR8bHwANBQ==",
-            "HDMI Side": "JgAYAB8bPRwfGx8bHzoeHD0bHxweOh8bPQANBQ==",            
+            "HDMI Side": "JgAYAB8bPRwfGx8bHzoeHD0bHxweOh8bPQANBQ==",
             "Channel 1": "JgAsAFceDx0ODw4PDh0eDg4PDg8ODw4PDg8MEA0QDRAPDg8ODw4PDg8ODw4dAA0F",
             "Channel 2": "JgAsAFUgDR4NEA0QDR8cEAwQDRANEA0QDRANEA0QDRANEA0QDRANEA0QHB4MAA0F",
             "Channel 3": "JgAqAFUfDR8NEA0QKi0NEA0QDRANEA0QDRANEA0QDBEMEQwRDBANEBwQDAANBQ==",

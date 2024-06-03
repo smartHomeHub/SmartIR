@@ -1,6 +1,8 @@
 {
     "manufacturer": "JVC",
-    "supportedModels": ["RX-5022R"],
+    "supportedModels": [
+        "RX-5022R"
+    ],
     "supportedController": "Broadlink",
     "commandsEncoding": "Base64",
     "commands": {
@@ -9,6 +11,8 @@
         "mute": "JgBMAAABF4kQMxEzERAREREQETMQERA0EREREBA0EDQQNBEQEREQEhAAAr0PNBEzEBIRERAQETMRERA0EREQEBEzETMRMxEREREPExAADQUAAAAAAAAAAAAAAAA=",
         "volumeUp": "JgBMAAABFokPNBEzERAREREQEjISDxIyERESMhEzETMQNBERERAREREAApoQMxEzERARERAQETMREREzEBERMxEzETMRMxEREREREREADQUAAAAAAAAAAAAAAAA=",
         "volumeDown": "JgBMAAABF4sQMxA0EREQEhEREDQRERA0ETMRMxEzETMRMxESEBEQEhEAAnwQMxEzEREQEhERDzUQEhA0ETMRMxEzETMQNBERERIQEhAADQUAAAAAAAAAAAAAAAA=",
-        "sources": {}
+        "sources": {
+
+        }
     }
 }
