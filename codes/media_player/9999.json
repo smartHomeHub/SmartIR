@@ -1,7 +1,7 @@
 {
     "manufacturer": "Yamaha",
     "supportedModels": [
-      "AX-380"
+        "AX-380"
     ],
     "supportedController": "Broadlink",
     "commandsEncoding": "Pronto",

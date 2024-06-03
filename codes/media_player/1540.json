@@ -1,6 +1,8 @@
 {
     "manufacturer": "Epson",
-    "supportedModels": ["MG-850HD"],
+    "supportedModels": [
+        "MG-850HD"
+    ],
     "supportedController": "Broadlink",
     "commandsEncoding": "Base64",
     "commands": {
@@ -9,6 +11,8 @@
         "mute": "JgCQAAABJZMTNhM2ExITEhMSExITEhM2EzYSExM3EhMSNxITEzYSExMSEzYTEhMSEzYTEhMSEzYTNhMSEzcSNxITEjcSNxMSEgAFOwABJpMTNhM2GwoTEhITExITEhM2EzYTEhM3EhITNxITEjcSExITEjcTEhMSEzYTEhMSEzYTNhMSEzYTNhMTEjcSNxITEgANBQ==",
         "volumeUp": "JgBIAAABI5QTNhE5EBUQFRAVEBUQFRA5ETcSFBE4EhMROBETEjgRFRAUEhMTEhE3EjgRExIUETcSOBM3ETgQFREUEDkROBEUEgANBQ==",
         "volumeDown": "JgCQAAABJJMTNhM3EhMRFRAUERQRFBE4ETgSFBA4EhQROBEUEjYSFBE3ExMRFBE3EjgRFBEUEjcRFBE4ETkQFBIUETcTNhMTEQAFOwABJZUQOBE4EhQRExIUERQRFBE3EzYSExI4EhISOBEUEjcRFBE4EhMRFBE4EjcRFREUETgRExI3EjcSFBEUETgSNhIUEQANBQ==",
-        "sources": {}
+        "sources": {
+
+        }
     }
 }

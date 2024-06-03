@@ -1,7 +1,8 @@
 {
     "manufacturer": "Xiaomi",
     "supportedModels": [
-      "MiBox","MItv"
+        "MiBox",
+        "MItv"
     ],
     "supportedController": "Broadlink",
     "commandsEncoding": "Base64",

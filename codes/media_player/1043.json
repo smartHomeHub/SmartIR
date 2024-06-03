@@ -1,7 +1,7 @@
 {
     "manufacturer": "LG",
     "supportedModels": [
-      "32LC2R"
+        "32LC2R"
     ],
     "supportedController": "Broadlink",
     "commandsEncoding": "Base64",
