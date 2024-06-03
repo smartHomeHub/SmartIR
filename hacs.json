@@ -4,6 +4,5 @@
   "persistent_directory": "custom_codes",
   "zip_release": true,
   "hide_default_branch": true,
-  "filename": "smartir.zip",
-  "render_readme": true
+  "filename": "smartir.zip"
 }

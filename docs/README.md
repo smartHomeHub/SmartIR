@@ -1,4 +1,9 @@
-[![](https://img.shields.io/github/v/release/litinoveweedle/SmartIR.svg?style=flat-square)](https://github.com/litinoveweedle/SmartIR/releases/latest) [![](https://img.shields.io/badge/HACS-Custom-orange.svg?style=flat-square)](https://github.com/custom-components/hacs)
+# ⏻ Smart IR
+
+[![HACS Badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg?style=for-the-badge)](https://github.com/hacs/integration)
+[![License](https://img.shields.io/github/license/litinoveweedle/smartir?style=for-the-badge)](https://github.com/litinoveweedle/smartir/blob/main/LICENSE)
+[![Latest Release](https://img.shields.io/github/v/release/litinoveweedle/smartir?style=for-the-badge)
+[![Code style](https://img.shields.io/badge/code%20style-black-000000.svg?style=for-the-badge)](https://github.com/psf/black)
 
 ## Overview
 SmartIR is a custom integration for controlling **climate devices**, **media players** and **fans** via infrared controllers.
