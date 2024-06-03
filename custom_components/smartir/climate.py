@@ -121,13 +121,16 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         if "temperatureUnit" in device_data:
             if device_data["temperatureUnit"] == "F":
                 self._data_temperature_unit = UnitOfTemperature.FAHRENHEIT
+            elif device_data["temperatureUnit"] == "K":
+                self._data_temperature_unit = UnitOfTemperature.KELVIN
             elif device_data["temperatureUnit"] != "C":
-                _LOGGER.info(
-                    "Invalid temperatureUnit value in device data file, can be either 'C' or 'K'."
+                _LOGGER.error(
+                    "Invalid 'temperatureUnit' value in device data file, can be either 'C' or 'F' or 'K'."
                 )
+                return
         else:
-            _LOGGER.info(
-                "Device data file is missing temperatureUnit, using 'C' as default."
+            _LOGGER.warning(
+                "Device data file is missing 'temperatureUnit' key, using 'C' as default."
             )
         self._manufacturer = device_data["manufacturer"]
         self._supported_models = device_data["supportedModels"]
