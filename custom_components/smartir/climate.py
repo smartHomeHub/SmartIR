@@ -424,7 +424,6 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                     elif not (
                         isinstance(self._commands[hvac_mode], dict)
                         and fan_mode in self._commands[hvac_mode].keys()
-                        and isinstance(self._commands[hvac_mode][fan_mode], dict)
                     ):
                         _LOGGER.error(
                             "Missing device IR codes for '%s' fan mode.", fan_mode
@@ -432,10 +431,8 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                         return
                     elif self._support_swing == True:
                         if not (
-                            swing_mode in self._commands[hvac_mode][fan_mode].keys()
-                            and isinstance(
-                                self._commands[hvac_mode][fan_mode][swing_mode], dict
-                            )
+                            isinstance(self._commands[hvac_mode][fan_mode], dict)
+                            and swing_mode in self._commands[hvac_mode][fan_mode].keys()
                         ):
                             _LOGGER.error(
                                 "Missing device IR codes for '%s' swing mode.",
@@ -443,7 +440,10 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                             )
                             return
                         elif (
-                            target_temperature
+                            isinstance(
+                                self._commands[hvac_mode][fan_mode][swing_mode], dict
+                            )
+                            and target_temperature
                             in self._commands[hvac_mode][fan_mode][swing_mode].keys()
                         ):
                             await self._controller.send(
@@ -451,15 +451,13 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                                     target_temperature
                                 ]
                             )
-                        elif (
-                            hvac_mode == HVACMode.FAN_ONLY
-                            and "-"
-                            in self._commands[hvac_mode][fan_mode][swing_mode].keys()
+                        elif hvac_mode == HVACMode.FAN_ONLY and isinstance(
+                            self._commands[hvac_mode][fan_mode][swing_mode], str
                         ):
                             # fan_only mode sometimes do not support temperatures
                             # (same code is used for all temperatures)
                             await self._controller.send(
-                                self._commands[hvac_mode][fan_mode][swing_mode]["-"]
+                                self._commands[hvac_mode][fan_mode][swing_mode]
                             )
                         else:
                             _LOGGER.error(
@@ -469,20 +467,20 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                             return
                     else:
                         if (
-                            target_temperature
+                            isinstance(self._commands[hvac_mode][fan_mode], dict)
+                            and target_temperature
                             in self._commands[hvac_mode][fan_mode].keys()
                         ):
                             await self._controller.send(
                                 self._commands[hvac_mode][fan_mode][target_temperature]
                             )
-                        elif (
-                            hvac_mode == HVACMode.FAN_ONLY
-                            and "-" in self._commands[hvac_mode][fan_mode].keys()
+                        elif hvac_mode == HVACMode.FAN_ONLY and isinstance(
+                            self._commands[hvac_mode][fan_mode], str
                         ):
                             # fan_only mode sometimes do not support temperatures
                             # (same code is used for all temperatures)
                             await self._controller.send(
-                                self._commands[hvac_mode][fan_mode]["-"]
+                                self._commands[hvac_mode][fan_mode]
                             )
                         else:
                             _LOGGER.error(
