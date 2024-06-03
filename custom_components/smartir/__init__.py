@@ -20,6 +20,9 @@ class DeviceData:
         if os.path.isdir(device_files_absdir):
             device_json_path = os.path.join(device_files_absdir, device_json_filename)
             if os.path.exists(device_json_path):
+                _LOGGER.debug(
+                    "Loading custom device Json file '%s'.", device_json_filename
+                )
                 if device_data := DeviceData.check_file(
                     device_json_filename, device_json_path, required_keys
                 ):
@@ -34,6 +37,9 @@ class DeviceData:
         if os.path.isdir(device_files_absdir):
             device_json_path = os.path.join(device_files_absdir, device_json_filename)
             if os.path.exists(device_json_path):
+                _LOGGER.debug(
+                    "Loading device Json file '%s'.", device_json_filename
+                )
                 if device_data := DeviceData.check_file(
                     device_json_filename, device_json_path, required_keys
                 ):

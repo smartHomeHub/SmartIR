@@ -76,6 +76,8 @@ async def async_setup_platform(
 
 
 class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
+    _attr_should_poll = False
+
     def __init__(self, hass, config, device_data):
         self.hass = hass
         self._unique_id = config.get(CONF_UNIQUE_ID)
