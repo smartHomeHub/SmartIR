@@ -244,9 +244,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 self.hass, self._humidity_sensor, self._async_humidity_sensor_changed
             )
             if last_state is not None:
-                self._current_humidity = last_state.attributes.get(
-                    "current_humidity"
-                )
+                self._current_humidity = last_state.attributes.get("current_humidity")
 
         if self._power_sensor:
             async_track_state_change_event(
