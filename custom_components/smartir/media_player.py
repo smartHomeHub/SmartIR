@@ -58,7 +58,7 @@ async def async_setup_platform(
     """Set up the IR Media Player platform."""
     _LOGGER.debug("Setting up the smartir media player platform")
     if not (
-        device_data := DeviceData.load_file(
+        device_data := await DeviceData.load_file(
             config.get(CONF_DEVICE_CODE),
             "media_player",
             [
@@ -67,6 +67,7 @@ async def async_setup_platform(
                 "supportedController",
                 "commandsEncoding",
             ],
+            hass,
         )
     ):
         _LOGGER.error("Smartir media player device data init failed!")

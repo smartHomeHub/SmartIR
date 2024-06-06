@@ -73,7 +73,7 @@ async def async_setup_platform(
     """Set up the IR Climate platform."""
     _LOGGER.debug("Setting up the smartir climate platform")
     if not (
-        device_data := DeviceData.load_file(
+        device_data := await DeviceData.load_file(
             config.get(CONF_DEVICE_CODE),
             "climate",
             [
@@ -87,6 +87,7 @@ async def async_setup_platform(
                 "operationModes",
                 "fanModes",
             ],
+            hass
         )
     ):
         _LOGGER.error("Smartir climate device data init failed!")
