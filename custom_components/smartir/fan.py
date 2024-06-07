@@ -5,12 +5,10 @@ import voluptuous as vol
 
 from homeassistant.components.fan import (
     FanEntity,
+    FanEntityFeature,
     PLATFORM_SCHEMA,
     DIRECTION_REVERSE,
     DIRECTION_FORWARD,
-    SUPPORT_SET_SPEED,
-    SUPPORT_DIRECTION,
-    SUPPORT_OSCILLATE,
 )
 from homeassistant.const import CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN
 from homeassistant.core import HomeAssistant, Event, EventStateChangedData
@@ -40,7 +38,9 @@ CONF_POWER_SENSOR_RESTORE_STATE = "power_sensor_restore_state"
 SPEED_OFF = "off"
 OSCILLATING = "oscillate"
 
-SUPPORT_FLAGS = SUPPORT_SET_SPEED
+SUPPORT_FLAGS = FanEntityFeature.SET_SPEED
+SUPPORT_DIRECTION = FanEntityFeature.DIRECTION
+SUPPORT_OSCILLATE = FanEntityFeature.OSCILLATE
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
