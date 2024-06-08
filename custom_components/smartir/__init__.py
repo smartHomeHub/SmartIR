@@ -58,7 +58,7 @@ class DeviceData:
     @staticmethod
     def read_file_as_json(file_path: str) -> dict:
         """Read a JSON file and return its content as a dictionary."""
-        with open(file_path, 'r') as file:
+        with open(file_path, "r") as file:
             try:
                 _LOGGER.debug(f"Loading JSON file {file_path}")
                 data = json.load(file)

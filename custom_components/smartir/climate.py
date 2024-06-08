@@ -87,7 +87,7 @@ async def async_setup_platform(
                 "operationModes",
                 "fanModes",
             ],
-            hass
+            hass,
         )
     ):
         _LOGGER.error("Smartir climate device data init failed!")
