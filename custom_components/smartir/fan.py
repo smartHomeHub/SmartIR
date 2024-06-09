@@ -5,12 +5,10 @@ import voluptuous as vol
 
 from homeassistant.components.fan import (
     FanEntity,
+    FanEntityFeature,
     PLATFORM_SCHEMA,
     DIRECTION_REVERSE,
     DIRECTION_FORWARD,
-    SUPPORT_SET_SPEED,
-    SUPPORT_DIRECTION,
-    SUPPORT_OSCILLATE,
 )
 from homeassistant.const import CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN
 from homeassistant.core import HomeAssistant, Event, EventStateChangedData
@@ -39,8 +37,6 @@ CONF_POWER_SENSOR_RESTORE_STATE = "power_sensor_restore_state"
 
 SPEED_OFF = "off"
 OSCILLATING = "oscillate"
-
-SUPPORT_FLAGS = SUPPORT_SET_SPEED
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
@@ -104,14 +100,14 @@ class SmartIRFan(FanEntity, RestoreEntity):
         self._current_direction = None
         self._last_on_speed = None
         self._oscillating = None
-        self._support_flags = SUPPORT_FLAGS
+        self._support_flags = FanEntityFeature.SET_SPEED
 
         if DIRECTION_REVERSE in self._commands and DIRECTION_FORWARD in self._commands:
             self._current_direction = DIRECTION_REVERSE
-            self._support_flags = self._support_flags | SUPPORT_DIRECTION
+            self._support_flags = self._support_flags | FanEntityFeature.DIRECTION
         if OSCILLATING in self._commands:
             self._oscillating = False
-            self._support_flags = self._support_flags | SUPPORT_OSCILLATE
+            self._support_flags = self._support_flags | FanEntityFeature.OSCILLATE
 
         self._temp_lock = asyncio.Lock()
         self._on_by_remote = False
@@ -136,16 +132,16 @@ class SmartIRFan(FanEntity, RestoreEntity):
                 self._speed = last_state.attributes["speed"]
 
             # If _direction has a value the direction controls appears
-            # in UI even if SUPPORT_DIRECTION is not provided in the flags
+            # in UI even if FanEntityFeature.DIRECTION is not provided in the flags
             if (
                 "current_direction" in last_state.attributes
-                and self._support_flags & SUPPORT_DIRECTION
+                and self._support_flags & FanEntityFeature.DIRECTION
             ):
                 self._current_direction = last_state.attributes["current_direction"]
 
             if (
                 "oscillating" in last_state.attributes
-                and self._support_flags & SUPPORT_OSCILLATE
+                and self._support_flags & FanEntityFeature.OSCILLATE
             ):
                 self._oscillating = last_state.attributes["oscillating"]
 
