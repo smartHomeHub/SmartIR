@@ -5,14 +5,7 @@ import voluptuous as vol
 
 from homeassistant.components.media_player import MediaPlayerEntity, PLATFORM_SCHEMA
 from homeassistant.components.media_player.const import (
-    SUPPORT_TURN_OFF,
-    SUPPORT_TURN_ON,
-    SUPPORT_PREVIOUS_TRACK,
-    SUPPORT_NEXT_TRACK,
-    SUPPORT_VOLUME_STEP,
-    SUPPORT_VOLUME_MUTE,
-    SUPPORT_PLAY_MEDIA,
-    SUPPORT_SELECT_SOURCE,
+    MediaPlayerEntityFeature,
     MEDIA_TYPE_CHANNEL,
 )
 from homeassistant.const import CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN
@@ -114,34 +107,46 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
 
         # Supported features
         if "off" in self._commands and self._commands["off"] is not None:
-            self._support_flags = self._support_flags | SUPPORT_TURN_OFF
+            self._support_flags = (
+                self._support_flags | MediaPlayerEntityFeature.TURN_OFF
+            )
 
         if "on" in self._commands and self._commands["on"] is not None:
-            self._support_flags = self._support_flags | SUPPORT_TURN_ON
+            self._support_flags = self._support_flags | MediaPlayerEntityFeature.TURN_ON
 
         if (
             "previousChannel" in self._commands
             and self._commands["previousChannel"] is not None
         ):
-            self._support_flags = self._support_flags | SUPPORT_PREVIOUS_TRACK
+            self._support_flags = (
+                self._support_flags | MediaPlayerEntityFeature.PREVIOUS_TRACK
+            )
 
         if (
             "nextChannel" in self._commands
             and self._commands["nextChannel"] is not None
         ):
-            self._support_flags = self._support_flags | SUPPORT_NEXT_TRACK
+            self._support_flags = (
+                self._support_flags | MediaPlayerEntityFeature.NEXT_TRACK
+            )
 
         if (
             "volumeDown" in self._commands and self._commands["volumeDown"] is not None
         ) or ("volumeUp" in self._commands and self._commands["volumeUp"] is not None):
-            self._support_flags = self._support_flags | SUPPORT_VOLUME_STEP
+            self._support_flags = (
+                self._support_flags | MediaPlayerEntityFeature.VOLUME_STEP
+            )
 
         if "mute" in self._commands and self._commands["mute"] is not None:
-            self._support_flags = self._support_flags | SUPPORT_VOLUME_MUTE
+            self._support_flags = (
+                self._support_flags | MediaPlayerEntityFeature.VOLUME_MUTE
+            )
 
         if "sources" in self._commands and self._commands["sources"] is not None:
             self._support_flags = (
-                self._support_flags | SUPPORT_SELECT_SOURCE | SUPPORT_PLAY_MEDIA
+                self._support_flags
+                | MediaPlayerEntityFeature.SELECT_SOURCE
+                | MediaPlayerEntityFeature.PLAY_MEDIA
             )
 
             for source, new_name in config.get(CONF_SOURCE_NAMES, {}).items():

@@ -48,12 +48,6 @@ CONF_POWER_SENSOR = "power_sensor"
 CONF_POWER_SENSOR_DELAY = "power_sensor_delay"
 CONF_POWER_SENSOR_RESTORE_STATE = "power_sensor_restore_state"
 
-SUPPORT_FLAGS = (
-    ClimateEntityFeature.TARGET_TEMPERATURE
-    | ClimateEntityFeature.TURN_ON
-    | ClimateEntityFeature.TURN_OFF
-)
-
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
         vol.Optional(CONF_UNIQUE_ID): cv.string,
@@ -132,7 +126,11 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._on_by_remote = False
         self._current_temperature = None
         self._current_humidity = None
-        self._support_flags = SUPPORT_FLAGS
+        self._support_flags = (
+            ClimateEntityFeature.TARGET_TEMPERATURE
+            | ClimateEntityFeature.TURN_ON
+            | ClimateEntityFeature.TURN_OFF
+        )
         self._power_sensor_check_expect = None
         self._power_sensor_check_cancel = None
 
