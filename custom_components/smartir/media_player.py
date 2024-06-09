@@ -16,8 +16,8 @@ from homeassistant.components.media_player.const import (
     MEDIA_TYPE_CHANNEL,
 )
 from homeassistant.const import CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN
-from homeassistant.core import HomeAssistant, Event, EventStateChangedData
-from homeassistant.helpers.event import async_track_state_change_event
+from homeassistant.core import HomeAssistant, Event, EventStateChangedData, callback
+from homeassistant.helpers.event import async_track_state_change_event, async_call_later
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
 from homeassistant.helpers.typing import ConfigType
@@ -29,12 +29,15 @@ _LOGGER = logging.getLogger(__name__)
 DEFAULT_NAME = "SmartIR Media Player"
 DEFAULT_DEVICE_CLASS = "tv"
 DEFAULT_DELAY = 0.5
+DEFAULT_POWER_SENSOR_DELAY = 10
 
 CONF_UNIQUE_ID = "unique_id"
 CONF_DEVICE_CODE = "device_code"
 CONF_CONTROLLER_DATA = "controller_data"
 CONF_DELAY = "delay"
 CONF_POWER_SENSOR = "power_sensor"
+CONF_POWER_SENSOR_DELAY = "power_sensor_delay"
+CONF_POWER_SENSOR_RESTORE_STATE = "power_sensor_restore_state"
 CONF_SOURCE_NAMES = "source_names"
 CONF_DEVICE_CLASS = "device_class"
 
@@ -46,6 +49,10 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
         vol.Required(CONF_CONTROLLER_DATA): cv.string,
         vol.Optional(CONF_DELAY, default=DEFAULT_DELAY): cv.string,
         vol.Optional(CONF_POWER_SENSOR): cv.entity_id,
+        vol.Optional(
+            CONF_POWER_SENSOR_DELAY, default=DEFAULT_POWER_SENSOR_DELAY
+        ): cv.positive_int,
+        vol.Optional(CONF_POWER_SENSOR_RESTORE_STATE, default=True): cv.boolean,
         vol.Optional(CONF_SOURCE_NAMES): dict,
         vol.Optional(CONF_DEVICE_CLASS, default=DEFAULT_DEVICE_CLASS): cv.string,
     }
@@ -87,19 +94,23 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         self._controller_data = config.get(CONF_CONTROLLER_DATA)
         self._delay = config.get(CONF_DELAY)
         self._power_sensor = config.get(CONF_POWER_SENSOR)
+        self._power_sensor_delay = config.get(CONF_POWER_SENSOR_DELAY)
+        self._power_sensor_restore_state = config.get(CONF_POWER_SENSOR_RESTORE_STATE)
+        self._device_class = config.get(CONF_DEVICE_CLASS)
+
+        self._state = STATE_UNKNOWN
+        self._sources_list = []
+        self._source = None
+        self._on_by_remote = False
+        self._support_flags = 0
+        self._power_sensor_check_expect = None
+        self._power_sensor_check_cancel = None
 
         self._manufacturer = device_data["manufacturer"]
         self._supported_models = device_data["supportedModels"]
         self._supported_controller = device_data["supportedController"]
         self._commands_encoding = device_data["commandsEncoding"]
         self._commands = device_data["commands"]
-
-        self._state = STATE_OFF
-        self._sources_list = []
-        self._source = None
-        self._support_flags = 0
-
-        self._device_class = config.get(CONF_DEVICE_CLASS)
 
         # Supported features
         if "off" in self._commands and self._commands["off"] is not None:
@@ -146,6 +157,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
             for key in self._commands["sources"]:
                 self._sources_list.append(key)
 
+        # Init exclusive lock for sending IR commands
         self._temp_lock = asyncio.Lock()
 
         # Init the IR/RF controller
@@ -165,6 +177,9 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
 
         if last_state is not None:
             self._state = last_state.state
+
+            if self._power_sensor:
+                self._on_by_remote = last_state.attributes.get("on_by_remote", False)
 
         if self._power_sensor:
             async_track_state_change_event(
@@ -212,9 +227,10 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
 
     @property
     def source(self):
-        if self._on_by_remote:
-            return STATE_UNKNOWN
-        return self._source
+        if self._on_by_remote and not self._power_sensor_restore_state:
+            return None
+        else:
+            return self._source
 
     @property
     def supported_features(self):
@@ -225,6 +241,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
     def extra_state_attributes(self):
         """Platform specific attributes."""
         return {
+            "on_by_remote": self._on_by_remote,
             "device_code": self._device_code,
             "manufacturer": self._manufacturer,
             "supported_models": self._supported_models,
@@ -238,9 +255,11 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
             _LOGGER.error("Missing device IR code for 'off' command.")
             return
 
-        await self._controller.send(self._commands["off"])
+        if self._power_sensor and self._state != STATE_OFF:
+            self._async_power_sensor_check_schedulle(STATE_OFF)
+
         self._state = STATE_OFF
-        self._source = None
+        await self._send_command(self._commands["off"])
         self.async_write_ha_state()
 
     async def async_turn_on(self):
@@ -249,8 +268,11 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
             _LOGGER.error("Missing device IR code for 'on' command.")
             return
 
-        await self.send_command(self._commands["on"])
+        if self._power_sensor and self._state == STATE_OFF:
+            self._async_power_sensor_check_schedulle(STATE_ON)
+
         self._state = STATE_ON
+        await self.send_command(self._commands["on"])
         self.async_write_ha_state()
 
     async def async_media_previous_track(self):
@@ -310,8 +332,8 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
             )
             return
 
-        await self.send_command(self._commands["sources"][source])
         self._source = source
+        await self.send_command(self._commands["sources"][source])
         self.async_write_ha_state()
 
     async def async_play_media(self, media_type, media_id, **kwargs):
@@ -360,13 +382,39 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         if old_state is not None and new_state.state == old_state.state:
             return
 
+        if (
+            self._power_sensor_check_cancel
+            and self._power_sensor_check_expect == new_state.state
+        ):
+            self._power_sensor_check_cancel()
+            self._power_sensor_check_cancel = None
+
         if new_state.state == STATE_ON and self._state == STATE_OFF:
             self._on_by_remote = True
             self._state = STATE_ON
-            self.async_write_ha_state()
         elif new_state.state == STATE_OFF:
             self._on_by_remote = False
-            if self._state != STATE_OFF:
+            if self._state == STATE_ON:
                 self._state = STATE_OFF
-                self._source = None
+                # self._source = None
+        self.async_write_ha_state()
+
+    @callback
+    def _async_power_sensor_check_schedulle(self, state):
+        if self._power_sensor_check_cancel:
+            self._power_sensor_check_cancel()
+            self._power_sensor_check_cancel = None
+
+        async def _async_power_sensor_check(*_):
+            self._power_sensor_check_cancel = None
+            if self._power_sensor_check_expect == STATE_OFF:
+                self._state = STATE_ON
+            else:
+                self._state = STATE_OFF
+            self._power_sensor_check_expect = None
             self.async_write_ha_state()
+
+        self._power_sensor_check_expect = state
+        self._power_sensor_check_cancel = async_call_later(
+            self.hass, self._power_sensor_delay, _async_power_sensor_check
+        )

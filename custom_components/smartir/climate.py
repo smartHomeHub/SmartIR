@@ -24,7 +24,7 @@ from homeassistant.const import (
     UnitOfTemperature,
 )
 from homeassistant.core import HomeAssistant, Event, EventStateChangedData, callback
-from homeassistant.helpers.event import async_track_state_change_event
+from homeassistant.helpers.event import async_track_state_change_event, async_call_later
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
 from homeassistant.helpers.temperature import display_temp
@@ -36,6 +36,7 @@ _LOGGER = logging.getLogger(__name__)
 
 DEFAULT_NAME = "SmartIR Climate"
 DEFAULT_DELAY = 0.5
+DEFAULT_POWER_SENSOR_DELAY = 10
 
 CONF_UNIQUE_ID = "unique_id"
 CONF_DEVICE_CODE = "device_code"
@@ -44,6 +45,7 @@ CONF_DELAY = "delay"
 CONF_TEMPERATURE_SENSOR = "temperature_sensor"
 CONF_HUMIDITY_SENSOR = "humidity_sensor"
 CONF_POWER_SENSOR = "power_sensor"
+CONF_POWER_SENSOR_DELAY = "power_sensor_delay"
 CONF_POWER_SENSOR_RESTORE_STATE = "power_sensor_restore_state"
 
 SUPPORT_FLAGS = (
@@ -62,7 +64,10 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
         vol.Optional(CONF_TEMPERATURE_SENSOR): cv.entity_id,
         vol.Optional(CONF_HUMIDITY_SENSOR): cv.entity_id,
         vol.Optional(CONF_POWER_SENSOR): cv.entity_id,
-        vol.Optional(CONF_POWER_SENSOR_RESTORE_STATE, default=False): cv.boolean,
+        vol.Optional(
+            CONF_POWER_SENSOR_DELAY, default=DEFAULT_POWER_SENSOR_DELAY
+        ): cv.positive_int,
+        vol.Optional(CONF_POWER_SENSOR_RESTORE_STATE, default=True): cv.boolean,
     }
 )
 
@@ -115,18 +120,21 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._temperature_sensor = config.get(CONF_TEMPERATURE_SENSOR)
         self._humidity_sensor = config.get(CONF_HUMIDITY_SENSOR)
         self._power_sensor = config.get(CONF_POWER_SENSOR)
+        self._power_sensor_delay = config.get(CONF_POWER_SENSOR_DELAY)
         self._power_sensor_restore_state = config.get(CONF_POWER_SENSOR_RESTORE_STATE)
         self._temperature_unit = hass.config.units.temperature_unit
 
-        self._hvac_mode = STATE_UNKNOWN
+        self._state = STATE_UNKNOWN
+        self._hvac_mode = None
         self._fan_mode = None
         self._swing_mode = None
         self._hvac_action = None
-        self._last_on_operation = None
         self._on_by_remote = False
         self._current_temperature = None
         self._current_humidity = None
         self._support_flags = SUPPORT_FLAGS
+        self._power_sensor_check_expect = None
+        self._power_sensor_check_cancel = None
 
         self._manufacturer = device_data["manufacturer"]
         self._supported_models = device_data["supportedModels"]
@@ -180,8 +188,11 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             _LOGGER.warning("OpeationModes should not contain 'off' mode!")
             self._hvac_modes.remove(HVACMode.OFF)
         if not self._hvac_modes:
-            _LOGGER.error("OpeationModes shall not at least one valid hvac_mode!")
+            _LOGGER.error(
+                "OpeationModes shall have at least one valid hvac_mode defined!"
+            )
             return
+        self._hvac_mode = self._hvac_modes[0]
         self._hvac_modes.append(HVACMode.OFF)
 
         # fan_modes
@@ -221,15 +232,36 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         last_state = await self.async_get_last_state()
 
         if last_state is not None:
-            self._hvac_mode = last_state.state
-            if self._fan_modes:
+            if last_state.state == STATE_OFF:
+                self._state = STATE_OFF
+            else:
+                self._state = STATE_ON
+
+            if last_state.attributes.get("hvac_mode") in self._hvac_modes:
+                self._hvac_mode = last_state.attributes.get("hvac_mode")
+
+            if (
+                self._support_flags & ClimateEntityFeature.FAN_MODE
+                and last_state.attributes.get("fan_mode") in self._fan_modes
+            ):
                 self._fan_mode = last_state.attributes.get("fan_mode")
-            if self._swing_modes:
+
+            if (
+                self._support_flags & ClimateEntityFeature.SWING_MODE
+                and last_state.attributes.get("swing_mode") in self._swing_modes
+            ):
                 self._swing_mode = last_state.attributes.get("swing_mode")
-            self._target_temperature = last_state.attributes.get(
-                "temperature", self._min_temperature
-            )
-            self._last_on_operation = last_state.attributes.get("last_on_operation")
+
+            temperature = last_state.attributes.get("temperature")
+            if (
+                temperature is not None
+                and temperature >= self._min_temperature
+                and temperature <= self._max_temperature
+            ):
+                self._target_temperature = temperature
+
+            if self._power_sensor:
+                self._on_by_remote = last_state.attributes.get("on_by_remote", False)
 
         if self._temperature_sensor:
             async_track_state_change_event(
@@ -265,9 +297,12 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     @property
     def state(self):
         """Return the current state."""
-        if self._hvac_mode == STATE_UNKNOWN:
-            return None
-        return self._hvac_mode
+        if self._on_by_remote and not self._power_sensor_restore_state:
+            return self._state
+        elif self._state == STATE_OFF:
+            return HVACMode.OFF
+        else:
+            return self._hvac_mode
 
     @property
     def temperature_unit(self):
@@ -287,9 +322,10 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     @property
     def target_temperature(self):
         """Return the temperature we try to reach."""
-        if self._hvac_mode == STATE_UNKNOWN:
+        if self._on_by_remote and not self._power_sensor_restore_state:
             return None
-        return self._target_temperature
+        else:
+            return self._target_temperature
 
     @property
     def target_temperature_step(self):
@@ -304,14 +340,10 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     @property
     def hvac_mode(self):
         """Return hvac mode ie. heat, cool."""
-        if self._hvac_mode == STATE_UNKNOWN:
+        if self._on_by_remote and not self._power_sensor_restore_state:
             return None
-        return self._hvac_mode
-
-    @property
-    def last_on_operation(self):
-        """Return the last non-idle operation ie. heat, cool."""
-        return self._last_on_operation
+        else:
+            return self._hvac_mode
 
     @property
     def fan_modes(self):
@@ -321,9 +353,10 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     @property
     def fan_mode(self):
         """Return the fan setting."""
-        if self._hvac_mode == STATE_UNKNOWN:
+        if self._on_by_remote and not self._power_sensor_restore_state:
             return None
-        return self._fan_mode
+        else:
+            return self._fan_mode
 
     @property
     def swing_modes(self):
@@ -333,9 +366,10 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     @property
     def swing_mode(self):
         """Return the current swing mode."""
-        if self._hvac_mode == STATE_UNKNOWN:
+        if self._on_by_remote and not self._power_sensor_restore_state:
             return None
-        return self._swing_mode
+        else:
+            return self._swing_mode
 
     @property
     def current_temperature(self):
@@ -355,15 +389,17 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     @property
     def hvac_action(self) -> HVACAction | None:
         """Return the current running hvac operation if supported."""
-        if self._hvac_mode == STATE_UNKNOWN:
+        if self._on_by_remote and not self._power_sensor_restore_state:
             return None
-        return self._hvac_action
+        else:
+            return self._hvac_action
 
     @property
     def extra_state_attributes(self):
         """Platform specific attributes."""
         return {
-            "last_on_operation": self._last_on_operation,
+            "hvac_mode": self._hvac_mode,
+            "on_by_remote": self._on_by_remote,
             "device_code": self._device_code,
             "manufacturer": self._manufacturer,
             "supported_models": self._supported_models,
@@ -373,9 +409,20 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
     async def async_set_hvac_mode(self, hvac_mode):
         """Set operation mode."""
-        await self.send_command(
-            hvac_mode, self._fan_mode, self._swing_mode, self._target_temperature
-        )
+        if hvac_mode == HVACMode.OFF:
+            state = STATE_OFF
+        else:
+            state = STATE_ON
+
+        if self._power_sensor and self._state != state:
+            self._async_power_sensor_check_schedulle(state)
+
+        if not (self._state == STATE_OFF and self._state == state):
+            self._state = state
+            await self._send_command(
+                hvac_mode, self._fan_mode, self._swing_mode, self._target_temperature
+            )
+        self.async_write_ha_state()
 
     async def async_set_temperature(self, **kwargs):
         """Set new target temperatures."""
@@ -400,36 +447,50 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             temperature = round(temperature)
 
         if hvac_mode is None:
-            if self._hvac_mode == STATE_UNKNOWN or self._hvac_mode == HVACMode.OFF:
-                self._target_temperature = temperature
+            hvac_mode = self._hvac_mode
+            if self._state == STATE_OFF:
+                state = STATE_OFF
             else:
-                await self.send_command(
-                    self._hvac_mode, self._fan_mode, self._swing_mode, temperature
-                )
+                state = STATE_ON
         else:
-            await self.send_command(
+            if hvac_mode == HVACMode.OFF:
+                state = STATE_OFF
+            else:
+                state = STATE_ON
+
+        if self._power_sensor and self._state != state:
+            self._async_power_sensor_check_schedulle(state)
+
+        if self._state == STATE_OFF and self._state == state:
+            self._target_temperature = temperature
+        else:
+            self._state = state
+            await self._send_command(
                 hvac_mode, self._fan_mode, self._swing_mode, temperature
             )
+        self.async_write_ha_state()
 
     async def async_set_fan_mode(self, fan_mode):
         """Set fan mode."""
         fan_mode = str(fan_mode)
-        if self._hvac_mode == STATE_UNKNOWN or self._hvac_mode == HVACMode.OFF:
+        if self._state == STATE_OFF:
             self._fan_mode = fan_mode
         else:
-            await self.send_command(
+            await self._send_command(
                 self._hvac_mode, fan_mode, self._swing_mode, self._target_temperature
             )
+        self.async_write_ha_state()
 
     async def async_set_swing_mode(self, swing_mode):
         """Set swing mode."""
         swing_mode = str(swing_mode)
-        if self._hvac_mode == STATE_UNKNOWN or self._hvac_mode == HVACMode.OFF:
+        if self._state == STATE_OFF:
             self._swing_mode = swing_mode
         else:
-            await self.send_command(
+            await self._send_command(
                 self._hvac_mode, self._fan_mode, swing_mode, self._target_temperature
             )
+        self.async_write_ha_state()
 
     async def async_turn_off(self):
         """Turn off."""
@@ -437,12 +498,9 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
     async def async_turn_on(self):
         """Turn on."""
-        if self._last_on_operation is not None:
-            await self.async_set_hvac_mode(self._last_on_operation)
-        else:
-            await self.async_set_hvac_mode(self._hvac_modes[1])
+        await self.async_set_hvac_mode(self._hvac_mode)
 
-    async def send_command(self, hvac_mode, fan_mode, swing_mode, temperature):
+    async def _send_command(self, hvac_mode, fan_mode, swing_mode, temperature):
         async with self._temp_lock:
             try:
                 target_temperature = str(
@@ -454,19 +512,19 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                     )
                 )
 
-                if hvac_mode == HVACMode.OFF:
+                if self._state == STATE_OFF:
                     if (
-                        self._last_on_operation == HVACMode.COOL
+                        self._hvac_mode == HVACMode.COOL
                         and "off_cool" in self._commands.keys()
                     ):
                         await self._controller.send(self._commands["off_cool"])
                     elif (
-                        self._last_on_operation == HVACMode.HEAT
+                        self._hvac_mode == HVACMode.HEAT
                         and "off_heat" in self._commands.keys()
                     ):
                         await self._controller.send(self._commands["off_heat"])
                     elif (
-                        self._last_on_operation == HVACMode.FAN_ONLY
+                        self._hvac_mode == HVACMode.FAN_ONLY
                         and "off_fan" in self._commands.keys()
                     ):
                         await self._controller.send(self._commands["off_fan"])
@@ -555,14 +613,13 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                                 target_temperature,
                             )
                             return
+                    # only update hvac mode if not off
+                    self._hvac_mode = hvac_mode
 
                 self._on_by_remote = False
-                self._hvac_mode = hvac_mode
                 self._fan_mode = fan_mode
                 self._swing_mode = swing_mode
                 self._target_temperature = temperature
-                if hvac_mode != HVACMode.OFF:
-                    self._last_on_operation = hvac_mode
                 await self._async_update_hvac_action()
 
             except Exception as e:
@@ -578,6 +635,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
         self._async_update_temp(new_state)
         await self._async_update_hvac_action()
+        self.async_write_ha_state()
 
     async def _async_humidity_sensor_changed(
         self, event: Event[EventStateChangedData]
@@ -589,6 +647,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
         self._async_update_humidity(new_state)
         await self._async_update_hvac_action()
+        self.async_write_ha_state()
 
     async def _async_power_sensor_changed(
         self, event: Event[EventStateChangedData]
@@ -602,29 +661,30 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         if old_state is not None and new_state.state == old_state.state:
             return
 
-        if new_state.state == STATE_ON and self._hvac_mode == HVACMode.OFF:
+        if (
+            self._power_sensor_check_cancel
+            and self._power_sensor_check_expect == new_state.state
+        ):
+            self._power_sensor_check_cancel()
+            self._power_sensor_check_cancel = None
+
+        if new_state.state == STATE_ON and self._state == STATE_OFF:
+            self._state = STATE_ON
             self._on_by_remote = True
-            if (
-                self._power_sensor_restore_state == True
-                and self._last_on_operation is not None
-            ):
-                self._hvac_mode = self._last_on_operation
-            else:
-                self._hvac_mode = STATE_UNKNOWN
             await self._async_update_hvac_action()
         elif new_state.state == STATE_OFF:
             self._on_by_remote = False
-            if self._hvac_mode != HVACMode.OFF:
-                self._hvac_mode = HVACMode.OFF
-            await self._async_update_hvac_action()
+            if self._state == STATE_ON:
+                self._state = STATE_OFF
+                await self._async_update_hvac_action()
+        self.async_write_ha_state()
 
     async def _async_update_hvac_action(self):
         """Update thermostat current hvac action."""
         if not self._temperature_sensor:
-            self.async_write_ha_state()
             return
 
-        if self._hvac_mode == HVACMode.OFF:
+        if self._state == STATE_OFF:
             self._hvac_action = HVACAction.OFF
         elif (
             (self._hvac_mode == HVACMode.HEAT or self._hvac_mode == HVACMode.HEAT_COOL)
@@ -644,7 +704,6 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             self._hvac_action = HVACAction.FAN
         else:
             self._hvac_action = HVACAction.IDLE
-        self.async_write_ha_state()
 
     @callback
     def _async_update_temp(self, state):
@@ -663,3 +722,23 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 self._current_humidity = float(state.state)
         except ValueError as ex:
             _LOGGER.error("Unable to update from humidity sensor: %s", ex)
+
+    @callback
+    def _async_power_sensor_check_schedulle(self, state):
+        if self._power_sensor_check_cancel:
+            self._power_sensor_check_cancel()
+            self._power_sensor_check_cancel = None
+
+        async def _async_power_sensor_check(*_):
+            self._power_sensor_check_cancel = None
+            if self._power_sensor_check_expect == STATE_OFF:
+                self._state = STATE_ON
+            else:
+                self._state = STATE_OFF
+            self._power_sensor_check_expect = None
+            self.async_write_ha_state()
+
+        self._power_sensor_check_expect = state
+        self._power_sensor_check_cancel = async_call_later(
+            self.hass, self._power_sensor_delay, _async_power_sensor_check
+        )

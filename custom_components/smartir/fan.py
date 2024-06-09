@@ -11,8 +11,8 @@ from homeassistant.components.fan import (
     DIRECTION_FORWARD,
 )
 from homeassistant.const import CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN
-from homeassistant.core import HomeAssistant, Event, EventStateChangedData
-from homeassistant.helpers.event import async_track_state_change_event
+from homeassistant.core import HomeAssistant, Event, EventStateChangedData, callback
+from homeassistant.helpers.event import async_track_state_change_event, async_call_later
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
 from homeassistant.helpers.typing import ConfigType
@@ -27,15 +27,16 @@ _LOGGER = logging.getLogger(__name__)
 
 DEFAULT_NAME = "SmartIR Fan"
 DEFAULT_DELAY = 0.5
+DEFAULT_POWER_SENSOR_DELAY = 10
 
 CONF_UNIQUE_ID = "unique_id"
 CONF_DEVICE_CODE = "device_code"
 CONF_CONTROLLER_DATA = "controller_data"
 CONF_DELAY = "delay"
 CONF_POWER_SENSOR = "power_sensor"
+CONF_POWER_SENSOR_DELAY = "power_sensor_delay"
 CONF_POWER_SENSOR_RESTORE_STATE = "power_sensor_restore_state"
 
-SPEED_OFF = "off"
 OSCILLATING = "oscillate"
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
@@ -46,7 +47,10 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
         vol.Required(CONF_CONTROLLER_DATA): cv.string,
         vol.Optional(CONF_DELAY, default=DEFAULT_DELAY): cv.string,
         vol.Optional(CONF_POWER_SENSOR): cv.entity_id,
-        vol.Optional(CONF_POWER_SENSOR_RESTORE_STATE, default=False): cv.boolean,
+        vol.Optional(
+            CONF_POWER_SENSOR_DELAY, default=DEFAULT_POWER_SENSOR_DELAY
+        ): cv.positive_int,
+        vol.Optional(CONF_POWER_SENSOR_RESTORE_STATE, default=True): cv.boolean,
     }
 )
 
@@ -87,30 +91,45 @@ class SmartIRFan(FanEntity, RestoreEntity):
         self._controller_data = config.get(CONF_CONTROLLER_DATA)
         self._delay = config.get(CONF_DELAY)
         self._power_sensor = config.get(CONF_POWER_SENSOR)
+        self._power_sensor_delay = config.get(CONF_POWER_SENSOR_DELAY)
         self._power_sensor_restore_state = config.get(CONF_POWER_SENSOR_RESTORE_STATE)
+
+        self._state = STATE_UNKNOWN
+        self._speed = None
+        self._oscillating = None
+        self._on_by_remote = False
+        self._support_flags = FanEntityFeature.SET_SPEED
+        self._power_sensor_check_expect = None
+        self._power_sensor_check_cancel = None
 
         self._manufacturer = device_data["manufacturer"]
         self._supported_models = device_data["supportedModels"]
         self._supported_controller = device_data["supportedController"]
         self._commands_encoding = device_data["commandsEncoding"]
-        self._speed_list = device_data["speed"]
         self._commands = device_data["commands"]
 
-        self._speed = SPEED_OFF
-        self._current_direction = None
-        self._last_on_speed = None
-        self._oscillating = None
-        self._support_flags = FanEntityFeature.SET_SPEED
+        # fan speeds
+        self._speed_list = device_data["speed"]
+        if not self._speed_list:
+            _LOGGER.error("Speed shall have at least one valid speed defined!")
+            return
+        self._speed = self._speed_list[0]
 
+        # fan direction
         if DIRECTION_REVERSE in self._commands and DIRECTION_FORWARD in self._commands:
-            self._current_direction = DIRECTION_REVERSE
+            self._current_direction = DIRECTION_FORWARD
             self._support_flags = self._support_flags | FanEntityFeature.DIRECTION
+            self._current_direction = DIRECTION_FORWARD
+        else:
+            self._current_direction = "default"
+
+        # fan oscillation
         if OSCILLATING in self._commands:
             self._oscillating = False
             self._support_flags = self._support_flags | FanEntityFeature.OSCILLATE
 
+        # Init exclusive lock for sending IR commands
         self._temp_lock = asyncio.Lock()
-        self._on_by_remote = False
 
         # Init the IR/RF controller
         self._controller = get_controller(
@@ -128,25 +147,24 @@ class SmartIRFan(FanEntity, RestoreEntity):
         last_state = await self.async_get_last_state()
 
         if last_state is not None:
-            if "speed" in last_state.attributes:
-                self._speed = last_state.attributes["speed"]
-
-            # If _direction has a value the direction controls appears
-            # in UI even if FanEntityFeature.DIRECTION is not provided in the flags
-            if (
-                "current_direction" in last_state.attributes
-                and self._support_flags & FanEntityFeature.DIRECTION
-            ):
-                self._current_direction = last_state.attributes["current_direction"]
+            self._state = last_state.state
 
             if (
-                "oscillating" in last_state.attributes
-                and self._support_flags & FanEntityFeature.OSCILLATE
+                self._support_flags & FanEntityFeature.SET_SPEED
+                and last_state.attributes.get("speed") in self._speed_list
             ):
-                self._oscillating = last_state.attributes["oscillating"]
+                self._speed = last_state.attributes.get("speed")
 
-            if "last_on_speed" in last_state.attributes:
-                self._last_on_speed = last_state.attributes["last_on_speed"]
+            if self._support_flags & FanEntityFeature.DIRECTION:
+                self._current_direction = last_state.attributes.get(
+                    "current_direction", DIRECTION_FORWARD
+                )
+
+            if self._support_flags & FanEntityFeature.OSCILLATE:
+                self._oscillating = last_state.attributes.get("oscillating", False)
+
+            if self._power_sensor:
+                self._on_by_remote = last_state.attributes.get("on_by_remote", False)
 
         if self._power_sensor:
             async_track_state_change_event(
@@ -166,19 +184,17 @@ class SmartIRFan(FanEntity, RestoreEntity):
     @property
     def state(self):
         """Return the current state."""
-        if self._speed != SPEED_OFF:
-            return STATE_ON
-        return SPEED_OFF
+        return self._state
 
     @property
     def percentage(self):
         """Return speed percentage of the fan."""
-        if self._speed == STATE_UNKNOWN:
-            return STATE_UNKNOWN
-        if self._speed == SPEED_OFF:
+        if self._on_by_remote and not self._power_sensor_restore_state:
+            return None
+        elif self._state == STATE_OFF:
             return 0
-
-        return ordered_list_item_to_percentage(self._speed_list, self._speed)
+        else:
+            return ordered_list_item_to_percentage(self._speed_list, self._speed)
 
     @property
     def speed_count(self):
@@ -188,21 +204,18 @@ class SmartIRFan(FanEntity, RestoreEntity):
     @property
     def oscillating(self):
         """Return the oscillation state."""
-        if self._speed == STATE_UNKNOWN:
-            return STATE_UNKNOWN
-        return self._oscillating
+        if self._on_by_remote and not self._power_sensor_restore_state:
+            return None
+        else:
+            return self._oscillating
 
     @property
     def current_direction(self):
         """Return the direction state."""
-        if self._speed == STATE_UNKNOWN:
-            return STATE_UNKNOWN
-        return self._current_direction
-
-    @property
-    def last_on_speed(self):
-        """Return the last non-idle speed."""
-        return self._last_on_speed
+        if self._on_by_remote and not self._power_sensor_restore_state:
+            return None
+        else:
+            return self._current_direction
 
     @property
     def supported_features(self):
@@ -213,7 +226,8 @@ class SmartIRFan(FanEntity, RestoreEntity):
     def extra_state_attributes(self):
         """Platform specific attributes."""
         return {
-            "last_on_speed": self._last_on_speed,
+            "speed": self._speed,
+            "on_by_remote": self._on_by_remote,
             "device_code": self._device_code,
             "manufacturer": self._manufacturer,
             "supported_models": self._supported_models,
@@ -221,33 +235,42 @@ class SmartIRFan(FanEntity, RestoreEntity):
             "commands_encoding": self._commands_encoding,
         }
 
-    async def async_set_percentage(self, percentage: int):
+    async def async_set_percentage(self, percentage: int) -> None:
         """Set the desired speed for the fan."""
         if percentage == 0:
-            self._speed = SPEED_OFF
+            state = STATE_OFF
+            speed = 0
         else:
-            self._speed = percentage_to_ordered_list_item(self._speed_list, percentage)
+            state = STATE_ON
+            speed = percentage_to_ordered_list_item(self._speed_list, percentage)
 
-        if not self._speed == SPEED_OFF:
-            self._last_on_speed = self._speed
+        if self._power_sensor and self._state != state:
+            self._async_power_sensor_check_schedulle(state)
 
-        await self.send_command()
+        self._state = state
+        await self.send_command(speed, self._current_direction, self._oscillating)
         self.async_write_ha_state()
 
     async def async_oscillate(self, oscillating: bool) -> None:
         """Set oscillation of the fan."""
-        self._oscillating = oscillating
+        if not self._support_flags & FanEntityFeature.OSCILLATE:
+            return
 
-        await self.send_command()
+        if self._state == STATE_OFF:
+            self._oscillating = oscillating
+        else:
+            await self.send_command(self._speed, self._current_direction, oscillating)
         self.async_write_ha_state()
 
     async def async_set_direction(self, direction: str):
         """Set the direction of the fan"""
-        self._current_direction = direction
+        if not self._support_flags & FanEntityFeature.DIRECTION:
+            return
 
-        if not self._speed.lower() == SPEED_OFF:
-            await self.send_command()
-
+        if self._state == STATE_OFF:
+            self._curent_direction = direction
+        else:
+            await self.send_command(self._speed, direction, self._oscillating)
         self.async_write_ha_state()
 
     async def async_turn_on(
@@ -255,9 +278,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
     ):
         """Turn on the fan."""
         if percentage is None:
-            percentage = ordered_list_item_to_percentage(
-                self._speed_list, self._last_on_speed or self._speed_list[0]
-            )
+            percentage = ordered_list_item_to_percentage(self._speed_list, self._speed)
 
         await self.async_set_percentage(percentage)
 
@@ -265,22 +286,48 @@ class SmartIRFan(FanEntity, RestoreEntity):
         """Turn off the fan."""
         await self.async_set_percentage(0)
 
-    async def send_command(self):
+    async def send_command(self, speed, direction, oscillate):
         async with self._temp_lock:
-            self._on_by_remote = False
-            speed = self._speed
-            direction = self._current_direction or "default"
-            oscillating = self._oscillating
-
-            if speed.lower() == SPEED_OFF:
-                command = self._commands["off"]
-            elif oscillating:
-                command = self._commands["oscillate"]
-            else:
-                command = self._commands[direction][speed]
-
             try:
-                await self._controller.send(command)
+
+                if self._state == STATE_OFF:
+                    if "off" in self._commands:
+                        await self._controller.send(self._commands["off"])
+                    else:
+                        _LOGGER.error("Missing device IR code for 'off' mode.")
+                        return
+                else:
+                    if oscillate:
+                        if "oscillate" in self._commands:
+                            await self._controller.send(self._commands["oscillate"])
+                        else:
+                            _LOGGER.error(
+                                "Missing device IR code for 'oscillate' mode."
+                            )
+                            return
+                    else:
+                        if (
+                            direction in self._commands
+                            and isinstance(self._commands[direction], dict)
+                            and speed in self._commands[direction]
+                        ):
+                            await self._controller.send(
+                                self._commands[direction][speed]
+                            )
+                        else:
+                            _LOGGER.error(
+                                "Missing device IR code for diretion '%s' speed '%s'.",
+                                direction,
+                                speed,
+                            )
+                            return
+                    # only update speed if not off
+                    self._speed = speed
+
+                self._on_by_remote = False
+                self._current_direction = direction
+                self._oscillating = oscillate
+
             except Exception as e:
                 _LOGGER.exception(e)
 
@@ -296,18 +343,38 @@ class SmartIRFan(FanEntity, RestoreEntity):
         if old_state is not None and new_state.state == old_state.state:
             return
 
-        if new_state.state == STATE_ON and self._speed == SPEED_OFF:
+        if (
+            self._power_sensor_check_cancel
+            and self._power_sensor_check_expect == new_state.state
+        ):
+            self._power_sensor_check_cancel()
+            self._power_sensor_check_cancel = None
+
+        if new_state.state == STATE_ON and self._state == STATE_OFF:
+            self._state = STATE_ON
             self._on_by_remote = True
-            if (
-                self._power_sensor_restore_state == True
-                and self._last_on_speed is not None
-            ):
-                self._speed = self._last_on_speed
-            else:
-                self._speed = STATE_UNKNOWN
-            self.async_write_ha_state()
         elif new_state.state == STATE_OFF:
             self._on_by_remote = False
-            if self._speed != SPEED_OFF:
-                self._speed = SPEED_OFF
+            if self._state == STATE_ON:
+                self._state = STATE_OFF
+        self.async_write_ha_state()
+
+    @callback
+    def _async_power_sensor_check_schedulle(self, state):
+        if self._power_sensor_check_cancel:
+            self._power_sensor_check_cancel()
+            self._power_sensor_check_cancel = None
+
+        async def _async_power_sensor_check(*_):
+            self._power_sensor_check_cancel = None
+            if self._power_sensor_check_expect == STATE_OFF:
+                self._state = STATE_ON
+            else:
+                self._state = STATE_OFF
+            self._power_sensor_check_expect = None
             self.async_write_ha_state()
+
+        self._power_sensor_check_expect = state
+        self._power_sensor_check_cancel = async_call_later(
+            self.hass, self._power_sensor_delay, _async_power_sensor_check
+        )
