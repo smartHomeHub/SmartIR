@@ -61,7 +61,7 @@ async def async_setup_platform(
     """Set up the IR Fan platform."""
     _LOGGER.debug("Setting up the smartir fan platform")
     if not (
-        device_data := DeviceData.load_file(
+        device_data := await DeviceData.load_file(
             config.get(CONF_DEVICE_CODE),
             "fan",
             [
@@ -71,6 +71,7 @@ async def async_setup_platform(
                 "commandsEncoding",
                 "speed",
             ],
+            hass,
         )
     ):
         _LOGGER.error("Smartir fan device data init failed!")

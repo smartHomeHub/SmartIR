@@ -9,7 +9,7 @@ _LOGGER = logging.getLogger(__name__)
 
 class DeviceData:
     @staticmethod
-    def load_file(device_code, device_class, required_keys):
+    async def load_file(device_code, device_class, required_keys, hass):
         """Load device JSON file."""
         device_json_filename = str(device_code) + ".json"
 
@@ -23,8 +23,8 @@ class DeviceData:
                 _LOGGER.debug(
                     "Loading custom device Json file '%s'.", device_json_filename
                 )
-                if device_data := DeviceData.check_file(
-                    device_json_filename, device_json_path, required_keys
+                if device_data := await DeviceData.check_file(
+                    device_json_filename, device_json_path, required_keys, hass
                 ):
                     return device_data
         else:
@@ -38,8 +38,8 @@ class DeviceData:
             device_json_path = os.path.join(device_files_absdir, device_json_filename)
             if os.path.exists(device_json_path):
                 _LOGGER.debug("Loading device Json file '%s'.", device_json_filename)
-                if device_data := DeviceData.check_file(
-                    device_json_filename, device_json_path, required_keys
+                if device_data := await DeviceData.check_file(
+                    device_json_filename, device_json_path, required_keys, hass
                 ):
                     return device_data
             else:
@@ -56,17 +56,23 @@ class DeviceData:
         return None
 
     @staticmethod
-    def check_file(device_json_filename, device_json_path, required_keys):
-        with open(device_json_path) as j:
+    def read_file_as_json(file_path: str) -> dict:
+        """Read a JSON file and return its content as a dictionary."""
+        with open(file_path, "r") as file:
             try:
-                _LOGGER.debug("Loading device json file '%s'", device_json_path)
-                device_data = json.load(j)
-                _LOGGER.debug("Device json file '%s' loaded", device_json_path)
-            except Exception:
-                _LOGGER.error(
-                    "The device JSON file '%s' is not valid json!", device_json_filename
-                )
+                _LOGGER.debug(f"Loading JSON file {file_path}")
+                data = json.load(file)
+                _LOGGER.debug(f"{file_path} file loaded")
+                return data
+            except Exception as e:
+                _LOGGER.error(f"The device JSON file is invalid: {e}")
                 return None
+
+    @staticmethod
+    async def check_file(device_json_filename, device_json_path, required_keys, hass):
+        device_data = await hass.async_add_executor_job(
+            DeviceData.read_file_as_json, device_json_path
+        )
 
         if not isinstance(device_data, dict):
             _LOGGER.error("Invalid device code file '%s.", device_json_filename)
