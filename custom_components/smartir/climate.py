@@ -70,7 +70,7 @@ async def async_setup_platform(
     hass: HomeAssistant, config: ConfigType, async_add_entities, discovery_info=None
 ):
     """Set up the IR Climate platform."""
-    _LOGGER.debug("Setting up the smartir climate platform")
+    _LOGGER.debug("Setting up the SmartIR climate platform")
     if not (
         device_data := await DeviceData.load_file(
             config.get(CONF_DEVICE_CODE),
@@ -89,7 +89,7 @@ async def async_setup_platform(
             hass,
         )
     ):
-        _LOGGER.error("Smartir climate device data init failed!")
+        _LOGGER.error("SmartIR climate device data init failed!")
         return
 
     async_add_entities([SmartIRClimate(hass, config, device_data)])
