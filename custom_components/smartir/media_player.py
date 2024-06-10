@@ -56,7 +56,7 @@ async def async_setup_platform(
     hass: HomeAssistant, config: ConfigType, async_add_entities, discovery_info=None
 ):
     """Set up the IR Media Player platform."""
-    _LOGGER.debug("Setting up the smartir media player platform")
+    _LOGGER.debug("Setting up the SmartIR media player platform")
     if not (
         device_data := await DeviceData.load_file(
             config.get(CONF_DEVICE_CODE),
@@ -70,7 +70,7 @@ async def async_setup_platform(
             hass,
         )
     ):
-        _LOGGER.error("Smartir media player device data init failed!")
+        _LOGGER.error("SmartIR media player device data init failed!")
         return
 
     async_add_entities([SmartIRMediaPlayer(hass, config, device_data)])
@@ -412,4 +412,4 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         self._power_sensor_check_cancel = async_call_later(
             self.hass, self._power_sensor_delay, _async_power_sensor_check
         )
-        _LOGGER.debug("Schedulled power sensor check for '%s' state", state)
+        _LOGGER.debug("Scheduled power sensor check for '%s' state", state)
