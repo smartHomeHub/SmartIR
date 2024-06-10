@@ -165,7 +165,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
 
             if self._power_sensor:
                 self._on_by_remote = last_state.attributes.get("on_by_remote", False)
-                self._async_power_sensor_check_schedulle(self._state)
+                self._async_power_sensor_check_schedule(self._state)
 
         if self._power_sensor:
             async_track_state_change_event(
@@ -282,7 +282,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
         async with self._temp_lock:
 
             if self._power_sensor and self._state != state:
-                self._async_power_sensor_check_schedulle(state)
+                self._async_power_sensor_check_schedule(state)
 
             try:
                 if state == STATE_OFF:
@@ -349,7 +349,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
         self.async_write_ha_state()
 
     @callback
-    def _async_power_sensor_check_schedulle(self, state):
+    def _async_power_sensor_check_schedule(self, state):
         if self._power_sensor_check_cancel:
             self._power_sensor_check_cancel()
             self._power_sensor_check_cancel = None

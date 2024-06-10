@@ -260,7 +260,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
             if self._power_sensor:
                 self._on_by_remote = last_state.attributes.get("on_by_remote", False)
-                self._async_power_sensor_check_schedulle(self._state)
+                self._async_power_sensor_check_schedule(self._state)
 
         if self._temperature_sensor:
             async_track_state_change_event(
@@ -502,7 +502,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             )
 
             if self._power_sensor and self._state != state:
-                self._async_power_sensor_check_schedulle(state)
+                self._async_power_sensor_check_schedule(state)
 
             try:
                 if state == STATE_OFF:
@@ -711,7 +711,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             _LOGGER.error("Unable to update from humidity sensor: %s", ex)
 
     @callback
-    def _async_power_sensor_check_schedulle(self, state):
+    def _async_power_sensor_check_schedule(self, state):
         if self._power_sensor_check_cancel:
             self._power_sensor_check_cancel()
             self._power_sensor_check_cancel = None
