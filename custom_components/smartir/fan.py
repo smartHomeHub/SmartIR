@@ -45,7 +45,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
         vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
         vol.Required(CONF_DEVICE_CODE): cv.positive_int,
         vol.Required(CONF_CONTROLLER_DATA): cv.string,
-        vol.Optional(CONF_DELAY, default=DEFAULT_DELAY): cv.string,
+        vol.Optional(CONF_DELAY, default=DEFAULT_DELAY): cv.positive_float,
         vol.Optional(CONF_POWER_SENSOR): cv.entity_id,
         vol.Optional(
             CONF_POWER_SENSOR_DELAY, default=DEFAULT_POWER_SENSOR_DELAY
@@ -165,6 +165,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
 
             if self._power_sensor:
                 self._on_by_remote = last_state.attributes.get("on_by_remote", False)
+                self._async_power_sensor_check_schedulle(self._state)
 
         if self._power_sensor:
             async_track_state_change_event(
@@ -239,39 +240,30 @@ class SmartIRFan(FanEntity, RestoreEntity):
         """Set the desired speed for the fan."""
         if percentage == 0:
             state = STATE_OFF
-            speed = 0
+            speed = self._speed
         else:
             state = STATE_ON
             speed = percentage_to_ordered_list_item(self._speed_list, percentage)
 
-        if self._power_sensor and self._state != state:
-            self._async_power_sensor_check_schedulle(state)
-
-        self._state = state
-        await self.send_command(speed, self._current_direction, self._oscillating)
-        self.async_write_ha_state()
+        await self.send_command(
+            state, speed, self._current_direction, self._oscillating
+        )
 
     async def async_oscillate(self, oscillating: bool) -> None:
         """Set oscillation of the fan."""
         if not self._support_flags & FanEntityFeature.OSCILLATE:
             return
 
-        if self._state == STATE_OFF:
-            self._oscillating = oscillating
-        else:
-            await self.send_command(self._speed, self._current_direction, oscillating)
-        self.async_write_ha_state()
+        await self.send_command(
+            self._state, self._speed, self._current_direction, oscillating
+        )
 
     async def async_set_direction(self, direction: str):
         """Set the direction of the fan"""
         if not self._support_flags & FanEntityFeature.DIRECTION:
             return
 
-        if self._state == STATE_OFF:
-            self._curent_direction = direction
-        else:
-            await self.send_command(self._speed, direction, self._oscillating)
-        self.async_write_ha_state()
+        await self.send_command(self._state, self._speed, direction, self._oscillating)
 
     async def async_turn_on(
         self, percentage: int = None, preset_mode: str = None, **kwargs
@@ -286,11 +278,14 @@ class SmartIRFan(FanEntity, RestoreEntity):
         """Turn off the fan."""
         await self.async_set_percentage(0)
 
-    async def send_command(self, speed, direction, oscillate):
+    async def send_command(self, state, speed, direction, oscillate):
         async with self._temp_lock:
-            try:
 
-                if self._state == STATE_OFF:
+            if self._power_sensor and self._state != state:
+                self._async_power_sensor_check_schedulle(state)
+
+            try:
+                if state == STATE_OFF:
                     if "off" in self._commands:
                         await self._controller.send(self._commands["off"])
                     else:
@@ -321,12 +316,13 @@ class SmartIRFan(FanEntity, RestoreEntity):
                                 speed,
                             )
                             return
-                    # only update speed if not off
-                    self._speed = speed
 
+                self._state = state
+                self._speed = speed
                 self._on_by_remote = False
                 self._current_direction = direction
                 self._oscillating = oscillate
+                self.async_write_ha_state()
 
             except Exception as e:
                 _LOGGER.exception(e)
@@ -343,13 +339,6 @@ class SmartIRFan(FanEntity, RestoreEntity):
         if old_state is not None and new_state.state == old_state.state:
             return
 
-        if (
-            self._power_sensor_check_cancel
-            and self._power_sensor_check_expect == new_state.state
-        ):
-            self._power_sensor_check_cancel()
-            self._power_sensor_check_cancel = None
-
         if new_state.state == STATE_ON and self._state == STATE_OFF:
             self._state = STATE_ON
             self._on_by_remote = True
@@ -364,17 +353,34 @@ class SmartIRFan(FanEntity, RestoreEntity):
         if self._power_sensor_check_cancel:
             self._power_sensor_check_cancel()
             self._power_sensor_check_cancel = None
-
-        async def _async_power_sensor_check(*_):
-            self._power_sensor_check_cancel = None
-            if self._power_sensor_check_expect == STATE_OFF:
-                self._state = STATE_ON
-            else:
-                self._state = STATE_OFF
             self._power_sensor_check_expect = None
-            self.async_write_ha_state()
+
+        @callback
+        def _async_power_sensor_check(*_):
+            self._power_sensor_check_cancel = None
+            expected_state = self._power_sensor_check_expect
+            self._power_sensor_check_expect = None
+            current_state = self.hass.states.get(self._power_sensor)
+            _LOGGER.debug(
+                "Executing power sensor check for expected state '%s', current state '%s'",
+                expected_state,
+                current_state,
+            )
+
+            if (
+                expected_state in [STATE_ON, STATE_OFF]
+                and current_state in [STATE_ON, STATE_OFF]
+                and expected_state != current_state
+            ):
+                self._state = current_state
+                _LOGGER.debug(
+                    "Power sensor check failed, reverted device state to '%s'",
+                    self._state,
+                )
+                self.async_write_ha_state()
 
         self._power_sensor_check_expect = state
         self._power_sensor_check_cancel = async_call_later(
             self.hass, self._power_sensor_delay, _async_power_sensor_check
         )
+        _LOGGER.debug("Schedulled power sensor check for '%s' state", state)

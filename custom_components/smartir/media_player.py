@@ -40,7 +40,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
         vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
         vol.Required(CONF_DEVICE_CODE): cv.positive_int,
         vol.Required(CONF_CONTROLLER_DATA): cv.string,
-        vol.Optional(CONF_DELAY, default=DEFAULT_DELAY): cv.string,
+        vol.Optional(CONF_DELAY, default=DEFAULT_DELAY): cv.positive_float,
         vol.Optional(CONF_POWER_SENSOR): cv.entity_id,
         vol.Optional(
             CONF_POWER_SENSOR_DELAY, default=DEFAULT_POWER_SENSOR_DELAY
@@ -185,6 +185,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
 
             if self._power_sensor:
                 self._on_by_remote = last_state.attributes.get("on_by_remote", False)
+                self._async_power_sensor_check_schedulle(self._state)
 
         if self._power_sensor:
             async_track_state_change_event(
@@ -256,96 +257,39 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
 
     async def async_turn_off(self):
         """Turn the media player off."""
-        if not "off" in self._commands.keys():
-            _LOGGER.error("Missing device IR code for 'off' command.")
-            return
-
-        if self._power_sensor and self._state != STATE_OFF:
-            self._async_power_sensor_check_schedulle(STATE_OFF)
-
-        self._state = STATE_OFF
-        await self._send_command(self._commands["off"])
-        self.async_write_ha_state()
+        await self._send_command(STATE_OFF, [])
 
     async def async_turn_on(self):
         """Turn the media player off."""
-        if not "on" in self._commands.keys():
-            _LOGGER.error("Missing device IR code for 'on' command.")
-            return
-
-        if self._power_sensor and self._state == STATE_OFF:
-            self._async_power_sensor_check_schedulle(STATE_ON)
-
-        self._state = STATE_ON
-        await self.send_command(self._commands["on"])
-        self.async_write_ha_state()
+        await self.send_command(STATE_ON, [])
 
     async def async_media_previous_track(self):
         """Send previous track command."""
-        if not "previousChannel" in self._commands.keys():
-            _LOGGER.error("Missing device IR code for 'previousChannel' command.")
-            return
-
-        await self.send_command(self._commands["previousChannel"])
-        self.async_write_ha_state()
+        await self.send_command(self._state, ["previousChannel"])
 
     async def async_media_next_track(self):
         """Send next track command."""
-        if not "nextChannel" in self._commands.keys():
-            _LOGGER.error("Missing device IR code for 'nextChannel' command.")
-            return
-
-        await self.send_command(self._commands["nextChannel"])
-        self.async_write_ha_state()
+        await self.send_command(self._state, ["nextChannel"])
 
     async def async_volume_down(self):
         """Turn volume down for media player."""
-        if not "volumeDown" in self._commands.keys():
-            _LOGGER.error("Missing device IR code for 'volumeDown' command.")
-            return
-
-        await self.send_command(self._commands["volumeDown"])
-        self.async_write_ha_state()
+        await self.send_command(self._state, ["volumeDown"])
 
     async def async_volume_up(self):
         """Turn volume up for media player."""
-        if "volumeUp" in self._commands.keys():
-            _LOGGER.error("Missing device IR code for 'volumeUp' command.")
-            return
-
-        await self.send_command(self._commands["volumeUp"])
-        self.async_write_ha_state()
+        await self.send_command(self._state, ["volumeUp"])
 
     async def async_mute_volume(self, mute):
         """Mute the volume."""
-        if not "mute" in self._commands.keys():
-            _LOGGER.error("Missing device IR code for 'mute' command.")
-            return
-
-        await self.send_command(self._commands["mute"])
-        self.async_write_ha_state()
+        await self.send_command(self._state, ["mute"])
 
     async def async_select_source(self, source):
         """Select channel from source."""
-        if not (
-            "sources" in self._commands.keys()
-            and isinstance(self._commands["sources"], dict)
-            and source in self._commands["sources"].keys()
-        ):
-            _LOGGER.error(
-                "Missing device IR code for 'sources' source '%s' command.", source
-            )
-            return
-
         self._source = source
-        await self.send_command(self._commands["sources"][source])
-        self.async_write_ha_state()
+        await self.send_command(self._state, ["sources", source])
 
     async def async_play_media(self, media_type, media_id, **kwargs):
         """Support channel change through play_media service."""
-        if self._state == STATE_OFF:
-            await self.async_turn_on()
-
         if media_type != MEDIA_TYPE_CHANNEL:
             _LOGGER.error("invalid media type")
             return
@@ -354,24 +298,60 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
             return
 
         self._source = "Channel {}".format(media_id)
+        commands = []
         for digit in media_id:
-            source = "Channel {}".format(digit)
-            if not (
-                "sources" in self._commands.keys()
-                and isinstance(self._commands["sources"], dict)
-                and source in self._commands["sources"].keys()
-            ):
-                _LOGGER.error(
-                    "Missing device IR code for 'sources' source '%s' command.", source
-                )
-                return
-            await self.send_command(self._commands["sources"][source])
-        self.async_write_ha_state()
+            commands.append(["sources", "Channel {}".format(digit)])
+        await self.send_command(STATE_ON, commands)
 
-    async def send_command(self, command):
+    async def send_command(self, state, commands):
         async with self._temp_lock:
+
+            if self._power_sensor and self._state != state:
+                self._async_power_sensor_check_schedulle(state)
+
             try:
-                await self._controller.send(command)
+                if self._state != state:
+                    if state == STATE_ON:
+                        if "on" not in self._commands.keys():
+                            _LOGGER.error("Missing device IR code for 'on' command.")
+                        else:
+                            await self._controller.send(self._commands["on"])
+                    elif state == STATE_OFF:
+                        if "off" not in self._commands.keys():
+                            _LOGGER.error("Missing device IR code for 'off' command.")
+                        else:
+                            await self._controller.send(self._commands["off"])
+                    await asyncio.sleep(self._delay)
+
+                for keys in commands:
+                    data = self._commands.keys()
+                    for idx in range(len(path)):
+                        if not (isinstance(data, dict) and keys[idx] in data):
+                            _LOGGER.error(
+                                "Missing device IR code for '%s' command.", keys[idx]
+                            )
+                            return
+                        elif idx + 1 == len(keys):
+                            if not isinstance(data[keys[idx]], str):
+                                _LOGGER.error(
+                                    "Missing device IR code for '%s' command.",
+                                    keys[idx],
+                                )
+                                return
+                            else:
+                                await self._controller.send(data[keys[idx]])
+                                await asyncio.sleep(self._delay)
+                        elif isinstance(data[keys[idx]], dict):
+                            data = data[keys[idx]]
+                        else:
+                            _LOGGER.error(
+                                "Missing device IR code for '%s' command.", keys[idx]
+                            )
+                            return
+
+                self._state = state
+                self.async_write_ha_state()
+
             except Exception as e:
                 _LOGGER.exception(e)
 
@@ -386,13 +366,6 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
 
         if old_state is not None and new_state.state == old_state.state:
             return
-
-        if (
-            self._power_sensor_check_cancel
-            and self._power_sensor_check_expect == new_state.state
-        ):
-            self._power_sensor_check_cancel()
-            self._power_sensor_check_cancel = None
 
         if new_state.state == STATE_ON and self._state == STATE_OFF:
             self._on_by_remote = True
@@ -409,17 +382,34 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         if self._power_sensor_check_cancel:
             self._power_sensor_check_cancel()
             self._power_sensor_check_cancel = None
-
-        async def _async_power_sensor_check(*_):
-            self._power_sensor_check_cancel = None
-            if self._power_sensor_check_expect == STATE_OFF:
-                self._state = STATE_ON
-            else:
-                self._state = STATE_OFF
             self._power_sensor_check_expect = None
-            self.async_write_ha_state()
+
+        @callback
+        def _async_power_sensor_check(*_):
+            self._power_sensor_check_cancel = None
+            expected_state = self._power_sensor_check_expect
+            self._power_sensor_check_expect = None
+            current_state = self.hass.states.get(self._power_sensor)
+            _LOGGER.debug(
+                "Executing power sensor check for expected state '%s', current state '%s'",
+                expected_state,
+                current_state,
+            )
+
+            if (
+                expected_state in [STATE_ON, STATE_OFF]
+                and current_state in [STATE_ON, STATE_OFF]
+                and expected_state != current_state
+            ):
+                self._state = current_state
+                _LOGGER.debug(
+                    "Power sensor check failed, reverted device state to '%s'",
+                    self._state,
+                )
+                self.async_write_ha_state()
 
         self._power_sensor_check_expect = state
         self._power_sensor_check_cancel = async_call_later(
             self.hass, self._power_sensor_delay, _async_power_sensor_check
         )
+        _LOGGER.debug("Schedulled power sensor check for '%s' state", state)
