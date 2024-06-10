@@ -244,7 +244,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
             state = STATE_ON
             speed = percentage_to_ordered_list_item(self._speed_list, percentage)
 
-        await self.send_command(
+        await self._send_command(
             state, speed, self._current_direction, self._oscillating
         )
 
@@ -253,7 +253,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
         if not self._support_flags & FanEntityFeature.OSCILLATE:
             return
 
-        await self.send_command(
+        await self._send_command(
             self._state, self._speed, self._current_direction, oscillating
         )
 
@@ -262,7 +262,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
         if not self._support_flags & FanEntityFeature.DIRECTION:
             return
 
-        await self.send_command(self._state, self._speed, direction, self._oscillating)
+        await self._send_command(self._state, self._speed, direction, self._oscillating)
 
     async def async_turn_on(
         self, percentage: int = None, preset_mode: str = None, **kwargs
@@ -277,7 +277,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
         """Turn off the fan."""
         await self.async_set_percentage(0)
 
-    async def send_command(self, state, speed, direction, oscillate):
+    async def _send_command(self, state, speed, direction, oscillate):
         async with self._temp_lock:
 
             if self._power_sensor and self._state != state:
