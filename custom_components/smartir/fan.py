@@ -59,7 +59,7 @@ async def async_setup_platform(
     hass: HomeAssistant, config: ConfigType, async_add_entities, discovery_info=None
 ):
     """Set up the IR Fan platform."""
-    _LOGGER.debug("Setting up the smartir fan platform")
+    _LOGGER.debug("Setting up the SmartIR fan platform")
     if not (
         device_data := await DeviceData.load_file(
             config.get(CONF_DEVICE_CODE),
@@ -74,7 +74,7 @@ async def async_setup_platform(
             hass,
         )
     ):
-        _LOGGER.error("Smartir fan device data init failed!")
+        _LOGGER.error("SmartIR fan device data init failed!")
         return
 
     async_add_entities([SmartIRFan(hass, config, device_data)])
@@ -119,7 +119,6 @@ class SmartIRFan(FanEntity, RestoreEntity):
         if DIRECTION_REVERSE in self._commands and DIRECTION_FORWARD in self._commands:
             self._current_direction = DIRECTION_FORWARD
             self._support_flags = self._support_flags | FanEntityFeature.DIRECTION
-            self._current_direction = DIRECTION_FORWARD
         else:
             self._current_direction = "default"
 
@@ -311,7 +310,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
                             )
                         else:
                             _LOGGER.error(
-                                "Missing device IR code for diretion '%s' speed '%s'.",
+                                "Missing device IR code for direction '%s' speed '%s'.",
                                 direction,
                                 speed,
                             )
@@ -383,4 +382,4 @@ class SmartIRFan(FanEntity, RestoreEntity):
         self._power_sensor_check_cancel = async_call_later(
             self.hass, self._power_sensor_delay, _async_power_sensor_check
         )
-        _LOGGER.debug("Schedulled power sensor check for '%s' state", state)
+        _LOGGER.debug("Scheduled power sensor check for '%s' state", state)
