@@ -359,7 +359,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
             self._power_sensor_check_cancel = None
             expected_state = self._power_sensor_check_expect
             self._power_sensor_check_expect = None
-            current_state = self.hass.states.get(self._power_sensor)
+            current_state = self.hass.states.get(self._power_sensor).state
             _LOGGER.debug(
                 "Executing power sensor check for expected state '%s', current state '%s'",
                 expected_state,
