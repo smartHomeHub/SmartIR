@@ -160,7 +160,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         # temperature precision
         self._precision = device_data["precision"]
         if self._precision not in [PRECISION_TENTHS, PRECISION_HALVES, PRECISION_WHOLE]:
-            _LOGGER.error("Uknown precision set in device file!")
+            _LOGGER.error("Unknown precision set in device file!")
             return
 
         # min & max temperatures
@@ -183,11 +183,11 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             mode for mode in device_data["operationModes"] if mode in HVAC_MODES
         ]
         if HVACMode.OFF in self._hvac_modes:
-            _LOGGER.warning("OpeationModes should not contain 'off' mode!")
+            _LOGGER.warning("OperationModes should not contain 'off' mode!")
             self._hvac_modes.remove(HVACMode.OFF)
         if not self._hvac_modes:
             _LOGGER.error(
-                "OpeationModes shall have at least one valid hvac_mode defined!"
+                "OperationModes shall have at least one valid hvac_mode defined!"
             )
             return
         self._hvac_mode = self._hvac_modes[0]
@@ -745,4 +745,4 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._power_sensor_check_cancel = async_call_later(
             self.hass, self._power_sensor_delay, _async_power_sensor_check
         )
-        _LOGGER.debug("Schedulled power sensor check for '%s' state", state)
+        _LOGGER.debug("Scheduled power sensor check for '%s' state", state)
