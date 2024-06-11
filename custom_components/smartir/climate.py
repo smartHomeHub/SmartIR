@@ -84,7 +84,6 @@ async def async_setup_platform(
                 "maxTemperature",
                 "precision",
                 "operationModes",
-                "fanModes",
             ],
             hass,
         )
@@ -120,6 +119,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
         self._state = STATE_UNKNOWN
         self._hvac_mode = None
+        self._preset_mode = None
         self._fan_mode = None
         self._swing_mode = None
         self._hvac_action = None
@@ -180,7 +180,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
         # hvac_modes
         self._hvac_modes = [
-            mode for mode in device_data["operationModes"] if mode in HVAC_MODES
+            mode for mode in device_data.get("operationModes", []) if mode in HVAC_MODES
         ]
         if HVACMode.OFF in self._hvac_modes:
             _LOGGER.warning("OperationModes should not contain 'off' mode!")
@@ -193,18 +193,21 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._hvac_mode = self._hvac_modes[0]
         self._hvac_modes.append(HVACMode.OFF)
 
+        # preset_modes
+        self._preset_modes = device_data.get("presetModes")
+        if isinstance(self._preset_modes, list) and len(self._preset_modes):
+            self._support_flags = self._support_flags | ClimateEntityFeature.PRESET_MODE
+            self._preset_mode = self._preset_modes[0]
+
         # fan_modes
         self._fan_modes = device_data.get("fanModes")
-        if self._fan_modes:
+        if isinstance(self._fan_modes, list) and len(self._fan_modes):
             self._support_flags = self._support_flags | ClimateEntityFeature.FAN_MODE
             self._fan_mode = self._fan_modes[0]
-        else:
-            _LOGGER.error("FanModes shall be defined!")
-            return
 
         # swing_modes
         self._swing_modes = device_data.get("swingModes")
-        if self._swing_modes:
+        if isinstance(self._swing_modes, list) and len(self._swing_modes):
             self._support_flags = self._support_flags | ClimateEntityFeature.SWING_MODE
             self._swing_mode = self._swing_modes[0]
 
@@ -237,6 +240,12 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
             if last_state.attributes.get("hvac_mode") in self._hvac_modes:
                 self._hvac_mode = last_state.attributes.get("hvac_mode")
+
+            if (
+                self._support_flags & ClimateEntityFeature.PRESET_MODE
+                and last_state.attributes.get("preset_mode") in self._preset_modes
+            ):
+                self._preset_mode = last_state.attributes.get("preset_mode")
 
             if (
                 self._support_flags & ClimateEntityFeature.FAN_MODE
@@ -345,6 +354,19 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             return self._hvac_mode
 
     @property
+    def preset_modes(self):
+        """Return the list of available preset modes."""
+        return self._preset_modes
+
+    @property
+    def preset_mode(self):
+        """Return the preset mode."""
+        if self._on_by_remote and not self._power_sensor_restore_state:
+            return None
+        else:
+            return self._preset_mode
+
+    @property
     def fan_modes(self):
         """Return the list of available fan modes."""
         return self._fan_modes
@@ -415,7 +437,12 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             state = STATE_ON
 
         await self._send_command(
-            state, hvac_mode, self._fan_mode, self._swing_mode, self._target_temperature
+            state,
+            hvac_mode,
+            self._preset_mode,
+            self._fan_mode,
+            self._swing_mode,
+            self._target_temperature,
         )
 
     async def async_set_temperature(self, **kwargs):
@@ -454,7 +481,25 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 state = STATE_ON
 
         await self._send_command(
-            state, hvac_mode, self._fan_mode, self._swing_mode, temperature
+            state,
+            hvac_mode,
+            self._preset_mode,
+            self._fan_mode,
+            self._swing_mode,
+            temperature,
+        )
+
+    async def async_set_preset_mode(self, preset_mode):
+        """Set preset mode."""
+        preset_mode = str(preset_mode)
+
+        await self._send_command(
+            self._state,
+            self._hvac_mode,
+            preset_mode,
+            self._fan_mode,
+            self._swing_mode,
+            self._target_temperature,
         )
 
     async def async_set_fan_mode(self, fan_mode):
@@ -464,6 +509,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         await self._send_command(
             self._state,
             self._hvac_mode,
+            self._preset_mode,
             fan_mode,
             self._swing_mode,
             self._target_temperature,
@@ -476,6 +522,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         await self._send_command(
             self._state,
             self._hvac_mode,
+            self._preset_mode,
             self._fan_mode,
             swing_mode,
             self._target_temperature,
@@ -489,7 +536,9 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         """Turn on."""
         await self.async_set_hvac_mode(self._hvac_mode)
 
-    async def _send_command(self, state, hvac_mode, fan_mode, swing_mode, temperature):
+    async def _send_command(
+        self, state, hvac_mode, preset_mode, fan_mode, swing_mode, temperature
+    ):
         async with self._temp_lock:
 
             target_temperature = str(
@@ -529,87 +578,74 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                         )
                         return
                 else:
-                    if "on" in self._commands.keys():
+                    commands = self._commands
+                    if "on" in commands.keys() and isinstance(commands["on"], str):
                         """if on code is not present, the on bit can be still set later in the all operation/fan codes"""
-                        await self._controller.send(self._commands["on"])
+                        await self._controller.send(commands["on"])
                         await asyncio.sleep(self._delay)
 
-                    if not hvac_mode in self._commands.keys():
+                    if hvac_mode in commands.keys():
+                        commands = commands[hvac_mode]
+                    else:
                         _LOGGER.error(
                             "Missing device IR code for '%s' operation mode.", hvac_mode
                         )
                         return
-                    elif not (
-                        isinstance(self._commands[hvac_mode], dict)
-                        and fan_mode in self._commands[hvac_mode].keys()
-                    ):
-                        _LOGGER.error(
-                            "Missing device IR codes for '%s' fan mode.", fan_mode
-                        )
-                        return
-                    elif self._swing_modes:
-                        if not (
-                            isinstance(self._commands[hvac_mode][fan_mode], dict)
-                            and swing_mode in self._commands[hvac_mode][fan_mode].keys()
+
+                    if self._preset_modes:
+                        if (
+                            isinstance(commands, dict)
+                            and preset_mode in commands.keys()
                         ):
+                            commands = commands[preset_mode]
+                        else:
+                            _LOGGER.error(
+                                "Missing device IR codes for '%s' preset mode.",
+                                preset_mode,
+                            )
+                            return
+
+                    if self._fan_modes:
+                        if isinstance(commands, dict) and fan_mode in commands.keys():
+                            commands = commands[fan_mode]
+                        else:
+                            _LOGGER.error(
+                                "Missing device IR codes for '%s' fan mode.", fan_mode
+                            )
+                            return
+
+                    if self._swing_modes:
+                        if isinstance(commands, dict) and swing_mode in commands.keys():
+                            commands = commands[swing_mode]
+                        else:
                             _LOGGER.error(
                                 "Missing device IR codes for '%s' swing mode.",
                                 swing_mode,
                             )
                             return
-                        elif (
-                            isinstance(
-                                self._commands[hvac_mode][fan_mode][swing_mode], dict
-                            )
-                            and target_temperature
-                            in self._commands[hvac_mode][fan_mode][swing_mode].keys()
-                        ):
-                            await self._controller.send(
-                                self._commands[hvac_mode][fan_mode][swing_mode][
-                                    target_temperature
-                                ]
-                            )
-                        elif hvac_mode == HVACMode.FAN_ONLY and isinstance(
-                            self._commands[hvac_mode][fan_mode][swing_mode], str
-                        ):
-                            # fan_only mode sometimes do not support temperatures
-                            # (same code is used for all temperatures)
-                            await self._controller.send(
-                                self._commands[hvac_mode][fan_mode][swing_mode]
-                            )
-                        else:
-                            _LOGGER.error(
-                                "Missing device IR code '%s' for target temperature.",
-                                target_temperature,
-                            )
-                            return
+
+                    if (
+                        isinstance(commands, dict)
+                        and target_temperature in commands.keys()
+                    ):
+                        commands = commands[target_temperature]
+                    elif hvac_mode == HVACMode.FAN_ONLY and isinstance(commands, str):
+                        # fan_only mode sometimes do not support temperatures
+                        # (same code is used for all temperatures)
+                        commands = commands
                     else:
-                        if (
-                            isinstance(self._commands[hvac_mode][fan_mode], dict)
-                            and target_temperature
-                            in self._commands[hvac_mode][fan_mode].keys()
-                        ):
-                            await self._controller.send(
-                                self._commands[hvac_mode][fan_mode][target_temperature]
-                            )
-                        elif hvac_mode == HVACMode.FAN_ONLY and isinstance(
-                            self._commands[hvac_mode][fan_mode], str
-                        ):
-                            # fan_only mode sometimes do not support temperatures
-                            # (same code is used for all temperatures)
-                            await self._controller.send(
-                                self._commands[hvac_mode][fan_mode]
-                            )
-                        else:
-                            _LOGGER.error(
-                                "Missing device IR code for '%s' target temperature.",
-                                target_temperature,
-                            )
-                            return
+                        _LOGGER.error(
+                            "Missing device IR code '%s' for target temperature.",
+                            target_temperature,
+                        )
+                        return
+
+                    await self._controller.send(commands)
 
                 self._on_by_remote = False
                 self._state = state
                 self._hvac_mode = hvac_mode
+                self._preset_mode = preset_mode
                 self._fan_mode = fan_mode
                 self._swing_mode = swing_mode
                 self._target_temperature = temperature
