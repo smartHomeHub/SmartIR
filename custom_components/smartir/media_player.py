@@ -325,7 +325,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
 
                 for keys in commands:
                     data = self._commands.keys()
-                    for idx in range(len(path)):
+                    for idx in range(len(keys)):
                         if not (isinstance(data, dict) and keys[idx] in data):
                             _LOGGER.error(
                                 "Missing device IR code for '%s' command.", keys[idx]
