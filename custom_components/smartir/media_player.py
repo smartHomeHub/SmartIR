@@ -257,36 +257,36 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
 
     async def async_turn_off(self):
         """Turn the media player off."""
-        await self._send_command(STATE_OFF, [])
+        await self._send_command(STATE_OFF, [[]])
 
     async def async_turn_on(self):
         """Turn the media player off."""
-        await self._send_command(STATE_ON, [])
+        await self._send_command(STATE_ON, [[]])
 
     async def async_media_previous_track(self):
         """Send previous track command."""
-        await self._send_command(self._state, ["previousChannel"])
+        await self._send_command(self._state, [["previousChannel"]])
 
     async def async_media_next_track(self):
         """Send next track command."""
-        await self._send_command(self._state, ["nextChannel"])
+        await self._send_command(self._state, [["nextChannel"]])
 
     async def async_volume_down(self):
         """Turn volume down for media player."""
-        await self._send_command(self._state, ["volumeDown"])
+        await self._send_command(self._state, [["volumeDown"]])
 
     async def async_volume_up(self):
         """Turn volume up for media player."""
-        await self._send_command(self._state, ["volumeUp"])
+        await self._send_command(self._state, [["volumeUp"]])
 
     async def async_mute_volume(self, mute):
         """Mute the volume."""
-        await self._send_command(self._state, ["mute"])
+        await self._send_command(self._state, [["mute"]])
 
     async def async_select_source(self, source):
         """Select channel from source."""
         self._source = source
-        await self._send_command(self._state, ["sources", source])
+        await self._send_command(self._state, [["sources", source]])
 
     async def async_play_media(self, media_type, media_id, **kwargs):
         """Support channel change through play_media service."""
@@ -324,7 +324,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
                     await asyncio.sleep(self._delay)
 
                 for keys in commands:
-                    data = self._commands.keys()
+                    data = self._commands
                     for idx in range(len(keys)):
                         if not (isinstance(data, dict) and keys[idx] in data):
                             _LOGGER.error(
