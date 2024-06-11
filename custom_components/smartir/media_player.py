@@ -257,11 +257,11 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
 
     async def async_turn_off(self):
         """Turn the media player off."""
-        await self._send_command(STATE_OFF, [[]])
+        await self._send_command(STATE_OFF, [])
 
     async def async_turn_on(self):
         """Turn the media player off."""
-        await self._send_command(STATE_ON, [[]])
+        await self._send_command(STATE_ON, [])
 
     async def async_media_previous_track(self):
         """Send previous track command."""
