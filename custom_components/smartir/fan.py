@@ -164,7 +164,6 @@ class SmartIRFan(FanEntity, RestoreEntity):
 
             if self._power_sensor:
                 self._on_by_remote = last_state.attributes.get("on_by_remote", False)
-                self._async_power_sensor_check_schedule(self._state)
 
         if self._power_sensor:
             async_track_state_change_event(
@@ -359,9 +358,11 @@ class SmartIRFan(FanEntity, RestoreEntity):
             self._power_sensor_check_cancel = None
             expected_state = self._power_sensor_check_expect
             self._power_sensor_check_expect = None
-            current_state = self.hass.states.get(self._power_sensor).state
+            current_state = getattr(
+                self.hass.states.get(self._power_sensor), "state", None
+            )
             _LOGGER.debug(
-                "Executing power sensor check for expected state '%s', current state '%s'",
+                "Executing power sensor check for expected state '%s', current state '%s'.",
                 expected_state,
                 current_state,
             )
@@ -373,7 +374,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
             ):
                 self._state = current_state
                 _LOGGER.debug(
-                    "Power sensor check failed, reverted device state to '%s'",
+                    "Power sensor check failed, reverted device state to '%s'.",
                     self._state,
                 )
                 self.async_write_ha_state()
@@ -382,4 +383,4 @@ class SmartIRFan(FanEntity, RestoreEntity):
         self._power_sensor_check_cancel = async_call_later(
             self.hass, self._power_sensor_delay, _async_power_sensor_check
         )
-        _LOGGER.debug("Scheduled power sensor check for '%s' state", state)
+        _LOGGER.debug("Scheduled power sensor check for '%s' state.", state)
