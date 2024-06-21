@@ -520,6 +520,11 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                         and "off_fan" in self._commands.keys()
                     ):
                         await self._controller.send(self._commands["off_fan"])
+                    elif (
+                        self._hvac_mode == HVACMode.DRY
+                        and "off_dry" in self._commands.keys()
+                    ):
+                        await self._controller.send(self._commands["off_dry"])
                     elif "off" in self._commands.keys():
                         await self._controller.send(self._commands["off"])
                     else:
@@ -673,13 +678,21 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         if self._state == STATE_OFF:
             self._hvac_action = HVACAction.OFF
         elif (
-            (self._hvac_mode == HVACMode.HEAT or self._hvac_mode == HVACMode.HEAT_COOL)
+            (
+                self._hvac_mode == HVACMode.HEAT
+                or self._hvac_mode == HVACMode.HEAT_COOL
+                or self._hvac_mode == HVACMode.AUTO
+            )
             and self._current_temperature is not None
             and self._current_temperature < self._target_temperature
         ):
             self._hvac_action = HVACAction.HEATING
         elif (
-            (self._hvac_mode == HVACMode.COOL or self._hvac_mode == HVACMode.HEAT_COOL)
+            (
+                self._hvac_mode == HVACMode.COOL
+                or self._hvac_mode == HVACMode.HEAT_COOL
+                or self._hvac_mode == HVACMode.AUTO
+            )
             and self._current_temperature is not None
             and self._current_temperature > self._target_temperature
         ):
