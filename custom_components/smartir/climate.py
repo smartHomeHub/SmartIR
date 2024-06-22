@@ -2,6 +2,7 @@ import asyncio
 import logging
 
 import voluptuous as vol
+from numbers import Number
 
 from homeassistant.components.climate import ClimateEntity, PLATFORM_SCHEMA
 from homeassistant.components.climate.const import (
@@ -27,8 +28,8 @@ from homeassistant.core import HomeAssistant, Event, EventStateChangedData, call
 from homeassistant.helpers.event import async_track_state_change_event, async_call_later
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
-from homeassistant.helpers.temperature import display_temp
 from homeassistant.helpers.typing import ConfigType
+from homeassistant.util.unit_conversion import TemperatureConverter
 from . import DeviceData
 from .controller import get_controller
 
@@ -141,6 +142,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._commands = device_data["commands"]
 
         # device temperature units
+        self._ha_temperature_unit = hass.config.units.temperature_unit
         self._data_temperature_unit = UnitOfTemperature.CELSIUS
         if "temperatureUnit" in device_data:
             if device_data["temperatureUnit"] == "F":
@@ -160,20 +162,32 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         # temperature precision
         self._precision = device_data["precision"]
         if self._precision not in [PRECISION_TENTHS, PRECISION_HALVES, PRECISION_WHOLE]:
-            _LOGGER.error("Unknown precision set in device file!")
+            _LOGGER.error("Unknown precision set in the device file!")
             return
 
         # min & max temperatures
-        self._min_temperature = display_temp(
-            self.hass,
+        if not isinstance(device_data["minTemperature"], Number):
+            _LOGGER.error(
+                "minTemperature '%s' is not number in the device file!",
+                device_data["minTemperature"],
+            )
+            return
+        self._min_temperature = convert_temp(
             device_data["minTemperature"],
             self._data_temperature_unit,
+            self._ha_temperature_unit,
             self._precision,
         )
-        self._max_temperature = display_temp(
-            self.hass,
+        if not isinstance(device_data["maxTemperature"], Number):
+            _LOGGER.error(
+                "maxTemperature '%s' is not number in the device file!",
+                device_data["maxTemperature"],
+            )
+            return
+        self._max_temperature = convert_temp(
             device_data["maxTemperature"],
             self._data_temperature_unit,
+            self._ha_temperature_unit,
             self._precision,
         )
         self._target_temperature = self._min_temperature
@@ -430,6 +444,10 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
     async def async_set_hvac_mode(self, hvac_mode):
         """Set operation mode."""
+        if hvac_mode not in self._hvac_modes:
+            _LOGGER.error("The hvac_mode '%s' is not supported.", hvac_mode)
+            return
+
         if hvac_mode == HVACMode.OFF:
             state = STATE_OFF
             hvac_mode = self._hvac_mode
@@ -450,22 +468,12 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         hvac_mode = kwargs.get(ATTR_HVAC_MODE)
         temperature = kwargs.get(ATTR_TEMPERATURE)
 
-        if temperature is None:
+        if temperature is None or not isinstance(temperature, Number):
             return
 
         if temperature < self._min_temperature or temperature > self._max_temperature:
-            _LOGGER.warning("The temperature value is out of min/max range")
+            _LOGGER.error("The temperature value is out of min/max range.")
             return
-
-        if self._precision == PRECISION_WHOLE:
-            temperature = round(temperature)
-        elif self._precision == PRECISION_HALVES:
-            temperature = round(temperature * 2) / 2
-        elif self._precision == PRECISION_TENTHS:
-            temperature = round(temperature, 1)
-        else:
-            _LOGGER.warning("Unknown temperature precision")
-            temperature = round(temperature)
 
         if hvac_mode is None:
             hvac_mode = self._hvac_mode
@@ -473,6 +481,9 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 state = STATE_OFF
             else:
                 state = STATE_ON
+        elif hvac_mode not in self._hvac_modes:
+            _LOGGER.error("The hvac mode '%s' is not supported.", hvac_mode)
+            return
         else:
             if hvac_mode == HVACMode.OFF:
                 state = STATE_OFF
@@ -492,6 +503,9 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     async def async_set_preset_mode(self, preset_mode):
         """Set preset mode."""
         preset_mode = str(preset_mode)
+        if preset_mode not in self._preset_modes:
+            _LOGGER.error("The preset mode '%s' is not supported.", preset_mode)
+            return
 
         await self._send_command(
             self._state,
@@ -505,6 +519,9 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     async def async_set_fan_mode(self, fan_mode):
         """Set fan mode."""
         fan_mode = str(fan_mode)
+        if fan_mode not in self._fan_modes:
+            _LOGGER.error("The fan mode '%s' is not supported.", fan_mode)
+            return
 
         await self._send_command(
             self._state,
@@ -518,6 +535,9 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     async def async_set_swing_mode(self, swing_mode):
         """Set swing mode."""
         swing_mode = str(swing_mode)
+        if swing_mode not in self._swing_modes:
+            _LOGGER.error("The swing mode '%s' is not supported.", swing_mode)
+            return
 
         await self._send_command(
             self._state,
@@ -541,13 +561,11 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     ):
         async with self._temp_lock:
 
-            target_temperature = str(
-                display_temp(
-                    self.hass,
-                    temperature,
-                    self._data_temperature_unit,
-                    self._precision,
-                )
+            target_temperature = convert_temp(
+                temperature,
+                self._ha_temperature_unit,
+                self._data_temperature_unit,
+                self._precision,
             )
 
             if self._power_sensor and self._state != state:
@@ -558,19 +576,30 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                     if (
                         self._hvac_mode == HVACMode.COOL
                         and "off_cool" in self._commands.keys()
+                        and isinstance(self._commands["off_cool"], str)
                     ):
                         await self._controller.send(self._commands["off_cool"])
                     elif (
                         self._hvac_mode == HVACMode.HEAT
                         and "off_heat" in self._commands.keys()
+                        and isinstance(self._commands["off_heat"], str)
                     ):
                         await self._controller.send(self._commands["off_heat"])
                     elif (
                         self._hvac_mode == HVACMode.FAN_ONLY
                         and "off_fan" in self._commands.keys()
+                        and isinstance(self._commands["off_fan"], str)
                     ):
                         await self._controller.send(self._commands["off_fan"])
-                    elif "off" in self._commands.keys():
+                    elif (
+                        self._hvac_mode == HVACMode.DRY
+                        and "off_dry" in self._commands.keys()
+                        and isinstance(self._commands["off_dry"], str)
+                    ):
+                        await self._controller.send(self._commands["off_dry"])
+                    elif "off" in self._commands.keys() and isinstance(
+                        self._commands["off"], str
+                    ):
                         await self._controller.send(self._commands["off"])
                     else:
                         _LOGGER.error(
@@ -579,6 +608,10 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                         return
                 else:
                     commands = self._commands
+                    if not isinstance(commands, dict):
+                        _LOGGER.error("No device IR codes are defined.")
+                        return
+
                     if "on" in commands.keys() and isinstance(commands["on"], str):
                         """if on code is not present, the on bit can be still set later in the all operation/fan codes"""
                         await self._controller.send(commands["on"])
@@ -593,50 +626,94 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                         return
 
                     if self._preset_modes:
-                        if (
-                            isinstance(commands, dict)
-                            and preset_mode in commands.keys()
-                        ):
-                            commands = commands[preset_mode]
+                        if isinstance(commands, dict):
+                            for key in [preset_mode, "-"] + self._preset_modes:
+                                if key in commands.keys():
+                                    preset_mode = key
+                                    commands = commands[key]
+                                    break
+                            else:
+                                _LOGGER.error(
+                                    "Missing device IR codes for '%s' preset mode.",
+                                    preset_mode,
+                                )
+                                return
                         else:
                             _LOGGER.error(
-                                "Missing device IR codes for '%s' preset mode.",
-                                preset_mode,
+                                "No device IR codes for preset modes are defined.",
                             )
                             return
 
                     if self._fan_modes:
-                        if isinstance(commands, dict) and fan_mode in commands.keys():
-                            commands = commands[fan_mode]
+                        if isinstance(commands, dict):
+                            for key in [fan_mode, "-"] + self._fan_modes:
+                                if key in commands.keys():
+                                    fan_mode = key
+                                    commands = commands[key]
+                                    break
+                            else:
+                                _LOGGER.error(
+                                    "Missing device IR codes for '%s' fan mode.",
+                                    fan_mode,
+                                )
+                                return
                         else:
                             _LOGGER.error(
-                                "Missing device IR codes for '%s' fan mode.", fan_mode
+                                "No device IR codes for fan modes are defined.",
                             )
                             return
 
                     if self._swing_modes:
-                        if isinstance(commands, dict) and swing_mode in commands.keys():
-                            commands = commands[swing_mode]
+                        if isinstance(commands, dict):
+                            for key in [swing_mode, "-"] + self._swing_modes:
+                                if key in commands.keys():
+                                    swing_mode = key
+                                    commands = commands[key]
+                                    break
+                            else:
+                                _LOGGER.error(
+                                    "Missing device IR codes for '%s' swing mode.",
+                                    swing_mode,
+                                )
+                                return
                         else:
                             _LOGGER.error(
-                                "Missing device IR codes for '%s' swing mode.",
-                                swing_mode,
+                                "No device IR codes for swing modes are defined.",
                             )
                             return
 
-                    if (
-                        isinstance(commands, dict)
-                        and target_temperature in commands.keys()
-                    ):
-                        commands = commands[target_temperature]
-                    elif hvac_mode == HVACMode.FAN_ONLY and isinstance(commands, str):
-                        # fan_only mode sometimes do not support temperatures
-                        # (same code is used for all temperatures)
-                        commands = commands
+                    if isinstance(commands, dict):
+                        if str(target_temperature) in commands.keys():
+                            commands = commands[str(target_temperature)]
+                        elif "-" in commands.keys():
+                            temperature = "-"
+                            commands = commands["-"]
+                        elif temp := sorted(
+                            filter(lambda val1: val1 != "-", commands.keys()),
+                            key=lambda val2: abs(float(val2) - target_temperature),
+                        ):
+                            temperature = convert_temp(
+                                temp,
+                                self._data_temperature_unit,
+                                self._ha_temperature_unit,
+                                self._precision,
+                            )
+                            commands = commands[str(temp[0])]
+                        else:
+                            _LOGGER.error(
+                                "Missing device IR codes for '%s' temperature.",
+                                target_temperature,
+                            )
+                            return
                     else:
                         _LOGGER.error(
-                            "Missing device IR code '%s' for target temperature.",
-                            target_temperature,
+                            "No device IR codes for temperatures are defined.",
+                        )
+                        return
+
+                    if not isinstance(commands, str):
+                        _LOGGER.error(
+                            "No device IR code found.",
                         )
                         return
 
@@ -645,10 +722,14 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 self._on_by_remote = False
                 self._state = state
                 self._hvac_mode = hvac_mode
-                self._preset_mode = preset_mode
-                self._fan_mode = fan_mode
-                self._swing_mode = swing_mode
-                self._target_temperature = temperature
+                if preset_mode != "-":
+                    self._preset_mode = preset_mode
+                if fan_mode != "-":
+                    self._fan_mode = fan_mode
+                if swing_mode != "-":
+                    self._swing_mode = swing_mode
+                if temperature != "-":
+                    self._target_temperature = temperature
                 await self._async_update_hvac_action()
                 self.async_write_ha_state()
 
@@ -782,3 +863,28 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             self.hass, self._power_sensor_delay, _async_power_sensor_check
         )
         _LOGGER.debug("Scheduled power sensor check for '%s' state", state)
+
+
+def convert_temp(
+    temperature: float | None, from_unit: str, to_unit: str, precision: float
+) -> float | None:
+    if temperature is None:
+        return temperature
+
+    # If the temperature is not a number this can cause issues
+    # with Polymer components, so bail early there.
+    if not isinstance(temperature, Number):
+        return None
+
+    if from_unit != to_unit:
+        temperature = TemperatureConverter.converter_factory(from_unit, to_unit)(
+            temperature
+        )
+
+    # Round in the units appropriate
+    if precision == PRECISION_HALVES:
+        return round(temperature * 2) / 2.0
+    if precision == PRECISION_TENTHS:
+        return round(temperature, 1)
+    # Integer as a fall back (PRECISION_WHOLE)
+    return round(temperature)
