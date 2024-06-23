@@ -283,7 +283,6 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
             if self._power_sensor:
                 self._on_by_remote = last_state.attributes.get("on_by_remote", False)
-                self._async_power_sensor_check_schedule(self._state)
 
         if self._temperature_sensor:
             async_track_state_change_event(
@@ -791,13 +790,21 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         if self._state == STATE_OFF:
             self._hvac_action = HVACAction.OFF
         elif (
-            (self._hvac_mode == HVACMode.HEAT or self._hvac_mode == HVACMode.HEAT_COOL)
+            (
+                self._hvac_mode == HVACMode.HEAT
+                or self._hvac_mode == HVACMode.HEAT_COOL
+                or self._hvac_mode == HVACMode.AUTO
+            )
             and self._current_temperature is not None
             and self._current_temperature < self._target_temperature
         ):
             self._hvac_action = HVACAction.HEATING
         elif (
-            (self._hvac_mode == HVACMode.COOL or self._hvac_mode == HVACMode.HEAT_COOL)
+            (
+                self._hvac_mode == HVACMode.COOL
+                or self._hvac_mode == HVACMode.HEAT_COOL
+                or self._hvac_mode == HVACMode.AUTO
+            )
             and self._current_temperature is not None
             and self._current_temperature > self._target_temperature
         ):
@@ -839,9 +846,11 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             self._power_sensor_check_cancel = None
             expected_state = self._power_sensor_check_expect
             self._power_sensor_check_expect = None
-            current_state = self.hass.states.get(self._power_sensor).state
+            current_state = getattr(
+                self.hass.states.get(self._power_sensor), "state", None
+            )
             _LOGGER.debug(
-                "Executing power sensor check for expected state '%s', current state '%s'",
+                "Executing power sensor check for expected state '%s', current state '%s'.",
                 expected_state,
                 current_state,
             )
@@ -853,7 +862,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             ):
                 self._state = current_state
                 _LOGGER.debug(
-                    "Power sensor check failed, reverted device state to '%s'",
+                    "Power sensor check failed, reverted device state to '%s'.",
                     self._state,
                 )
                 self.async_write_ha_state()
