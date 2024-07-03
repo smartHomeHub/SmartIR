@@ -618,6 +618,10 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
                     if hvac_mode in commands.keys():
                         commands = commands[hvac_mode]
+                        _LOGGER.debug(
+                            "Found '%s' operation mode command.",
+                            hvac_mode,
+                        )
                     else:
                         _LOGGER.error(
                             "Missing device IR code for '%s' operation mode.", hvac_mode
@@ -630,10 +634,14 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                                 if key in commands.keys():
                                     preset_mode = key
                                     commands = commands[key]
+                                    _LOGGER.debug(
+                                        "Found '%s' preset mode command.",
+                                        preset_mode,
+                                    )
                                     break
                             else:
                                 _LOGGER.error(
-                                    "Missing device IR codes for '%s' preset mode.",
+                                    "Missing device IR codes for selected '%s' preset mode.",
                                     preset_mode,
                                 )
                                 return
@@ -649,10 +657,14 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                                 if key in commands.keys():
                                     fan_mode = key
                                     commands = commands[key]
+                                    _LOGGER.debug(
+                                        "Found '%s' fan mode command.",
+                                        fan_mode,
+                                    )
                                     break
                             else:
                                 _LOGGER.error(
-                                    "Missing device IR codes for '%s' fan mode.",
+                                    "Missing device IR codes for selected '%s' fan mode.",
                                     fan_mode,
                                 )
                                 return
@@ -668,10 +680,14 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                                 if key in commands.keys():
                                     swing_mode = key
                                     commands = commands[key]
+                                    _LOGGER.debug(
+                                        "Found '%s' swing mode command.",
+                                        swing_mode,
+                                    )
                                     break
                             else:
                                 _LOGGER.error(
-                                    "Missing device IR codes for '%s' swing mode.",
+                                    "Missing device IR codes for selected '%s' swing mode.",
                                     swing_mode,
                                 )
                                 return
@@ -688,22 +704,36 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                             temperature = "-"
                             commands = commands["-"]
                         elif temp := sorted(
-                            filter(lambda val1: val1 != "-", commands.keys()),
-                            key=lambda val2: abs(float(val2) - target_temperature),
+                            commands.keys(),
+                            key=lambda value: abs(float(value) - target_temperature),
                         ):
-                            temperature = convert_temp(
-                                temp,
+                            temp_ha = convert_temp(
+                                temp[0],
                                 self._data_temperature_unit,
                                 self._ha_temperature_unit,
                                 self._precision,
                             )
+                            _LOGGER.debug(
+                                "Input temperature '%s' '%s' closest found temperature command '%s' '%s' converts back into HA '%s' '%s' temperature.",
+                                temperature,
+                                self._ha_temperature_unit,
+                                temp[0],
+                                self._data_temperature_unit,
+                                temp_ha,
+                                self._ha_temperature_unit,
+                            )
+                            temperature = temp_ha
                             commands = commands[str(temp[0])]
                         else:
                             _LOGGER.error(
-                                "Missing device IR codes for '%s' temperature.",
+                                "Missing device IR codes for selected '%s' temperature.",
                                 target_temperature,
                             )
                             return
+                        _LOGGER.debug(
+                            "Found '%s', temperature command.",
+                            temperature,
+                        )
                     else:
                         _LOGGER.error(
                             "No device IR codes for temperatures are defined.",
