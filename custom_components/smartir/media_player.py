@@ -15,7 +15,7 @@ import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
 from homeassistant.helpers.typing import ConfigType
 from . import DeviceData
-from .controller import get_controller
+from .controller import get_controller, CONTROLLER_SUPPORT
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -61,12 +61,9 @@ async def async_setup_platform(
         device_data := await DeviceData.load_file(
             config.get(CONF_DEVICE_CODE),
             "media_player",
-            [
-                "manufacturer",
-                "supportedModels",
-                "supportedController",
-                "commandsEncoding",
-            ],
+            {
+                "controller_support": CONTROLLER_SUPPORT,
+            },
             hass,
         )
     ):
