@@ -64,13 +64,7 @@ async def async_setup_platform(
         device_data := await DeviceData.load_file(
             config.get(CONF_DEVICE_CODE),
             "fan",
-            [
-                "manufacturer",
-                "supportedModels",
-                "supportedController",
-                "commandsEncoding",
-                "speed",
-            ],
+            {},
             hass,
         )
     ):
