@@ -126,8 +126,7 @@ class DeviceData:
         if not (
             "supportedController" in device_data
             and isinstance(device_data["supportedController"], str)
-            and device_data["supportedController"]
-            in CONTROLLER_SUPPORT.keys()
+            and device_data["supportedController"] in CONTROLLER_SUPPORT.keys()
         ):
             _LOGGER.error(
                 "Invalid device JSON file '%s': missing or invalid attribute 'supportedController'.",
