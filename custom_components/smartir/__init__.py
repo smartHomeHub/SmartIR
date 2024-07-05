@@ -25,7 +25,9 @@ class DeviceData:
             )
             if os.path.exists(device_json_file_path):
                 _LOGGER.debug(
-                    "Loading custom device Json file '%s'.", device_json_file_name
+                    "Loading custom %s device JSON file '%s'.",
+                    device_class,
+                    device_json_file_name,
                 )
                 device_data = await hass.async_add_executor_job(
                     DeviceData.read_file_as_json, device_json_file_path
@@ -51,7 +53,11 @@ class DeviceData:
                 device_files_absdir, device_json_file_name
             )
             if os.path.exists(device_json_file_path):
-                _LOGGER.debug("Loading device Json file '%s'.", device_json_file_name)
+                _LOGGER.debug(
+                    "Loading %s device JSON file '%s'.",
+                    device_class,
+                    device_json_file_name,
+                )
                 device_data = await hass.async_add_executor_job(
                     DeviceData.read_file_as_json, device_json_file_path
                 )
@@ -66,12 +72,12 @@ class DeviceData:
                     return None
             else:
                 _LOGGER.error(
-                    "Device Json file '%s' doesn't exists!", device_json_file_name
+                    "Device JSON file '%s' doesn't exists!", device_json_file_name
                 )
                 return None
         else:
             _LOGGER.error(
-                "Devices Json files directory '%s' doesn't exists!", device_files_absdir
+                "Devices JSON files directory '%s' doesn't exists!", device_files_absdir
             )
             return None
 
@@ -96,7 +102,9 @@ class DeviceData:
     async def check_file(file_name, device_data, device_class, check_data):
         if not isinstance(device_data, dict):
             _LOGGER.error(
-                "Invalid device JSON file '%s': invalid JSON format.", file_name
+                "Invalid %s device JSON file '%s': invalid JSON format.",
+                device_class,
+                file_name,
             )
             return None
 
@@ -106,7 +114,8 @@ class DeviceData:
             and device_data["manufacturer"]
         ):
             _LOGGER.error(
-                "Invalid device JSON file '%s': missing or invalid attribute 'manufacturer'.",
+                "Invalid %s device JSON file '%s': missing or invalid attribute 'manufacturer'.",
+                device_class,
                 file_name,
             )
             return False
@@ -117,7 +126,8 @@ class DeviceData:
             and len(device_data["supportedModels"])
         ):
             _LOGGER.error(
-                "Invalid device JSON file '%s': missing or invalid attribute 'supportedModels'.",
+                "Invalid %s device JSON file '%s': missing or invalid attribute 'supportedModels'.",
+                device_class,
                 file_name,
             )
             return False
@@ -128,7 +138,8 @@ class DeviceData:
             and device_data["supportedController"] in CONTROLLER_SUPPORT.keys()
         ):
             _LOGGER.error(
-                "Invalid device JSON file '%s': missing or invalid attribute 'supportedController'.",
+                "Invalid %s device JSON file '%s': missing or invalid attribute 'supportedController'.",
+                device_class,
                 file_name,
             )
             return False
@@ -140,24 +151,31 @@ class DeviceData:
             in CONTROLLER_SUPPORT[device_data["supportedController"]]
         ):
             _LOGGER.error(
-                "Invalid device JSON file '%s': missing or invalid attribute 'commandsEncoding'.",
+                "Invalid %s device JSON file '%s': missing or invalid attribute 'commandsEncoding'.",
+                device_class,
                 file_name,
             )
             return False
 
         if device_class == "climate":
-            if DeviceData.check_file_climate(file_name, device_data, check_data):
+            if DeviceData.check_file_climate(
+                file_name, device_data, device_class, check_data
+            ):
                 return True
         elif device_class == "fan":
-            if DeviceData.check_file_fan(file_name, device_data, check_data):
+            if DeviceData.check_file_fan(
+                file_name, device_data, device_class, check_data
+            ):
                 return True
         elif device_class == "media_player":
-            if DeviceData.check_file_media_player(file_name, device_data, check_data):
+            if DeviceData.check_file_media_player(
+                file_name, device_data, device_class, check_data
+            ):
                 return True
         return False
 
     @staticmethod
-    def check_file_climate(file_name, device_data, check_data):
+    def check_file_climate(file_name, device_data, device_class, check_data):
         modes_used = {}
 
         if not (
@@ -166,7 +184,8 @@ class DeviceData:
             and len(device_data["operationModes"])
         ):
             _LOGGER.error(
-                "Invalid device JSON file '%s': missing or invalid attribute 'operationModes'.",
+                "Invalid %s device JSON file '%s': missing or invalid attribute 'operationModes'.",
+                device_class,
                 file_name,
             )
             return False
@@ -176,7 +195,8 @@ class DeviceData:
         for mode in device_data["operationModes"]:
             if not (isinstance(mode, str) and mode in check_data["hvac_modes"]):
                 _LOGGER.error(
-                    "Invalid device JSON file '%s': invalid attribute 'operationModes' value '%s'.",
+                    "Invalid %s device JSON file '%s': invalid attribute 'operationModes' value '%s'.",
+                    device_class,
                     file_name,
                     mode,
                 )
@@ -191,7 +211,8 @@ class DeviceData:
                     for mode in device_data[attr]:
                         if not (isinstance(mode, str)):
                             _LOGGER.error(
-                                "Invalid device JSON file '%s': invalid attribute '%s' value '%s'.",
+                                "Invalid %s device JSON file '%s': invalid attribute '%s' value '%s'.",
+                                device_class,
                                 file_name,
                                 attr,
                                 mode,
@@ -205,7 +226,8 @@ class DeviceData:
             and device_data["temperatureUnit"] in ["C", "F", "K"]
         ):
             _LOGGER.error(
-                "Invalid device JSON file '%s': missing or invalid attribute 'temperatureUnit'.",
+                "Invalid %s device JSON file '%s': missing or invalid attribute 'temperatureUnit'.",
+                device_class,
                 file_name,
             )
             return False
@@ -216,7 +238,8 @@ class DeviceData:
             or isinstance(device_data["precision"], float)
         ):
             _LOGGER.error(
-                "Invalid device JSON file '%s': missing or invalid attribute 'precison'.",
+                "Invalid %s device JSON file '%s': missing or invalid attribute 'precison'.",
+                device_class,
                 file_name,
             )
             return False
@@ -226,7 +249,8 @@ class DeviceData:
             or isinstance(device_data["minTemperature"], float)
         ):
             _LOGGER.error(
-                "Invalid device JSON file '%s': missing or invalid attribute 'minTemperature'.",
+                "Invalid %s device JSON file '%s': missing or invalid attribute 'minTemperature'.",
+                device_class,
                 file_name,
             )
             return False
@@ -236,7 +260,8 @@ class DeviceData:
             or isinstance(device_data["maxTemperature"], float)
         ):
             _LOGGER.error(
-                "Invalid device JSON file '%s': missing or invalid attribute 'maxTemperature'.",
+                "Invalid %s device JSON file '%s': missing or invalid attribute 'maxTemperature'.",
+                device_class,
                 file_name,
             )
             return False
@@ -248,7 +273,8 @@ class DeviceData:
                 device_data["minTemperature"]
             ):
                 _LOGGER.error(
-                    "Invalid device JSON file '%s': invalid attribute 'minTemperature'.",
+                    "Invalid %s device JSON file '%s': invalid attribute 'minTemperature'.",
+                    device_class,
                     file_name,
                 )
                 return False
@@ -256,7 +282,8 @@ class DeviceData:
                 device_data["maxTemperature"]
             ):
                 _LOGGER.error(
-                    "Invalid device JSON file '%s': invalid attribute 'maxTemperature'.",
+                    "Invalid %s device JSON file '%s': invalid attribute 'maxTemperature'.",
+                    device_class,
                     file_name,
                 )
                 return False
@@ -265,7 +292,8 @@ class DeviceData:
                 device_data["minTemperature"]
             ):
                 _LOGGER.error(
-                    "Invalid device JSON file '%s': invalid attribute 'minTemperature'.",
+                    "Invalid %s device JSON file '%s': invalid attribute 'minTemperature'.",
+                    device_class,
                     file_name,
                 )
                 return False
@@ -273,7 +301,8 @@ class DeviceData:
                 device_data["maxTemperature"]
             ):
                 _LOGGER.error(
-                    "Invalid device JSON file '%s': invalid attribute 'maxTemperature'.",
+                    "Invalid %s device JSON file '%s': invalid attribute 'maxTemperature'.",
+                    device_class,
                     file_name,
                 )
                 return False
@@ -282,7 +311,8 @@ class DeviceData:
                 device_data["minTemperature"]
             ):
                 _LOGGER.error(
-                    "Invalid device JSON file '%s': invalid attribute 'minTemperature'.",
+                    "Invalid %s device JSON file '%s': invalid attribute 'minTemperature'.",
+                    device_class,
                     file_name,
                 )
                 return False
@@ -290,13 +320,15 @@ class DeviceData:
                 device_data["maxTemperature"]
             ):
                 _LOGGER.error(
-                    "Invalid device JSON file '%s': invalid attribute 'maxTemperature'.",
+                    "Invalid %s device JSON file '%s': invalid attribute 'maxTemperature'.",
+                    device_class,
                     file_name,
                 )
                 return False
         else:
             _LOGGER.error(
-                "Invalid device JSON file '%s': invalid attribute 'precison'.",
+                "Invalid %s device JSON file '%s': invalid attribute 'precison'.",
+                device_class,
                 file_name,
             )
             return False
@@ -317,7 +349,8 @@ class DeviceData:
 
         if "commands" not in device_data:
             _LOGGER.error(
-                "Invalid device JSON file '%s': missing attribute 'commands'.",
+                "Invalid %s device JSON file '%s': missing attribute 'commands'.",
+                device_class,
                 file_name,
             )
             return False
@@ -327,18 +360,20 @@ class DeviceData:
             0,
             modes_list,
             modes_used,
+            device_class,
             check_data,
             device_data["commands"],
         )
 
     def check_file_climate_commands(
-        file_name, depth, modes_list, modes_used, check_data, commands
+        file_name, depth, modes_list, modes_used, device_class, check_data, commands
     ):
         level = modes_list[depth]
 
         if not (isinstance(commands, dict) and len(commands)):
             _LOGGER.error(
-                "Invalid device JSON file '%s': invalid attribute 'commands'.",
+                "Invalid %s device JSON file '%s': invalid attribute 'commands'.",
+                device_class,
                 file_name,
             )
             return False
@@ -348,7 +383,8 @@ class DeviceData:
             if "off" in commands:
                 if not (isinstance(commands["off"], str) and commands["off"]):
                     _LOGGER.error(
-                        "Invalid device JSON file '%s': missing or invalid 'off' operation mode command.",
+                        "Invalid %s device JSON file '%s': missing or invalid 'off' operation mode command.",
+                        device_class,
                         file_name,
                     )
                     return False
@@ -362,7 +398,8 @@ class DeviceData:
                         and commands[off_mode]
                     ):
                         _LOGGER.error(
-                            "Invalid device JSON file '%s': missing or invalid '%s' operation mode command.",
+                            "Invalid %s device JSON file '%s': missing or invalid '%s' operation mode command.",
+                            device_class,
                             file_name,
                             off_mode,
                         )
@@ -371,7 +408,8 @@ class DeviceData:
             for mode in modes_used[level]:
                 if not mode in commands:
                     _LOGGER.error(
-                        "Invalid device JSON file '%s': not defined 'operation' mode '%s' command key used.",
+                        "Invalid %s device JSON file '%s': not defined 'operation' mode '%s' command key used.",
+                        device_class,
                         file_name,
                         mode,
                     )
@@ -381,6 +419,7 @@ class DeviceData:
                     depth + 1,
                     modes_list,
                     modes_used,
+                    device_class,
                     check_data,
                     commands[mode],
                 ):
@@ -391,7 +430,8 @@ class DeviceData:
             invalid = [mode for mode in commands.keys() if mode not in check]
             if invalid:
                 _LOGGER.error(
-                    "Invalid device JSON file '%s': operation mode '%s' is not defined, but it is used in commands.",
+                    "Invalid %s device JSON file '%s': operation mode '%s' is not defined, but it is used in commands.",
+                    device_class,
                     file_name,
                     invalid[0],
                 )
@@ -402,7 +442,8 @@ class DeviceData:
                 for attr in modes_used[level]:
                     if attr == 0:
                         _LOGGER.error(
-                            "Invalid device JSON file '%s': '%s' '%s' is defined, but not used in commands.",
+                            "Invalid %s device JSON file '%s': '%s' '%s' is defined, but not used in commands.",
+                            device_class,
                             file_name,
                             level,
                             attr,
@@ -413,7 +454,8 @@ class DeviceData:
             if "-" in commands:
                 if len(commands) != 1:
                     _LOGGER.error(
-                        "Invalid device JSON file '%s': command '%s' mode key '-' can't be combined with any named modes.",
+                        "Invalid %s device JSON file '%s': command '%s' mode key '-' can't be combined with any named modes.",
+                        device_class,
                         file_name,
                         level,
                     )
@@ -428,7 +470,8 @@ class DeviceData:
 
                     except ValueError:
                         _LOGGER.error(
-                            "Invalid device JSON file '%s': invalid key '%s' for temperature command.",
+                            "Invalid %s device JSON file '%s': invalid key '%s' for temperature command.",
+                            device_class,
                             file_name,
                             temp,
                         )
@@ -436,7 +479,8 @@ class DeviceData:
 
                     if temp not in modes_used[level].keys():
                         _LOGGER.error(
-                            "Invalid device JSON file '%s': invalid 'temperature' '%s' command key used.",
+                            "Invalid %s device JSON file '%s': invalid 'temperature' '%s' command key used.",
+                            device_class,
                             file_name,
                             temp,
                         )
@@ -446,7 +490,8 @@ class DeviceData:
                 for mode in commands.keys():
                     if mode not in modes_used[level].keys():
                         _LOGGER.error(
-                            "Invalid device JSON file '%s': not defined '%s' mode '%s' command key used.",
+                            "Invalid %s device JSON file '%s': not defined '%s' mode '%s' command key used.",
+                            device_class,
                             file_name,
                             level,
                             mode,
@@ -457,6 +502,7 @@ class DeviceData:
                         depth + 1,
                         modes_list,
                         modes_used,
+                        device_class,
                         check_data,
                         commands[mode],
                     ):
@@ -466,21 +512,22 @@ class DeviceData:
         return True
 
     @staticmethod
-    def check_file_fan(file_name, device_data, check_data):
+    def check_file_fan(file_name, device_data, device_class, check_data):
         if not (
             "speed" in device_data
             and isinstance(device_data["speed"], list)
             and len(device_data["speed"])
         ):
             _LOGGER.error(
-                "Invalid device JSON file '%s': missing or invalid attribute 'speed'.",
+                "Invalid %s device JSON file '%s': missing or invalid attribute 'speed'.",
+                device_class,
                 file_name,
             )
             return False
         return True
 
     @staticmethod
-    def check_file_media_player(file_name, device_data, check_data):
+    def check_file_media_player(file_name, device_data, device_class, check_data):
         return True
 
 

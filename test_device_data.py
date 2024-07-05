@@ -51,14 +51,7 @@ async def main():
         generate_docs = True
 
     for file_path in files:
-        print(file_path + ": ")
-        result = await test_json(file_path, docs)
-        if result:
-            print("OK")
-            print()
-        else:
-            print("FAILED")
-            print()
+        if not await test_json(file_path, docs):
             exit = 1
 
     if generate_docs:
