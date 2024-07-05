@@ -3,7 +3,6 @@
 import logging
 import os.path
 import json
-import numpy
 
 from .controller_const import CONTROLLER_SUPPORT
 
@@ -306,11 +305,14 @@ class DeviceData:
 
         modes_list.append("temperature")
         modes_used["temperature"] = {}
-        for temp in numpy.arange(
-            device_data["minTemperature"],
-            device_data["maxTemperature"] + device_data["precision"],
-            device_data["precision"],
-        ):
+        temp_list = [device_data["minTemperature"]]
+        while temp_list[-1] <= device_data["maxTemperature"]:
+            temp_list.append(
+                precision_round(
+                    temp_list[-1] + device_data["precision"], device_data["precision"]
+                )
+            )
+        for temp in temp_list:
             modes_used["temperature"].setdefault(temp, 0)
 
         if "commands" not in device_data:
@@ -422,12 +424,7 @@ class DeviceData:
                         return False
 
                     try:
-                        if check_data["precision"] == 0.5:
-                            temp = round((float(temp) * 2) / 2.0, 1)
-                        elif check_data["precision"] == 0.1:
-                            temp = round(float(temp), 1)
-                        else:
-                            temp = round(float(temp))
+                        temp = precision_round(temp, check_data["precision"])
 
                     except ValueError:
                         _LOGGER.error(
@@ -485,3 +482,13 @@ class DeviceData:
     @staticmethod
     def check_file_media_player(file_name, device_data, check_data):
         return True
+
+
+@staticmethod
+def precision_round(number, precision):
+    if precision == 0.5:
+        return round((float(number) * 2) / 2.0, 1)
+    elif precision == 0.1:
+        return round(float(number), 1)
+    else:
+        return round(float(number))
