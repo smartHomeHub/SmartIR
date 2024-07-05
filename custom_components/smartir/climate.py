@@ -30,7 +30,7 @@ from homeassistant.helpers.restore_state import RestoreEntity
 from homeassistant.helpers.temperature import display_temp
 from homeassistant.helpers.typing import ConfigType
 from . import DeviceData
-from .controller import get_controller, CONTROLLER_SUPPORT
+from .controller import get_controller
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -76,7 +76,6 @@ async def async_setup_platform(
             config.get(CONF_DEVICE_CODE),
             "climate",
             {
-                "controller_support": CONTROLLER_SUPPORT,
                 "hvac_modes": [mode for mode in HVAC_MODES if mode != HVACMode.OFF],
             },
             hass,

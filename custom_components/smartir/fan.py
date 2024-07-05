@@ -21,7 +21,7 @@ from homeassistant.util.percentage import (
     percentage_to_ordered_list_item,
 )
 from . import DeviceData
-from .controller import get_controller, CONTROLLER_SUPPORT
+from .controller import get_controller
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -64,9 +64,7 @@ async def async_setup_platform(
         device_data := await DeviceData.load_file(
             config.get(CONF_DEVICE_CODE),
             "fan",
-            {
-                "controller_support": CONTROLLER_SUPPORT,
-            },
+            {},
             hass,
         )
     ):
