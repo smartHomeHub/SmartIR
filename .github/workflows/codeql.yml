@@ -55,7 +55,6 @@ jobs:
 
       - name: Catalog device code files
         run: |
-          cd test
           python3 test_device_data.py --docs codes/*/*
 
       - name: Markdown autodocs
