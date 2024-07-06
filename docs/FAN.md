@@ -122,5 +122,5 @@ fan:
 The following are the code files created by the amazing people in the community. Before you start creating your own code file, try if one of them works for your device. **Please open an issue if your device is working and not included in the supported models.**
 Contributing to your own code files is welcome. However, we do not accept incomplete files as well as files related to MQTT controllers.
 
-<!-- MARKDOWN-AUTO-DOCS:START (JSON_TO_HTML_TABLE:src=./fan.json) -->
+<!-- MARKDOWN-AUTO-DOCS:START (JSON_TO_HTML_TABLE:src=./docs/fan.json) -->
 <!-- MARKDOWN-AUTO-DOCS:END -->
