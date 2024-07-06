@@ -58,6 +58,7 @@ async def main():
         for device_class in docs.keys():
             with open("docs/" + device_class + ".json", "w") as outfile:
                 json.dump(docs[device_class], outfile)
+        sys.exit(0)
 
     sys.exit(exit)
 
