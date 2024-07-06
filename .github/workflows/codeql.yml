@@ -55,7 +55,7 @@ jobs:
 
       - name: Catalog device code files
         run: |
-          python3 test_device_data.py --docs codes/*/*
+          python3 test_device_data.py --docs codes/*/*.json
 
       - name: Markdown autodocs
         uses: dineshsonachalam/markdown-autodocs@v1.0.7
