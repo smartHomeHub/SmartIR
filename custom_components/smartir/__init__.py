@@ -254,7 +254,9 @@ class DeviceData:
                 isinstance(device_data["minTemperature"], int)
                 or isinstance(device_data["minTemperature"], float)
             )
-            and precision_round(device_data["minTemperature"], device_data["precision"])
+            and DeviceData.precision_round(
+                device_data["minTemperature"], device_data["precision"]
+            )
             == float(device_data["minTemperature"])
         ):
             _LOGGER.error(
@@ -270,7 +272,9 @@ class DeviceData:
                 isinstance(device_data["maxTemperature"], int)
                 or isinstance(device_data["maxTemperature"], float)
             )
-            and precision_round(device_data["maxTemperature"], device_data["precision"])
+            and DeviceData.precision_round(
+                device_data["maxTemperature"], device_data["precision"]
+            )
             == float(device_data["maxTemperature"])
         ):
             _LOGGER.error(
@@ -285,7 +289,7 @@ class DeviceData:
         temp_list = [device_data["minTemperature"]]
         while temp_list[-1] <= device_data["maxTemperature"]:
             temp_list.append(
-                precision_round(
+                DeviceData.precision_round(
                     temp_list[-1] + device_data["precision"], device_data["precision"]
                 )
             )
@@ -422,7 +426,7 @@ class DeviceData:
                         return False
 
                     try:
-                        temp = precision_round(temp, check_data["precision"])
+                        temp = DeviceData.precision_round(temp, check_data["precision"])
 
                     except ValueError:
                         _LOGGER.error(
@@ -486,16 +490,15 @@ class DeviceData:
     def check_file_media_player(file_name, device_data, device_class, check_data):
         return True
 
-
-@staticmethod
-def precision_round(number, precision):
-    if precision == 0.1:
-        return round(float(number), 1)
-    if precision == 0.5:
-        return round((float(number) * 2) / 2.0, 1)
-    elif precision == 1:
-        return round(float(number))
-    elif precision == 2:
-        return int(number) if ((int(number) % 2) == 0) else int(number) + 1
-    else:
-        return None
+    @staticmethod
+    def precision_round(number, precision):
+        if precision == 0.1:
+            return round(float(number), 1)
+        if precision == 0.5:
+            return round((float(number) * 2) / 2.0, 1)
+        elif precision == 1:
+            return round(float(number))
+        elif precision == 2:
+            return int(number) if ((int(number) % 2) == 0) else int(number) + 1
+        else:
+            return None
