@@ -3,7 +3,7 @@
 For this platform to work, we need a .json file containing all the necessary IR commands.
 Find your device's brand code [here](CLIMATE.md#available-codes-for-climate-devices) and add the number in the `device_code` field. If your device is not working, you will need to learn your own codes and place the Json file in `smartir/custom_codes/climate` subfolders. Please note that the device_code field only accepts positive numbers. The .json extension is not required.
 
-## Configuration variables:
+## Configuration variables
 
 | Name                         |  Type   | Default  | Description                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | ---------------------------- | :-----: | :------: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -18,7 +18,9 @@ Find your device's brand code [here](CLIMATE.md#available-codes-for-climate-devi
 | `power_sensor_delay`         |   int   | optional | Maximum delay in second in which power sensor is able to report back to HA changed state of the device, default is 10 seconds. If sensor reaction time is longer extend this time, otherwise you might get unwanted changes in the device state.                                                                                                                                                                                          |
 | `power_sensor_restore_state` | boolean | optional | If `true` than in case power sensor will report to HA that device is `on` without HA actually switching it `on `(device was switched on by remote, of device cycled, etc.), than HA will report last assumed state and attributes at the time when the device was `on` managed by HA. If set to `false` when device will be reported as `on` by the power sensors all device attributes will be reported as `UNKNOWN`. Default is `true`. |
 
-## Example (using broadlink controller):
+## Example configurations
+
+### Example (using broadlink controller)
 
 Add a Broadlink RM device named "Bedroom" via config flow (read the [docs](https://www.home-assistant.io/integrations/broadlink/)).
 
@@ -34,7 +36,7 @@ climate:
     power_sensor: binary_sensor.ac_power
 ```
 
-## Example (using xiaomi controller):
+### Example (using xiaomi controller)
 
 ```yaml
 remote:
@@ -53,7 +55,7 @@ climate:
     power_sensor: binary_sensor.ac_power
 ```
 
-## Example (using mqtt/Z06/UFO-R11 controller):
+### Example (using mqtt/Z06/UFO-R11 controller)
 
 ```yaml
 climate:
@@ -68,7 +70,7 @@ climate:
     power_sensor_restore_state: true
 ```
 
-## Example (using LOOKin controller):
+### Example (using LOOKin controller)
 
 ```yaml
 climate:
@@ -82,7 +84,7 @@ climate:
     power_sensor: binary_sensor.ac_power
 ```
 
-## Example (using ZHA controller and a TuYa ZS06):
+### Example (using ZHA controller and a TuYa ZS06)
 
 ```yaml
 climate:
@@ -103,7 +105,7 @@ climate:
     power_sensor: binary_sensor.ac_power
 ```
 
-## Example (using ESPHome):
+### Example (using ESPHome)
 
 ESPHome configuration example:
 
@@ -141,10 +143,9 @@ climate:
     power_sensor: binary_sensor.ac_power
 ```
 
-## Available codes for climate devices:
+## Available codes for Climate devices
 
-The following are the code files created by the amazing people in the community. Before you start creating your own code file, try if one of them works for your device. **Please open an issue if your device is working and not included in the supported models.**
-Contributing to your own code files is welcome. However, we do not accept incomplete files as well as files related to MQTT controllers.
+The following are the code files created by the amazing people in the community. Before you start creating your own code file, try if one of them works for your device. **Please clone this repo and open Pull Request to include your own working and not included codes in the supported models.** Contributing to your own code files is most welcome.
 
-<!-- MARKDOWN-AUTO-DOCS:START (JSON_TO_HTML_TABLE:src=./docs/climate.json) -->
-<!-- MARKDOWN-AUTO-DOCS:END -->
+[**Climate codes**](/docs/CLIMATE_CODES.md)
+
