@@ -234,8 +234,11 @@ class DeviceData:
 
         if not (
             "precision" in device_data
-            and isinstance(device_data["precision"], int)
-            or isinstance(device_data["precision"], float)
+            and (
+                isinstance(device_data["precision"], int)
+                or isinstance(device_data["precision"], float)
+            )
+            and device_data["precision"] in [0.1, 0.5, 1, 2]
         ):
             _LOGGER.error(
                 "Invalid %s device JSON file '%s': missing or invalid attribute 'precison'.",
@@ -243,10 +246,16 @@ class DeviceData:
                 file_name,
             )
             return False
+        check_data["precision"] = device_data["precision"]
+
         if not (
             "minTemperature" in device_data
-            and isinstance(device_data["minTemperature"], int)
-            or isinstance(device_data["minTemperature"], float)
+            and (
+                isinstance(device_data["minTemperature"], int)
+                or isinstance(device_data["minTemperature"], float)
+            )
+            and precision_round(device_data["minTemperature"], device_data["precision"])
+            == float(device_data["minTemperature"])
         ):
             _LOGGER.error(
                 "Invalid %s device JSON file '%s': missing or invalid attribute 'minTemperature'.",
@@ -254,10 +263,15 @@ class DeviceData:
                 file_name,
             )
             return False
+
         if not (
             "maxTemperature" in device_data
-            and isinstance(device_data["maxTemperature"], int)
-            or isinstance(device_data["maxTemperature"], float)
+            and (
+                isinstance(device_data["maxTemperature"], int)
+                or isinstance(device_data["maxTemperature"], float)
+            )
+            and precision_round(device_data["maxTemperature"], device_data["precision"])
+            == float(device_data["maxTemperature"])
         ):
             _LOGGER.error(
                 "Invalid %s device JSON file '%s': missing or invalid attribute 'maxTemperature'.",
@@ -265,75 +279,6 @@ class DeviceData:
                 file_name,
             )
             return False
-
-        modes_list.append("temperature")
-        modes_used["temperature"] = {}
-        if device_data["precision"] == 1:
-            if round(float(device_data["minTemperature"])) != float(
-                device_data["minTemperature"]
-            ):
-                _LOGGER.error(
-                    "Invalid %s device JSON file '%s': invalid attribute 'minTemperature'.",
-                    device_class,
-                    file_name,
-                )
-                return False
-            if round(float(device_data["maxTemperature"])) != float(
-                device_data["maxTemperature"]
-            ):
-                _LOGGER.error(
-                    "Invalid %s device JSON file '%s': invalid attribute 'maxTemperature'.",
-                    device_class,
-                    file_name,
-                )
-                return False
-        elif device_data["precision"] == 0.5:
-            if round((float(device_data["minTemperature"]) * 2) / 2.0, 1) != float(
-                device_data["minTemperature"]
-            ):
-                _LOGGER.error(
-                    "Invalid %s device JSON file '%s': invalid attribute 'minTemperature'.",
-                    device_class,
-                    file_name,
-                )
-                return False
-            if round((float(device_data["maxTemperature"]) * 2) / 2.0, 1) != float(
-                device_data["maxTemperature"]
-            ):
-                _LOGGER.error(
-                    "Invalid %s device JSON file '%s': invalid attribute 'maxTemperature'.",
-                    device_class,
-                    file_name,
-                )
-                return False
-        elif device_data["precision"] == 0.1:
-            if round(float(device_data["minTemperature"]), 1) != float(
-                device_data["minTemperature"]
-            ):
-                _LOGGER.error(
-                    "Invalid %s device JSON file '%s': invalid attribute 'minTemperature'.",
-                    device_class,
-                    file_name,
-                )
-                return False
-            if round(float(device_data["maxTemperature"]), 1) != float(
-                device_data["maxTemperature"]
-            ):
-                _LOGGER.error(
-                    "Invalid %s device JSON file '%s': invalid attribute 'maxTemperature'.",
-                    device_class,
-                    file_name,
-                )
-                return False
-        else:
-            _LOGGER.error(
-                "Invalid %s device JSON file '%s': invalid attribute 'precison'.",
-                device_class,
-                file_name,
-            )
-            return False
-
-        check_data["precision"] = device_data["precision"]
 
         modes_list.append("temperature")
         modes_used["temperature"] = {}
@@ -372,14 +317,24 @@ class DeviceData:
 
         if not (isinstance(commands, dict) and len(commands)):
             _LOGGER.error(
-                "Invalid %s device JSON file '%s': invalid attribute 'commands'.",
+                "Invalid %s device JSON file '%s': invalid format at %s level.",
                 device_class,
                 file_name,
+                level,
             )
             return False
         elif level == "operation":
             check = []
             # operation modes level
+            if "on" in commands:
+                if not (isinstance(commands["on"], str) and commands["on"]):
+                    _LOGGER.error(
+                        "Invalid %s device JSON file '%s': missing or invalid 'on' operation mode command.",
+                        device_class,
+                        file_name,
+                    )
+                    return False
+                check.append("on")
             if "off" in commands:
                 if not (isinstance(commands["off"], str) and commands["off"]):
                     _LOGGER.error(
@@ -408,10 +363,11 @@ class DeviceData:
             for mode in modes_used[level]:
                 if not mode in commands:
                     _LOGGER.error(
-                        "Invalid %s device JSON file '%s': not defined 'operation' mode '%s' command key used.",
+                        "Invalid %s device JSON file '%s': not defined operation mode '%s' command key used. %s",
                         device_class,
                         file_name,
                         mode,
+                        commands.keys(),
                     )
                     return False
                 elif not DeviceData.check_file_climate_commands(
@@ -533,9 +489,13 @@ class DeviceData:
 
 @staticmethod
 def precision_round(number, precision):
+    if precision == 0.1:
+        return round(float(number), 1)
     if precision == 0.5:
         return round((float(number) * 2) / 2.0, 1)
-    elif precision == 0.1:
-        return round(float(number), 1)
-    else:
+    elif precision == 1:
         return round(float(number))
+    elif precision == 2:
+        return int(number) if ((int(number) % 2) == 0) else int(number) + 1
+    else:
+        return None
