@@ -3,7 +3,7 @@
 For this platform to work, we need a .json file containing all the necessary IR commands.
 Find your device's brand code [here](MEDIA_PLAYER.md#available-codes-for-tv-devices) and add the number in the `device_code` field. If your device is not working, you will need to learn your own codes and place the .json file in `smartir/custom_codes/media_player/` subfolders. Please note that the `device_code` field only accepts positive numbers. The .json extension is not required.
 
-## Configuration variables:
+## Configuration variables
 
 | Name                         |  Type   | Default  | Description                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | ---------------------------- | :-----: | :------: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -17,7 +17,9 @@ Find your device's brand code [here](MEDIA_PLAYER.md#available-codes-for-tv-devi
 | `power_sensor_restore_state` | boolean | optional | If `true` than in case power sensor will report to HA that device is `on` without HA actually switching it `on `(device was switched on by remote, of device cycled, etc.), than HA will report last assumed state and attributes at the time when the device was `on` managed by HA. If set to `false` when device will be reported as `on` by the power sensors all device attributes will be reported as `UNKNOWN`. Default is `true`. |
 | `source_names`               |  dict   | optional | Override the names of sources as displayed in HomeAssistant (see below)                                                                                                                                                                                                                                                                                                                                                                   |
 
-## Example (using broadlink controller):
+## Example configurations
+
+### Example (using broadlink controller)
 
 Add a Broadlink RM device named "Bedroom" via config flow (read the [docs](https://www.home-assistant.io/integrations/broadlink/)).
 
@@ -31,7 +33,7 @@ media_player:
     power_sensor: binary_sensor.tv_power
 ```
 
-## Example (using xiaomi controller):
+### Example (using xiaomi controller)
 
 ```yaml
 remote:
@@ -48,7 +50,7 @@ media_player:
     power_sensor: binary_sensor.tv_power
 ```
 
-## Example (using mqtt/Z06/UFO-R11 controller):
+### Example (using mqtt/Z06/UFO-R11 controller)
 
 ```yaml
 media_player:
@@ -60,7 +62,7 @@ media_player:
     power_sensor: binary_sensor.tv_power
 ```
 
-## Example (using LOOKin controller):
+### Example (using LOOKin controller)
 
 ```yaml
 media_player:
@@ -72,7 +74,7 @@ media_player:
     power_sensor: binary_sensor.tv_power
 ```
 
-## Example (using ESPHome):
+### Example (using ESPHome)
 
 ESPHome configuration example:
 
@@ -108,7 +110,7 @@ media_player:
     power_sensor: binary_sensor.tv_power
 ```
 
-## Example (using ZHA controller and a TuYa ZS06):
+### Example (using ZHA controller and a TuYa ZS06)
 
 ```yaml
 media_player:
@@ -157,10 +159,8 @@ data:
   media_content_type: "channel"
 ```
 
-## Available codes for TV devices:
+## Available codes for Media Player devices
 
-The following are the code files created by the amazing people in the community. Before you start creating your own code file, try if one of them works for your device. **Please open an issue if your device is working and not included in the supported models.**
-Contributing to your own code files is welcome. However, we do not accept incomplete files as well as files related to MQTT controllers.
+The following are the code files created by the amazing people in the community. Before you start creating your own code file, try if one of them works for your device. **Please clone this repo and open Pull Request to include your own working and not included codes in the supported models.** Contributing to your own code files is most welcome.
 
-<!-- MARKDOWN-AUTO-DOCS:START (JSON_TO_HTML_TABLE:src=./docs/media_player.json) -->
-<!-- MARKDOWN-AUTO-DOCS:END -->
+[**Media Player codes**](/docs/MEDIA_PLAYER_CODES.md)

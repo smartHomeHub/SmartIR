@@ -60,5 +60,5 @@ jobs:
       - name: Markdown autodocs
         uses: dineshsonachalam/markdown-autodocs@v1.0.7
         with:
-          output_file_paths: '[./docs/CLIMATE.md, ./docs/FAN.md, ./docs/MEDIA_PLAYER.md]'
+          output_file_paths: '[./docs/CLIMATE_CODES.md, ./docs/FAN_CODES.md, ./docs/MEDIA_PLAYER_CODES.md]'
           commit_message: Update docs - include valid device files
