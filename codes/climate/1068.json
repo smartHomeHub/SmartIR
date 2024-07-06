@@ -11,7 +11,7 @@
     "precision": 1.0,
     "operationModes": [
         "cool",
-        "ai",
+        "auto",
         "dry",
         "fan_only"
     ],
@@ -117,7 +117,7 @@
                 "30": "JgBAAGcAAUARMxIQERASEBIyERASEBIPEhASEBERERASEREQEREREBIyETISMhEyEhARMhERERARERARETMRMhEADQUAAAAAAAAAAA=="
             }
         },
-        "ai": {
+        "auto": {
             "lowest": {
                 "18": "JgBAAGcAAUQSMxASEBIQEhA0EBIQEhASEBIQEhASEBIQMxESEDQRMxASEBIQNBEREBERNBIQETMQEhAREjMQEhAADQUAAAAAAAAAAA==",
                 "19": "JgBAAGcAAUQSMxASEBIQEhA0EBIQEhASEBIQEhASEBIQMxESEDQRMxASEBIQNBEREBERNBIQETMQEhAREjMQEhAADQUAAAAAAAAAAA==",
