@@ -44,21 +44,25 @@ async def main():
     exit = 0
     generate_docs = False
     docs = {"climate": [], "fan": [], "media_player": []}
+
     files = sys.argv
     files.pop(0)
+    if not len(files):
+        sys.exit(0)
     if files[0] == "--docs":
         files.pop(0)
         generate_docs = True
 
-    for file_path in files:
-        if not await test_json(file_path, docs):
-            exit = 1
+    if len(files):
+        for file_path in files:
+            if not await test_json(file_path, docs):
+                exit = 1
 
-    if generate_docs:
-        for device_class in docs.keys():
-            with open("docs/" + device_class + ".json", "w") as outfile:
-                json.dump(docs[device_class], outfile)
-        sys.exit(0)
+        if generate_docs:
+            for device_class in docs.keys():
+                with open("docs/" + device_class + ".json", "w") as outfile:
+                    json.dump(docs[device_class], outfile)
+            sys.exit(0)
 
     sys.exit(exit)
 
