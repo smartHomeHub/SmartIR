@@ -76,16 +76,9 @@ async def async_setup_platform(
         device_data := await DeviceData.load_file(
             config.get(CONF_DEVICE_CODE),
             "climate",
-            [
-                "manufacturer",
-                "supportedModels",
-                "supportedController",
-                "commandsEncoding",
-                "minTemperature",
-                "maxTemperature",
-                "precision",
-                "operationModes",
-            ],
+            {
+                "hvac_modes": [mode for mode in HVAC_MODES if mode != HVACMode.OFF],
+            },
             hass,
         )
     ):

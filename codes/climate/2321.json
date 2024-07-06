@@ -107,7 +107,6 @@
             }
         },
         "dry": {
-            "$comment": "Fan speed not controllable by remote in this mode.",
             "auto": {
                 "16": "JgBIAAABJpcRFhEXDxYSORIVEBYQPBIVEBUQOxEWDxcRFREWETsRFREVERgOFxA7EBYQGQ8WETkQGg4VEBcOFxE8EBYRFREWEgANBQ==",
                 "17": "JgBIAAABJpcRFhEXDxYSORIVEBYQPBIVEBUQOxEWDxcRFREWETsRFREVERgOFxA7EBYQGQ8WETkQGg4VEBcOFxE8EBYRFREWEgANBQ==",
@@ -186,7 +185,6 @@
             }
         },
         "fan_only": {
-            "$comment": "Temperature setpoint not controllable in this mode.",
             "auto": {
                 "16": "JgBIAAABJ5YSFBQSExQROhMTExQTOREVERYSFBIUEzgUExIVEhQSOhIUEhUTExI4EhUTFBEWEToRFREVExMTFRI4EhUSFBMUEgANBQ==",
                 "17": "JgBIAAABJ5YSFBQSExQROhMTExQTOREVERYSFBIUEzgUExIVEhQSOhIUEhUTExI4EhUTFBEWEToRFREVExMTFRI4EhUSFBMUEgANBQ==",

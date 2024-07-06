@@ -12,7 +12,7 @@
     "operationModes": [
         "cool",
         "heat",
-        "fan"
+        "fan_only"
     ],
     "fanModes": [
         "auto",
@@ -120,7 +120,7 @@
                 }
             }
         },
-        "fan": {
+        "fan_only": {
             "auto": {
                 "static": {
                     "22": "JgC+AF1hH0Q+RB8iPiMfIh8iHyIfIh8iH0QfIh8iPiMfIh8iHyIfIh8iHyIfIh8iHyIfIh8iHyIfIiAiHyIfQz4jZGEfRD1FHyI+Ih8jHyIfIh8iHyIfQx8iHyM9Ix8iHyIgIR8jHyIfIh8iHyIfIh8iHyIfIh8iHyIfIh9EPiNkYR9DPkQfIz0jHyIfIh8jHyIfIh9DHyIfIz0jHyIfIh8iHyIfIx8iHyIfIh8iHyIfIh8iHyIfIh8iH0Q+I4IADQUAAAAAAAAAAAAA",
