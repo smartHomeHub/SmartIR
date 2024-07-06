@@ -1,3 +1,4 @@
 docs/*.json
+docs/*_CODES.md
 __pycache__
 
