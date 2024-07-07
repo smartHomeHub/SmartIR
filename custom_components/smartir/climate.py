@@ -49,6 +49,8 @@ CONF_POWER_SENSOR = "power_sensor"
 CONF_POWER_SENSOR_DELAY = "power_sensor_delay"
 CONF_POWER_SENSOR_RESTORE_STATE = "power_sensor_restore_state"
 
+PRECISION_DOUBLE = 2
+
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
         vol.Optional(CONF_UNIQUE_ID): cv.string,
@@ -134,70 +136,67 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._commands_encoding = device_data["commandsEncoding"]
         self._commands = device_data["commands"]
 
-        # device temperature units
+        # current temperature sensor precision
         self._ha_temperature_unit = hass.config.units.temperature_unit
-        self._data_temperature_unit = UnitOfTemperature.CELSIUS
-        if "temperatureUnit" in device_data:
-            if device_data["temperatureUnit"] == "F":
-                self._data_temperature_unit = UnitOfTemperature.FAHRENHEIT
-            elif device_data["temperatureUnit"] == "K":
-                self._data_temperature_unit = UnitOfTemperature.KELVIN
-            elif device_data["temperatureUnit"] != "C":
-                _LOGGER.error(
-                    "Invalid 'temperatureUnit' value in device data file, can be either 'C' or 'F' or 'K'."
-                )
-                return
+        if self._ha_temperature_unit == UnitOfTemperature.FAHRENHEIT:
+            self._precision = PRECISION_WHOLE
         else:
-            _LOGGER.warning(
-                "Device data file is missing 'temperatureUnit' key, using 'C' as default."
-            )
+            self._precision = PRECISION_TENTHS
 
-        # temperature precision
-        self._precision = device_data["precision"]
-        if self._precision not in [PRECISION_TENTHS, PRECISION_HALVES, PRECISION_WHOLE]:
-            _LOGGER.error("Unknown precision set in the device file!")
-            return
+        # device temperature units
+        if device_data["temperatureUnit"] == "F":
+            self._data_temperature_unit = UnitOfTemperature.FAHRENHEIT
+        elif device_data["temperatureUnit"] == "K":
+            self._data_temperature_unit = UnitOfTemperature.KELVIN
+        elif device_data["temperatureUnit"] == "C":
+            self._data_temperature_unit = UnitOfTemperature.CELSIUS
+
+        # target temperature steps
+        self._data_temp_step = device_data["precision"]
+        if self._data_temperature_unit in [
+            UnitOfTemperature.CELSIUS,
+            UnitOfTemperature.KELVIN,
+        ]:
+            if self._ha_temperature_unit == UnitOfTemperature.FAHRENHEIT:
+                if self._data_temp_step == PRECISION_TENTHS:
+                    self._temp_step = PRECISION_HALVES
+                elif self._data_temp_step == PRECISION_HALVES:
+                    self._temp_step = PRECISION_WHOLE
+                else:
+                    self._temp_step = PRECISION_DOUBLE
+            else:
+                self._temp_step = self._data_temp_step
+        elif self._data_temperature_unit == UnitOfTemperature.FAHRENHEIT:
+            if self._ha_temperature_unit in [
+                UnitOfTemperature.CELSIUS,
+                UnitOfTemperature.KELVIN,
+            ]:
+                if self._data_temp_step == PRECISION_DOUBLE:
+                    self._temp_step = PRECISION_WHOLE
+                elif self._data_temp_step == PRECISION_WHOLE:
+                    self._temp_step = PRECISION_HALVES
+                else:
+                    self._temp_step = PRECISION_TENTHS
+            else:
+                self._temp_step = self._data_temp_step
 
         # min & max temperatures
-        if not isinstance(device_data["minTemperature"], Number):
-            _LOGGER.error(
-                "minTemperature '%s' is not number in the device file!",
-                device_data["minTemperature"],
-            )
-            return
         self._min_temperature = convert_temp(
             device_data["minTemperature"],
             self._data_temperature_unit,
             self._ha_temperature_unit,
-            self._precision,
+            self._temp_step,
         )
-        if not isinstance(device_data["maxTemperature"], Number):
-            _LOGGER.error(
-                "maxTemperature '%s' is not number in the device file!",
-                device_data["maxTemperature"],
-            )
-            return
         self._max_temperature = convert_temp(
             device_data["maxTemperature"],
             self._data_temperature_unit,
             self._ha_temperature_unit,
-            self._precision,
+            self._temp_step,
         )
         self._target_temperature = self._min_temperature
 
         # hvac_modes
-        self._hvac_modes = [
-            mode for mode in device_data.get("operationModes", []) if mode in HVAC_MODES
-        ]
-        if HVACMode.OFF in self._hvac_modes:
-            _LOGGER.warning("OperationModes should not contain 'off' mode!")
-            self._hvac_modes.remove(HVACMode.OFF)
-        if not self._hvac_modes:
-            _LOGGER.error(
-                "OperationModes shall have at least one valid hvac_mode defined!"
-            )
-            return
-        self._hvac_mode = self._hvac_modes[0]
+        self._hvac_modes = device_data["operationModes"]
         self._hvac_modes.append(HVACMode.OFF)
 
         # preset_modes
@@ -319,6 +318,11 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             return self._hvac_mode
 
     @property
+    def precision(self) -> float:
+        """Return the precision of the system."""
+        return self._precision
+
+    @property
     def temperature_unit(self):
         """Return the unit of measurement."""
         return self._temperature_unit
@@ -344,7 +348,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     @property
     def target_temperature_step(self):
         """Return the supported step of target temperature."""
-        return self._precision
+        return self._temp_step
 
     @property
     def hvac_modes(self):
@@ -557,7 +561,14 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 temperature,
                 self._ha_temperature_unit,
                 self._data_temperature_unit,
-                self._precision,
+                None,
+            )
+            _LOGGER.debug(
+                "Input HA temperature '%s%s' converted into device temperature '%s%s'.",
+                temperature,
+                self._ha_temperature_unit,
+                target_temperature,
+                self._data_temperature_unit,
             )
 
             if self._power_sensor and self._state != state:
@@ -623,7 +634,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
                     if self._preset_modes:
                         if isinstance(commands, dict):
-                            for key in [preset_mode, "-"] + self._preset_modes:
+                            for key in ["-", preset_mode] + self._preset_modes:
                                 if key in commands.keys():
                                     preset_mode = key
                                     commands = commands[key]
@@ -646,7 +657,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
                     if self._fan_modes:
                         if isinstance(commands, dict):
-                            for key in [fan_mode, "-"] + self._fan_modes:
+                            for key in ["-", fan_mode] + self._fan_modes:
                                 if key in commands.keys():
                                     fan_mode = key
                                     commands = commands[key]
@@ -669,7 +680,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
                     if self._swing_modes:
                         if isinstance(commands, dict):
-                            for key in [swing_mode, "-"] + self._swing_modes:
+                            for key in ["-", swing_mode] + self._swing_modes:
                                 if key in commands.keys():
                                     swing_mode = key
                                     commands = commands[key]
@@ -691,23 +702,26 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                             return
 
                     if isinstance(commands, dict):
-                        if str(target_temperature) in commands.keys():
-                            commands = commands[str(target_temperature)]
-                        elif "-" in commands.keys():
+                        if "-" in commands.keys():
                             temperature = "-"
                             commands = commands["-"]
-                        elif temp := sorted(
-                            commands.keys(),
-                            key=lambda value: abs(float(value) - target_temperature),
-                        ):
+                        elif (
+                            temp := sorted(
+                                commands.keys(),
+                                key=lambda value: abs(
+                                    float(value) - target_temperature
+                                ),
+                            )
+                        ) and len(temp):
+                            # convert selected device temperature back to HA units
                             temp_ha = convert_temp(
                                 temp[0],
                                 self._data_temperature_unit,
                                 self._ha_temperature_unit,
-                                self._precision,
+                                self._temp_step,
                             )
                             _LOGGER.debug(
-                                "Input temperature '%s' '%s' closest found temperature command '%s' '%s' converts back into HA '%s' '%s' temperature.",
+                                "Input temperature '%s%s' closest found temperature command '%s%s' converts back into HA '%s%s' temperature.",
                                 temperature,
                                 self._ha_temperature_unit,
                                 temp[0],
@@ -897,15 +911,27 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         _LOGGER.debug("Scheduled power sensor check for '%s' state", state)
 
 
-def convert_temp(
-    temperature: float | None, from_unit: str, to_unit: str, precision: float
-) -> float | None:
-    if temperature is None:
-        return temperature
+def convert_temp(temperature: Number, from_unit: str, to_unit: str, precision: Number):
+    _LOGGER.debug(
+        "convert temp '%s' from '%s' to '%s' with '%s' precision.",
+        temperature,
+        from_unit,
+        from_unit,
+        precision,
+    )
 
-    # If the temperature is not a number this can cause issues
-    # with Polymer components, so bail early there.
-    if not isinstance(temperature, Number):
+    if temperature is None:
+        _LOGGER.error("Invalid temperature '%s'.", temperature)
+        return None
+
+    try:
+        temperature = float(temperature)
+    except:
+        _LOGGER.error(
+            "Input temperature '%s' is not valid number, '%s'.",
+            temperature,
+            type(temperature),
+        )
         return None
 
     if from_unit != to_unit:
@@ -914,9 +940,16 @@ def convert_temp(
         )
 
     # Round in the units appropriate
-    if precision == PRECISION_HALVES:
+    if precision is None:
+        return temperature
+    elif precision == PRECISION_HALVES:
         return round(temperature * 2) / 2.0
-    if precision == PRECISION_TENTHS:
+    elif precision == PRECISION_TENTHS:
         return round(temperature, 1)
-    # Integer as a fall back (PRECISION_WHOLE)
-    return round(temperature)
+    elif precision == PRECISION_WHOLE:
+        return round(temperature)
+    elif precision >= PRECISION_DOUBLE:
+        return round(temperature / precision) * precision
+    else:
+        _LOGGER.error("Invalid precision '%s'.", precision)
+        return None
