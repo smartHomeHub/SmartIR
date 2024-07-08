@@ -101,6 +101,8 @@
 <tr ><td class="file-td td_text">1261.json</td><td class="manufacturer-td td_text"> Toshiba</td><td class="models-td td_text">WH-TA05NE, WH-TA11EJ</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1263.json</td><td class="manufacturer-td td_text">Toshiba</td><td class="models-td td_text">RAS-B07J2KVSG-E, RAS-B10J2KVSG-E, RAS-B13J2KVSG-E, RAS-B10SKVP-E</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1264.json</td><td class="manufacturer-td td_text">Toshiba</td><td class="models-td td_text">RAS-13SKVR-A</td><td class="controller-td td_text">Broadlink</td></tr>
+<tr ><td class="file-td td_text">1266.json</td><td class="manufacturer-td td_text">Toshiba</td><td class="models-td td_text">RAS-M10PKVP-E, RAS-M13PKVP-E, RAS-M16PKVP-E, RAS-M18PKVP-E, RAS-M10PKVP-ND, RAS-M13PKVP-ND, RAS-M16PKVP-ND, RAS-M18PKVP-ND</td><td class="controller-td td_text">ZHA</td></tr>
+<tr ><td class="file-td td_text">1280.json</td><td class="manufacturer-td td_text">Fujitsu</td><td class="models-td td_text">AR-RBE1E</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1281.json</td><td class="manufacturer-td td_text">Fujitsu</td><td class="models-td td_text">Unknown</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1282.json</td><td class="manufacturer-td td_text">Fujitsu</td><td class="models-td td_text">AR-JW11</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1283.json</td><td class="manufacturer-td td_text">Fujitsu</td><td class="models-td td_text">AR-AB5</td><td class="controller-td td_text">Broadlink</td></tr>
@@ -109,7 +111,9 @@
 <tr ><td class="file-td td_text">1286.json</td><td class="manufacturer-td td_text">Fujitsu</td><td class="models-td td_text">AR-JE5</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1287.json</td><td class="manufacturer-td td_text">Fujitsu</td><td class="models-td td_text">ASYG-LMCE, AR-REB1E, AR-REM7E, AR-REW2E</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1288.json</td><td class="manufacturer-td td_text">Fujitsu</td><td class="models-td td_text">AR-AB8</td><td class="controller-td td_text">Broadlink</td></tr>
+<tr ><td class="file-td td_text">1289.json</td><td class="manufacturer-td td_text">Fujitsu</td><td class="models-td td_text">AR-REW1E</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1290.json</td><td class="manufacturer-td td_text">Fujitsu</td><td class="models-td td_text">AR-RFL7J</td><td class="controller-td td_text">Broadlink</td></tr>
+<tr ><td class="file-td td_text">1291.json</td><td class="manufacturer-td td_text">Fujitsu</td><td class="models-td td_text">AR-REF1E</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1292.json</td><td class="manufacturer-td td_text">Fujitsu</td><td class="models-td td_text">ASYG18LF, AR-RY12</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1293.json</td><td class="manufacturer-td td_text">Fujitsu</td><td class="models-td td_text">ASYG07LM, ASYG09LM, AR-REB1E</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1301.json</td><td class="manufacturer-td td_text">Sharp</td><td class="models-td td_text">AY-X13BE</td><td class="controller-td td_text">Broadlink</td></tr>
@@ -120,6 +124,7 @@
 <tr ><td class="file-td td_text">1341.json</td><td class="manufacturer-td td_text">Tadiran</td><td class="models-td td_text">TAC490</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1342.json</td><td class="manufacturer-td td_text">Tadiran</td><td class="models-td td_text">Tadiran-10i/15i/inv220a</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1343.json</td><td class="manufacturer-td td_text">Tadiran</td><td class="models-td td_text">Alpha Series</td><td class="controller-td td_text">Broadlink</td></tr>
+<tr ><td class="file-td td_text">1344.json</td><td class="manufacturer-td td_text">Tadiran</td><td class="models-td td_text">Remote Control YB1FA, Tadiran Inverter</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1345.json</td><td class="manufacturer-td td_text">Tadiran</td><td class="models-td td_text">TAC 297</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1360.json</td><td class="manufacturer-td td_text">Springer</td><td class="models-td td_text">Split Hi Wall Maxiflex</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1380.json</td><td class="manufacturer-td td_text">Midea</td><td class="models-td td_text">Unknown</td><td class="controller-td td_text">Broadlink</td></tr>
@@ -136,6 +141,7 @@
 <tr ><td class="file-td td_text">1391.json</td><td class="manufacturer-td td_text">Midea</td><td class="models-td td_text">RG58E3/BGEF</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1392.json</td><td class="manufacturer-td td_text">Midea</td><td class="models-td td_text">MPD-12CRN7</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1394.json</td><td class="manufacturer-td td_text">Midea</td><td class="models-td td_text">RG70C/BGEF (Remote)</td><td class="controller-td td_text">Broadlink</td></tr>
+<tr ><td class="file-td td_text">1400.json</td><td class="manufacturer-td td_text">Samsung</td><td class="models-td td_text">Unknown</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1401.json</td><td class="manufacturer-td td_text">Samsung</td><td class="models-td td_text">AR**HSF/JFS**</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1402.json</td><td class="manufacturer-td td_text">Samsung</td><td class="models-td td_text">AR**TSHGAWK</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1403.json</td><td class="manufacturer-td td_text">Samsung</td><td class="models-td td_text">AR**TXHZ***</td><td class="controller-td td_text">Broadlink</td></tr>
@@ -183,6 +189,7 @@
 <tr ><td class="file-td td_text">1689.json</td><td class="manufacturer-td td_text">Mitsubishi Heavy</td><td class="models-td td_text">DXK12ZSA-W</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1690.json</td><td class="manufacturer-td td_text">Mitsubishi Heavy</td><td class="models-td td_text">FDUM VF2</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1691.json</td><td class="manufacturer-td td_text">Mitsubishi Heavy</td><td class="models-td td_text">SRK71ZRA-W</td><td class="controller-td td_text">Broadlink</td></tr>
+<tr ><td class="file-td td_text">1692.json</td><td class="manufacturer-td td_text">Mitsubishi Heavy</td><td class="models-td td_text">DXK12Z3-S, DXK09Z5-S, DXK15Z5-S</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1700.json</td><td class="manufacturer-td td_text">Electrolux</td><td class="models-td td_text">EACS/I-HAT/N3</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1701.json</td><td class="manufacturer-td td_text">Electrolux</td><td class="models-td td_text">EACS-HA</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1702.json</td><td class="manufacturer-td td_text">Electrolux</td><td class="models-td td_text">QI/QE09F, QI/QE09R, QI/QE12F, QI/QE12R, QI/QE18F, QI/QE18R, QI/QE22F, QI/QE22R, XI/XE09F, XI/XE09R, XI/XE12F, XI/XE12R, XI/XE18F, XI/XE18R, XI/XE22F, XI/XE22R</td><td class="controller-td td_text">Broadlink</td></tr>
@@ -244,6 +251,7 @@
 <tr ><td class="file-td td_text">2321.json</td><td class="manufacturer-td td_text">Whynter</td><td class="models-td td_text">ARC-12S, ARC-12SD, ARC-122DS, ARC-14S, ARC-141BG, ARC-143MX, ARC-101CW</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">2340.json</td><td class="manufacturer-td td_text">Vortex</td><td class="models-td td_text">VOR-12C3/407</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">2360.json</td><td class="manufacturer-td td_text">Flouu</td><td class="models-td td_text">Unknown</td><td class="controller-td td_text">Broadlink</td></tr>
+<tr ><td class="file-td td_text">2380.json</td><td class="manufacturer-td td_text">BAXI</td><td class="models-td td_text">Unknow</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">2400.json</td><td class="manufacturer-td td_text">Yamatsu</td><td class="models-td td_text">YAM-12KDA, AUS-07C53R013L24</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">2440.json</td><td class="manufacturer-td td_text">Vaillant</td><td class="models-td td_text">ClimaVair VAI 8-025</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">2460.json</td><td class="manufacturer-td td_text">FanWorld</td><td class="models-td td_text">FW6-3000</td><td class="controller-td td_text">Broadlink</td></tr>
@@ -251,6 +259,7 @@
 <tr ><td class="file-td td_text">2500.json</td><td class="manufacturer-td td_text">Endesa</td><td class="models-td td_text">DGR11</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">2520.json</td><td class="manufacturer-td td_text">Galanz</td><td class="models-td td_text">GZ-1002B-E3</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">2560.json</td><td class="manufacturer-td td_text">Mistral</td><td class="models-td td_text">MPAC15CY28</td><td class="controller-td td_text">Broadlink</td></tr>
+<tr ><td class="file-td td_text">2580.json</td><td class="manufacturer-td td_text">KOREL</td><td class="models-td td_text">KSAL2-09DCEH</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">2600.json</td><td class="manufacturer-td td_text">Equation</td><td class="models-td td_text">RCH-143</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">2620.json</td><td class="manufacturer-td td_text">Komeco</td><td class="models-td td_text">Unknown</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">2640.json</td><td class="manufacturer-td td_text">Fisher</td><td class="models-td td_text">FPR-91DE4-R, FPR-121DE4-R, FPR-141DE4-R</td><td class="controller-td td_text">Broadlink</td></tr>
