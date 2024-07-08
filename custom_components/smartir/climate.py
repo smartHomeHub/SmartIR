@@ -937,7 +937,7 @@ def convert_temp(temperature: Number, from_unit: str, to_unit: str, precision: N
 
     try:
         temperature = float(temperature)
-    except:
+    except Exception as e:
         _LOGGER.error(
             "Input temperature '%s' is not valid number, '%s'.",
             temperature,
