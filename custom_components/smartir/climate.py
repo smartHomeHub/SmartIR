@@ -857,7 +857,11 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             and self._current_temperature > self._target_temperature
         ):
             self._hvac_action = HVACAction.COOLING
-        elif self._hvac_mode == HVACMode.DRY:
+        elif (
+            self._hvac_mode == HVACMode.DRY
+            and self._current_temperature is not None
+            and self._current_temperature > self._target_temperature
+        ):
             self._hvac_action = HVACAction.DRYING
         elif self._hvac_mode == HVACMode.FAN_ONLY:
             self._hvac_action = HVACAction.FAN
