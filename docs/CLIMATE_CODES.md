@@ -60,7 +60,6 @@
 <tr ><td class="file-td td_text">1115.json</td><td class="manufacturer-td td_text">Daikin</td><td class="models-td td_text">ftxb-c</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1116.json</td><td class="manufacturer-td td_text">Daikin</td><td class="models-td td_text">FCQ100KAVEA</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1117.json</td><td class="manufacturer-td td_text">Daikin</td><td class="models-td td_text">DTXF35TVMA</td><td class="controller-td td_text">Broadlink</td></tr>
-<tr ><td class="file-td td_text">1118.json</td><td class="manufacturer-td td_text">Daikin</td><td class="models-td td_text">ARC452A21, FTXS09LVJU, FTXS12LVJU, FTXS15LVJU, FTXS18LVJU, FTXS24LVJU</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1119.json</td><td class="manufacturer-td td_text">Daikin</td><td class="models-td td_text">FTXS60FVMA</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1121.json</td><td class="manufacturer-td td_text">Mitsubishi Electric</td><td class="models-td td_text">MSZ-GA35VA</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1122.json</td><td class="manufacturer-td td_text">Mitsubishi</td><td class="models-td td_text">MSZ-AP50VGKD</td><td class="controller-td td_text">Broadlink</td></tr>
