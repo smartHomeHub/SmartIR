@@ -556,21 +556,6 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self, state, hvac_mode, preset_mode, fan_mode, swing_mode, temperature
     ):
         async with self._temp_lock:
-
-            target_temperature = convert_temp(
-                temperature,
-                self._ha_temperature_unit,
-                self._data_temperature_unit,
-                None,
-            )
-            _LOGGER.debug(
-                "Input HA temperature '%s%s' converted into device temperature '%s%s'.",
-                temperature,
-                self._ha_temperature_unit,
-                target_temperature,
-                self._data_temperature_unit,
-            )
-
             if self._power_sensor and self._state != state:
                 self._async_power_sensor_check_schedule(state)
 
@@ -581,28 +566,33 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                         and "off_cool" in self._commands.keys()
                         and isinstance(self._commands["off_cool"], str)
                     ):
+                        _LOGGER.debug("Found 'off_cool' operation mode command.")
                         await self._controller.send(self._commands["off_cool"])
                     elif (
                         self._hvac_mode == HVACMode.HEAT
                         and "off_heat" in self._commands.keys()
                         and isinstance(self._commands["off_heat"], str)
                     ):
+                        _LOGGER.debug("Found 'off_heat' operation mode command.")
                         await self._controller.send(self._commands["off_heat"])
                     elif (
                         self._hvac_mode == HVACMode.FAN_ONLY
-                        and "off_fan" in self._commands.keys()
-                        and isinstance(self._commands["off_fan"], str)
+                        and "off_fan_only" in self._commands.keys()
+                        and isinstance(self._commands["off_fan_only"], str)
                     ):
-                        await self._controller.send(self._commands["off_fan"])
+                        _LOGGER.debug("Found 'off_fan_only' operation mode command.")
+                        await self._controller.send(self._commands["off_fan_only"])
                     elif (
                         self._hvac_mode == HVACMode.DRY
                         and "off_dry" in self._commands.keys()
                         and isinstance(self._commands["off_dry"], str)
                     ):
+                        _LOGGER.debug("Found 'off_dry' operation mode command.")
                         await self._controller.send(self._commands["off_dry"])
                     elif "off" in self._commands.keys() and isinstance(
                         self._commands["off"], str
                     ):
+                        _LOGGER.debug("Found 'off' operation mode command.")
                         await self._controller.send(self._commands["off"])
                     else:
                         _LOGGER.error(
@@ -617,6 +607,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
                     if "on" in commands.keys() and isinstance(commands["on"], str):
                         """if on code is not present, the on bit can be still set later in the all operation/fan codes"""
+                        _LOGGER.debug("Found 'on' operation mode command.")
                         await self._controller.send(commands["on"])
                         await asyncio.sleep(self._delay)
 
@@ -702,17 +693,35 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                             return
 
                     if isinstance(commands, dict):
+                        target_temperature = convert_temp(
+                            temperature,
+                            self._ha_temperature_unit,
+                            self._data_temperature_unit,
+                            None,
+                        )
+                        _LOGGER.debug(
+                            "Input HA temperature '%s%s' converted into device temperature '%s%s'.",
+                            temperature,
+                            self._ha_temperature_unit,
+                            target_temperature,
+                            self._data_temperature_unit,
+                        )
+
                         if "-" in commands.keys():
                             temperature = "-"
                             commands = commands["-"]
                         elif (
-                            temp := sorted(
-                                commands.keys(),
-                                key=lambda value: abs(
-                                    float(value) - target_temperature
-                                ),
+                            target_temperature is not None
+                            and (
+                                temp := sorted(
+                                    commands.keys(),
+                                    key=lambda value: abs(
+                                        float(value) - target_temperature
+                                    ),
+                                )
                             )
-                        ) and len(temp):
+                            and len(temp)
+                        ):
                             # convert selected device temperature back to HA units
                             temp_ha = convert_temp(
                                 temp[0],
@@ -721,7 +730,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                                 self._temp_step,
                             )
                             _LOGGER.debug(
-                                "Input temperature '%s%s' closest found temperature command '%s%s' converts back into HA '%s%s' temperature.",
+                                "Input HA temperature '%s%s' closest found device temperature command '%s%s' converts back into HA '%s%s' temperature.",
                                 temperature,
                                 self._ha_temperature_unit,
                                 temp[0],
@@ -770,7 +779,9 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 self.async_write_ha_state()
 
             except Exception as e:
-                _LOGGER.exception(e)
+                _LOGGER.exception(
+                    "Exception raised in the in the _send_command '%s'", e
+                )
 
     async def _async_temp_sensor_changed(
         self, event: Event[EventStateChangedData]
@@ -916,7 +927,7 @@ def convert_temp(temperature: Number, from_unit: str, to_unit: str, precision: N
         "convert temp '%s' from '%s' to '%s' with '%s' precision.",
         temperature,
         from_unit,
-        from_unit,
+        to_unit,
         precision,
     )
 
