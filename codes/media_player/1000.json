@@ -1,7 +1,7 @@
 {
     "manufacturer": "Philips",
     "supportedModels": [
-      "26PFL560H"
+        "26PFL560H"
     ],
     "supportedController": "Broadlink",
     "commandsEncoding": "Base64",

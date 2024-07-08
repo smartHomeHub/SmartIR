@@ -1,7 +1,7 @@
 {
     "manufacturer": "LG",
     "supportedModels": [
-      "22MT47DC"
+        "22MT47DC"
     ],
     "supportedController": "Broadlink",
     "commandsEncoding": "Base64",

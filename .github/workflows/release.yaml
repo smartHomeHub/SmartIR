@@ -1,0 +1,37 @@
+name: "Publish"
+
+on:
+  release:
+    types: [published]
+
+defaults:
+  run:
+    working-directory: custom_components/smartir
+
+jobs:
+  publish:
+    name: "Publish"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout the repository"
+        uses: actions/checkout@v3
+
+      - name: "Update version"
+        run: |
+          current="$(jq --raw-output .version manifest.json | sed 's/\./\\./g')"
+          sed -i s/$current/${{ github.event.release.tag_name }}/ manifest.json
+
+      - name: "Copy codes"
+        working-directory: ./
+        run: |
+          mv codes custom_components/smartir/codes
+
+      - name: "Zip component"
+        run: |
+          zip smartir.zip -r ./
+
+      - name: "Upload assets"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload ${{ github.event.release.tag_name }} smartir.zip

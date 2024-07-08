@@ -1,13 +1,28 @@
 {
     "manufacturer": "Daikin",
-    "supportedModels": ["TF25DVM"],
+    "supportedModels": [
+        "TF25DVM"
+    ],
     "commandsEncoding": "Base64",
     "supportedController": "Broadlink",
+    "temperatureUnit": "C",
     "minTemperature": 18,
     "maxTemperature": 32,
     "precision": 1,
-    "operationModes": ["cool", "dry", "fan_only"],
-    "fanModes": ["auto", "nature", "level1", "level2", "level3", "level4", "level5"],
+    "operationModes": [
+        "cool",
+        "dry",
+        "fan_only"
+    ],
+    "fanModes": [
+        "auto",
+        "nature",
+        "level1",
+        "level2",
+        "level3",
+        "level4",
+        "level5"
+    ],
     "commands": {
         "off": "JgBQAggPDQ8NDw4PDQ8NAANCcDoNKw4ODg8NDw0sDQ8NDw4PDQ8NKw4PDSsOKw0PDisNKw4rDSwNKw4ODg8NKw4PDQ8NDw4ODg8NDw0PDg8NDw0QDSsNDw4rDQ8NDw4PDSsOKw0PDQ8ODw0PDQ8ODg4PDQ8NDw4PDQ8NDw4PDQ8NDw4ODisNLA0rDg4OKw0PDisNKw4ABHdwOg0rDg4ODw0PDisNDw0PDg8NDw0rDg8NKw4rDQ8OKw0rDisNLA0rDg4ODw0rDg8NDw0PDg8NDw0PDg4ODw0PDQ8ODw0rDg4ODw0PDQ8OKw0PDg4OKw4rDSsOKw0rDisNDw4PDSsODg4PDQ8NDw4PDQ8NDw4ODisNDw4rDQ8OKw0rDgAEd3A6DSsODw0PDQ8OKw0PDQ8ODw0PDSsODw0rDisNDw4rDSsOKw0sDSsODg4PDSsODw0PDQ8ODg4PDQ8NDw4PDQ8NDw4PDQ8NDw4ODg8NDw0PDg8NDw0PDg4OKw0sDSsODg4PDQ8NLA0rDg8NDw0rDg8NDw0PDg8NDw0PDg4ODw0PDQ8ODw0PDQ8ODw0PDSsODw0rDg8NDw0PDg4ODw0PDQ8ODw0PDQ8ODg4PDQ8NDw4PDQ8NDw4rDSsODw0PDQ8ODw0PDQ8ODg4PDQ8NDw4rDSsODw0PDQ8ODw0PDQ8ODw0PDQ8ODw0PDQ8NDw4PDQ8NDw4ODg8NDw0PDg8NDw0PDisNKw4PDQ8NDw4PDQ8NDw4ODg8NDw0PDg8NDw0PDg8NDw0PDg8NKw0sDQ8NKw4rDQ8ODw0ADQUAAAAAAAAAAA==",
         "cool": {

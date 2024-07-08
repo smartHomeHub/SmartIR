@@ -1,7 +1,7 @@
 {
     "manufacturer": "Sony",
     "supportedModels": [
-      "KDL-46HX800"
+        "KDL-46HX800"
     ],
     "supportedController": "Broadlink",
     "commandsEncoding": "Base64",
