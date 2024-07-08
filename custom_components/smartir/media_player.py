@@ -347,7 +347,9 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
                 self.async_write_ha_state()
 
             except Exception as e:
-                _LOGGER.exception(e)
+                _LOGGER.exception(
+                    "Exception raised in the in the _send_command '%s'", e
+                )
 
     async def _async_power_sensor_changed(
         self, event: Event[EventStateChangedData]
