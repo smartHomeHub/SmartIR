@@ -423,14 +423,20 @@ class DeviceData:
             elif level == "temperature":
                 for temp in commands.keys():
                     if not (isinstance(commands[temp], str) and commands[temp]):
+                        _LOGGER.error(
+                            "Invalid %s device JSON file '%s': invalid 'temperature' '%s' command value '%s'.",
+                            device_class,
+                            file_name,
+                            temp,
+                            commands[temp],
+                        )
                         return False
 
                     try:
                         temp = DeviceData.precision_round(temp, check_data["precision"])
-
                     except ValueError:
                         _LOGGER.error(
-                            "Invalid %s device JSON file '%s': invalid key '%s' for temperature command.",
+                            "Invalid %s device JSON file '%s': invalid 'temperature' command key '%s' value.",
                             device_class,
                             file_name,
                             temp,
@@ -498,7 +504,7 @@ class DeviceData:
             return round((float(number) * 2) / 2.0, 1)
         elif precision == 1:
             return round(float(number))
-        elif precision == 2:
-            return int(number) if ((int(number) % 2) == 0) else int(number) + 1
+        elif precision > 1:
+            return round(float(number) / int(precision)) * int(precision)
         else:
             return None
