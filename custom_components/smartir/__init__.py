@@ -357,7 +357,7 @@ class DeviceData:
                         and commands[off_mode]
                     ):
                         _LOGGER.error(
-                            "Invalid %s device JSON file '%s': missing or invalid '%s' operation mode command.",
+                            "Invalid %s device JSON file '%s': missing or invalid 'off' or '%s' operation mode command.",
                             device_class,
                             file_name,
                             off_mode,
