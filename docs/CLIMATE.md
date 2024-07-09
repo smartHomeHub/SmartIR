@@ -157,6 +157,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1042](../codes/climate/1042.json) | ASHA09LCC                                                                                      | Broadlink  |
 | [1043](../codes/climate/1043.json) | ASWX09LECA                                                                                     | Broadlink  |
 | [1044](../codes/climate/1044.json) | AHD08LXW1                                                                                      | Broadlink  |
+| [1045](../codes/climate/1045.json) | APCA14YZBW                                                                                     | Broadlink  |
 
 #### LG
 | Code                               | Supported Models                                                     | Controller |
@@ -672,7 +673,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2320](../codes/climate/2320.json) | ARC-08WB<br>ARC-10WB<br>ARC-126MD<br>ARC-126MDB<br>ARC-148MS | Broadlink  |
-| [2321](../codes/climate/2321.json) | ARC-12S<br>ARC-12SD<br>ARC-122DS<br>ARC-14S<br>ARC-141BG<br>ARC-143MX<br>ARC-101CW | Broadlink  |
+| [2321](../codes/climate/2321.json) | ARC-12S<br>ARC-12SD<br>ARC-122DS<br>ARC-141BG<br>ARC-143MX<br>ARC-101CW | Broadlink  |
+| [2322](../codes/climate/2322.json) | ARC-14S | Broadlink  |
 
 #### Vortex
 | Code                               | Supported Models       | Controller |
