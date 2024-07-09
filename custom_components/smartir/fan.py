@@ -64,13 +64,7 @@ async def async_setup_platform(
         device_data := await DeviceData.load_file(
             config.get(CONF_DEVICE_CODE),
             "fan",
-            [
-                "manufacturer",
-                "supportedModels",
-                "supportedController",
-                "commandsEncoding",
-                "speed",
-            ],
+            {},
             hass,
         )
     ):
@@ -323,7 +317,9 @@ class SmartIRFan(FanEntity, RestoreEntity):
                 self.async_write_ha_state()
 
             except Exception as e:
-                _LOGGER.exception(e)
+                _LOGGER.exception(
+                    "Exception raised in the in the _send_command '%s'", e
+                )
 
     async def _async_power_sensor_changed(
         self, event: Event[EventStateChangedData]

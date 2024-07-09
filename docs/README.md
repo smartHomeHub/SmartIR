@@ -33,6 +33,8 @@ If you use any own/custom codes json files please backup such json files before 
 ### *HACS*
 If you want HACS to handle installation and updates, add SmartIR url `https://github.com/litinoveweedle/SmartIR` as a [custom repository](https://hacs.xyz/docs/faq/custom_repositories/) in the HACS. This is preffered instalation method as it would allow for automatic updates.
 
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=litinoveweedle&repository=SmartIR&category=Integration)
+
 ### *Manual*
 Download latest smartir.zip file and place it's content in the `custom_components` folder in your HomeAssistant configuration `custom_component/smartir` directory.
 The resulting directory structure should look similar to this:
