@@ -1,7 +1,7 @@
 {
     "manufacturer": "Mitsubishi Electric",
     "supportedModels": [
-        "MSZ-HR35VF"
+        "MSZ-HR35VF (remote RH18A 903AL)"
     ],
     "commandsEncoding": "Base64",
     "supportedController": "Broadlink",
