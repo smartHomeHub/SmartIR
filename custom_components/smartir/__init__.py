@@ -2,6 +2,7 @@
 
 import logging
 import os.path
+import hashlib
 import json
 
 from .controller_const import CONTROLLER_SUPPORT
@@ -177,6 +178,7 @@ class DeviceData:
     @staticmethod
     def check_file_climate(file_name, device_data, device_class, check_data):
         modes_used = {}
+        commands_used = {}
 
         if not (
             "operationModes" in device_data
@@ -304,18 +306,36 @@ class DeviceData:
             )
             return False
 
-        return DeviceData.check_file_climate_commands(
+        results = DeviceData.check_file_climate_commands(
             file_name,
             0,
             modes_list,
             modes_used,
+            commands_used,
             device_class,
             check_data,
             device_data["commands"],
         )
 
+        # check if same IR command were find in the ddevice data
+        if list(filter(lambda key: commands_used[key] > 1, commands_used.keys())):
+            _LOGGER.info(
+                "Invalid %s device JSON file '%s': duplicated commands detected.",
+                device_class,
+                file_name,
+            )
+
+        return results
+
     def check_file_climate_commands(
-        file_name, depth, modes_list, modes_used, device_class, check_data, commands
+        file_name,
+        depth,
+        modes_list,
+        modes_used,
+        commands_used,
+        device_class,
+        check_data,
+        commands,
     ):
         level = modes_list[depth]
 
@@ -379,6 +399,7 @@ class DeviceData:
                     depth + 1,
                     modes_list,
                     modes_used,
+                    commands_used,
                     device_class,
                     check_data,
                     commands[mode],
@@ -432,6 +453,21 @@ class DeviceData:
                         )
                         return False
 
+                    string = commands[temp]
+                    result = hashlib.md5(string.encode())
+                    hash = result.hexdigest()
+                    if hash in commands_used:
+                        _LOGGER.debug(
+                            "Invalid %s device JSON file '%s': 'temperature' '%s' command '%s' already used.",
+                            device_class,
+                            file_name,
+                            temp,
+                            commands[temp],
+                        )
+                        commands_used[hash] += 1
+                    else:
+                        commands_used[hash] = 1
+
                     try:
                         temp = DeviceData.precision_round(temp, check_data["precision"])
                     except ValueError:
@@ -468,6 +504,7 @@ class DeviceData:
                         depth + 1,
                         modes_list,
                         modes_used,
+                        commands_used,
                         device_class,
                         check_data,
                         commands[mode],
