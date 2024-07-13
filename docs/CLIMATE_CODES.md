@@ -112,7 +112,7 @@
 <tr ><td class="file-td td_text">1286.json</td><td class="manufacturer-td td_text">Fujitsu</td><td class="models-td td_text">AR-JE5</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1287.json</td><td class="manufacturer-td td_text">Fujitsu</td><td class="models-td td_text">ASYG-LMCE, AR-REB1E, AR-REM7E, AR-REW2E</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1288.json</td><td class="manufacturer-td td_text">Fujitsu</td><td class="models-td td_text">AR-AB8</td><td class="controller-td td_text">Broadlink</td></tr>
-<tr ><td class="file-td td_text">1289.json</td><td class="manufacturer-td td_text">Fujitsu</td><td class="models-td td_text">AR-REW1E</td><td class="controller-td td_text">Broadlink</td></tr>
+<tr ><td class="file-td td_text">1289.json</td><td class="manufacturer-td td_text">Fujitsu</td><td class="models-td td_text">ASYG18LF, AR-RY12, AR-REW1E, AR-REW1U</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1290.json</td><td class="manufacturer-td td_text">Fujitsu</td><td class="models-td td_text">AR-RFL7J</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1291.json</td><td class="manufacturer-td td_text">Fujitsu</td><td class="models-td td_text">AR-REF1E</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1292.json</td><td class="manufacturer-td td_text">Fujitsu</td><td class="models-td td_text">ASYG18LF, AR-RY12</td><td class="controller-td td_text">Broadlink</td></tr>
