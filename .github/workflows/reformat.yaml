@@ -1,4 +1,4 @@
-name: Manual Trigger Reformat
+name: Manual Reformat
 
 # configure manual trigger
 on:
@@ -12,15 +12,16 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Reformat Python files
-        if: steps.changed-python-files.outputs.any_changed == 'true'
         uses: psf/black@stable
         with:
           options: ""
 
-      - name: Reformat JSON, YAML and MD files
+      - name: Reformat JSON and MD files
         uses: creyD/prettier_action@v4.3
         with:
-          dry: True
-          file_pattern: "*.{json,yaml,md}"
-          prettier_options: --check codes/**/*.json docs/*.md
+          file_pattern: "*.{json,md}"
+          prettier_options: --write codes/**/*.json docs/*.md
+          commit_message: ":art: Reformated Python, JSON and MD files"
+          commit_description: ""
+
 
