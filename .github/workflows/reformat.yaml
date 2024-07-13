@@ -5,6 +5,7 @@ on:
     branches: [ "master" ]
   workflow_dispatch:
  
+jobs:
   reformat:
     name: Reformat
     runs-on: ubuntu-latest
