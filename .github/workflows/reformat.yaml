@@ -1,0 +1,20 @@
+name: Manual Trigger Reformat
+
+# configure manual trigger
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check JSON, YAML and MD files format
+        uses: creyD/prettier_action@v4.3
+        with:
+          dry: True
+          file_pattern: "*.{json,yaml,md}"
+          prettier_options: --check codes/**/*.json
+
