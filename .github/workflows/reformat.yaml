@@ -19,7 +19,6 @@ jobs:
       - name: Reformat JSON and MD files
         uses: creyD/prettier_action@v4.3
         with:
-          file_pattern: "*.{json,md}"
           prettier_options: --write codes/**/*.json docs/*.md
           commit_message: ":art: Reformated Python, JSON and MD files"
           commit_description: ""
