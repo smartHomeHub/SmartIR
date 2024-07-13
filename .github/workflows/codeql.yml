@@ -1,9 +1,7 @@
-name: "CodeQL"
+name: "Push CodeQL"
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
     branches: [ "master" ]
   schedule:
     - cron: "18 4 * * 6"
@@ -14,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       actions: read
-      contents: read
+      contents: write
       security-events: write
 
     strategy:
@@ -24,10 +22,17 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Check format
+      - name: Check Python files format
         uses: psf/black@stable
+
+      - name: Check JSON, YAML and MD files format
+        uses: creyD/prettier_action@v4.3
+        with:
+          dry: True
+          file_pattern: "*.{json,yaml,md}"
+          prettier_options: --check **/*.{json,yaml,md}
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
@@ -42,3 +47,18 @@ jobs:
         uses: github/codeql-action/analyze@v3
         with:
           category: "/language:${{ matrix.language }}"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.X"
+
+      - name: Catalog device code files
+        run: |
+          python3 test_device_data.py --docs codes/*/*.json
+
+      - name: Markdown autodocs
+        uses: dineshsonachalam/markdown-autodocs@v1.0.7
+        with:
+          output_file_paths: '[./docs/CLIMATE_CODES.md, ./docs/FAN_CODES.md, ./docs/MEDIA_PLAYER_CODES.md]'
+          commit_message: Update docs - include valid device files
