@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       actions: read
-      contents: write
+      contents: read
       security-events: write
 
     strategy:
@@ -21,10 +21,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          fetch-depth: 0
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
@@ -40,6 +36,21 @@ jobs:
         with:
           category: "/language:${{ matrix.language }}"
 
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          fetch-depth: 0
+
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v44
@@ -50,11 +61,6 @@ jobs:
               - 'codes/*/*.json'
             auto:
               - 'docs/*_CODES.md'
-            docs:
-              - 'docs/*.md'
-              - 'docs/*_CODES.md'
-            python:
-              - '**.py'
 
       - name: Prevent changes to the auto generated docs
         if: steps.changed-files.outputs.auto_any_changed == 'true'
@@ -83,17 +89,3 @@ jobs:
             FILES="$FILES $file"
           done
           python3 test_device_data.py $FILES
-
-      - name: Reformat Python files
-        if: steps.changed-files.outputs.python_any_changed == 'true'
-        uses: psf/black@stable
-        with:
-          options: ""
-          src: ${{ steps.changed-files.outputs.python_all_changed_files }}
-
-      - name: Reformat JSON, YAML and MD files
-        uses: creyD/prettier_action@v4.3
-        with:
-          prettier_options: --write ${{ steps.changed-files.outputs.codes_all_changed_files }} ${{ steps.changed-files.outputs.docs_all_changed_files }}
-          commit_message: ":art: Reformated Python, JSON and MD files"
-          commit_description: ""

@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       actions: read
-      contents: write
+      contents: read
       security-events: write
 
     strategy:
@@ -23,16 +23,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Check Python files format
-        uses: psf/black@stable
-
-      - name: Check JSON and MD files format
-        uses: creyD/prettier_action@v4.3
-        with:
-          dry: True
-          file_pattern: "*.{json,md}"
-          prettier_options: --check codes/*/*.json docs/*.md
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
@@ -47,6 +37,29 @@ jobs:
         uses: github/codeql-action/analyze@v3
         with:
           category: "/language:${{ matrix.language }}"
+
+  reformat:
+    name: Reformat
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Reformat Python files
+        uses: psf/black@stable
+        with:
+          options: ""
+
+      - name: Reformat JSON and MD files
+        uses: creyD/prettier_action@v4.3
+        with:
+          prettier_options: --write codes/*/*.json docs/!(*_CODES).md
+          commit_message: ":art: Reformated Python, JSON and MD files"
+          commit_description: ""
 
       - name: Set up Python
         uses: actions/setup-python@v5
