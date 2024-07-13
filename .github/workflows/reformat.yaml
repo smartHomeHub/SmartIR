@@ -11,10 +11,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Check JSON, YAML and MD files format
+      - name: Reformat Python files
+        if: steps.changed-python-files.outputs.any_changed == 'true'
+        uses: psf/black@stable
+        with:
+          options: ""
+
+      - name: Reformat JSON, YAML and MD files
         uses: creyD/prettier_action@v4.3
         with:
           dry: True
           file_pattern: "*.{json,yaml,md}"
-          prettier_options: --check codes/**/*.json
+          prettier_options: --check codes/**/*.json docs/*.md
 
