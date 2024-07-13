@@ -27,12 +27,12 @@ jobs:
       - name: Check Python files format
         uses: psf/black@stable
 
-      - name: Check JSON, YAML and MD files format
+      - name: Check JSON and MD files format
         uses: creyD/prettier_action@v4.3
         with:
           dry: True
-          file_pattern: "*.{json,yaml,md}"
-          prettier_options: --check **/*.{json,yaml,md}
+          file_pattern: "*.{json,md}"
+          prettier_options: --check **/*.{json,md}
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3

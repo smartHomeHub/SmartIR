@@ -27,29 +27,6 @@ jobs:
           # This is important to fetch the changes to the previous commit
           fetch-depth: 0
 
-      - name: Get changed files
-        id: changed-device-files
-        uses: tj-actions/changed-files@v44
-        with:
-          files: codes/*/*.json
-
-      - name: Set up Python
-        if: steps.changed-device-files.outputs.any_changed == 'true'
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.X"
-
-      - name: Test device code files
-        if: steps.changed-device-files.outputs.any_changed == 'true'
-        env:
-          ALL_CHANGED_DEVICE_FILES: ${{ steps.changed-device-files.outputs.all_changed_files }}
-        run: |
-          FILES=""
-          for file in ${ALL_CHANGED_DEVICE_FILES}; do
-            FILES="$FILES $file"
-          done
-          python3 test_device_data.py $FILES
-
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
@@ -65,22 +42,59 @@ jobs:
           category: "/language:${{ matrix.language }}"
 
       - name: Get changed files
-        id: changed-python-files
+        id: changed-files
         uses: tj-actions/changed-files@v44
         with:
-          files: "**/*.py"
+          fetch_depth: "100"
+          files_yaml: |
+            codes:
+              - 'codes/*/*.json'
+            auto:
+              - 'docs/*_CODES.md'
+            docs:
+              - 'docs/*.md'
+              - 'docs/*_CODES.md'
+            python:
+              - '**.py'
 
-      - name: Check Python files format
-        if: steps.changed-python-files.outputs.any_changed == 'true'
+      - name: Prevent changes to the auto generated docs
+        if: steps.changed-files.outputs.auto_any_changed == 'true'
+        env:
+          ALL_CHANGED_AUTO_FILES: ${{ steps.changed-files.outputs.auto_all_changed_files }}
+        run: |
+          FILES=""
+          for file in ${ALL_CHANGED_AUTO_FILES}; do
+            echo "File "$FILE" is auto generated and should not be modified!""
+          done
+          exit 1
+
+      - name: Set up Python
+        if: steps.changed-files.outputs.codes_any_changed == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.X"
+
+      - name: Validate device code files
+        if: steps.changed-files.outputs.codes_any_changed == 'true'
+        env:
+          ALL_CHANGED_DEVICE_FILES: ${{ steps.changed-files.outputs.codes_all_changed_files }}
+        run: |
+          FILES=""
+          for file in ${ALL_CHANGED_DEVICE_FILES}; do
+            FILES="$FILES $file"
+          done
+          python3 test_device_data.py $FILES
+
+      - name: Reformat Python files
+        if: steps.changed-files.outputs.python_any_changed == 'true'
         uses: psf/black@stable
         with:
           options: ""
-          src: ${{ steps.changed-python-files.outputs.all_changed_files }}
+          src: ${{ steps.changed-files.outputs.python_all_changed_files }}
 
       - name: Reformat JSON, YAML and MD files
         uses: creyD/prettier_action@v4.3
         with:
-          only_changed: True
-          prettier_options: --write **/*.{json,yaml,md}
-          commit_message: ":art: Reformated Python, JSON, YAML and MD files"
+          prettier_options: --write ${{ steps.changed-files.outputs.codes_all_changed_files }} ${{ steps.changed-files.outputs.docs_all_changed_files }}
+          commit_message: ":art: Reformated Python, JSON and MD files"
           commit_description: ""
