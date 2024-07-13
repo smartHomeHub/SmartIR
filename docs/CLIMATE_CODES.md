@@ -76,10 +76,11 @@
 <tr ><td class="file-td td_text">1134.json</td><td class="manufacturer-td td_text">Mitsubishi Electric</td><td class="models-td td_text">MG-GN18VF, MS-GN18VF, MS-GN13VF</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1135.json</td><td class="manufacturer-td td_text">Mitsubishi</td><td class="models-td td_text">MSZ-GE60VAD, MSZ-GE71VAD, MSZ-GE80VAD</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1136.json</td><td class="manufacturer-td td_text">Mitsubishi Electric</td><td class="models-td td_text">MSXY-FP10VG, MSXY-FP13VG, MSXY-FP18VG</td><td class="controller-td td_text">Broadlink</td></tr>
-<tr ><td class="file-td td_text">1137.json</td><td class="manufacturer-td td_text">Mitsubishi Electric</td><td class="models-td td_text">MSZ-HR35VF</td><td class="controller-td td_text">Broadlink</td></tr>
+<tr ><td class="file-td td_text">1137.json</td><td class="manufacturer-td td_text">Mitsubishi Electric</td><td class="models-td td_text">MSZ-HR35VF (remote RH18A 903AL)</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1138.json</td><td class="manufacturer-td td_text">Mitsubishi Electric</td><td class="models-td td_text">Remote KM09D/166901</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1139.json</td><td class="manufacturer-td td_text">Mitsubishi</td><td class="models-td td_text">MLZ-KP09NA2, MLZ-KP18NA2</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1140.json</td><td class="manufacturer-td td_text">Actron</td><td class="models-td td_text">Unknown</td><td class="controller-td td_text">Broadlink</td></tr>
+<tr ><td class="file-td td_text">1141.json</td><td class="manufacturer-td td_text">Mitsubishi Electric</td><td class="models-td td_text">MSZ-HR35VF (remote RH18A 247BL)</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1160.json</td><td class="manufacturer-td td_text">Carrier</td><td class="models-td td_text">Unknown</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1161.json</td><td class="manufacturer-td td_text">Carrier</td><td class="models-td td_text">40GKX-024RB</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1162.json</td><td class="manufacturer-td td_text">Carrier</td><td class="models-td td_text">42TVGS024-703</td><td class="controller-td td_text">Broadlink</td></tr>

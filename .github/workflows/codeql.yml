@@ -32,7 +32,7 @@ jobs:
         with:
           dry: True
           file_pattern: "*.{json,yaml,md}"
-          prettier_options: --check
+          prettier_options: --check **/*.{json,yaml,md}
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
