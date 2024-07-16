@@ -9,7 +9,7 @@ from .controller_const import *
 from homeassistant.const import ATTR_ENTITY_ID
 
 
-def get_controller(hass, controller, encoding, controller_data, delay):
+def get_controller(hass, controller, encoding, controller_data, controller_params):
     """Return a controller compatible with the specification provided."""
     controllers = {
         BROADLINK_CONTROLLER: BroadlinkController,
@@ -22,7 +22,7 @@ def get_controller(hass, controller, encoding, controller_data, delay):
     }
     try:
         return controllers[controller](
-            hass, controller, encoding, controller_data, delay
+            hass, controller, encoding, controller_data, controller_params
         )
     except KeyError:
         raise Exception("The controller is not supported.")
@@ -31,12 +31,12 @@ def get_controller(hass, controller, encoding, controller_data, delay):
 class AbstractController(ABC):
     """Representation of a controller."""
 
-    def __init__(self, hass, controller, encoding, controller_data, delay):
+    def __init__(self, hass, controller, encoding, controller_data, controller_params):
         self.hass = hass
         self._controller = controller
         self._encoding = encoding
         self._controller_data = controller_data
-        self._delay = delay
+        self._controller_params = controller_params
 
     @abstractmethod
     def check_encoding(self, encoding):
@@ -91,8 +91,13 @@ class BroadlinkController(AbstractController):
         service_data = {
             ATTR_ENTITY_ID: self._controller_data,
             "command": commands,
-            "delay_secs": self._delay,
         }
+        if "delay_secs" in self._controller_params:
+            service_data["delay_secs"] = self._controller_params["delay_secs"]
+        else:
+            service_data["delay_secs"] = self._controller_params["delay"]
+        if "num_repeats" in self._controller_params:
+            service_data["num_repeats"] = self._controller_params["num_repeats"]
 
         await self.hass.services.async_call("remote", "send_command", service_data)
 
