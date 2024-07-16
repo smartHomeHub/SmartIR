@@ -92,7 +92,7 @@ class BroadlinkController(AbstractController):
             ATTR_ENTITY_ID: self._controller_data,
             "command": commands,
         }
-        if "delay_sec" in self._controller_params:
+        if "delay_secs" in self._controller_params:
             service_data["delay_secs"] = self._controller_params["delay_secs"]
         else:
             service_data["delay_secs"] = self._controller_params["delay"]
