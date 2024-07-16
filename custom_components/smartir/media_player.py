@@ -170,6 +170,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
             self._supported_controller,
             self._commands_encoding,
             self._controller_data,
+            self._controller_params,
         )
 
     async def async_added_to_hass(self):
