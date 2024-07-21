@@ -1,7 +1,6 @@
 # SmartIR Climate
 
-For this platform to work, we need a .json file containing all the necessary IR commands.
-Find your device's brand code [here](CLIMATE.md#available-codes-for-climate-devices) and add the number in the `device_code` field. If your device is not working, you will need to learn your own codes and place the Json file in `smartir/custom_codes/climate` subfolders. Please note that the device_code field only accepts positive numbers. The .json extension is not required.
+Find your device's brand code [here](CLIMATE_CODES.md) and add the number in the `device_code` field. If your device is not supported, you will need to learn your own IR codes and place them in the Json file in `smartir/custom_codes/climate` subfolder. Please refer to [this guide](CODES_SYNTAX.md) to find a way how to do it. Once you have working device file please do not forgot to submit Pull Request so it could be inherited to this project for other users.
 
 ## Configuration variables
 
@@ -148,7 +147,5 @@ climate:
 ```
 
 ## Available codes for Climate devices
-
-The following are the code files created by the amazing people in the community. Before you start creating your own code file, try if one of them works for your device. **Please clone this repo and open Pull Request to include your own working and not included codes in the supported models.** Contributing to your own code files is most welcome.
 
 [**Climate codes**](/docs/CLIMATE_CODES.md)
