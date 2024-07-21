@@ -1,5 +1,7 @@
 ## Available codes for Climate devices
 
+The following are the code files created by the amazing people in the community. Before you start creating your own code file, try if one of them works for your device. **Please clone this repo and open Pull Request to include your own working and not included codes in the supported models.** Contributing to your own code files is most welcome.
+
 <!-- MARKDOWN-AUTO-DOCS:START (JSON_TO_HTML_TABLE:src=./docs/climate_codes.json) -->
 <table class="JSON-TO-HTML-TABLE"><thead><tr><th class="file-th">file</th><th class="manufacturer-th">manufacturer</th><th class="models-th">models</th><th class="controller-th">controller</th></tr></thead><tbody ><tr ><td class="file-td td_text">1000.json</td><td class="manufacturer-td td_text">Toyotomi</td><td class="models-td td_text">AKIRA GAN/GAG-A128 VL</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1001.json</td><td class="manufacturer-td td_text">Toyotomi</td><td class="models-td td_text">AKIRA GAN/GAG-A135FW-M</td><td class="controller-td td_text">Broadlink</td></tr>
