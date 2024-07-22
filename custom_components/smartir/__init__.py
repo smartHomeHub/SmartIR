@@ -75,12 +75,10 @@ class DeviceData:
                 _LOGGER.error(
                     "Device JSON file '%s' doesn't exists!", device_json_file_name
                 )
-                return None
         else:
             _LOGGER.error(
                 "Devices JSON files directory '%s' doesn't exists!", device_files_absdir
             )
-            return None
 
         return None
 
@@ -327,6 +325,7 @@ class DeviceData:
 
         return results
 
+    @staticmethod
     def check_file_climate_commands(
         file_name,
         depth,
