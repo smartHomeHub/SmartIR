@@ -147,7 +147,7 @@ class MQTTController(AbstractController):
         """Send a command."""
         service_data = {
             'topic': self._controller_data,
-            'payload': command
+            'payload': _command
         }
 
         await self.hass.services.async_call(
