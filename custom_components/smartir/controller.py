@@ -142,6 +142,8 @@ class MQTTController(AbstractController):
                             "by the mqtt controller.")
 
     async def send(self, command):
+        _original = command
+        _command = _original.replace("\\", "")
         """Send a command."""
         service_data = {
             'topic': self._controller_data,
