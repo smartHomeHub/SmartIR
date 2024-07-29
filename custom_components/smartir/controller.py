@@ -41,24 +41,24 @@ def get_controller(hass, controller, encoding, controller_data):
         UFOR11_CONTROLLER: UFOR11Controller,
     }
 
-    #check controller compatibility
+    # check controller compatibility
     if controller not in controllers:
         raise Exception("The controller is not supported.")
 
-    if controller_data["controller_type"] !=  controller:
-        raise Exception("The controller is not supported.")
+    if controller_data["controller_type"] != controller:
+        raise Exception("Configured controller is not supported by the device data file.")
 
-    return controllers[controller](
-        hass, controller, encoding, controller_data
-    )
-    
+    return controllers[controller](hass, controller, encoding, controller_data)
+
 
 def get_controller_schema(vol, cv):
     """Return a controller schema."""
     schema = vol.Any(
         vol.Schema(
             {
-                vol.Required(CONTROLLER_CONF["CONTROLLER_TYPE"]): vol.Equal(BROADLINK_CONTROLLER),
+                vol.Required(CONTROLLER_CONF["CONTROLLER_TYPE"]): vol.Equal(
+                    BROADLINK_CONTROLLER
+                ),
                 vol.Required(CONTROLLER_CONF["REMOTE_ENTITY"]): cv.entity_id,
                 vol.Optional(CONTROLLER_CONF["NUM_REPEATS"]): cv.positive_int,
                 vol.Optional(CONTROLLER_CONF["DELAY_SECS"]): cv.positive_float,
@@ -66,37 +66,51 @@ def get_controller_schema(vol, cv):
         ),
         vol.Schema(
             {
-                vol.Required(CONTROLLER_CONF["CONTROLLER_TYPE"]): vol.Equal(XIAOMI_CONTROLLER),
+                vol.Required(CONTROLLER_CONF["CONTROLLER_TYPE"]): vol.Equal(
+                    XIAOMI_CONTROLLER
+                ),
                 vol.Required(CONTROLLER_CONF["REMOTE_ENTITY"]): cv.entity_id,
             }
         ),
         vol.Schema(
             {
-                vol.Required(CONTROLLER_CONF["CONTROLLER_TYPE"]): vol.Equal(MQTT_CONTROLLER),
+                vol.Required(CONTROLLER_CONF["CONTROLLER_TYPE"]): vol.Equal(
+                    MQTT_CONTROLLER
+                ),
                 vol.Required(CONTROLLER_CONF["MQTT_TOPIC"]): cv.string,
             }
         ),
         vol.Schema(
             {
-                vol.Required(CONTROLLER_CONF["CONTROLLER_TYPE"]): vol.Equal(UFOR11_CONTROLLER),
+                vol.Required(CONTROLLER_CONF["CONTROLLER_TYPE"]): vol.Equal(
+                    UFOR11_CONTROLLER
+                ),
                 vol.Required(CONTROLLER_CONF["MQTT_TOPIC"]): cv.string,
             }
         ),
         vol.Schema(
             {
-                vol.Required(CONTROLLER_CONF["CONTROLLER_TYPE"]): vol.Equal(LOOKIN_CONTROLLER),
-                vol.Required(CONTROLLER_CONF["REMOTE_HOST"]): vol.All(ipaddress.ip_address, cv.string),
+                vol.Required(CONTROLLER_CONF["CONTROLLER_TYPE"]): vol.Equal(
+                    LOOKIN_CONTROLLER
+                ),
+                vol.Required(CONTROLLER_CONF["REMOTE_HOST"]): vol.All(
+                    ipaddress.ip_address, cv.string
+                ),
             }
         ),
         vol.Schema(
             {
-                vol.Required(CONTROLLER_CONF["CONTROLLER_TYPE"]): vol.Equal(ESPHOME_CONTROLLER),
+                vol.Required(CONTROLLER_CONF["CONTROLLER_TYPE"]): vol.Equal(
+                    ESPHOME_CONTROLLER
+                ),
                 vol.Required(CONTROLLER_CONF["ESPHOME_SERVICE"]): cv.string,
             }
         ),
         vol.Schema(
             {
-                vol.Required(CONTROLLER_CONF["CONTROLLER_TYPE"]): vol.Equal(ZHA_CONTROLLER),
+                vol.Required(CONTROLLER_CONF["CONTROLLER_TYPE"]): vol.Equal(
+                    ZHA_CONTROLLER
+                ),
                 vol.Required(CONTROLLER_CONF["ZHA_IEEE"]): cv.string,
                 vol.Required(CONTROLLER_CONF["ZHA_ENDPOINT_ID"]): cv.positive_int,
                 vol.Required(CONTROLLER_CONF["ZHA_CLUSTER_ID"]): cv.positive_int,
@@ -174,9 +188,13 @@ class BroadlinkController(AbstractController):
             "command": commands,
         }
         if CONTROLLER_CONF["DELAY_SECS"] in self._controller_data:
-            service_data["delay_secs"] = self._controller_data[CONTROLLER_CONF["DELAY_SECS"]]
+            service_data["delay_secs"] = self._controller_data[
+                CONTROLLER_CONF["DELAY_SECS"]
+            ]
         if CONTROLLER_CONF["NUM_REPEATS"] in self._controller_data:
-            service_data["num_repeats"] = self._controller_data[CONTROLLER_CONF["NUM_REPEATS"]]
+            service_data["num_repeats"] = self._controller_data[
+                CONTROLLER_CONF["NUM_REPEATS"]
+            ]
 
         await self.hass.services.async_call("remote", "send_command", service_data)
 
@@ -232,7 +250,14 @@ class LookinController(AbstractController):
     async def send(self, command):
         """Send a command."""
         encoding = self._encoding.lower().replace("pronto", "prontohex")
-        url = f"http://{self._controller_data[CONTROLLER_CONF["REMOTE_HOST"]]}/commands/ir/" f"{encoding}/{command}"
+        url = (
+            "http://"
+            + self._controller_data[CONTROLLER_CONF["REMOTE_HOST"]]
+            + "/commands/ir/"
+            + encoding
+            + "/"
+            + command
+        )
         await self.hass.async_add_executor_job(requests.get, url)
 
 
@@ -251,7 +276,9 @@ class ESPHomeController(AbstractController):
         service_data = {"command": json.loads(command)}
 
         await self.hass.services.async_call(
-            "esphome", self._controller_data[CONTROLLER_CONF["ESPHOME_SERVICE"]], service_data
+            "esphome",
+            self._controller_data[CONTROLLER_CONF["ESPHOME_SERVICE"]],
+            service_data,
         )
 
 
@@ -274,7 +301,7 @@ class ZHAController(AbstractController):
             "cluster_type": self._controller_data[CONTROLLER_CONF["ZHA_CLUSTER_TYPE"]],
             "command": self._controller_data[CONTROLLER_CONF["ZHA_COMMAND"]],
             "command_type": self._controller_data[CONTROLLER_CONF["ZHA_COMMAND_TYPE"]],
-            "params": { "code": command },
+            "params": {"code": command},
         }
         await self.hass.services.async_call(
             "zha", "issue_zigbee_cluster_command", service_data
