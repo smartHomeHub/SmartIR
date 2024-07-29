@@ -46,7 +46,9 @@ def get_controller(hass, controller, encoding, controller_data):
         raise Exception("The controller is not supported.")
 
     if controller_data["controller_type"] != controller:
-        raise Exception("Configured controller is not supported by the device data file.")
+        raise Exception(
+            "Configured controller is not supported by the device data file."
+        )
 
     return controllers[controller](hass, controller, encoding, controller_data)
 
