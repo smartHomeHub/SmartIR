@@ -31,7 +31,7 @@ from homeassistant.helpers.restore_state import RestoreEntity
 from homeassistant.helpers.typing import ConfigType
 from homeassistant.util.unit_conversion import TemperatureConverter
 from . import DeviceData
-from .controller import get_controller
+from .controller import get_controller, get_controller_schema
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -42,7 +42,6 @@ DEFAULT_POWER_SENSOR_DELAY = 10
 CONF_UNIQUE_ID = "unique_id"
 CONF_DEVICE_CODE = "device_code"
 CONF_CONTROLLER_DATA = "controller_data"
-CONF_CONTROLLER_PARAMS = "controller_params"
 CONF_DELAY = "delay"
 CONF_TEMPERATURE_SENSOR = "temperature_sensor"
 CONF_HUMIDITY_SENSOR = "humidity_sensor"
@@ -57,8 +56,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
         vol.Optional(CONF_UNIQUE_ID): cv.string,
         vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
         vol.Required(CONF_DEVICE_CODE): cv.positive_int,
-        vol.Required(CONF_CONTROLLER_DATA): cv.string,
-        vol.Optional(CONF_CONTROLLER_PARAMS, default={}): dict,
+        vol.Required(CONF_CONTROLLER_DATA): get_controller_schema(vol, cv),
         vol.Optional(CONF_DELAY, default=DEFAULT_DELAY): cv.positive_float,
         vol.Optional(CONF_TEMPERATURE_SENSOR): cv.entity_id,
         vol.Optional(CONF_HUMIDITY_SENSOR): cv.entity_id,
@@ -107,7 +105,6 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._name = config.get(CONF_NAME)
         self._device_code = config.get(CONF_DEVICE_CODE)
         self._controller_data = config.get(CONF_CONTROLLER_DATA)
-        self._controller_params = config.get(CONF_CONTROLLER_PARAMS)
         self._delay = config.get(CONF_DELAY)
         self._temperature_sensor = config.get(CONF_TEMPERATURE_SENSOR)
         self._humidity_sensor = config.get(CONF_HUMIDITY_SENSOR)
@@ -224,13 +221,11 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._temp_lock = asyncio.Lock()
 
         # Init the IR/RF controller
-        self._controller_params["delay"] = self._delay
         self._controller = get_controller(
             self.hass,
             self._supported_controller,
             self._commands_encoding,
             self._controller_data,
-            self._controller_params,
         )
 
     async def async_added_to_hass(self):
@@ -604,7 +599,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                         ):
                             # prevent to resend 'off' command if same as 'on' and device is already off
                             _LOGGER.debug(
-                                "As 'on' and 'off' commands are identical and device is alredy in requested '%s' state skipping sending '%s' command",
+                                "As 'on' and 'off' commands are identical and device is already in requested '%s' state skipping sending '%s' command",
                                 self._state,
                                 "off",
                             )
@@ -631,7 +626,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                         ):
                             # prevent to resend 'on' command if same as 'off' and device is already on
                             _LOGGER.debug(
-                                "As 'on' and 'off' commands are identical and device is alredy in requested '%s' state skipping sending '%s' command",
+                                "As 'on' and 'off' commands are identical and device is already in requested '%s' state skipping sending '%s' command",
                                 self._state,
                                 "on",
                             )
