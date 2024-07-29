@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from base64 import b64encode
+import ipaddress
 import binascii
 import requests
 import struct
@@ -22,12 +23,13 @@ from .controller_const import (
     ESPHOME_COMMANDS_ENCODING,
     ZHA_COMMANDS_ENCODING,
     UFOR11_COMMANDS_ENCODING,
+    CONTROLLER_CONF,
 )
 
 from homeassistant.const import ATTR_ENTITY_ID
 
 
-def get_controller(hass, controller, encoding, controller_data, controller_params):
+def get_controller(hass, controller, encoding, controller_data):
     """Return a controller compatible with the specification provided."""
     controllers = {
         BROADLINK_CONTROLLER: BroadlinkController,
@@ -38,23 +40,84 @@ def get_controller(hass, controller, encoding, controller_data, controller_param
         ZHA_CONTROLLER: ZHAController,
         UFOR11_CONTROLLER: UFOR11Controller,
     }
-    try:
-        return controllers[controller](
-            hass, controller, encoding, controller_data, controller_params
-        )
-    except KeyError:
+
+    #check controller compatibility
+    if controller not in controllers:
         raise Exception("The controller is not supported.")
+
+    if controller_data["controller_type"] !=  controller:
+        raise Exception("The controller is not supported.")
+
+    return controllers[controller](
+        hass, controller, encoding, controller_data
+    )
+    
+
+def get_controller_schema(vol, cv):
+    """Return a controller schema."""
+    schema = vol.Any(
+        vol.Schema(
+            {
+                vol.Required(CONTROLLER_CONF["CONTROLLER_TYPE"]): vol.Equal(BROADLINK_CONTROLLER),
+                vol.Required(CONTROLLER_CONF["REMOTE_ENTITY"]): cv.entity_id,
+                vol.Optional(CONTROLLER_CONF["NUM_REPEATS"]): cv.positive_int,
+                vol.Optional(CONTROLLER_CONF["DELAY_SECS"]): cv.positive_float,
+            }
+        ),
+        vol.Schema(
+            {
+                vol.Required(CONTROLLER_CONF["CONTROLLER_TYPE"]): vol.Equal(XIAOMI_CONTROLLER),
+                vol.Required(CONTROLLER_CONF["REMOTE_ENTITY"]): cv.entity_id,
+            }
+        ),
+        vol.Schema(
+            {
+                vol.Required(CONTROLLER_CONF["CONTROLLER_TYPE"]): vol.Equal(MQTT_CONTROLLER),
+                vol.Required(CONTROLLER_CONF["MQTT_TOPIC"]): cv.string,
+            }
+        ),
+        vol.Schema(
+            {
+                vol.Required(CONTROLLER_CONF["CONTROLLER_TYPE"]): vol.Equal(UFOR11_CONTROLLER),
+                vol.Required(CONTROLLER_CONF["MQTT_TOPIC"]): cv.string,
+            }
+        ),
+        vol.Schema(
+            {
+                vol.Required(CONTROLLER_CONF["CONTROLLER_TYPE"]): vol.Equal(LOOKIN_CONTROLLER),
+                vol.Required(CONTROLLER_CONF["REMOTE_HOST"]): vol.All(ipaddress.ip_address, cv.string),
+            }
+        ),
+        vol.Schema(
+            {
+                vol.Required(CONTROLLER_CONF["CONTROLLER_TYPE"]): vol.Equal(ESPHOME_CONTROLLER),
+                vol.Required(CONTROLLER_CONF["ESPHOME_SERVICE"]): cv.string,
+            }
+        ),
+        vol.Schema(
+            {
+                vol.Required(CONTROLLER_CONF["CONTROLLER_TYPE"]): vol.Equal(ZHA_CONTROLLER),
+                vol.Required(CONTROLLER_CONF["ZHA_IEEE"]): cv.string,
+                vol.Required(CONTROLLER_CONF["ZHA_ENDPOINT_ID"]): cv.positive_int,
+                vol.Required(CONTROLLER_CONF["ZHA_CLUSTER_ID"]): cv.positive_int,
+                vol.Required(CONTROLLER_CONF["ZHA_CLUSTER_TYPE"]): cv.string,
+                vol.Required(CONTROLLER_CONF["ZHA_COMMAND"]): cv.positive_int,
+                vol.Required(CONTROLLER_CONF["ZHA_COMMAND_TYPE"]): cv.string,
+            }
+        ),
+    )
+
+    return schema
 
 
 class AbstractController(ABC):
     """Representation of a controller."""
 
-    def __init__(self, hass, controller, encoding, controller_data, controller_params):
+    def __init__(self, hass, controller, encoding, controller_data):
         self.hass = hass
         self._controller = controller
         self._encoding = encoding
         self._controller_data = controller_data
-        self._controller_params = controller_params
 
     @abstractmethod
     def check_encoding(self, encoding):
@@ -107,15 +170,13 @@ class BroadlinkController(AbstractController):
             commands.append("b64:" + _command)
 
         service_data = {
-            ATTR_ENTITY_ID: self._controller_data,
+            ATTR_ENTITY_ID: self._controller_data[CONTROLLER_CONF["REMOTE_ENTITY"]],
             "command": commands,
         }
-        if "delay_secs" in self._controller_params:
-            service_data["delay_secs"] = self._controller_params["delay_secs"]
-        else:
-            service_data["delay_secs"] = self._controller_params["delay"]
-        if "num_repeats" in self._controller_params:
-            service_data["num_repeats"] = self._controller_params["num_repeats"]
+        if CONTROLLER_CONF["DELAY_SECS"] in self._controller_data:
+            service_data["delay_secs"] = self._controller_data[CONTROLLER_CONF["DELAY_SECS"]]
+        if CONTROLLER_CONF["NUM_REPEATS"] in self._controller_data:
+            service_data["num_repeats"] = self._controller_data[CONTROLLER_CONF["NUM_REPEATS"]]
 
         await self.hass.services.async_call("remote", "send_command", service_data)
 
@@ -133,7 +194,7 @@ class XiaomiController(AbstractController):
     async def send(self, command):
         """Send a command."""
         service_data = {
-            ATTR_ENTITY_ID: self._controller_data,
+            ATTR_ENTITY_ID: self._controller_data[CONTROLLER_CONF["REMOTE_ENTITY"]],
             "command": self._encoding.lower() + ":" + command,
         }
 
@@ -150,7 +211,10 @@ class MQTTController(AbstractController):
 
     async def send(self, command):
         """Send a command."""
-        service_data = {"topic": self._controller_data, "payload": command}
+        service_data = {
+            "topic": self._controller_data[CONTROLLER_CONF["MQTT_TOPIC"]],
+            "payload": command,
+        }
 
         await self.hass.services.async_call("mqtt", "publish", service_data)
 
@@ -168,7 +232,7 @@ class LookinController(AbstractController):
     async def send(self, command):
         """Send a command."""
         encoding = self._encoding.lower().replace("pronto", "prontohex")
-        url = f"http://{self._controller_data}/commands/ir/" f"{encoding}/{command}"
+        url = f"http://{self._controller_data[CONTROLLER_CONF["REMOTE_HOST"]]}/commands/ir/" f"{encoding}/{command}"
         await self.hass.async_add_executor_job(requests.get, url)
 
 
@@ -187,7 +251,7 @@ class ESPHomeController(AbstractController):
         service_data = {"command": json.loads(command)}
 
         await self.hass.services.async_call(
-            "esphome", self._controller_data, service_data
+            "esphome", self._controller_data[CONTROLLER_CONF["ESPHOME_SERVICE"]], service_data
         )
 
 
@@ -203,16 +267,14 @@ class ZHAController(AbstractController):
 
     async def send(self, command):
         """Send a command."""
-        service_data = json.loads(self._controller_data)
-        if not isinstance(service_data, dict):
-            raise Exception("Wrong json config for ZHA controller")
-        for key in ["ieee", "endpoint_id", "cluster_id", "cluster_type", "command"]:
-            if not service_data.get(key):
-                raise Exception(
-                    "Missing '%s' parameter in config for ZHA controller", key
-                )
-        service_data["params"] = {
-            "code": command,
+        service_data = {
+            "ieee": self._controller_data[CONTROLLER_CONF["ZHA_IEEE"]],
+            "endpoint_id": self._controller_data[CONTROLLER_CONF["ZHA_ENDPOINT_ID"]],
+            "cluster_id": self._controller_data[CONTROLLER_CONF["ZHA_CLUSTER_ID"]],
+            "cluster_type": self._controller_data[CONTROLLER_CONF["ZHA_CLUSTER_TYPE"]],
+            "command": self._controller_data[CONTROLLER_CONF["ZHA_COMMAND"]],
+            "command_type": self._controller_data[CONTROLLER_CONF["ZHA_COMMAND_TYPE"]],
+            "params": { "code": command },
         }
         await self.hass.services.async_call(
             "zha", "issue_zigbee_cluster_command", service_data
@@ -230,7 +292,7 @@ class UFOR11Controller(MQTTController):
     async def send(self, command):
         """Send a command."""
         service_data = {
-            "topic": self._controller_data,
+            "topic": self._controller_data[CONTROLLER_CONF["MQTT_TOPIC"]],
             "payload": json.dumps({"ir_code_to_send": command}),
         }
 
