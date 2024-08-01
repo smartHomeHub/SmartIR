@@ -103,6 +103,7 @@ or
         "off_dry": "JgCSAAABKHQKDGgDFht.............",
         ...
 ```
+
 #### Climate `on` commands
 
 In some cases, controled device have dedicated `on` command (Otherwise device is switched on by the operation command and dedicated IR code to switch it on is not required). In case your `on` and `off` command are same, SmartIR not send `on` or `off` command again, if the device is assumed to be already in desired state. As without power sensor devices state is only assumed it is higly suggested to use in this case power sensor feature.
@@ -130,7 +131,7 @@ These are command to set controlled device into desired work state. Due to the n
                     },
 ```
 
-* If your device doesn't support some of the modes types at all (and you did not declare them in the declaration part - for example presetModes are not supported) then simply skip given level (`operation mode` -> `fan mode` -> `swing mode` -> `temperature` -> `recorded IR command`). Only `operation mode` level is required, all lower levels are optional.
+- If your device doesn't support some of the modes types at all (and you did not declare them in the declaration part - for example presetModes are not supported) then simply skip given level (`operation mode` -> `fan mode` -> `swing mode` -> `temperature` -> `recorded IR command`). Only `operation mode` level is required, all lower levels are optional.
 
 ```yaml:
     "commands": {
@@ -145,7 +146,7 @@ These are command to set controlled device into desired work state. Due to the n
 
 - If you device doesn't support some mode under given higher level mode (for example temperatures are not supported under fan_only operation mode, or presetModes are not supported under dry operation mode), you have three possibilities how to address this:
 
-  1. Use `-` as 'catch all' mode name/temperature. Using this approach has additional behavior - if you change mode/temperature which to the value covered by `-` the value will not change in the HA. Example: temperatures are not supported under fan_only operation mode - when you will try to change temperature using `-` key the temperature in HA stays same: 
+  1. Use `-` as 'catch all' mode name/temperature. Using this approach has additional behavior - if you change mode/temperature which to the value covered by `-` the value will not change in the HA. Example: temperatures are not supported under fan_only operation mode - when you will try to change temperature using `-` key the temperature in HA stays same:
 
   ```yaml:
   "commands": {
@@ -159,38 +160,37 @@ These are command to set controlled device into desired work state. Due to the n
 
   2. Define some default mode (i.e. something like `none` or `default` but any name will do) as first in the declaration section and use it as default failover mode. Example: if you are running for example in the operation mode `cool` with preset mode `eco` and you change operation mode to `dry` which doesn't support presets, then it will try to select first available preset in the order presets are declared in the `presetModes` - and it will therefore choose your first one - `none`:
 
-    ```yaml:
-    "commands": {
-        "cool": {
-            "eco": {
-                "low": {
-                    "swing": {
-                        "16": "JgCSAAABKZIXEBcRFz............."
-                    },
-            ...
-        "dry": {
-            "none": {
-                "low": {
-                    "swing": {
-                        "16": "JgCSAAABKZIXEBcRFz............."
-                    },
-    ```
+  ```yaml:
+  "commands": {
+      "cool": {
+          "eco": {
+              "low": {
+                  "swing": {
+                      "16": "JgCSAAABKZIXEBcRFz............."
+                  },
+          ...
+      "dry": {
+          "none": {
+              "low": {
+                  "swing": {
+                      "16": "JgCSAAABKZIXEBcRFz............."
+                  },
+  ```
 
   3. Duplicate same IR command to all keys. This approach is not suggested and multiple occurence of the same IR command will be logged by the validator to the HA log. Example: temperature setting is not supported in the fan_only mode and all commands are same:
-  
-    ```yaml:
-    "commands": {
-        "fan_only": {
-            "normal": {
-                "low": {
-                    "swing": {
-                        "16": "JgCSAAABKZIXEBcRFz.............",
-                        "17": "JgCSAAABKZIXEBcRFz.............",
-                        "18": "JgCSAAABKZIXEBcRFz.............",
-                        ...
-                    },
-    ```
 
+  ```yaml:
+  "commands": {
+      "fan_only": {
+          "normal": {
+              "low": {
+                  "swing": {
+                      "16": "JgCSAAABKZIXEBcRFz.............",
+                      "17": "JgCSAAABKZIXEBcRFz.............",
+                      "18": "JgCSAAABKZIXEBcRFz.............",
+                      ...
+                  },
+  ```
 
 ## Fan Speficic
 
