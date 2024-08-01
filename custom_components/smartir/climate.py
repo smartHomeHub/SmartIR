@@ -31,7 +31,7 @@ from homeassistant.helpers.restore_state import RestoreEntity
 from homeassistant.helpers.typing import ConfigType
 from homeassistant.util.unit_conversion import TemperatureConverter
 from . import DeviceData
-from .controller import get_controller
+from .controller import get_controller, get_controller_schema
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -56,7 +56,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
         vol.Optional(CONF_UNIQUE_ID): cv.string,
         vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
         vol.Required(CONF_DEVICE_CODE): cv.positive_int,
-        vol.Required(CONF_CONTROLLER_DATA): cv.string,
+        vol.Required(CONF_CONTROLLER_DATA): get_controller_schema(vol, cv),
         vol.Optional(CONF_DELAY, default=DEFAULT_DELAY): cv.positive_float,
         vol.Optional(CONF_TEMPERATURE_SENSOR): cv.entity_id,
         vol.Optional(CONF_HUMIDITY_SENSOR): cv.entity_id,
@@ -226,7 +226,6 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             self._supported_controller,
             self._commands_encoding,
             self._controller_data,
-            self._delay,
         )
 
     async def async_added_to_hass(self):
@@ -592,8 +591,21 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                     elif "off" in self._commands.keys() and isinstance(
                         self._commands["off"], str
                     ):
-                        _LOGGER.debug("Found 'off' operation mode command.")
-                        await self._controller.send(self._commands["off"])
+                        if (
+                            "on" in self._commands.keys()
+                            and isinstance(self._commands["on"], str)
+                            and self._commands["on"] == self._commands["off"]
+                            and self._state == STATE_OFF
+                        ):
+                            # prevent to resend 'off' command if same as 'on' and device is already off
+                            _LOGGER.debug(
+                                "As 'on' and 'off' commands are identical and device is already in requested '%s' state skipping sending '%s' command",
+                                self._state,
+                                "off",
+                            )
+                        else:
+                            _LOGGER.debug("Found 'off' operation mode command.")
+                            await self._controller.send(self._commands["off"])
                     else:
                         _LOGGER.error(
                             "Missing device IR code for any of off/off_cool/off_heat/off_fan operation mode."
@@ -606,10 +618,23 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                         return
 
                     if "on" in commands.keys() and isinstance(commands["on"], str):
-                        """if on code is not present, the on bit can be still set later in the all operation/fan codes"""
-                        _LOGGER.debug("Found 'on' operation mode command.")
-                        await self._controller.send(commands["on"])
-                        await asyncio.sleep(self._delay)
+                        if (
+                            "off" in self._commands.keys()
+                            and isinstance(self._commands["off"], str)
+                            and self._commands["off"] == self._commands["on"]
+                            and self._state == STATE_ON
+                        ):
+                            # prevent to resend 'on' command if same as 'off' and device is already on
+                            _LOGGER.debug(
+                                "As 'on' and 'off' commands are identical and device is already in requested '%s' state skipping sending '%s' command",
+                                self._state,
+                                "on",
+                            )
+                        else:
+                            # if on code is not present, the on bit can be still set later in the all operation/fan codes"""
+                            _LOGGER.debug("Found 'on' operation mode command.")
+                            await self._controller.send(commands["on"])
+                            await asyncio.sleep(self._delay)
 
                     if hvac_mode in commands.keys():
                         commands = commands[hvac_mode]

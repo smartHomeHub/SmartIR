@@ -2,6 +2,7 @@
 
 import logging
 import os.path
+import hashlib
 import json
 
 from .controller_const import CONTROLLER_SUPPORT
@@ -74,12 +75,10 @@ class DeviceData:
                 _LOGGER.error(
                     "Device JSON file '%s' doesn't exists!", device_json_file_name
                 )
-                return None
         else:
             _LOGGER.error(
                 "Devices JSON files directory '%s' doesn't exists!", device_files_absdir
             )
-            return None
 
         return None
 
@@ -177,6 +176,7 @@ class DeviceData:
     @staticmethod
     def check_file_climate(file_name, device_data, device_class, check_data):
         modes_used = {}
+        commands_used = {}
 
         if not (
             "operationModes" in device_data
@@ -304,18 +304,37 @@ class DeviceData:
             )
             return False
 
-        return DeviceData.check_file_climate_commands(
+        results = DeviceData.check_file_climate_commands(
             file_name,
             0,
             modes_list,
             modes_used,
+            commands_used,
             device_class,
             check_data,
             device_data["commands"],
         )
 
+        # check if same IR command were find in the ddevice data
+        if list(filter(lambda key: commands_used[key] > 1, commands_used.keys())):
+            _LOGGER.info(
+                "Invalid %s device JSON file '%s': duplicated commands detected.",
+                device_class,
+                file_name,
+            )
+
+        return results
+
+    @staticmethod
     def check_file_climate_commands(
-        file_name, depth, modes_list, modes_used, device_class, check_data, commands
+        file_name,
+        depth,
+        modes_list,
+        modes_used,
+        commands_used,
+        device_class,
+        check_data,
+        commands,
     ):
         level = modes_list[depth]
 
@@ -357,7 +376,7 @@ class DeviceData:
                         and commands[off_mode]
                     ):
                         _LOGGER.error(
-                            "Invalid %s device JSON file '%s': missing or invalid '%s' operation mode command.",
+                            "Invalid %s device JSON file '%s': missing or invalid 'off' or '%s' operation mode command.",
                             device_class,
                             file_name,
                             off_mode,
@@ -379,6 +398,7 @@ class DeviceData:
                     depth + 1,
                     modes_list,
                     modes_used,
+                    commands_used,
                     device_class,
                     check_data,
                     commands[mode],
@@ -423,14 +443,35 @@ class DeviceData:
             elif level == "temperature":
                 for temp in commands.keys():
                     if not (isinstance(commands[temp], str) and commands[temp]):
+                        _LOGGER.error(
+                            "Invalid %s device JSON file '%s': invalid 'temperature' '%s' command value '%s'.",
+                            device_class,
+                            file_name,
+                            temp,
+                            commands[temp],
+                        )
                         return False
+
+                    string = commands[temp]
+                    result = hashlib.md5(string.encode())
+                    hash = result.hexdigest()
+                    if hash in commands_used:
+                        _LOGGER.debug(
+                            "Invalid %s device JSON file '%s': 'temperature' '%s' command '%s' already used.",
+                            device_class,
+                            file_name,
+                            temp,
+                            commands[temp],
+                        )
+                        commands_used[hash] += 1
+                    else:
+                        commands_used[hash] = 1
 
                     try:
                         temp = DeviceData.precision_round(temp, check_data["precision"])
-
                     except ValueError:
                         _LOGGER.error(
-                            "Invalid %s device JSON file '%s': invalid key '%s' for temperature command.",
+                            "Invalid %s device JSON file '%s': invalid 'temperature' command key '%s' value.",
                             device_class,
                             file_name,
                             temp,
@@ -462,6 +503,7 @@ class DeviceData:
                         depth + 1,
                         modes_list,
                         modes_used,
+                        commands_used,
                         device_class,
                         check_data,
                         commands[mode],
@@ -498,7 +540,7 @@ class DeviceData:
             return round((float(number) * 2) / 2.0, 1)
         elif precision == 1:
             return round(float(number))
-        elif precision == 2:
-            return int(number) if ((int(number) % 2) == 0) else int(number) + 1
+        elif precision > 1:
+            return round(float(number) / int(precision)) * int(precision)
         else:
             return None

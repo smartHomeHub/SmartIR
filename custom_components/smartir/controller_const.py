@@ -28,3 +28,19 @@ CONTROLLER_SUPPORT = {
     ZHA_CONTROLLER: ZHA_COMMANDS_ENCODING,
     UFOR11_CONTROLLER: UFOR11_COMMANDS_ENCODING,
 }
+
+CONTROLLER_CONF = {
+    "CONTROLLER_TYPE": "controller_type",
+    "REMOTE_ENTITY": "remote_entity",
+    "NUM_REPEATS": "num_repeats",
+    "DELAY_SECS": "delay_secs",
+    "MQTT_TOPIC": "delay_secs",
+    "REMOTE_HOST": "remote_host",
+    "ESPHOME_SERVICE": "esphome_service",
+    "ZHA_IEEE": "zha_ieee",
+    "ZHA_ENDPOINT_ID": "zha_endpoint_id",
+    "ZHA_CLUSTER_ID": "zha_cluster_id",
+    "ZHA_CLUSTER_TYPE": "zha_cluster_type",
+    "ZHA_COMMAND": "zha_command",
+    "ZHA_COMMAND_TYPE": "zha_command_type",
+}
