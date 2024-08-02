@@ -9,7 +9,7 @@ Find your device's brand code [here](MEDIA_PLAYER_CODES.md) and add the number i
 | `name`                       | string  | optional | The name of the device                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `unique_id`                  | string  | optional | An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.                                                                                                                                                                                                                                                                                                               |
 | `device_code`                | number  | required | (Accepts only positive numbers)                                                                                                                                                                                                                                                                                                                                                                                                           |
-| `controller_data`            | string  | required | The data required for the controller to function. Look into configuration examples bellow for valid configuration entries for different controllers types.                                                                                                                                                        |
+| `controller_data`            | string  | required | The data required for the controller to function. Look into configuration examples bellow for valid configuration entries for different controllers types.                                                                                                                                                                                                                                                                                |
 | `delay`                      | number  | optional | Adjusts the delay in seconds between multiple commands. The default is 0.5                                                                                                                                                                                                                                                                                                                                                                |
 | `power_sensor`               | string  | optional | _entity_id_ for a sensor that monitors whether your device is actually `on` or `off`. This may be a power monitor sensor. (Accepts only on/off states)                                                                                                                                                                                                                                                                                    |
 | `power_sensor_delay`         |   int   | optional | Maximum delay in second in which power sensor is able to report back to HA changed state of the device, default is 10 seconds. If sensor reaction time is longer extend this time, otherwise you might get unwanted changes in the device state.                                                                                                                                                                                          |
@@ -49,7 +49,7 @@ media_player:
     name: Living room TV
     unique_id: living_room_tv
     device_code: 2000
-    controller_data: 
+    controller_data:
       controller_type: Xiaomi
       remote_entity: remote.xiaomi_miio_192_168_10_10
     power_sensor: binary_sensor.tv_power
@@ -91,7 +91,7 @@ media_player:
     name: Living room TV
     unique_id: living_room_tv
     device_code: 4000
-    controller_data: 
+    controller_data:
       controller_type: LOOKin
       remote_host: 192.168.10.10
     power_sensor: binary_sensor.tv_power
@@ -164,7 +164,7 @@ media_player:
     name: Living room TV
     unique_id: living_room_tv
     device_code: 1000
-    controller_data: 
+    controller_data:
       controller_type: LOOKin
       remote_host: 192.168.10.10
     source_names:

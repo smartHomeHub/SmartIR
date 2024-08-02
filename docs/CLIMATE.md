@@ -9,7 +9,7 @@ Find your device's brand code [here](CLIMATE_CODES.md) and add the number in the
 | `name`                       | string  | optional | The name of the device                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `unique_id`                  | string  | optional | An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.                                                                                                                                                                                                                                                                                                               |
 | `device_code`                | number  | required | (Accepts only positive numbers)                                                                                                                                                                                                                                                                                                                                                                                                           |
-| `controller_data`            | string  | required | The data required for the controller to function. Look into configuration examples bellow for valid configuration entries for different controllers types.                                                                                                                                                       |
+| `controller_data`            | string  | required | The data required for the controller to function. Look into configuration examples bellow for valid configuration entries for different controllers types.                                                                                                                                                                                                                                                                                |
 | `delay`                      | number  | optional | Adjusts the delay in seconds between multiple commands. The default is 0.5                                                                                                                                                                                                                                                                                                                                                                |
 | `temperature_sensor`         | string  | optional | _entity_id_ for a temperature sensor                                                                                                                                                                                                                                                                                                                                                                                                      |
 | `humidity_sensor`            | string  | optional | _entity_id_ for a humidity sensor                                                                                                                                                                                                                                                                                                                                                                                                         |
@@ -52,7 +52,7 @@ climate:
     name: Office AC
     unique_id: office_ac
     device_code: 2000
-    controller_data: 
+    controller_data:
       controller_type: Xiaomi
       remote_entity: remote.xiaomi_miio_192_168_10_10
     temperature_sensor: sensor.temperature
@@ -102,7 +102,7 @@ climate:
     name: Office AC
     unique_id: office_ac
     device_code: 4000
-    controller_data: 
+    controller_data:
       controller_type: LOOKin
       remote_host: 192.168.10.10
     temperature_sensor: sensor.temperature
