@@ -279,6 +279,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
                 if state == STATE_OFF:
                     if "off" in self._commands:
                         await self._controller.send(self._commands["off"])
+                        await asyncio.sleep(self._delay)
                     else:
                         _LOGGER.error("Missing device IR code for 'off' mode.")
                         return
@@ -286,6 +287,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
                     if oscillate:
                         if "oscillate" in self._commands:
                             await self._controller.send(self._commands["oscillate"])
+                            await asyncio.sleep(self._delay)
                         else:
                             _LOGGER.error(
                                 "Missing device IR code for 'oscillate' mode."
@@ -300,6 +302,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
                             await self._controller.send(
                                 self._commands[direction][speed]
                             )
+                            await asyncio.sleep(self._delay)
                         else:
                             _LOGGER.error(
                                 "Missing device IR code for direction '%s' speed '%s'.",
