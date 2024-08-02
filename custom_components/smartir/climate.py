@@ -560,34 +560,13 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
             try:
                 if state == STATE_OFF:
-                    if (
-                        self._hvac_mode == HVACMode.COOL
-                        and "off_cool" in self._commands.keys()
-                        and isinstance(self._commands["off_cool"], str)
+                    off_mode = "off_" + self._hvac_mode
+                    if off_mode in self._commands.keys() and isinstance(
+                        self._commands[off_mode], str
                     ):
-                        _LOGGER.debug("Found 'off_cool' operation mode command.")
-                        await self._controller.send(self._commands["off_cool"])
-                    elif (
-                        self._hvac_mode == HVACMode.HEAT
-                        and "off_heat" in self._commands.keys()
-                        and isinstance(self._commands["off_heat"], str)
-                    ):
-                        _LOGGER.debug("Found 'off_heat' operation mode command.")
-                        await self._controller.send(self._commands["off_heat"])
-                    elif (
-                        self._hvac_mode == HVACMode.FAN_ONLY
-                        and "off_fan_only" in self._commands.keys()
-                        and isinstance(self._commands["off_fan_only"], str)
-                    ):
-                        _LOGGER.debug("Found 'off_fan_only' operation mode command.")
-                        await self._controller.send(self._commands["off_fan_only"])
-                    elif (
-                        self._hvac_mode == HVACMode.DRY
-                        and "off_dry" in self._commands.keys()
-                        and isinstance(self._commands["off_dry"], str)
-                    ):
-                        _LOGGER.debug("Found 'off_dry' operation mode command.")
-                        await self._controller.send(self._commands["off_dry"])
+                        _LOGGER.debug("Found '%s' operation mode command.", off_mode)
+                        await self._controller.send(self._commands[off_mode])
+                        await asyncio.sleep(self._delay)
                     elif "off" in self._commands.keys() and isinstance(
                         self._commands["off"], str
                     ):
@@ -599,16 +578,18 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                         ):
                             # prevent to resend 'off' command if same as 'on' and device is already off
                             _LOGGER.debug(
-                                "As 'on' and 'off' commands are identical and device is already in requested '%s' state skipping sending '%s' command",
+                                "As 'on' and 'off' commands are identical and device is already in requested '%s' state, skipping sending '%s' command",
                                 self._state,
                                 "off",
                             )
                         else:
                             _LOGGER.debug("Found 'off' operation mode command.")
                             await self._controller.send(self._commands["off"])
+                            await asyncio.sleep(self._delay)
                     else:
                         _LOGGER.error(
-                            "Missing device IR code for any of off/off_cool/off_heat/off_fan operation mode."
+                            "Missing device IR code for 'off' or '%s' operation mode.",
+                            off_mode,
                         )
                         return
                 else:
@@ -626,7 +607,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                         ):
                             # prevent to resend 'on' command if same as 'off' and device is already on
                             _LOGGER.debug(
-                                "As 'on' and 'off' commands are identical and device is already in requested '%s' state skipping sending '%s' command",
+                                "As 'on' and 'off' commands are identical and device is already in requested '%s' state, skipping sending '%s' command",
                                 self._state,
                                 "on",
                             )
@@ -788,6 +769,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                         return
 
                     await self._controller.send(commands)
+                    await asyncio.sleep(self._delay)
 
                 self._on_by_remote = False
                 self._state = state
