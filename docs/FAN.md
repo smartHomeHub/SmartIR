@@ -9,8 +9,7 @@ Find your device's brand code [here](FAN_CODES.md) and add the number in the `de
 | `name`                       | string  | optional | The name of the device                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `unique_id`                  | string  | optional | An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.                                                                                                                                                                                                                                                                                                               |
 | `device_code`                | number  | required | (Accepts only positive numbers)                                                                                                                                                                                                                                                                                                                                                                                                           |
-| `controller_data`            | string  | required | The data required for the controller to function. Enter the entity_id of the Broadlink remote **(must be an already configured device)**, or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands, or the ZHA zigbee cluster to send commands to.                                                                                                                                                       |
-| `controller_params`          |  dict   | optional | Dictionary containing list of additional key/values which will be passed to the remote.send_command service. For example `delay_sec` and `num_repeats` for Broadlink remote. For allowed key/values reffer to the HA documentation for remote.send_command service.                                                                                                                                                                       |
+| `controller_data`            | string  | required | The data required for the controller to function. Look into configuration examples bellow for valid configuration entries for different controllers types.                                                                                                                                                        |
 | `delay`                      | number  | optional | Adjusts the delay in seconds between multiple commands. The default is 0.5                                                                                                                                                                                                                                                                                                                                                                |
 | `power_sensor`               | string  | optional | _entity_id_ for a sensor that monitors whether your device is actually `on` or `off`. This may be a power monitor sensor. (Accepts only on/off states)                                                                                                                                                                                                                                                                                    |
 | `power_sensor_delay`         |   int   | optional | Maximum delay in second in which power sensor is able to report back to HA changed state of the device, default is 10 seconds. If sensor reaction time is longer extend this time, otherwise you might get unwanted changes in the device state.                                                                                                                                                                                          |
@@ -28,8 +27,9 @@ fan:
     name: Bedroom fan
     unique_id: bedroom_fan
     device_code: 1000
-    controller_data: remote.bedroom_remote
-    controller_params:
+    controller_data:
+      controller_type: Broadlink
+      remote_entity: remote.bedroom_remote
       delay_secs: 0.5
       num_repeats: 3
     power_sensor: binary_sensor.fan_power
@@ -48,11 +48,13 @@ fan:
     name: Bedroom fan
     unique_id: bedroom_fan
     device_code: 2000
-    controller_data: remote.xiaomi_miio_192_168_10_10
+    controller_data: 
+      controller_type: Xiaomi
+      remote_entity: remote.xiaomi_miio_192_168_10_10
     power_sensor: binary_sensor.fan_power
 ```
 
-### Example (using mqtt/Z06/UFO-R11 controller)
+### Example (using MQTT controller)
 
 ```yaml
 fan:
@@ -60,7 +62,23 @@ fan:
     name: Bedroom fan
     unique_id: bedroom_fan
     device_code: 3000
-    controller_data: home-assistant/bedroom-fan/command
+    controller_data:
+      controller_type: MQTT
+      mqtt_topic: home-assistant/bedroom_fan/command
+    power_sensor: binary_sensor.fan_power
+```
+
+### Example (using mqtt Z06/UFO-R11 controller)
+
+```yaml
+fan:
+  - platform: smartir
+    name: Bedroom fan
+    unique_id: bedroom_fan
+    device_code: 3000
+    controller_data:
+      controller_type: UFOR11
+      mqtt_topic: home-assistant/bedroom_fan/command
     power_sensor: binary_sensor.fan_power
 ```
 
@@ -72,7 +90,9 @@ fan:
     name: Bedroom fan
     unique_id: bedroom_fan
     device_code: 4000
-    controller_data: 192.168.10.10
+    controller_data: 
+      controller_type: LOOKin
+      remote_host: 192.168.10.10
     power_sensor: binary_sensor.fan_power
 ```
 
@@ -108,7 +128,9 @@ fan:
     name: Bedroom fan
     unique_id: bedroom_fan
     device_code: 4000
-    controller_data: my_espir_send_raw_command
+    controller_data:
+      controller_type: ESPHome
+      esphome_service: my_espir_send_raw_command
     power_sensor: binary_sensor.fan_power
 ```
 
@@ -120,14 +142,14 @@ fan:
     name: Bedroom fan
     unique_id: bedroom_fan
     device_code: 5000
-    controller_data: '{
-     "ieee":"XX:XX:XX:XX:XX:XX:XX:XX",
-     "endpoint_id": 1,
-     "cluster_id": 57348,
-     "cluster_type": "in",
-     "command": 2,
-     "command_type": "server"
-    }'
+    controller_data:
+      controller_type: ZHA
+      zha_ieee: "XX:XX:XX:XX:XX:XX:XX:XX"
+      zha_endpoint_id: 1
+      zha_cluster_id: 57348
+      zha_cluster_type: "in"
+      zha_command: 2
+      zha_command_type: "server"
     power_sensor: binary_sensor.fan_power
 ```
 
