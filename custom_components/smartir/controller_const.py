@@ -34,7 +34,7 @@ CONTROLLER_CONF = {
     "REMOTE_ENTITY": "remote_entity",
     "NUM_REPEATS": "num_repeats",
     "DELAY_SECS": "delay_secs",
-    "MQTT_TOPIC": "delay_secs",
+    "MQTT_TOPIC": "mqtt_topic",
     "REMOTE_HOST": "remote_host",
     "ESPHOME_SERVICE": "esphome_service",
     "ZHA_IEEE": "zha_ieee",
