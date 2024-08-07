@@ -183,6 +183,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1180](../codes/fan/1180.json)|Standy|Broadlink
+[1181](../codes/fan/1181.json)|Polifemo|Broadlink
 
 #### DCG
 
