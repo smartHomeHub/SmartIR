@@ -239,8 +239,10 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1136](../codes/climate/1136.json) | MSXY-FP10VG<br>MSXY-FP13VG<br>MSXY-FP18VG                                                            | Broadlink  |
 | [1137](../codes/climate/1137.json) | MSZ-HR35VF                                                                                           | Broadlink  |
 | [1136](../codes/climate/1138.json) | MSZ-FD25VA-E2 (KM09D/0166901 Remote)                                                                 | Broadlink  |
+| [1139](../codes/climate/1139.json) | MLZ-KP series (SG176 Remote)                                                                        | Broadlink  |
 | [4129](../codes/climate/4129.json) | DXK18Z1-S                                                                                            | Xiaomi v2  |
 | [7124](../codes/climate/7124.json) | MSZ-SF25VE3<br>MSZ-SF35VE3<br>MSZ-SF42VE3<br>MSZ-SF50VE<br>MSZ-AP20VG                                | ESPHome |
+
 
 #### Actron
 | Code                               | Supported Models | Controller |
@@ -264,7 +266,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1182](../codes/climate/1182.json) | Y512/Y502 (Remote)                             | Broadlink   |
 | [1183](../codes/climate/1183.json) | Smart inverter <b>(Swing mode)</b>             | Broadlink   |
 | [1184](../codes/climate/1184.json) | GWH09KF<br>GC-EAF09HR                          | Broadlink   |
-| [1185](../codes/climate/1185.json) | KFR-50LW                                       | Broadlink   |
+| [1185](../codes/climate/1185.json) | KFR-50LW<br>YAP1F2                             | Broadlink   |
 | [1186](../codes/climate/1186.json) | GWH18ACD-D3DNA 1M                              | Broadlink   |
 | [1187](../codes/climate/1187.json) | Unknown model                                  | Broadlink   |
 | [4180](../codes/climate/4180.json) | YB0FB2 (Remote)                                | Xiaomi      |
@@ -331,13 +333,14 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1322](../codes/climate/1322.json) | HSU-09HPL03/R03  | Broadlink  |
 
 #### Tadiran
-| Code                               | Supported Models | Controller |
-| ---------------------------------- | ---------------- | ---------- |
-| [1340](../codes/climate/1340.json) | Unknown model    | Broadlink  |
-| [1341](../codes/climate/1341.json) | TAC490           | Broadlink  |
-| [1342](../codes/climate/1342.json) | 10i/15i/inv220a  | Broadlink  |
-| [1343](../codes/climate/1343.json) | Alpha Series     | Broadlink  |
-| [1344](../codes/climate/1344.json) | YB1FA Remote (Control) (Swing support)    | Broadlink  |
+| Code                               | Supported Models                       | Controller |
+| ---------------------------------- | -------------------------------------- | ---------- |
+| [1340](../codes/climate/1340.json) | Unknown model                          | Broadlink  |
+| [1341](../codes/climate/1341.json) | TAC490                                 | Broadlink  |
+| [1342](../codes/climate/1342.json) | 10i/15i/inv220a                        | Broadlink  |
+| [1343](../codes/climate/1343.json) | Alpha Series                           | Broadlink  |
+| [1344](../codes/climate/1344.json) | YB1FA Remote (Control) (Swing support) | Broadlink  |
+| [1345](../codes/climate/1345.json) | TAC-297 Remote (Control)               | Broadlink  |
 
 #### Springer
 | Code                               | Supported Models       | Controller |
@@ -446,6 +449,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1622](../codes/climate/1622.json) | Master-22 X      | Broadlink  |
 | [1623](../codes/climate/1623.json) | Inverter VRF     | Broadlink  |
 | [1624](../codes/climate/1624.json) | Saga by tornado  | Broadlink  |
+| [1625](../codes/climate/1625.json) | Inverter VRF BOX | Broadlink  |
+| [1626](../codes/climate/1626.json) | Master-35 X      | Broadlink  |
 
 #### Fujiko
 | Code                               | Supported Models | Controller |
