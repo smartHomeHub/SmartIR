@@ -92,7 +92,11 @@ class SmartIRFan(FanEntity, RestoreEntity):
         self._speed = None
         self._oscillating = None
         self._on_by_remote = False
-        self._support_flags = FanEntityFeature.SET_SPEED
+        self._support_flags = (
+            FanEntityFeature.SET_SPEED
+            | FanEntityFeature.TURN_ON
+            | FanEntityFeature.TURN_OFF
+        )
         self._power_sensor_check_expect = None
         self._power_sensor_check_cancel = None
 
