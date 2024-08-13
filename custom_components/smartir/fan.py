@@ -76,6 +76,7 @@ async def async_setup_platform(
 
 class SmartIRFan(FanEntity, RestoreEntity):
     _attr_should_poll = False
+    _enable_turn_on_off_backwards_compatibility = False
 
     def __init__(self, hass, config, device_data):
         self.hass = hass
