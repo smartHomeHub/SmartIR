@@ -1,28 +1,14 @@
 {
   "manufacturer": "Carrier",
-  "supportedModels": [
-    "42P250HX",
-    "53P250HX"
-  ],
+  "supportedModels": ["42P250HX", "53P250HX"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
   "temperatureUnit": "C",
   "minTemperature": 17,
   "maxTemperature": 32,
   "precision": 1.0,
-  "operationModes": [
-    "heat_cool",
-    "heat",
-    "cool",
-    "dry",
-    "fan_only"
-  ],
-  "fanModes": [
-    "auto",
-    "low",
-    "medium",
-    "high"
-  ],
+  "operationModes": ["heat_cool", "heat", "cool", "dry", "fan_only"],
+  "fanModes": ["auto", "low", "medium", "high"],
   "commands": {
     "off": "JgDYAAABFYoSMhIREjETMxIREhASMxIyEhESEBIzEjITEBIzEhASMxIyEjMSEREzEhESEBIQEhESMhIREjMSMhIzEjMSMhIzEgACjgABFYkSERIyEhESEBIzEjISERIQEjMSMxIQEhASMxIQEjMSEREREhASMxIQEjMSMxIyEjMSERIyEhESEBIRERESEBIREgACjQABFYkSMxIREjISMxIQEhESMhIzEhESEBIzEjISERIyEhESMhMyEjMSEBIzEhESEBIQEhESMhIREjISMxIzEjMSMhIzEgANBQ==",
     "heat_cool": {
