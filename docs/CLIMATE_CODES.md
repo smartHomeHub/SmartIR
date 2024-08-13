@@ -88,6 +88,7 @@ The following are the code files created by the amazing people in the community.
 <tr ><td class="file-td td_text">1162.json</td><td class="manufacturer-td td_text">Carrier</td><td class="models-td td_text">42TVGS024-703</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1163.json</td><td class="manufacturer-td td_text">Carrier</td><td class="models-td td_text">40MAQB12B--3, 40MAQB18B--3</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1164.json</td><td class="manufacturer-td td_text">Carrier</td><td class="models-td td_text">42LUVH025N-1</td><td class="controller-td td_text">Broadlink</td></tr>
+<tr ><td class="file-td td_text">1165.json</td><td class="manufacturer-td td_text">Carrier</td><td class="models-td td_text">42P250HX, 53P250HX</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1180.json</td><td class="manufacturer-td td_text">Gree</td><td class="models-td td_text">GWH12-KF-K3DNA5G-I</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1181.json</td><td class="manufacturer-td td_text">Gree</td><td class="models-td td_text">Unknown</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1182.json</td><td class="manufacturer-td td_text">Gree</td><td class="models-td td_text">GMV-R45G/NaB-K</td><td class="controller-td td_text">Broadlink</td></tr>
@@ -170,6 +171,7 @@ The following are the code files created by the amazing people in the community.
 <tr ><td class="file-td td_text">1601.json</td><td class="manufacturer-td td_text">Beko</td><td class="models-td td_text">BPAK 120</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1602.json</td><td class="manufacturer-td td_text">Beko</td><td class="models-td td_text">BXK 120</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1603.json</td><td class="manufacturer-td td_text">Beko</td><td class="models-td td_text">BXEU 090</td><td class="controller-td td_text">Broadlink</td></tr>
+<tr ><td class="file-td td_text">1604.json</td><td class="manufacturer-td td_text">Beko</td><td class="models-td td_text">BRVPG 120</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1620.json</td><td class="manufacturer-td td_text">Tornado</td><td class="models-td td_text">Super - Inverter A, i, Inverter, Inverter A, Super Design, Super Plasma, Gold i, Multi ON-OFF, Multi Inverter, Super Gold i, Plasma Gold</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1621.json</td><td class="manufacturer-td td_text">Tornado</td><td class="models-td td_text">Super Legend 40</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1622.json</td><td class="manufacturer-td td_text">Tornado</td><td class="models-td td_text">Master-22 X</td><td class="controller-td td_text">Broadlink</td></tr>
@@ -288,6 +290,7 @@ The following are the code files created by the amazing people in the community.
 <tr ><td class="file-td td_text">2960.json</td><td class="manufacturer-td td_text">EcoAir</td><td class="models-td td_text">Split Type Wall Air Conditioner</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">2980.json</td><td class="manufacturer-td td_text">Agratto</td><td class="models-td td_text">ECST12FR4-02, ECST19QFIR4-02</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">3000.json</td><td class="manufacturer-td td_text">Philco</td><td class="models-td td_text">Philco AC</td><td class="controller-td td_text">Broadlink</td></tr>
+<tr ><td class="file-td td_text">3001.json</td><td class="manufacturer-td td_text">Insignia</td><td class="models-td td_text">NS-AC06PWH1, NS-AC07PWH1, NS-AC08PWH1</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">3020.json</td><td class="manufacturer-td td_text">Klasse</td><td class="models-td td_text">DOZ-S06JT</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">3040.json</td><td class="manufacturer-td td_text">Viessmann</td><td class="models-td td_text">Vitoclima 300-S</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">3060.json</td><td class="manufacturer-td td_text">HappyTree</td><td class="models-td td_text">TAC-12CHSD/XA81</td><td class="controller-td td_text">Broadlink</td></tr>
@@ -312,6 +315,7 @@ The following are the code files created by the amazing people in the community.
 <tr ><td class="file-td td_text">5520.json</td><td class="manufacturer-td td_text">Hisense</td><td class="models-td td_text">AS-07UR4SYDD815G</td><td class="controller-td td_text">LOOKin</td></tr>
 <tr ><td class="file-td td_text">7062.json</td><td class="manufacturer-td td_text">LG</td><td class="models-td td_text">P12RK</td><td class="controller-td td_text">ESPHome</td></tr>
 <tr ><td class="file-td td_text">7065.json</td><td class="manufacturer-td td_text">LG</td><td class="models-td td_text">LG080EC, LG100EC, LG150EC, LG200EC</td><td class="controller-td td_text">ESPHome</td></tr>
+<tr ><td class="file-td td_text">7100.json</td><td class="manufacturer-td td_text">Daikin</td><td class="models-td td_text">FWT-GT</td><td class="controller-td td_text">ESPHome</td></tr>
 <tr ><td class="file-td td_text">7124.json</td><td class="manufacturer-td td_text">Mitsubishi</td><td class="models-td td_text">MSZ-SF25VE3, MSZ-SF35VE3, MSZ-SF42VE3, MSZ-SF50VE3, MSZ-AP20VG, MSZ-AP25VGD</td><td class="controller-td td_text">ESPHome</td></tr>
 <tr ><td class="file-td td_text">7260.json</td><td class="manufacturer-td td_text">Toshiba</td><td class="models-td td_text">RAS-18NKV-E / RAS-18NAV-E</td><td class="controller-td td_text">ESPHome</td></tr>
 <tr ><td class="file-td td_text">7285.json</td><td class="manufacturer-td td_text">Fujitsu</td><td class="models-td td_text">AR-RCE1E</td><td class="controller-td td_text">ESPHome</td></tr>
