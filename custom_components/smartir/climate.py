@@ -852,6 +852,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             )
             and self._current_temperature is not None
             and self._current_temperature < self._target_temperature
+            and HVACMode.HEAT in self._hvac_modes
         ):
             self._hvac_action = HVACAction.HEATING
         elif (
@@ -862,6 +863,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             )
             and self._current_temperature is not None
             and self._current_temperature > self._target_temperature
+            and HVACMode.COOL in self._hvac_modes
         ):
             self._hvac_action = HVACAction.COOLING
         elif (
