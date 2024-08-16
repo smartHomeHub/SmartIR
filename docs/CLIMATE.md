@@ -928,3 +928,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | -----------------| ---------- |
 | [3300](../codes/climate/3300.json) | DI-A series      | Broadlink  |
+
+#### Rinnai
+| Code                               | Supported Models | Controller |
+| ---------------------------------- | -----------------| ---------- |
+| [3320](../codes/climate/3320.json) | Enduro 13<br>Dynamo 15<br>Avenger 25      | Broadlink  |
