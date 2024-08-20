@@ -1,7 +1,7 @@
 {
   "manufacturer":"Atomberg",
   "supportedModels":[
-    "Efficio"
+    "Renesa"
   ],
   "supportedController":"Broadlink",
   "commandsEncoding":"Base64",
