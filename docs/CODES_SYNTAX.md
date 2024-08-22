@@ -6,11 +6,11 @@
 - [You can ask for help at SmartIR Climate (Home Assistant Community)](https://community.home-assistant.io/t/smartir-control-your-climate-tv-and-fan-devices-via-ir-rf-controllers/).
 - If you think something is missing or wrong in the docs and you would like to submit PR with docs amendments you are welcome.
 
-## Device code JSON file
+## Device codes JSON file
 
-If you decide to modify or create your own device file you need to do it in the `custom_code/[climate|fan|media_player|/` directory. Any changes inside `codes` directory will be lost upon SmartIR HACS update!
+If you decide to modify or create your own device file you need to do it in the `custom_codes/[climate|fan|media_player|/` directory. Any changes inside `codes` directory will be lost upon SmartIR HACS update!
 
-- If you need to modify existing file from the `code` directory please copy it into `custom_codes` first.
+- If you need to modify existing file from the `codes` directory please copy it into `custom_codes` first.
 - If you need to create new device file please choose free for digit file name (not used by existing json file int the `codes/your_class` directory) and create json file with given name in the `custom_codes/your_class`
 
 Each different class (Climate, Fan, Media Player) device file has common part and then class specific part. Please take look to some existing files as examples. It is very easy to make error in JSON file structure when editing. Use any available JSON format checker to validate it after editing - for example [JSON Lint](https://jsonlint.com/)
