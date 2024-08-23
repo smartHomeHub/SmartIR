@@ -209,7 +209,6 @@ The following are the code files created by the amazing people in the community.
 <tr ><td class="file-td td_text">1780.json</td><td class="manufacturer-td td_text">Trotec</td><td class="models-td td_text">YX1F6</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1781.json</td><td class="manufacturer-td td_text">Trotec</td><td class="models-td td_text">YX1F</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1782.json</td><td class="manufacturer-td td_text">Trotec</td><td class="models-td td_text">RG57H3(B)/BGCEF-M, PAC 2100 X, PAC 2600 X</td><td class="controller-td td_text">Broadlink</td></tr>
-<tr ><td class="file-td td_text">1783.json</td><td class="manufacturer-td td_text">Trotec</td><td class="models-td td_text">PAC 3500 E</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1800.json</td><td class="manufacturer-td td_text">Ballu</td><td class="models-td td_text">YKR-K/002E</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1820.json</td><td class="manufacturer-td td_text">Riello</td><td class="models-td td_text">WSI XN, RAR-3U4</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1840.json</td><td class="manufacturer-td td_text">Hualing</td><td class="models-td td_text">KFR-45GW/JNV, KFR-45G/JNV</td><td class="controller-td td_text">Broadlink</td></tr>
