@@ -10,8 +10,8 @@
   ],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
-  "minTemperature": 20.0,
-  "maxTemperature": 26.0,
+  "minTemperature": 18.0,
+  "maxTemperature": 30.0,
   "precision": 1.0,
   "operationModes": [
     "cool",
