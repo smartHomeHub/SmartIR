@@ -17,7 +17,7 @@ CHECK_DATA = {
 async def test_json(file_path, docs):
     p = pathlib.Path(file_path)
     path = p.parts
-    if path[0] != "codes":
+    if path[0] != "codes" and path[0] != "custom_codes":
         return True
     file_name = path[-1]
     device_class = path[-2]
