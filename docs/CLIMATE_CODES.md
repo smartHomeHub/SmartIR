@@ -49,7 +49,7 @@ The following are the code files created by the amazing people in the community.
 <tr ><td class="file-td td_text">1102.json</td><td class="manufacturer-td td_text">Daikin</td><td class="models-td td_text">FTV20AXV14</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1103.json</td><td class="manufacturer-td td_text">Daikin</td><td class="models-td td_text">Unknown</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1104.json</td><td class="manufacturer-td td_text">Daikin</td><td class="models-td td_text">TF25DVM</td><td class="controller-td td_text">Broadlink</td></tr>
-<tr ><td class="file-td td_text">1105.json</td><td class="manufacturer-td td_text">Dalkin</td><td class="models-td td_text">FTX12NMVJU</td><td class="controller-td td_text">Broadlink</td></tr>
+<tr ><td class="file-td td_text">1105.json</td><td class="manufacturer-td td_text">Daikin</td><td class="models-td td_text">FTX12NMVJU</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1106.json</td><td class="manufacturer-td td_text">Daikin</td><td class="models-td td_text">ATX20KV1B, ATX25KV1B, ATX35KV1B</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1107.json</td><td class="manufacturer-td td_text">Daikin</td><td class="models-td td_text">FTX25JAV1NB</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1108.json</td><td class="manufacturer-td td_text">Daikin</td><td class="models-td td_text">FTXG25EV1BS, FTXG35EV1BS, FTXG35EV1BW</td><td class="controller-td td_text">Broadlink</td></tr>
@@ -64,6 +64,7 @@ The following are the code files created by the amazing people in the community.
 <tr ><td class="file-td td_text">1117.json</td><td class="manufacturer-td td_text">Daikin</td><td class="models-td td_text">DTXF35TVMA</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1118.json</td><td class="manufacturer-td td_text">Daikin</td><td class="models-td td_text">ARC452A21, FTXS09LVJU, FTXS12LVJU, FTXS15LVJU, FTXS18LVJU, FTXS24LVJU</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1119.json</td><td class="manufacturer-td td_text">Daikin</td><td class="models-td td_text">FTXS60FVMA</td><td class="controller-td td_text">Broadlink</td></tr>
+<tr ><td class="file-td td_text">3101.json</td><td class="manufacturer-td td_text">Daikin</td><td class="models-td td_text">ATXS20G2V1B, ATXS25G2V1B, ATXS35G2V1B, ATXS42G2V1B, ATXS50G2V1B, FTXS20G2V1B, FTXS25G2V1B, FTXS35G2V1B, FTXS42G2V1B, FTXS50G2V1B</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1121.json</td><td class="manufacturer-td td_text">Mitsubishi Electric</td><td class="models-td td_text">MSZ-GA35VA</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1122.json</td><td class="manufacturer-td td_text">Mitsubishi</td><td class="models-td td_text">MSZ-AP50VGKD</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1123.json</td><td class="manufacturer-td td_text">Mitsubishi Electric</td><td class="models-td td_text">SRK25ZSX-SRC25ZSX</td><td class="controller-td td_text">Broadlink</td></tr>
