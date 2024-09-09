@@ -1,30 +1,15 @@
 {
   "manufacturer": "Electrolux",
-  "supportedModels": [
-    "EXP34U338W / YK-H/531E"
-  ],
+  "supportedModels": ["EXP34U338W / YK-H/531E"],
   "supportedController": "ZHA",
   "commandsEncoding": "Raw",
   "minTemperature": 16.0,
   "maxTemperature": 32.0,
   "precision": 1.0,
   "temperatureUnit": "C",
-  "operationModes": [
-    "cool",
-    "auto",
-    "dry",
-    "fan_only"
-  ],
-  "fanModes": [
-    "auto",
-    "low",
-    "medium",
-    "high"
-  ],
-  "swingModes": [
-    "on",
-    "off"
-  ],
+  "operationModes": ["cool", "auto", "dry", "fan_only"],
+  "fanModes": ["auto", "low", "medium", "high"],
+  "swingModes": ["on", "off"],
   "commands": {
     "off": "B0gjmxEqAqkGgAPgBwHAF+ADB+ADAUAX4A8BQBvAA+AHAQJbAirgGAFAO0ABwAfgJwHgLzfgBwFAq0AD4BsBQCdAA+AHAUCLQBdAB+ALAUAX4AMDQAELqQYqAioCKgKpBioC",
     "cool": {
