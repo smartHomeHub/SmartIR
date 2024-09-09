@@ -1,6 +1,12 @@
 {
   "manufacturer": "Mitsubishi Heavy",
-  "supportedModels": ["SRK20ZSA-W", "SRK25ZSA-W", "SRK35ZSA-W", "SRK50ZSA-W", "SRK35ZS-W"],
+  "supportedModels": [
+    "SRK20ZSA-W",
+    "SRK25ZSA-W",
+    "SRK35ZSA-W",
+    "SRK50ZSA-W",
+    "SRK35ZS-W"
+  ],
   "commandsEncoding": "Raw",
   "supportedController": "UFOR11",
   "temperatureUnit": "C",
