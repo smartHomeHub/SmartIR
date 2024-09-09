@@ -145,6 +145,7 @@ The following are the code files created by the amazing people in the community.
 <tr ><td class="file-td td_text">1391.json</td><td class="manufacturer-td td_text">Midea</td><td class="models-td td_text">RG58E3/BGEF</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1392.json</td><td class="manufacturer-td td_text">Midea</td><td class="models-td td_text">MPD-12CRN7</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1394.json</td><td class="manufacturer-td td_text">Midea</td><td class="models-td td_text">RG70C/BGEF (Remote)</td><td class="controller-td td_text">Broadlink</td></tr>
+<tr ><td class="file-td td_text">1395.json</td><td class="manufacturer-td td_text">Midea</td><td class="models-td td_text">RG57A6/BGEF (Remote)</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1400.json</td><td class="manufacturer-td td_text">Samsung</td><td class="models-td td_text">Unknown</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1401.json</td><td class="manufacturer-td td_text">Samsung</td><td class="models-td td_text">AR**HSF/JFS**</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1402.json</td><td class="manufacturer-td td_text">Samsung</td><td class="models-td td_text">AR**TSHGAWK</td><td class="controller-td td_text">Broadlink</td></tr>
