@@ -313,6 +313,7 @@ The following are the code files created by the amazing people in the community.
 <tr ><td class="file-td td_text">4580.json</td><td class="manufacturer-td td_text">Chigo</td><td class="models-td td_text">Unknown</td><td class="controller-td td_text">Xiaomi</td></tr>
 <tr ><td class="file-td td_text">4800.json</td><td class="manufacturer-td td_text">TechnoLux</td><td class="models-td td_text">KFR-25GW/F</td><td class="controller-td td_text">Xiaomi</td></tr>
 <tr ><td class="file-td td_text">5520.json</td><td class="manufacturer-td td_text">Hisense</td><td class="models-td td_text">AS-07UR4SYDD815G</td><td class="controller-td td_text">LOOKin</td></tr>
+<tr ><td class="file-td td_text">6686.json</td><td class="manufacturer-td td_text">Mitsubishi Heavy</td><td class="models-td td_text">SRK20ZSA-W, SRK25ZSA-W, SRK35ZSA-W, SRK50ZSA-W, SRK35ZS-W</td><td class="controller-td td_text">UFOR11</td></tr>
 <tr ><td class="file-td td_text">7062.json</td><td class="manufacturer-td td_text">LG</td><td class="models-td td_text">P12RK</td><td class="controller-td td_text">ESPHome</td></tr>
 <tr ><td class="file-td td_text">7065.json</td><td class="manufacturer-td td_text">LG</td><td class="models-td td_text">LG080EC, LG100EC, LG150EC, LG200EC</td><td class="controller-td td_text">ESPHome</td></tr>
 <tr ><td class="file-td td_text">7100.json</td><td class="manufacturer-td td_text">Daikin</td><td class="models-td td_text">FWT-GT</td><td class="controller-td td_text">ESPHome</td></tr>
