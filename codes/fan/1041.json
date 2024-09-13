@@ -1,19 +1,9 @@
 {
   "manufacturer": "Lucci Air",
-  "supportedModels": [
-    "Whitehaven DC"
-  ],
+  "supportedModels": ["Whitehaven DC"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
-  "speed": [
-   	"1",
-    	"2",
-    	"3",
-	"4",
-	"5",
-	"6",
-	"rhythm"
-  ],
+  "speed": ["1", "2", "3", "4", "5", "6", "rhythm"],
   "commands": {
     "off": "scA0A86eBgALG4UGBwYjCB8JHQoJHh0KCh0JHgodHQodCgodCR4JHQsdHQoJHh0KHAsdCgkeCR0KHgkeCR4dCgkdHgoJHgocCh4JHQodHgoJHR4JCqYKHAoeCR4dCQoeHQkeChwLChweCgkdCxwKHh0JHgoJHgocCh4JHR4KCR4dCR4KHAoLHAoeChwKHQodHQoKHR0KCh0KHgocCh0KHR4JCh0dCgmnCR4KHAodHgkLHB4JHgkeCQoeHQkKHQodCxwdCx0JCh0KHQscCh0dCgkeHQsdCR4KCR0KHQodCh0KHR0KCh0eCQodCR4KHQodCh0dCQsdHQoKpQodCh0KHR4JCh0eCR0KHQoKHR0KCh0KHQodHQodCwkdCh0KHAsdHQoKHB4KHQkeCgkeChwKHgodChweCgocHgoJHgocCh4KHAscHgoKHB4KCaYKHAoeChweCgkeHQkeCh0KChweCgocCx0JHh0JHgoJHQscCh4KHB4KCR4dCR4KHAoLHAoeChwKHQscHgkKHR0KCh0KHgocCh0KHR4JCh0dAATmChwLHAsdHggLHR0JHgoeCQocHgoJHgocCh4cCh4KCR4KHAoeCR0eCQodHQoeCR0LCR0eCQodCh0KHR0KCR4dCgodHgkKHAoeCh0dCgkeHQkKpgodCh0KHR0LChweCR0KHgkKHR0KCR4KHQodHgkdCgkeCh0KHAoeHQkLHR0KHQkeCgkdHgoJHgkdCh0eCgocHgoJHR4JCh4JHQodHQoKHR0KCqULHQodCh0dCgocHgkeCh0JCh4cCwocCh0KHR4JHQsJHQodCh0LHB4JCh0eCR0LHQkKHR0KCh0KHQodHgkKHR0KCh0dCgkeCR4KHB4KChweCgmmCh0LHAodHQoJHh0KHgkdCgodHgkKHAsdCR4dCR4KCR4KHAoeChweCQoeHQkeCh0JCxweCgkdCh0KHh0JCh0dCgodHQsJHQodCh0eCQodHQkKpgsdChwKHR4JCxweCh0JHgkKHhwKCh0KHQodHQodCgkeCh0KHQodHQkKHh0KHQoeCQodHQoJHgodCR4dCQsdHQoKHR0KCR4KHAoeHQkLHRwABdw=",
     "default": {

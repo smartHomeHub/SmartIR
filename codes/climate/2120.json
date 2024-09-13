@@ -1,26 +1,14 @@
 {
   "manufacturer": "Technibel",
-  "supportedModels": [
-    "MPAF13A0R5IAA"
-  ],
+  "supportedModels": ["MPAF13A0R5IAA"],
   "commandsEncoding": "Base64",
   "supportedController": "Broadlink",
+  "temperatureUnit": "C",
   "minTemperature": 10,
   "maxTemperature": 32,
   "precision": 1,
-  "operationModes": [
-    "cool",
-    "heat",
-    "heat_cool",
-    "dry",
-    "fan_only"
-  ],
-  "fanModes": [
-    "auto",
-    "low",
-    "mid",
-    "high"
-  ],
+  "operationModes": ["cool", "heat", "heat_cool", "dry", "fan_only"],
+  "fanModes": ["auto", "low", "mid", "high"],
   "commands": {
     "off": "JgC6ANRmEBoQGhBEEEMQGhBEEBoQQxFDEBoQRBAaEEMQGhBEEEQQGhAZERkQRBBEEBoQGhAZEEQQRBBDERkQGhAaEBoQGhBEEEMQGhAaEBoQGhAaEBkQGhAaEBoQGhAaEEMQRBBEEBoQGhAZEBoQGhAaEBoQGhBDEEQQRBAaEEMRQxAaEBoQGhBEEBkQRBBEEBoQGhAZEBoQGhAaEBoQRBAZEBoQGhAaEEQQGhBDEEQQGhAaEEMQRBBEEAANBQAAAAAAAAAAAAAAAAAA",
     "cool": {

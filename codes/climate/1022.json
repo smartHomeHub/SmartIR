@@ -1,24 +1,14 @@
 {
   "manufacturer": "Panasonic",
-  "supportedModels": [
-    "CS-Z25TK"
-  ],
+  "supportedModels": ["CS-Z25TK"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 16.0,
   "maxTemperature": 30.0,
   "precision": 0.5,
-  "operationModes": [
-    "cool",
-    "heat",
-    "dry"
-  ],
-  "fanModes": [
-    "low",
-    "mid",
-    "high",
-    "auto"
-  ],
+  "operationModes": ["cool", "heat", "dry"],
+  "fanModes": ["low", "mid", "high", "auto"],
   "commands": {
     "off": "JgC8AXQ3EgoQKRIKEgsQDBILEQsPDRANDw0QDRILEgoSJxIKEgsQDBILEgoQDBANDyoSJhInEA0RDA8qEAwSChEMDw0QDRIKEgoQDQ8NEgsSChIKEQwQDQ8ODw0PDRANEgoSChILEAwQDQ8NEgoQDQ8NEwsQDA8NECkSJxAMEA0SChILEQsQAAFFeDQQDA8qEwoSCxAMDw0SCxIKEgsQDBIKEQwSChInEAwSCxILEAwSCxAMEA0PKhEnECkSChANEicQDA8NEgsSChANEgsQDBILEgoPDRILEgoSCxAMDw0QDQ8qEiYSJxANEgsQDBILEicQKBApEicQDBANEgoPDRILEgoSCxIKEA0QKRApEicSJxEnEgsSJhEMEicSJxELEicQKBILEQsQDRANEgoQDQ8NDw0QDQ8NEA0PDRIKEicSJxApEAwRDBILEgoRDBAMEA0PDRIKEicQKRInEgoQDBANDw0QDRANEgoQDQ8NEgsRCxAMEA0PDRILEAwSJxAMDw0RKBENDw0PDRApEgsPDQ8NEA0SChILDw0SChANDw0QDRILEAwSCw8NEgoRKBANDykQKRILECgQDQ8NDwANBQAAAAAAAAAAAAAAAA==",
     "cool": {

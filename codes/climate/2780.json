@@ -1,19 +1,13 @@
 {
   "manufacturer": "Xiaomi",
-  "supportedModels": [
-    "KFR-35G/F3C1"
-  ],
+  "supportedModels": ["KFR-35G/F3C1"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 16.0,
   "maxTemperature": 31.0,
   "precision": 0.5,
-  "operationModes": [
-    "cool",
-    "heat",
-    "dry",
-    "fan_only"
-  ],
+  "operationModes": ["cool", "heat", "dry", "fan_only"],
   "fanModes": [
     "level1",
     "level2",

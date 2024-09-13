@@ -1,15 +1,9 @@
 {
   "manufacturer": "DCG",
-  "supportedModels": [
-    "Unknown"
-  ],
+  "supportedModels": ["Unknown"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
-  "speed": [
-    "low",
-    "medium",
-    "high"
-  ],
+  "speed": ["low", "medium", "high"],
   "commands": {
     "off": "JgBiACoNLAsOKQ4pDikPKBEnDikRJg4pESYq6SoOLAsOKREmESYRJg4pESYRJxEmESYp6i0LLAsQJxEmDikRJg4pDikOKREmESYq6ioNLAsOKREmDikOKQ8oDykOKQ8oDikqAA0FAAAAAAAA",
     "default": {

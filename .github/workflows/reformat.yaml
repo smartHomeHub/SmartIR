@@ -1,0 +1,45 @@
+name: "Reformat"
+
+on:
+  push:
+    branches: [ "master" ]
+  workflow_dispatch:
+ 
+jobs:
+  reformat:
+    name: Reformat
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Reformat Python files
+        uses: psf/black@stable
+        with:
+          options: ""
+
+      - name: Reformat JSON and MD files
+        uses: creyD/prettier_action@v4.3
+        with:
+          prettier_options: --write codes/*/*.json docs/!(*_CODES).md
+          commit_message: ":art: Reformated Python, JSON and MD files"
+          commit_description: ""
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.X"
+
+      - name: Catalog device code files
+        run: |
+          python3 test_device_data.py --docs codes/*/*.json
+
+      - name: Markdown autodocs
+        uses: dineshsonachalam/markdown-autodocs@v1.0.7
+        with:
+          output_file_paths: '[./docs/CLIMATE_CODES.md, ./docs/FAN_CODES.md, ./docs/MEDIA_PLAYER_CODES.md]'
+          commit_message: Update docs - include valid device files

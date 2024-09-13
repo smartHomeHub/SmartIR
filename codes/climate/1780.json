@@ -1,23 +1,14 @@
 {
   "manufacturer": "Trotec",
-  "supportedModels": [
-    "YX1F6"
-  ],
+  "supportedModels": ["YX1F6"],
   "commandsEncoding": "Base64",
   "supportedController": "Broadlink",
+  "temperatureUnit": "C",
   "minTemperature": 16,
   "maxTemperature": 30,
   "precision": 1,
-  "operationModes": [
-    "cool",
-    "dry"
-  ],
-  "fanModes": [
-    "auto",
-    "low",
-    "medium",
-    "high"
-  ],
+  "operationModes": ["cool", "dry"],
+  "fanModes": ["auto", "low", "medium", "high"],
   "commands": {
     "off": "JgCSAAABKZMWNhYSFhEWEhY1FzUXERYSFhEXNRc2FjUWEhcRFRIWERgQFhMWERYRFhMVNhYSFjUWEhYSFxAWEhc1FhEXNRYSFhIXNBgQFgACkRcQFxIVExURFxEXERYRFxIVExYQFxEWExYRFhEWEhcRFhIWERYSFRIWEhYSFRMVEhYSFhEWEhYSFTYXERcRFjUWAA0FAAAAAAAA",
     "cool": {

@@ -1,28 +1,14 @@
 {
   "manufacturer": "Mitsubishi Electric",
-  "supportedModels": [
-    "MSX09-NV II",
-    "MSH-07RV",
-    "MSH-12RV",
-    "MS-24RV"
-  ],
+  "supportedModels": ["MSX09-NV II", "MSH-07RV", "MSH-12RV", "MS-24RV"],
   "commandsEncoding": "Base64",
   "supportedController": "Broadlink",
+  "temperatureUnit": "C",
   "minTemperature": 16,
   "maxTemperature": 31,
   "precision": 1,
-  "operationModes": [
-    "heat_cool",
-    "cool",
-    "dry",
-    "fan_only"
-  ],
-  "fanModes": [
-    "auto",
-    "low",
-    "mid",
-    "high"
-  ],
+  "operationModes": ["heat_cool", "cool", "dry", "fan_only"],
+  "fanModes": ["auto", "low", "mid", "high"],
   "commands": {
     "off": "JgDmAGo4DSwNKw0QDRANEA0sDRANEA0rDSsODw0sDRAMEQ4qDSwNEA0rDioNEA0QDSwNEAwRDSsNEA0QDRANEA0QDREMEA0RDBENEA0QDRANEA0QDRANEA0QDRANEA4PDisNEA0QDRANEA4PDSsODw0QDREMEQwsDSsOKw0QDRANDw0RDSsNLAwRDSsOKg4rDSsNEA0QDRANEA0QDRANEQ0PDhAMEA0QDRENEA0QDg8NEA4PDRANEA0QDRANEA0QDRANEQwRDRAMEQ0QDRANEAwRDRANEA0sDRAMEQwRDRANEA0QDBENAA0FAAA=",
     "heat_cool": {

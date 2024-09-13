@@ -1,17 +1,9 @@
 {
   "manufacturer": "Super Fan",
-  "supportedModels": [
-    "Super Fan A1"
-  ],
+  "supportedModels": ["Super Fan A1"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
-  "speed": [
-    "low",
-    "mediumlow",
-    "medium",
-    "mediumhigh",
-    "high"
-  ],
+  "speed": ["low", "mediumlow", "medium", "mediumhigh", "high"],
   "commands": {
     "off": "JgBgAAABK5YTExEVERQSExEVERQSFBEUEjkROhI5EToRORIUEToSOREUEhQRFBI5EToSExIUEToRORI6ETkSFBEUEjkSOREVEQAFWAABLEsSAAyCAAEtTBEADIQAASxLEgANBQAAAAAAAAAA=",
     "default": {

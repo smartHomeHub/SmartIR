@@ -1,26 +1,14 @@
 {
   "manufacturer": "Carrier",
-  "supportedModels": [
-    "Unknown"
-  ],
+  "supportedModels": ["Unknown"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 17.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "cool",
-    "heat",
-    "dry",
-    "heat_cool",
-    "fan_only"
-  ],
-  "fanModes": [
-    "auto",
-    "low",
-    "medium",
-    "high"
-  ],
+  "operationModes": ["cool", "heat", "dry", "heat_cool", "fan_only"],
+  "fanModes": ["auto", "low", "medium", "high"],
   "commands": {
     "off": "JgDKAI+REzQSERI1EjQSERISETUSERISETUQFBESEjQSNRIREjUSERI0EzQSNRI0EhESNRE1EjUSERETERIREhI1EhESERI1EjQTNBIREhETERIREhESERMRERISNBM0EjQSNRE2EauRjxI1EhESNRE1EBMTERI0ExATERE1EhESEhA2EjUREhA3ERIRNRI1ETUSNRIREjUTMxA3EhETEBMREhESNBMREhERNRM0EjUSERIREhETERIREhESERISETUTNBI0EjURNRIADQUAAAAAAAAAAAAAAAAAAA==",
     "cool": {

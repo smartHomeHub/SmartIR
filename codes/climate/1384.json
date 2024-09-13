@@ -1,23 +1,14 @@
 {
   "manufacturer": "Midea",
-  "supportedModels": [
-    "MSMACU-18HRFN1-QRD0GW"
-  ],
+  "supportedModels": ["MSMACU-18HRFN1-QRD0GW"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 18.0,
   "maxTemperature": 25.0,
   "precision": 1.0,
-  "operationModes": [
-    "heat",
-    "cool"
-  ],
-  "fanModes": [
-    "low",
-    "mid",
-    "high",
-    "auto"
-  ],
+  "operationModes": ["heat", "cool"],
+  "fanModes": ["low", "mid", "high", "auto"],
   "commands": {
     "off": "JgDKAI2QETUREhE1ETYSERIREzMUEBMQEzMTEBQPFDITMxMREjQREhI0EjQSNRE1ERIRNRI0EjUREhESERISERE1EhESEhA2EjQSNBIREhIREhESEhESERIREhERNRE2ETURNRE1EqqQjxI0EhERNhE1EhESERE1EhESEhA2EhESERI0EjQSEhE1EhERNRI0EjURNRISEDUSNRE1EhETEBMREhESMxISEhETMxI0EzMTERMQExATERIREhESEBMREjQTMxMzEzMTNBMADQUAAAAAAAAAAAAAAAA=",
     "heat": {

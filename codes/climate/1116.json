@@ -1,26 +1,15 @@
 {
   "manufacturer": "Daikin",
-  "supportedModels": [
-    "FCQ100KAVEA"
-  ],
+  "supportedModels": ["FCQ100KAVEA"],
   "commandsEncoding": "Base64",
   "supportedController": "Broadlink",
+  "temperatureUnit": "C",
   "minTemperature": 16,
   "maxTemperature": 32,
   "precision": 1,
-  "operationModes": [
-    "cool",
-    "fan_only"
-  ],
-  "fanModes": [
-    "level1",
-    "level2",
-    "level3"
-  ],
-  "swingModes": [
-    "off",
-    "on"
-  ],
+  "operationModes": ["cool", "fan_only"],
+  "fanModes": ["level1", "level2", "level3"],
+  "swingModes": ["off", "on"],
   "commands": {
     "off": "JgBqAQ05DRcNFg0WDToNFg0XDRYNFw05DRcNOQ06DRcMOg06DToNOQ06DRcMOg0XDRYNFg0XDRYNFg06DToNFg0XDRYNFg0XDTkNFw0WDRcNFg0WDRcMFw0WDRcNFg0WDRcNFg0XDDoNOg06DTkNFw0WDRcMAAPDpkYNOgwXDRYNFw05DRcNFg0WDRcNOg0WDToNOQ0XDTkNOg06DToNOQ0XDToMFw0WDRcNFg0WDRcMOg06DRcMFw0WDRcMFw0WDRcNFg0WDRcNFg06DDsMFw0WDToNOg06DBcNFg0XDRYNFg0XDRYNFg0XDRYNFwwXDRYNFww6DRcNFg0WDRcNFg0XDBcNFg0XDRYNFg0XDRYNFwwXDRYNFwwXDRYNOg06DTkNFw06DRYNFg06DRYNOg0WDToNFww6DRcNFgwXDBgNFg0WDRcNFgwYDBcNFg0XDRYNFg06DRYNFw0WDRcNFg0WDToNFg06DRcMAA0F",
     "cool": {

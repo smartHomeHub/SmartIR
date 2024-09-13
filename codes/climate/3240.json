@@ -1,31 +1,15 @@
 {
   "manufacturer": "Casper",
-  "supportedModels": [
-    "SC-09FS32"
-  ],
+  "supportedModels": ["SC-09FS32"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 16.0,
   "maxTemperature": 32.0,
   "precision": 1.0,
-  "operationModes": [
-    "cool",
-    "dry",
-    "heat"
-  ],
-  "fanModes": [
-    "auto",
-    "low",
-    "medium",
-    "high",
-    "turbo"
-  ],
-  "swingModes": [
-    "off",
-    "vertical",
-    "horizontal",
-    "both"
-  ],
+  "operationModes": ["cool", "dry", "heat"],
+  "fanModes": ["auto", "low", "medium", "high", "turbo"],
+  "swingModes": ["off", "vertical", "horizontal", "both"],
   "commands": {
     "off": "JgDYAAABIpUROBE4ERMRExETERMRORA4ETgROBE4ERMRExETETgROBETERMRExETERMSNxE4ETgRExETEhISExETERMRExETERMRExETERMRExE4ERMROBETERMRExETERMRExETERMRExETERMRExETEjcSEhISEhMRExETERMRExUPERMRExETERMRExETERMRExETERMRExETERMRExISEhISExETERMRExETERMRExETERMRExE4ERMROBETERMRExE4ERMROBE4ETgROBETETgROBETEQANBQ==",
     "cool": {

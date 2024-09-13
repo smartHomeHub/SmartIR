@@ -1,8 +1,6 @@
 {
   "manufacturer": "Logitech",
-  "supportedModels": [
-    "Z-5450"
-  ],
+  "supportedModels": ["Z-5450"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
   "commands": {

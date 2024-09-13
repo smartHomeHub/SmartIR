@@ -1,29 +1,14 @@
 {
   "manufacturer": "Hitachi",
-  "supportedModels": [
-    "RAS-E25YHAB",
-    "RAS-E35YHAB",
-    "RAS-E50YHAB"
-  ],
+  "supportedModels": ["RAS-E25YHAB", "RAS-E35YHAB", "RAS-E50YHAB"],
   "commandsEncoding": "Base64",
   "supportedController": "Broadlink",
+  "temperatureUnit": "C",
   "minTemperature": 16,
   "maxTemperature": 32,
   "precision": 1,
-  "operationModes": [
-    "cool",
-    "heat",
-    "dry",
-    "fan_only",
-    "heat_cool"
-  ],
-  "fanModes": [
-    "auto",
-    "high",
-    "med",
-    "low",
-    "quiet"
-  ],
+  "operationModes": ["cool", "heat", "dry", "fan_only", "heat_cool"],
+  "fanModes": ["auto", "high", "med", "low", "quiet"],
   "commands": {
     "off": "JgDMAQAD1QAGb205DSsNDwwPDBANDwwQDA8MDw0QDA8NDwwPDSsNDwwPDBAMEAwQDA8MDw0rDSoNDwwQDQ8MDwwQDBAMEA0ODCsMEA0qDSsMKw0qDSsNKg0PDSoOKQ4PDQ4NDw0ODQ8NDw0ODQ8NKw0qDSoNKw0qDSoOKQ4qDg4NDg4ODSsNDg0PDQ4NDw4pDQ8NDwwrDg4NDg0QDQ4NKg0PDQ8NDg0PDQ4NEA0ODQ8NKg0PDQ8NDg0ODg8NDg0PDQ4NKw0PDSoNDw0PDA8NDg0PDQ8NDw0ODQ8MEA0qDQ8MLA0ODA8NDw0PDBANDg0qDioNDwwPDBAMEAwPDQ8NKw0qDA8NDwwQDBAMDwwQDBAMDw0PDA8NDwwQDQ8MDw0PDBAMEAwPDBAMDwwQDQ8MDw0PDA8NEAwPDQ8MDwwQDBAMEAwPDA8NEAwPDQ8MDw0QDA8NDwwPDBAMEAwQDA8MDw0PDQ8NDwwPDQ8MEAwQDA8MEA0ODg8MDwwPDQ8NDw0PDA8NDwwQDBANDgwQDCsODg0ODQ8MDw0QDA8NDw0ODRANDgwQDA8NDwwQDQ4NDw0ODRANDg0PDQ4NDwwQDBANDg0rDCsNKg0PDg4NKg0ADQU==",
     "cool": {

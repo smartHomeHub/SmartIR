@@ -1,27 +1,14 @@
 {
   "manufacturer": "Mitsubishi Heavy",
-  "supportedModels": [
-    "DXK12Z3-S",
-    "DXK09Z5-S",
-    "DXK15Z5-S"
-  ],
+  "supportedModels": ["DXK12Z3-S", "DXK09Z5-S", "DXK15Z5-S"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 18.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "heat",
-    "cool",
-    "dry",
-    "fan_only"
-  ],
-  "fanModes": [
-    "auto",
-    "high",
-    "mid",
-    "low"
-  ],
+  "operationModes": ["heat", "cool", "dry", "fan_only"],
+  "fanModes": ["auto", "high", "mid", "low"],
   "commands": {
     "off": "JgC2AGU1DA8LKAwODA8LKAwODCgMDgwODCgMKAwoDA4MKQsODCgMKAwoDA4MDgwODA4MKAwoDA4MKAwoDA4MDgwoDA4MDgwoDwsMDgwoDCgNDQwoDScNJw0NDScNJw0nDScPJg0mDgwOJg0ODQ0NDA0ODA4MDgwoDScNJg4mDyUPDA0NDSYODQwODQ0MDgwODScNJwwODQ0NJg8mDiYOJg4MDScNDQ0nDQ0NDQ0NDQ0NJw4MDScNAA0F",
     "heat": {
@@ -69,21 +56,6 @@
         "28": "JgC2AGczDg0OJQ8LDwsPJQ8LDyUPCw8LDyUOJg4mDgwPJQ0NDiYNJw0nDQ0ODA4MDQ0NKAwnDQ0NJw0nDQ0NDQ0nDQ0NDQ0nDQ0NDQ0nDScNDQ0nDScNJw8LDScNJw0nDScNJw0nDQ0NJw0NDQ0NDQ0NDQ0NDQ0nDScNKA4lDyUNDQ0NDScNDQ0NDQ0NDQ0NDScNJw0NDScNJw8LDQ4MDQ0NDScPCw0NDQ0NJw0oDCcNKAwNDSgMAA0F",
         "29": "JgC2AGgyDwsNJxALDA4MJw0ODCgMDgsPCykLKQspCw8LKQsPCykLKQspCw8MDgsPCw8LKQwoDA4RIwwoDA4MDgwoDA4MDgwoDA4MDgwoDCgMDgwoDCgMKAwODCgMKAwoDCgMKAwoDA4MKAwODA4MDgwODA8LDgwoDCgMKAwoDCgMDgwODCgMDgwPCw4MDgwPCygMKAwPCygMKAwODA8LKAwoDA8LDgwPCw8LKAwoDA8LDgwoDCgMAA0F",
         "30": "JgC2AGczDgwOJg4MDgwOJg4MDiYODA4MDiYOJg4mDgwOJg4MDiYOJg4mDgwODA4MDgwOJg4mDgwOJg4mDgwODA4mDgwODA4mDgwODA4mDiYODA4mDiYOJg4MDiYPJQ8lDyUPJQ8lDwsPJQ8LDwsPCw8LDwsPCw8lDyUPJQ8lDyUPCw8LDyUPCw8MDgsPCw8LDyUPJQ8LDyUPJQ8LDwsPCw8lDwsPCw8LDwsPJQ8lDyUPCw8lDyUPAA0F"
-      },
-      "low": {
-        "18": "",
-        "19": "",
-        "20": "",
-        "21": "",
-        "22": "",
-        "23": "",
-        "24": "",
-        "25": "",
-        "26": "",
-        "27": "",
-        "28": "",
-        "29": "",
-        "30": ""
       }
     },
     "cool": {

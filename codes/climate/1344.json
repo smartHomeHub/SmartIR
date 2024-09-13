@@ -1,34 +1,15 @@
 {
   "manufacturer": "Tadiran",
-  "supportedModels": [
-    "Remote Control YB1FA",
-    "Tadiran Inverter"
-  ],
+  "supportedModels": ["Remote Control YB1FA", "Tadiran Inverter"],
   "commandsEncoding": "Base64",
   "supportedController": "Broadlink",
+  "temperatureUnit": "C",
   "minTemperature": 16,
   "maxTemperature": 30,
   "precision": 1,
-  "operationModes": [
-    "auto",
-    "cool",
-    "dry",
-    "fan_only",
-    "heat"
-  ],
-  "fanModes": [
-    "auto",
-    "low",
-    "med",
-    "high",
-    "turbo"
-  ],
-  "swingModes": [
-    "static",
-    "swing",
-    "top",
-    "bottom"
-  ],
+  "operationModes": ["auto", "cool", "dry", "fan_only", "heat"],
+  "fanModes": ["auto", "low", "med", "high", "turbo"],
+  "swingModes": ["static", "swing", "top", "bottom"],
   "commands": {
     "off": "JgCSAAABI5IWNRYRFhIWERYRFhIWERYSFjUWERYSFjUWERYRFxEWERYSFhEWERYSFhEWNRY1FzUWERYRFhIWERY1FhIWNRYRFhIWNRYRFgACjhYRFhEWEhYRFhEXERYRFhIWERYRFhIWERYRFjYWERYRFhIWERYRFhIWERYSFhEWERYSFhEWERYSFhEWNRY1FxEWAA0F",
     "auto": {
@@ -944,76 +925,6 @@
           "28": "JgCSAAABI5EXERY1FxAXNRY1FxAXERYRFxAXERY1FzQXERYRFxAXERYRFxAXERYRFxEWNRY1FxAXERYRFxEWERc0FxEWNRYRFxAXNRYRFwACjBcRFzQXNBcRFhEXERYRFxAXERYRFxAXERYRFzQXERYRFxAXERYRFxEWERcQFxEWERcQFxEWERcRFhEXNBcRFxAXAA0F",
           "29": "JgCSAAABI5EXERY1FhEXNBc1FhEXEBcRFjUXEBc0FzUXEBcRFhEXEBcRFhEXEBcRFhEXNBc1FhEXEBcRFhEXERY1FhEXNBcRFhEXNBcRFgACjRcRFjUWNhYQFxEWERcQFxEXEBcRFhEXEBcRFjUXEBcRFhEXEBcRFhEXEBcRFxAXERYRFxAXERYRFzQXNRYRFxAXAA0F",
           "30": "JgCSAAABJJEXEBc1FhEXNBc0FxEXEBcRFhEXNBc0FzUWERcQFxEXEBcRFhEXEBcRFhEXNBc0FxEXEBcRFhEXEBc1FhEXNBcRFhEXNBcRFgACjRcQFzQXNRcQFxEWERcQFxEWERcQFxEWERcRFjUXEBcRFhEXEBcRFhEXEBcRFhEXEBcRFxAXERYRFxAXERY1FxAXAA0F"
-        }
-      },
-      "turbo": {
-        "static": {
-          "16": "",
-          "17": "",
-          "18": "",
-          "19": "",
-          "20": "",
-          "21": "",
-          "22": "",
-          "23": "",
-          "24": "",
-          "25": "",
-          "26": "",
-          "27": "",
-          "28": "",
-          "29": "",
-          "30": ""
-        },
-        "swing": {
-          "16": "",
-          "17": "",
-          "18": "",
-          "19": "",
-          "20": "",
-          "21": "",
-          "22": "",
-          "23": "",
-          "24": "",
-          "25": "",
-          "26": "",
-          "27": "",
-          "28": "",
-          "29": "",
-          "30": ""
-        },
-        "top": {
-          "16": "",
-          "17": "",
-          "18": "",
-          "19": "",
-          "20": "",
-          "21": "",
-          "22": "",
-          "23": "",
-          "24": "",
-          "25": "",
-          "26": "",
-          "27": "",
-          "28": "",
-          "29": "",
-          "30": ""
-        },
-        "bottom": {
-          "16": "",
-          "17": "",
-          "18": "",
-          "19": "",
-          "20": "",
-          "21": "",
-          "22": "",
-          "23": "",
-          "24": "",
-          "25": "",
-          "26": "",
-          "27": "",
-          "28": "",
-          "29": "",
-          "30": ""
         }
       }
     },

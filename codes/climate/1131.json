@@ -1,24 +1,14 @@
 {
   "manufacturer": "Mitsubishi Electric",
-  "supportedModels": [
-    "PAR-FL32MA"
-  ],
+  "supportedModels": ["PAR-FL32MA"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 19.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "cool",
-    "dry",
-    "fan_only"
-  ],
-  "fanModes": [
-    "low",
-    "mid",
-    "high",
-    "highest"
-  ],
+  "operationModes": ["cool", "dry", "fan_only"],
+  "fanModes": ["low", "mid", "high", "highest"],
   "commands": {
     "off": "JgAWAWI1DSkMKA4NEAsNDQ0pDQ4ODA0oDSgNDg8mDQ0ODRAmDCkPCxAlDSkNDQ8LDigNDg4MDSgODQ8LDg0QCxAlDQ0QCxALDQ0NDg8MDwsODA4NEAsNDg4MDQ4PCw8MDgwODRALDyYNDRALEAsODA0ODg0OJg4oDSgNDg4MDyYOKA0ODgwNDRALDyYNDg8MDwsPCw4NEAsODQ4MDQ4PCw8MDgwNDhALDwwODA0NEAsPDA4MDQ4PJg0oDSkMKQ0oDSgNKQwoDg0QJQ0oDicOKA0oDSgODQ4MDQ4QJgwoDg0PDA4nDicNKA0pDA4NKA4nDSkNKA0oDSgNKA4nDigNKA0oDicNKQ0oDSgNKA0oDicOKA0oDSgOAA0FAAA=",
     "cool": {

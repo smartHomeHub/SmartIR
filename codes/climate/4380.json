@@ -1,26 +1,14 @@
 {
   "manufacturer": "Midea",
-  "supportedModels": [
-    "MCD-24HRN1-Q1"
-  ],
+  "supportedModels": ["MCD-24HRN1-Q1"],
   "supportedController": "Xiaomi",
   "commandsEncoding": "Raw",
+  "temperatureUnit": "C",
   "minTemperature": 17.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "heat",
-    "cool",
-    "heat_cool",
-    "dry",
-    "fan_only"
-  ],
-  "fanModes": [
-    "low",
-    "mid",
-    "high",
-    "highest"
-  ],
+  "operationModes": ["heat", "cool", "heat_cool", "dry", "fan_only"],
+  "fanModes": ["low", "mid", "high", "highest"],
   "commands": {
     "off": "Z6XHACMCAABkBgAAKhEAAH8UAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiEAAQEAAAEAAAEAAAEBAAEAAQEBAQABAQEAAAAAAQAAAQEBAAAAAAAAAAABAQEBAQMCIQABAQAAAQAAAQAAAQEAAQABAQEBAAEBAQAAAAABAAABAQEAAAAAAAAAAAEBAQEBAA",
     "heat": {

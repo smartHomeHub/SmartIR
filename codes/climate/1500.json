@@ -1,24 +1,14 @@
 {
   "manufacturer": "Sanyo",
-  "supportedModels": [
-    "Unknown"
-  ],
+  "supportedModels": ["Unknown"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 18,
   "maxTemperature": 30,
   "precision": 1,
-  "operationModes": [
-    "heat",
-    "cool",
-    "fan_only"
-  ],
-  "fanModes": [
-    "low",
-    "med",
-    "high",
-    "auto"
-  ],
+  "operationModes": ["heat", "cool", "fan_only"],
+  "fanModes": ["low", "med", "high", "auto"],
   "commands": {
     "off": "JgDGAG82DQ4PDA8NDg0PDA8NDycNDw4NDwwPDA8NDwwPDA8NDwwPDA8NDycNDhAnDQ4PDQ8MDygNDg8MDwwPDQ8MDwwPKA0qDQ4PKA0ODwwPKA0ODwwPKA4NDw0PJw4ODwwPDA8oDA8PKAwqDg4PDA8nDg4PDA8oDA8PKAwqDQ8OKA0qDSkNDw4NDQ4PDQ4NDwwPDA8NDQ4NDg8NDg0PDA4ODg0PDA0qDSkOKQ4NDw0NDg4NDg4ODQ4NDikNKQ4ODg0OKQwPDgANBQAA",
     "heat": {

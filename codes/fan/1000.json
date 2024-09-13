@@ -1,18 +1,9 @@
 {
   "manufacturer": "Kaze",
-  "supportedModels": [
-    "Unknown"
-  ],
+  "supportedModels": ["Unknown"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
-  "speed": [
-    "lowest",
-    "low",
-    "mediumLow",
-    "medium",
-    "mediumHigh",
-    "high"
-  ],
+  "speed": ["lowest", "low", "mediumLow", "medium", "mediumHigh", "high"],
   "commands": {
     "off": "sgA0ARsLGgsbCxoLGwsbGA4YDRgOCxsLGwobGA4AATgOGA4LGgsbGA4LGxgNCxsLGwsaCxsLGwobGA4YDgsaGA4LGwsbChsLGwsaCxsLGwsaCxsLGxgOFw4YDgsbCxoLGxgOAAE3DRgOCxsLGxgNCxsYDgsaCxsLGwsaCxsLGxcOGA4LGxgNCxsLGwsbChsLGwsbChsLGwsbCxoYDhgNGA4LGwsaCxsYDgABNw4YDgsaCxsYDgobGA4LGwsaCxsLGwsbChsYDhgNDBoYDgsbCxoLGwsaCxsLGwsbCxoLGwsbGA0YDhgOCxoLGwsbGA4AATkNGQ0LGwsbFw4LGxgNDBoLGwsbChsLGwsbGA0YDgsbGA0LGwsbCxsLGgsbCxsKGwsbCxsKGxgOGA4XDgsbCxsLGhgOAAXcAAAAAA==",
     "reverse": {

@@ -1,23 +1,14 @@
 {
   "manufacturer": "Hisense",
-  "supportedModels": [
-    "Unknown"
-  ],
+  "supportedModels": ["Unknown"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 18.0,
   "maxTemperature": 32.0,
   "precision": 1.0,
-  "operationModes": [
-    "cool",
-    "heat"
-  ],
-  "fanModes": [
-    "auto",
-    "low",
-    "medium",
-    "high"
-  ],
+  "operationModes": ["cool", "heat"],
+  "fanModes": ["auto", "low", "medium", "high"],
   "commands": {
     "off": "JgD4AAABFYkUEBM1FDUUEBQ1ExETNRQRExETERM1FDUUNBQ1FDUUEBQQFBAUEBQQFBAUEBQQFBAUEBQQFBAUEBQQFBAUEBQQFBAUEBQQFBAUNRQQFBAUEBQQFBAUEBQQFBAUEBQ1EzYTERMRExETERMRExETEBQRExETERMRExETERMRExETERQQFBATERMRExETERMRExEUEBQQFBAUEBQQExETERMRFBAUEBQQFBAUEBQQFBAUEBQQFBAUEBQQFBAUEBQQFBAUEBQQFBAUEBQQFBAUEBQRExAUEBQQFBAUEBQQFBAUERM1FDUUEBM1FBAUNRQQFBAUAA0F",
     "cool": {

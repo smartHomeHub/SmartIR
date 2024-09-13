@@ -1,27 +1,15 @@
 {
   "manufacturer": "Devanti",
-  "supportedModels": [
-    "WAC-05C-WH"
-  ],
+  "supportedModels": ["WAC-05C-WH"],
   "commandsEncoding": "Base64",
   "supportedController": "Broadlink",
+  "temperatureUnit": "C",
   "minTemperature": 16,
   "maxTemperature": 31,
   "precision": 1,
-  "operationModes": [
-    "cool",
-    "fan_only"
-  ],
-  "fanModes": [
-    "auto",
-    "low",
-    "medium",
-    "high"
-  ],
-  "swingModes": [
-    "static",
-    "swing"
-  ],
+  "operationModes": ["cool", "fan_only"],
+  "fanModes": ["auto", "low", "medium", "high"],
+  "swingModes": ["static", "swing"],
   "commands": {
     "off": "JgDMAWEzEiIRIxEJEgkSCRIjEQkSCRIiEiISCBMiEggSCRIjESMRCRIjESMRCRIJEiISCBMIEgkSIxEJEgkSCRIIEwgSCRIJEgkSCRIIEwgSCRIJEgkSCRIJEggTCBIJEgkSIxEJEgkSCBMIEgkSCRIJEgkSCRIIEgkSCRIJEgkSCRIIEwgSCRIJEgkSCRIJEggSCRIJEgkSCRIJEggTCBIJEgkSCRIJEgkSCBIJEgkSCRIJEgkSCBIJEgkSCRIJEgkSCRIIEgkSCRIJEgkSCRIIEgkSCRIjEQkSIxEJEgkSIhIiEgkSAAjsZjMRIxEjEQkSCRIJEiMRCRIJESMSIhIJESMRChEJEiMRIxEJEiMRIxEJEgkSIxEJEgkRIxEJEgkSCRIJEgkSCREKEQkSCRIJEgkSCREKEQoRCRIJEgkSCRIJEQoRJBAJEgkSCRIJEgkRIxEKEQoRCRIJEiMRIxEJEgkRChEKEQkSCRIJEiMRCREKEQoRCRIJEgkSCRIJEQoRChEJEgkSCRIJEQoRChEJEgkSCRIJEgkRChEKEQkSCRIJEgkRChEKEQkSCRIJEgkSCREKEQkSCRIJEgkSIxEJEQoRChEJEiMRCRIADQUAAAAAAAAAAAAAAAA=",
     "cool": {

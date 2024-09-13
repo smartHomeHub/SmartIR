@@ -1,26 +1,14 @@
 {
   "manufacturer": "Tosot",
-  "supportedModels": [
-    "T09H-SJ"
-  ],
+  "supportedModels": ["T09H-SJ"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 16.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "heat",
-    "cool",
-    "dry",
-    "fan_only",
-    "heat_cool"
-  ],
-  "fanModes": [
-    "low",
-    "medium",
-    "high",
-    "auto"
-  ],
+  "operationModes": ["heat", "cool", "dry", "fan_only", "heat_cool"],
+  "fanModes": ["low", "medium", "high", "auto"],
   "commands": {
     "off": "JgCSAAABJ5QSNhISEhISEhISEhISNhISEhISNhISEjYSEhISEhISEhISEhISEhISEhISNhI2EjYSEhISEhISEhI2EhISNhISEhISNhISEgACkBI2EhISEhISEhISEhISEhISEhI2EhISEhISEjYSEhISEhISEhISEhISEhISEhISEhISEhISEhISEjYSNhI2EhISAA0FAAAAAAAA",
     "heat": {

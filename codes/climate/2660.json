@@ -1,26 +1,14 @@
 {
   "manufacturer": "Hyundai",
-  "supportedModels": [
-    "HSE09PH5V"
-  ],
+  "supportedModels": ["HSE09PH5V"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
-  "minTemperature": 18,
+  "temperatureUnit": "C",
+  "minTemperature": 16,
   "maxTemperature": 30,
   "precision": 1,
-  "operationModes": [
-    "heat",
-    "cool",
-    "heat_cool",
-    "dry",
-    "fan_only"
-  ],
-  "fanModes": [
-    "low",
-    "mid",
-    "high",
-    "auto"
-  ],
+  "operationModes": ["heat", "cool", "heat_cool", "dry", "fan_only"],
+  "fanModes": ["low", "mid", "high", "auto"],
   "commands": {
     "off": "JgB4AGwAAScVMhgQGBAZEBgQGBAYEBkQFBQUMhgQGRAYEBguGRAYEBguGC8YLhguFhMYLhgQGS4YLhcRGRAYEBgQGBAZDxkQGBAYEBgQGRAYLhgQGRAYLhguFhMYLhguFRQYEBgQGBAZEBgQGC4VExkQGBAYLhkuFQANBQ==",
     "heat": {

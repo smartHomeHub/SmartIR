@@ -1,8 +1,6 @@
 {
   "manufacturer": "Yamaha",
-  "supportedModels": [
-    "AS201"
-  ],
+  "supportedModels": ["AS201"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
   "commands": {

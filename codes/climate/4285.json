@@ -1,27 +1,14 @@
 {
   "manufacturer": "Fujitsu",
-  "supportedModels": [
-    "AR-RCE1E"
-  ],
+  "supportedModels": ["AR-RCE1E"],
   "supportedController": "Xiaomi",
   "commandsEncoding": "Raw",
+  "temperatureUnit": "C",
   "minTemperature": 16.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "heat",
-    "cool",
-    "dry",
-    "fan_only",
-    "heat_cool"
-  ],
-  "fanModes": [
-    "auto",
-    "high",
-    "med",
-    "low",
-    "quiet"
-  ],
+  "operationModes": ["heat", "cool", "dry", "fan_only", "heat_cool"],
+  "fanModes": ["auto", "high", "med", "low", "quiet"],
   "commands": {
     "off": "mczm82lkxm82nEsmkxADKazAAfJjMpxNgEPAQ0AfwIIAp8AfwKfAh8AfwB/AH8AfwB/B58BjwB/AH8EDwGPAH8CjwIPAH8DjxePEt8AjwCPAISYQAA==",
     "heat": {

@@ -1,24 +1,14 @@
 {
   "manufacturer": "Ggeneral Electric",
-  "supportedModels": [
-    "Unknown"
-  ],
+  "supportedModels": ["Unknown"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 16.0,
   "maxTemperature": 32.0,
   "precision": 1.0,
-  "operationModes": [
-    "cool",
-    "heat",
-    "fan_only"
-  ],
-  "fanModes": [
-    "low",
-    "mid",
-    "high",
-    "highest"
-  ],
+  "operationModes": ["cool", "heat", "fan_only"],
+  "fanModes": ["low", "mid", "high", "highest"],
   "commands": {
     "off": "JgDYAAABJpUTOBM4EhMSExMSExITOBI6EjkSOBM5EhMSEhMTEjkSOhE5EhMTExETEzgTExETExMSORI5EhMSORI5EhMSExITExMRExMTERMTExM4EToSExMSEhMTEhITEhMSExITEhMTExETExMSEhMTEjkRExMTEhMSExITExISExMSEhMSFBISExMSEhMTEhITExISExMTEhITEhMSExITEhMSExITExMRExMTEhITExISExMRFBQ3EhMSORITEhMSExITEhMTORI5ERMTOBM4EzkSExITFAANBQ==",
     "cool": {

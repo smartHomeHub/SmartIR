@@ -1,27 +1,14 @@
 {
   "manufacturer": "Ggeneral Electric",
-  "supportedModels": [
-    "ASHA09LCC"
-  ],
+  "supportedModels": ["ASHA09LCC"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
-  "minTemperature": 18.0,
+  "temperatureUnit": "C",
+  "minTemperature": 16.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "auto",
-    "cool",
-    "dry",
-    "fan_only",
-    "heat"
-  ],
-  "fanModes": [
-    "auto",
-    "quiet",
-    "low",
-    "mid",
-    "high"
-  ],
+  "operationModes": ["auto", "cool", "dry", "fan_only", "heat"],
+  "fanModes": ["auto", "quiet", "low", "mid", "high"],
   "commands": {
     "off": "JgB2AG4zEAwODQ4nDw0NKA4NDg0ODQ4nDigODQ4NDg0OJw8nDg4NDQ4NDg0ODQ0PDA4NDwwPDA8MDwwPDA4MKA4ODQ8MEAsRChEJEgkSCSgODQ4MDwwPDA8nDwwODQ4NDgwPDA8MDycODQ4oDicPJw8nDigOJw8ADQUAAA==",
     "auto": {

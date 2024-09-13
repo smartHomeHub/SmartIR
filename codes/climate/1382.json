@@ -1,26 +1,14 @@
 {
   "manufacturer": "Midea",
-  "supportedModels": [
-    "MSY-12HRDN1"
-  ],
+  "supportedModels": ["MSY-12HRDN1"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 17.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "heat",
-    "cool",
-    "heat_cool",
-    "fan_only",
-    "dry"
-  ],
-  "fanModes": [
-    "low",
-    "mid",
-    "high",
-    "auto"
-  ],
+  "operationModes": ["heat", "cool", "heat_cool", "fan_only", "dry"],
+  "fanModes": ["low", "mid", "high", "auto"],
   "commands": {
     "off": "JgDKAJGOEzUTERM0FDQUEBQQEzQUEBQQFDMUEBQQFDQUMxQQFDQUEBQzFDQUMxQ0FBAUMxQ0FDQUEBMQFBAUEBQ0FBAUEBQzFDQUMxQQFBAUEBQQFBAUEBQQFBATNBQ0FDMUNBQzFKmSjRQ0FBAUMxQ0FBAUEBQzFBAUEBQ0FBAUEBM0FDQUEBQzFBAUNBQzFDQUMxQQFDQUMxQ0FBAUEBQQFA8UNBQQFBAUMxQ0FDMVDxQQFBAUEBQQFBAUEBQQFDMUNBQzFDQUNBQADQUAAAAAAAAAAAAAAAAAAA==",
     "heat": {

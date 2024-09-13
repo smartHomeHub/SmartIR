@@ -1,26 +1,14 @@
 {
   "manufacturer": "Springer",
-  "supportedModels": [
-    "Split Hi Wall Maxiflex"
-  ],
+  "supportedModels": ["Split Hi Wall Maxiflex"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 17.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "heat",
-    "cool",
-    "heat_cool",
-    "dry",
-    "fan_only"
-  ],
-  "fanModes": [
-    "low",
-    "mid",
-    "high",
-    "auto"
-  ],
+  "operationModes": ["heat", "cool", "heat_cool", "dry", "fan_only"],
+  "fanModes": ["low", "mid", "high", "auto"],
   "commands": {
     "off": "JgDKAIyQETYREhE2ETYREhETETURExESETYREhISETYRNRETETYREhE2ETURNhE2ERIRNhE2ETUSEhESERMREhE2ERISEhE2ETURNhETERIREhISERIRExESERMRNhE1ETYRNBM1EKyOjxE1ERMRNRE2ERISEhE2ERIRExE1EhIREhE2ETYREhE2ERMRNRE2ETYQNhETETURNhE2ERIRExESERMRNRETERISNRE0EzYREhETERIREhETERISEhESETYRNhE1ETYRNhAADQUAAAAAAAAAAAAAAAAAAA==",
     "heat": {

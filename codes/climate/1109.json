@@ -1,24 +1,14 @@
 {
   "manufacturer": "Daikin",
-  "supportedModels": [
-    "BRC4C158"
-  ],
+  "supportedModels": ["BRC4C158"],
   "commandsEncoding": "Base64",
   "supportedController": "Broadlink",
+  "temperatureUnit": "C",
   "minTemperature": 16,
   "maxTemperature": 32,
   "precision": 1,
-  "operationModes": [
-    "fan_only",
-    "dry",
-    "cool",
-    "heat"
-  ],
-  "fanModes": [
-    "low",
-    "medium",
-    "high"
-  ],
+  "operationModes": ["fan_only", "dry", "cool", "heat"],
+  "fanModes": ["low", "medium", "high"],
   "commands": {
     "off": "JgBsAaVGDDoMFw4WDBcPOAwXDhYOFQ4WDTkNFww7DDoNFw06DDoNOg06DToMFw45DRcNFg4VDhYOFQ0XDTkNOg0XDRYOFQ4WDhUOOQ0WDRcOFQ4WDxQPFQwXDhUOFg4VDhYNFg4VDRcMOw05DToNOg0WDxUPFA4AA8SmRQ06DBcPFQ0WDjkMFw4WDBcOFgw6DRcNOgw6DRcOOQw6DToNOg06DRYPOA0WDRcNFg4WDBcNFw44DToNFw0WDhUNFw8UDxUNFg0WDxUOFQ4WDDoNOg0XDhUOFg0WDToNFg4WDRYPFA4WDRYNFw4VDxQOFg4VDhYMFw4VDhYOFQ4WDBgNFg4VDhUOFgwXDhYMFw4VDxUOFQ4WDRYNFg4WDhUNFw0WDhUPFQw7DBcNFwwXDhUOOQ45DRYPOA0XDRYOFQ4WDhUOFg0WDhYNFg4VDxUNFg4VDhYOFQ4WDToMFw4VDjkNOg0WDRcOFQ45DRYOOQ0ADQUAAAAAAAAAAAAA",
     "fan_only": {

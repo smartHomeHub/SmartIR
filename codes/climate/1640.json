@@ -1,26 +1,14 @@
 {
   "manufacturer": "FUJIKO",
-  "supportedModels": [
-    "Unknown"
-  ],
+  "supportedModels": ["Unknown"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 16.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "cool",
-    "heat",
-    "dry",
-    "fan_only",
-    "heat_cool"
-  ],
-  "fanModes": [
-    "low",
-    "mid",
-    "high",
-    "auto"
-  ],
+  "operationModes": ["cool", "heat", "dry", "fan_only", "heat_cool"],
+  "fanModes": ["low", "mid", "high", "auto"],
   "commands": {
     "off": "JgBOAAABJ5IVNxIVEhUSFRU3FRIUNxUSExQVNhYRFRITFBMUFhETFBMUExQTFBMUFRITFBM5FRISFRIVFRISFRI5FhETORMUFRIVNxUSEwANBQAAAAAAAAAAAAA=",
     "cool": {

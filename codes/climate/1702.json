@@ -20,23 +20,12 @@
   ],
   "commandsEncoding": "Base64",
   "supportedController": "Broadlink",
+  "temperatureUnit": "C",
   "minTemperature": 16,
   "maxTemperature": 30,
   "precision": 1,
-  "operationModes": [
-  	"heat_cool",
-    "cool",
-    "heat",
-    "fan_only",
-    "dry"
-  ],
-  "fanModes": [
-    "auto",
-    "low",
-    "medium",
-    "high",
-    "turbo"
-  ],
+  "operationModes": ["heat_cool", "cool", "heat", "fan_only", "dry"],
+  "fanModes": ["auto", "low", "medium", "high", "turbo"],
   "commands": {
     "off": "JgAIAY6SFhEWEhYyFhIWEhYxFxEXERYyFhIWEhYQFxEWMhcRFhIWERYRFxEWEhYRFjMXMRYSFhAXERcRFhIVEhYRFhIWERYSFhIWEBcRFxEWERYSFhEWMhcRFhIWERYSFhEWERcRFhIWMhYyFjMWEhYRFjIXMRcABSQAASiVFRIWExUTFBMVNxU3FhIWEhU3FRMVEhUTFhMUExUTFRMUExYSFhIVExUTFDgVEhYTFhEVExUTFRIWNhYTFjYVEhUTFzUWEhcAApEVExQTFRMWEhYSFRMVEhUTFTcWEhYSFRMVExQTFhIWEhUTFRMUExYSFhMUExUTFRMUExYSFhIVExc1FTcVEhY2GAANBQ==",
     "heat_cool": {

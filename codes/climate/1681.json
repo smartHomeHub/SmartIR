@@ -1,25 +1,14 @@
 {
   "manufacturer": "Mitsubishi Heavy",
-  "supportedModels": [
-    "SRK71ZK-S"
-  ],
+  "supportedModels": ["SRK71ZK-S"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 18.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "cool",
-    "heat",
-    "dry"
-  ],
-  "fanModes": [
-    "ultralow",
-    "low",
-    "med",
-    "high",
-    "auto"
-  ],
+  "operationModes": ["cool", "heat", "dry"],
+  "fanModes": ["ultralow", "low", "med", "high", "auto"],
   "commands": {
     "off": "JgC2AGkzDg0NJw0NDgwOJw0NDScODA4MDicNJw0lEA0NJw0NDScOJw0nDQ0NDQ4MDg0NJw0nDgwOJw0nDQ0NDQ4nDQ0NDQ0nDgwODA4nDScNDQ4nDScNJw4mDicNJw0nDicNJw0nDgwODQ0NDQ0NDQ0NDgwODQ0nDScOJg4nDScODA4nDScNDQ0NDgwODA4NDScNDQ4MDgwOJw0nDScODA4NDQ0NJw4mDg0NDQ0NDScOJw0nDQ0NAA0FAAA=",
     "cool": {

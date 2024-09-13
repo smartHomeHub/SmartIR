@@ -9,19 +9,12 @@
   ],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 16.0,
   "maxTemperature": 32.0,
   "precision": 1.0,
-  "operationModes": [
-    "heat",
-    "cool"
-  ],
-  "fanModes": [
-    "high",
-    "low",
-    "mid",
-    "auto"
-  ],
+  "operationModes": ["heat", "cool"],
+  "fanModes": ["high", "low", "mid", "auto"],
   "commands": {
     "off": "JgBWAm42DigPDg4ODw4PDg4PDg4PDg8ODw4ODw4PDicPDg8ODw4PDg4ODw4PDg8ODg8ODg8ODw4PDg8ODg8ODg8ODycPDg8nDycOKA4oDigOJxANDycPJw8nDycPJw4oDigPJw4oDg4PDg8ODw4ODw4ODw4PDg8ODw4OKA4oDg4PDg8nDycPJw8nDg8ODw4nDycPDg8ODw4OKA4PDg8OJw8ODw4OKA4oDg8OKA4nDw4PJw8nDw4OKA8nDg8ODg8nDw4PDg4PDg8ODg8nDycPDg8nDigOKA4PDg4PJw8nDycPJw8nDw4OKA4oDg4PDg8ODw4ODw4oDg8ODg8ODw4ODw4ODw8ODg8nDycPJw8nDigPJw4oDigODg8ODw4PDg4PDg4PDg8ODycPJw8nDycOKA8mDycQJg8ODw4PDg4PDg4PDg8ODw4PJw4oDigOKA4nDycPJxAmDw4PDg4PDg8ODg8ODw4ODw4oDigPJw4nDycPJw8nDycPDg8ODg8ODg8ODw4PDg4PDigOKA4nDycPJw8nDycPJw8ODigOKA4ODycPDg8nDw4PJw4PDg8OJw8ODycPDg4oDycODw4ODw4PDg8nDycOKA4PDigOJw8nDycPDg8ODg8ODw4ODw4PDg8ODg8ODw4PDicPJw8nDycPJw4oDigOKA4PDg4PDg8ODg8ODw4ODw4PJw8nDycPJw4oDigOKA4oDg4PDg8ODg8ODw4PDg4PDg8nDycOKA4oDycOKA4nDygPJg8nDw4PDg4PDg4PDg8ODw4PDg4oDigPJg8nDycPJw8ADQUAAA==",
     "heat": {

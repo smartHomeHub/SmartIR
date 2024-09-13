@@ -1,23 +1,14 @@
 {
   "manufacturer": "Chigo",
-  "supportedModels": [
-    "Unknown"
-  ],
+  "supportedModels": ["Unknown"],
   "supportedController": "Xiaomi",
   "commandsEncoding": "Raw",
+  "temperatureUnit": "C",
   "minTemperature": 18.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "cool",
-    "heat",
-    "heat_cool"
-  ],
-  "fanModes": [
-    "low",
-    "mid",
-    "high"
-  ],
+  "operationModes": ["cool", "heat", "heat_cool"],
+  "fanModes": ["low", "mid", "high"],
   "commands": {
     "off": "m0zmcylk3nExmMsms3nEsmM3m04lk2mkzAIKYTSWTabzaWTGbTeZAI+AiYBHyybAhFMZwCYQFhzScADrNZiBmQA7gUkAuYM5gB2BP4LXgtNN5nNQCJCrgAiZpNwfimEwAa0FeAb/BvsAfwp2B+gFrwdbAI8SqhM7EPsP/wA/CP8YXwUaEO8Q7wszC8sAPxJ5B38Q/xD2B18EHQdNENQCtBKPB28G6BL/CHwLzwbcBoMFrxlNDKwaSxY/AQUnKwYDFZ8VBTOImEAA",
     "cool": {

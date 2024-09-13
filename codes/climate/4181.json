@@ -1,26 +1,14 @@
 {
   "manufacturer": "Gree",
-  "supportedModels": [
-    "YB1FA"
-  ],
+  "supportedModels": ["YB1FA"],
   "supportedController": "Xiaomi",
   "commandsEncoding": "Raw",
+  "temperatureUnit": "C",
   "minTemperature": 16.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "cool",
-    "heat",
-    "heat_cool",
-    "dry",
-    "fan_only"
-  ],
-  "fanModes": [
-    "low",
-    "mid",
-    "high",
-    "auto"
-  ],
+  "operationModes": ["cool", "heat", "heat_cool", "dry", "fan_only"],
+  "fanModes": ["low", "mid", "high", "auto"],
   "commands": {
     "off": "nMwmEwlk0moAhTaaTCWTGbTgAhZrNgB/AH8DDwIPAo8CjwB/AH8AfwB/BQ8AfwB/A48BDwKfAY8Ac5kJYQDXgy+AP4A/gD+AP4A/gD+AP4A/gD+AP4A/gD+H34dPgQyIWQA=",
     "heat_cool": {

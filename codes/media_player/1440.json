@@ -1,8 +1,6 @@
 {
   "manufacturer": "Andersson",
-  "supportedModels": [
-    "L4223FDC PVR"
-  ],
+  "supportedModels": ["L4223FDC PVR"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
   "commands": {
@@ -25,7 +23,7 @@
       "8": "JgAwABocPBwfHB4cHxweOTwdHjk8HB8cHgALix4cPBwfHB8cHhwfOTwcHjk9HB4cHwANBQAAAAAAAAAA",
       "9": "JgAwABkcHxw8HB4cHxwfOTwcHjk8HB85HgALbR8cHxw8HB4dHhwfOTwcHjk8HB85HgANBQAAAAAAAAAA",
       "Source": "JgA0ABocHhw9HB4cHxweOR8cHhwfHDwcHxweAAuMHB0eHDwcHxweHB85Hh0eHB8cPBweHB8ADQUAAAAA",
-      "TV": "JgAwABocPBwfHB4cHxweOR8cPBwfOR4cPAALix4cPBwfHB4cHxweOR8cPBwfOR4dPAANBQAAAAAAAAAA",
+      "TV": "JgAwABocPBwfHB4cHxweOR8cPBwfOR4cPAALix4cPBwfHB4cHxweOR8cPBwfOR4dPAANBQAAAAAAAAAA"
     }
   }
 }

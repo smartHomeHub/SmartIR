@@ -1,22 +1,13 @@
 {
   "manufacturer": "Daikin",
-  "supportedModels": [
-    "ATX20KV1B",
-    "ATX25KV1B",
-    "ATX35KV1B"
-  ],
+  "supportedModels": ["ATX20KV1B", "ATX25KV1B", "ATX35KV1B"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 18.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "heat_cool",
-    "dry",
-    "cool",
-    "fan_only",
-    "heat"
-  ],
+  "operationModes": ["heat_cool", "dry", "cool", "fan_only", "heat"],
   "fanModes": [
     "auto",
     "night",

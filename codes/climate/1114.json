@@ -1,20 +1,13 @@
 {
   "manufacturer": "Daikin",
-  "supportedModels": [
-    "FTXM35UVMZ"
-  ],
+  "supportedModels": ["FTXM35UVMZ"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 18.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "heat_cool",
-    "dry",
-    "cool",
-    "fan_only",
-    "heat"
-  ],
+  "operationModes": ["heat_cool", "dry", "cool", "fan_only", "heat"],
   "fanModes": [
     "auto",
     "night",

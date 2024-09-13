@@ -1,27 +1,14 @@
 {
   "manufacturer": "Hitachi",
-  "supportedModels": [
-    "RAS-25YHA",
-    "RAS-35YHA"
-  ],
+  "supportedModels": ["RAS-25YHA", "RAS-35YHA"],
   "commandsEncoding": "Base64",
   "supportedController": "Broadlink",
+  "temperatureUnit": "C",
   "minTemperature": 16,
   "maxTemperature": 32,
   "precision": 1,
-  "operationModes": [
-    "cool",
-    "heat",
-    "dry",
-    "fan_only"
-  ],
-  "fanModes": [
-    "auto",
-    "high",
-    "med",
-    "low",
-    "quiet"
-  ],
+  "operationModes": ["cool", "heat", "dry", "fan_only"],
+  "fanModes": ["auto", "high", "med", "low", "quiet"],
   "commands": {
     "off": "JgBWAmw3DSkMEQwRDBANCxERDBEMEAwRDBEMEA0QDCoMDRALEQwREQwRDBAMDBEMEQsREQwRDBEMDBARDBEMEA0QDCoMDRApDSkMKgwqDCkMKgwRDCoMKQwqDCoMKQ0pDCoMKgwqDBAMEQwRDAwRDBARDBANEAwRDBEMKQ0pDBEMDBEpDCoMKgwqDBAMEQwqDCkNEAwRDBEMKQ0QDBEMKQ0MEA0QKgwqDBAMKgwqDBANKQwqDBEMKQ0pDBEMEQwpDRAMEQwRDBAMEQwqDCkNEAwqDCoMKQ0QDA4PEQwQDBEMEQwpDRAMKgwqDCkNKQwqDCoMEA0pDBEMEQwQDBEMEQwQDRAMEQwqDCkNKQwqDCoMKQwqDCoMEQwQDBEMEQwQDRAMEQwRDCkNKQwqDCoMKQwqDCoMKgwQDRAMEQwQDQsREQwRDBANKQwqDCkNKQwqDCoMKQ0pDRAMEQwQDRAMDRARDBAMEQwqDCkNKQwqDCoMKQ0pDCoMEQwQDRAMEQwNEBAMEQwRDCkNKQwqDCoMKQ0pDCoMKgwpDSkMEQwRDCkNEAwqDBEMEA0QDCoMKQ0QDCoMEQwpDSkMEQwRDBANCxEqDCkNKQ0QDCoMKQ0pDCoMEQwQDRAMEQwRDBANDQ8NEBANEAwRDCoMKQ0pDCoMKgwpDSkMKgwRDBANEAwODw0QEAwRDBEMKQ0pDCoMKQ0pDCoMKgwqDBANEAwRDBANDBAMEREMEA0pDCoMKQ0pDCoMKgwpDSkNKQwqDBANEAwRDBEMEAwRDBEMEQwpDCoMKgwpDSkMKgwADQUMKg==",
     "cool": {

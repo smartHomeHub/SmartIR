@@ -1,15 +1,9 @@
 {
   "manufacturer": "Lucci Air",
-  "supportedModels": [
-    "Aria"
-  ],
+  "supportedModels": ["Aria"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
-  "speed": [
-    "low",
-    "medium",
-    "high"
-  ],
+  "speed": ["low", "medium", "high"],
   "commands": {
     "off": "JgAiASgPKRAMKSkQKA8pDwwrDSkNKikOKRAM8CsOKA8MKykPKQ8pDw0rDCgNKSsOKBAM8CsOKA8MKisOKA8pGgwqDSkMKSsOKBAK8igQKA8NKioOKBEnEAwqDSkMKykQKBAL7ysOKA8MKyoPKA8qDwwqDCkNKSoPKA8M",
     "default": {

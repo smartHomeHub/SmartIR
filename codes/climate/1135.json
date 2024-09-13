@@ -1,30 +1,14 @@
 {
   "manufacturer": "Mitsubishi",
-  "supportedModels": [
-    "MSZ-GE60VAD",
-    "MSZ-GE71VAD",
-    "MSZ-GE80VAD"
-  ],
+  "supportedModels": ["MSZ-GE60VAD", "MSZ-GE71VAD", "MSZ-GE80VAD"],
   "commandsEncoding": "Base64",
   "supportedController": "Broadlink",
+  "temperatureUnit": "C",
   "minTemperature": 16,
   "maxTemperature": 31,
   "precision": 1,
-  "operationModes": [
-    "auto",
-    "cool",
-    "heat",
-    "dry",
-    "fan_only"
-  ],
-  "fanModes": [
-    "auto",
-    "quiet",
-    "low",
-    "normal",
-    "high",
-    "highest"
-  ],
+  "operationModes": ["auto", "cool", "heat", "dry", "fan_only"],
+  "fanModes": ["auto", "quiet", "low", "normal", "high", "highest"],
   "commands": {
     "off": "JgBMAmw2DScPJw4ODQ0ODQ4oDQ4NDQ4oDigODQ0pDQ0NDg4nDycODg0oDicODg0NDigODQ0ODicODQ4NDQ4ODQ0NDw0NDQ4ODQ0NDQ8NDQ0ODg0NDg0ODQ4NDQ4NDQ4NDg0ODQ0ODg0NDQ8NDSgOKA4nDw0NDQ4ODQ0NDQ8nDg4NDQ4NDg0ODQ0ODQ0ODQ4NDg0NKQ0pDQ0NDg4nDw0NDQ4ODSgODQ4MDg4NDQ4NDg0ODQ0ODg0NDQ4NDg0NDg4NDQ0PDQ0NDg4NDQ0NDw0NDQ4ODQ0ODQ4NDg0NDg0NDg0ODQ4NDQ4ODQ0NDw0NDQ4NDg0NDg4NDQ0PDQ0NDg4NDQ0NDw0NDQ4ODQ0ODQ4NDg0NDg0NDg0OKA0ODg0NKQ0oDg0NKQ0NDgABa2s1DigOKA4NDQ4NDQ4oDg0NDg4nDycNDg4oDg0NDQ8nDigNDQ8nDigODQ4NDigNDQ4NDigNDg4NDQ0PDQ0NDQ4ODQ0NDw0NDQ4ODQ0ODQ4NDQ0ODg0NDg0ODQ4NDQ4ODQ0NDg0ODQ0ODicPJw4oDQ0PDQ0NDg4NDQ4oDg0NDg0NDg0ODQ4NDQ4ODQ0NDw0NKA4oDg0NDQ8nDg4NDQ0NDycODg0NDg0ODQ4NDQ4NDQ4NDg0ODQ0ODg0NDQ8NDQ0NDg4NDQ0PDQ0NDg4NDQ4NDg0NDQ4ODQ0ODQ4NDg0NDg4NDQ0ODQ4NDQ4ODQ0NDw0NDQ4ODQ0NDQ8NDQ0ODg0NDg0ODQ4NDQ4NDQ4NDg0ODQ0ODg0NKQ0NDQ4OKA4nDw0NKQ0NDQANBQ==",
     "auto": {

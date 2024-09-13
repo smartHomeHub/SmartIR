@@ -1,8 +1,6 @@
 {
   "manufacturer": "ZTE",
-  "supportedModels": [
-    "B860H"  
-  ],
+  "supportedModels": ["B860H"],
   "supportedController": "ESPHome",
   "commandsEncoding": "Raw",
   "commands": {

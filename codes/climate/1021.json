@@ -1,26 +1,14 @@
 {
   "manufacturer": "Panasonic",
-  "supportedModels": [
-    "CS-RE9GKE",
-    "CS-RE12GKE",
-    "CS-RE9PKR",
-    "CSCU-Z25TKR"
-  ],
+  "supportedModels": ["CS-RE9GKE", "CS-RE12GKE", "CS-RE9PKR", "CSCU-Z25TKR"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 16.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "heat",
-    "cool"
-  ],
-  "fanModes": [
-    "auto",
-    "mid",
-    "high",
-    "low"
-  ],
+  "operationModes": ["heat", "cool"],
+  "fanModes": ["auto", "mid", "high", "low"],
   "commands": {
     "off": "JgC8AXM4Dw4OKg8NDw4PDQ8NDw4PDQ8ODw0PDQ8ODw0PKg4ODw0PDg8NDw0PDg8NDyoPKQ8qDw0PDQ8qDw0PDg8NDw0PDg8NDw4PDQ8NDw4PDQ8NDw4PDQ8ODg4PDQ8ODw0PDQ8ODw0PDg4ODw0PDg8NDw0PDg8NDyoPKQ8ODg4PDQ8ODw0PAAFFczgQDQ8pDw4PDQ8NDw4PDQ8ODw0PDQ8ODw0PDQ8qDw0PDg8NDw4ODg8NDw4OKg8pDyoPDg4ODykPDg8NDw0PDg8NDw4PDQ8NDw4PDQ8NDw4PDQ8ODw0PDQ8ODw0PDQ8qDw0PDg8NDyoOKg8pDyoPDQ8ODw0PDg4ODw0PDg8NDw0PKg8qDykPKg8pDyoPKQ8ODw0PDg4ODw0PDg8NDw0PDg8NDw4ODg8NDw4PDQ8NDw4PDQ8ODioPKQ8ODw0PDg4ODw0PDg8NDw4ODg8NDyoPKQ8ODw0PDQ8ODw0PDQ8ODw0PDg8NDw0PDg8NDw0PDg8NDw4PDQ8NDw4PDQ8NDw4PDQ8qDw0PDg4ODw0PDg4ODw0PDg8NDyoPKQ8NDw4PDQ8ODg4PKQ8ODykPKg8NDyoPDQ8NDwANBQAAAAAAAAAAAAAAAA==",
     "heat": {

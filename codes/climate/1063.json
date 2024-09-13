@@ -1,28 +1,14 @@
 {
   "manufacturer": "LG",
-  "supportedModels": [
-    "P12EP1"
-  ],
+  "supportedModels": ["P12EP1"],
   "commandsEncoding": "Base64",
   "supportedController": "Broadlink",
+  "temperatureUnit": "C",
   "minTemperature": 18.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "heat_cool",
-    "cool",
-    "heat",
-    "dry",
-    "fan_only"
-  ],
-  "fanModes": [
-    "auto",
-    "silent",
-    "low",
-    "medium",
-    "high",
-    "highest"
-  ],
+  "operationModes": ["heat_cool", "cool", "heat", "dry", "fan_only"],
+  "fanModes": ["auto", "silent", "low", "medium", "high", "highest"],
   "commands": {
     "off": "JgBAAGcAAUYRNBASDxMPEw81EBEQEw8TDzUPNRASEBIPEhASEBIQEhASEBIPExASEBIQNBASDzUQERATEBIQNBEADQUAAAAAAAAAAA==",
     "heat_cool": {

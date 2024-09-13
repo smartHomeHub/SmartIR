@@ -1,23 +1,14 @@
 {
   "manufacturer": "Chigo",
-  "supportedModels": [
-    "Unknown"
-  ],
+  "supportedModels": ["Unknown"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 18.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "cool",
-    "heat",
-    "heat_cool"
-  ],
-  "fanModes": [
-    "low",
-    "mid",
-    "high"
-  ],
+  "operationModes": ["cool", "heat", "heat_cool"],
+  "fanModes": ["low", "mid", "high"],
   "commands": {
     "off": "JgDIAMXzEjcUNRU0FDUVNBU0FTQTORQPFBAUEBUPEhISEhQQFBAVNBU0EzYTNhI3EjcROBI3EhAUEhISFBAUEBQQFBAVDxU0ETgSNxI3EjcSNxQ1FDUVDxQQEhISEhISEhIUEBQQFTQUNRUPEzYSNxI3ETgROBISEhISNxISFBAUEBQQFQ8VDxM2EjcSEhE4ETcTNxI3EjcSEhQQFDUVDxQQFBASEhISETgRExI3EhISNxQQFQ8UNRQQFTQUEBM2ExESNxE4EvMSAA0F",
     "cool": {

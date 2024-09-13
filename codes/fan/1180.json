@@ -1,15 +1,9 @@
 {
   "manufacturer": "Argo",
-  "supportedModels": [
-    "Standy"
-  ],
+  "supportedModels": ["Standy"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
-  "speed": [
-    "low",
-    "medium",
-    "high"
-  ],
+  "speed": ["low", "medium", "high"],
   "commands": {
     "off": "JgASAigQJxAMKygPKBAMKwwrDCsMKwwrDCso6igQJhELLCgPJxANKg0rCywMKwwrDCso7CkPKA8MKygPJxEMKwssDCsMKw0qDCsn6ycRJxAMKygPJxEMKwssDCsMKwwrDCsn7SgQJxAMKygQJxAMKwwrDCsMKwwsCywn6ycQJxELLCcQJxAMKwwrDCwLLAssCywn7SgQJxAMKycSJhALLAssDCsMKwwrDCsp6icSJRAMKycRJxAMKwwrDCsMKwwrDCso7SkOKBALLCcQJxELKw4qCywLLAssCywn6ycTJRAMKycSJRELLAssCywLLAwrDCsn7icQJxAMKygQJxAMKwwrDCsMKwwsCywn6ycSJhIJLCcSJRAMKwwsCywLLAssDCsn7icQJxAMKykPJxAMKwwrDCsMKwwrDiko6ycQJxELLCgPJxAMKwwrDCsMLAssCywn7icQJxAMKycTJRALLAwrDCsMKwwrDCso6ycQJxAMKygQJxAMKwwrDCsMKwwsCywn7SgQJxAMKycRJxIJLAwrDCsMKwwrDCsn7CcSJRAMKygQJxAMKwwrDCsMKwwrDCwn7SkPKA8LLCcQKBALLAssCywMKwwrDCsn7CcQJxANKicRKA8LLAwrDSoNKgwrDCwn7ScRJxALLCgPJxELLAwrCywMKwwrDCso6ycQJxAMKycQKBALLAwrDCsMKw0qDCspAA0F",
     "default": {

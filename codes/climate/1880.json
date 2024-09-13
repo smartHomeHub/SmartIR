@@ -1,23 +1,14 @@
 {
   "manufacturer": "Saunier Duval",
-  "supportedModels": [
-    "1"
-  ],
+  "supportedModels": ["1"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 16.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "heat",
-    "cool"
-  ],
-  "fanModes": [
-    "low",
-    "med",
-    "high",
-    "auto"
-  ],
+  "operationModes": ["heat", "cool"],
+  "fanModes": ["low", "med", "high", "auto"],
   "commands": {
     "off": "JgCSAAABJJQTFBQTFDcUExQUExQUExQUEzgTNxQUFDcUExQTFBQTFBQTFBMUFBMUFBMUExQ3FBQTFBQTFBQTFBM4FBMUNxQTFBQTOBMUFAACjRQ3FDgTFBMUFBMUFBMUFBMUExQUExQVEhUSFDcVExMUFBMWERYSFRIVEhQUExQVEhUSFRMVEhQTFDcWNRQTFDcUAA0FAAAAAAAA",
     "heat": {

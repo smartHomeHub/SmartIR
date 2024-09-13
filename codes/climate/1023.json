@@ -1,29 +1,14 @@
 {
   "manufacturer": "Panasonic",
-  "supportedModels": [
-    "CS-HE9JKE",
-    "CS-HE12JKE",
-    "CS-HE9LKE"
-  ],
+  "supportedModels": ["CS-HE9JKE", "CS-HE12JKE", "CS-HE9LKE"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 16.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "heat_cool",
-    "heat",
-    "cool",
-    "fan_only"
-  ],
-  "fanModes": [
-    "auto",
-    "low",
-    "mediumLow",
-    "mid",
-    "mediumHigh",
-    "high"
-  ],
+  "operationModes": ["heat_cool", "heat", "cool", "fan_only"],
+  "fanModes": ["auto", "low", "mediumLow", "mid", "mediumHigh", "high"],
   "commands": {
     "off": "JgC8AXI7DQ8NLA4PDRANDw4PDRANDw0QDQ8ODw0QDQ8NLA4PDRANDw4PDRANDw0QDSwNLA4sDQ8ODw0sDRANDw4PDRANDw0QDQ8ODw0QDQ8NEA0PDg8NEA0PDg8NEA0PDRANDw4PDRANDw0QDQ8ODw0QDQ8NEA0PDiwNLA0QDQ8NEA0PDg8NAAFVcjoPDg0sDg8NEA0PDg8NDw4PDRANDw4PDRANDw0sDg8NEA0PDRANDw4PDRANLA0sDiwNDw0QDSwNEA0PDg8NEA0PDRANDw4PDRANDw0QDQ8ODw0QDQ8NEA0sDRANDw4PDRANDw0QDQ8ODw0sDiwNDw0QDQ8ODw0QDQ8NEA0PDg8NLA4sDSwNEA0PDSwODw0sDg8NEA0sDRANLA0PDg8NEA0PDRANDw4PDRANDw4PDQ8ODw0QDSwNLA4sDQ8NEA0PDg8NEA0PDRANDw4PDSwOLA0sDRANDw0QDQ8ODw0QDQ8NEA0PDg8NEA0PDg8NDw4PDRANLA0QDQ8NEA0PDg8NEA0sDRANDw0QDQ8ODw0QDQ8NEA0PDg8NEA0PDRANDw4PDRANDw0tDQ8NLA4PDRANDw4sDQANBQAAAAAAAAAAAAAAAA==",
     "heat_cool": {

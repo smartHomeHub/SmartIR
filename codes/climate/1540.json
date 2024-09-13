@@ -1,23 +1,14 @@
 {
   "manufacturer": "Whirlpool",
-  "supportedModels": [
-    "SPIS412L"
-  ],
+  "supportedModels": ["SPIS412L"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 18.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "heat",
-    "cool"
-  ],
-  "fanModes": [
-    "low",
-    "mid",
-    "high",
-    "auto"
-  ],
+  "operationModes": ["heat", "cool"],
+  "fanModes": ["low", "mid", "high", "auto"],
   "commands": {
     "off": "JgBgAQABLJYVNhU2FREUEhQSFBIVERU3FBEVNhU2FBIUEhUSFBIUEhQ3FDcUNxQTExIUEhQSFREUEhMSFDcVERU3FTYUOBQSFBIUERQTExITExMTFBIVERQSFBMTERURFREVEhQTExEUAAEJFREUEhQSFBEVEhQSFBIUNxQ3FhAUEhQSFBMUERMTFBIUERUSFBETExQTExIUEhURFBIUERURFBIUExMSFBIWEBYQFBMSExQRFREVERUSFBIUERQSFBITEhYRFBITExQSFBEVERURFBIUExMSFBIUEhQSFDcUERURFDgVNhQ4FDcUAAEJFBEVERQSFBIUEhQTExIUExM3FBEVERURFBIUEhUSExMTEhQTExIUERQSFBIVEhQSFBEUEhQSFBEVERUSFBIUEhQRFREUExMSFBIVERQSFBMTERQTExIUEhQSFBMTEhQSFDcUEhQSFBEVERUSFBIUEhMADQUAAAAAAAAAAA==",
     "heat": {

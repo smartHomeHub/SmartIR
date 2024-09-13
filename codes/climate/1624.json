@@ -1,23 +1,14 @@
 {
   "manufacturer": "Tornado",
-  "supportedModels": [
-    "Super Legend 40"
-  ],
+  "supportedModels": ["Super Legend 40"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 16.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "heat",
-    "cool"
-  ],
-  "fanModes": [
-    "low",
-    "mid",
-    "high",
-    "auto"
-  ],
+  "operationModes": ["heat", "cool"],
+  "fanModes": ["low", "mid", "high", "auto"],
   "commands": {
     "off": "JgBgAQABKZEXMxczFw4XDxYPFw8WEBY0Fw4WNBczFw4XDxYPFw8XDxYPFg8WNBcOFw8WDxcPFg8XDhcOFw8WDxY0GA4WEBY0Fw4WDxcOFw8WDxcPFhAWDxYPFg8WEBYPFg8XDxYPFw4XAAECGA0XMxgzFw4WEBYPFw8WNBczFw4XMxcPFg8XDxYPFw8WDxYPFg8XDxYPFhAWDxcPFg8WDxYPFg8XDxYQFg8XDxYPFg8WDxYPFw8WDxcPFg8XDhcPFg8WDxcPFg8XDxYPFw8WDhcPFg8WEBYPFw8WDxczFzMXMxcPFjIZDxYQFg4XAAEDFw4WDxYPFg8XDxYQFg8WDxczFw8WDxYPFw8WDxcPFg8XDhcPFg8WDxcPFg8XDxYQFg4XDxYPFg8XDxYPFw8WDxcOFxAVDxY0Fw8WDxcPFg8XDxYPFg8WDxYQFg8XDxYPFzMXDhcOFzQXDhcPFg8XDxUADQU=",
     "heat": {

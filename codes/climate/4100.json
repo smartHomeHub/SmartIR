@@ -1,27 +1,14 @@
 {
   "manufacturer": "Daikin",
-  "supportedModels": [
-    "FTXS25CVMB",
-    "FTXS35CVMB",
-    "FTXS60BVMB",
-    "FVXS25BVMB"
-  ],
+  "supportedModels": ["FTXS25CVMB", "FTXS35CVMB", "FTXS60BVMB", "FVXS25BVMB"],
   "supportedController": "Xiaomi",
   "commandsEncoding": "Raw",
+  "temperatureUnit": "C",
   "minTemperature": 18.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "heat",
-    "cool",
-    "heat_cool"
-  ],
-  "fanModes": [
-    "low",
-    "mid",
-    "high",
-    "auto"
-  ],
+  "operationModes": ["heat", "cool", "heat_cool"],
+  "fanModes": ["low", "mid", "high", "auto"],
   "commands": {
     "off": "Z6W3ATsBAACvAQAAHQIAAAkFAAC6BgAAmA0AALoNAADmcwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGMRERETERERERMRExMRExMTExMRERMREREREgITExMTERIBEREREREREREREgERERERERERERERERMREREREREXFFMRERETERERERMRExMRExMTExMRERMRERERERERERERERERERERERERERERERETERERExMRExERERERERERERERERERERMRExERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERMTERERERERERERERERERERERETExMTERMTEB=",
     "heat": {

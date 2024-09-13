@@ -1,27 +1,14 @@
 {
   "manufacturer": "Junkers",
-  "supportedModels": [
-    "Excellence"
-  ],
+  "supportedModels": ["Excellence"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 16.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "auto",
-    "heat_cool",
-    "fan_only",
-    "dry",
-    "heat",
-    "cool"
-  ],
-  "fanModes": [
-    "low",
-    "mid",
-    "high",
-    "auto"
-  ],
+  "operationModes": ["auto", "heat_cool", "fan_only", "dry", "heat", "cool"],
+  "fanModes": ["low", "mid", "high", "auto"],
   "commands": {
     "off": "JgCSAAABKZMWNhYSFhIVEhYSFjYWEhUSFjUXEhUSFjUXEhYSFRIWEhYSFRIWEhYSFRIWNhYSFRIWEhYSFRIWEhY1FxEWNRcSFhIVNxUSFgACkBcRFhIWEhUSFhIWEhUSFhIWEhUSFhIWEhUSFjUXEhYSFRIWEhYRFhIWEhYRFhIWEhYRFhIWEhYSFRIWNhY1FxIVAA0FAAAAAAAA",
     "heat_cool": {

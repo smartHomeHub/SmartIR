@@ -1,24 +1,14 @@
 {
   "manufacturer": "Unionaire",
-  "supportedModels": [
-    "Artify"
-  ],
+  "supportedModels": ["Artify"],
   "commandsEncoding": "Base64",
   "supportedController": "Broadlink",
+  "temperatureUnit": "C",
   "minTemperature": 20,
   "maxTemperature": 28,
   "precision": 1,
-  "operationModes": [
-    "cool",
-    "heat"
-  ],
-  "fanModes": [
-    "auto",
-    "level1",
-    "level2",
-    "level3",
-    "turbo"
-  ],
+  "operationModes": ["cool", "heat"],
+  "fanModes": ["auto", "level1", "level2", "level3", "turbo"],
   "commands": {
     "off": "JgAUAZtVCwgQIwojDA0LIg4LCg8LDQwNCw0MDgwhDiAKDgsOCw4LDgsiDh8LCg8OCg8KDgsPCg4MDQoOCw4LDwoNDA4KDgsNDA4KDQwPDCELDQsjCw0LIwsiDgsKDwojCg8LIwsNCyMKIwsiCw0MDgwhCwoODgsOCg8LDAwjCw4LDgojCg8KAAK0mdcAATOsDgsLDgsOCg4LIg0hCwwMDg0KDQ4LDgoPCiMMIQ0MCg8LDgsNCw4LDgoOCw4LIwsOCQ8LDgsODAwLDgoPCw4LDgwMDQwKDwoPCw4KDgsOCg8KDgsOCw4LDgoOCw4KDwsOCw4NCwsOCg8KDgsPCg4LDgoOCw4LDwkPCw4KIwsODSAMAAKxpQANBQAAAAA=",
     "cool": {

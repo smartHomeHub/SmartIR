@@ -1,25 +1,14 @@
 {
   "manufacturer": "Senville",
-  "supportedModels": [
-    "SENA/12HF/IZ"
-  ],
+  "supportedModels": ["SENA/12HF/IZ"],
   "commandsEncoding": "Base64",
   "supportedController": "Broadlink",
+  "temperatureUnit": "C",
   "minTemperature": 17,
   "maxTemperature": 30,
   "precision": 1,
-  "operationModes": [
-    "cool",
-    "heat",
-    "dry"
-  ],
-  "fanModes": [
-    "auto",
-    "quiet",
-    "level1",
-    "level2",
-    "level3"
-  ],
+  "operationModes": ["cool", "heat", "dry"],
+  "fanModes": ["auto", "quiet", "level1", "level2", "level3"],
   "commands": {
     "off": "JgDKAI2QEjUREhE1EhERExESERIRNRESERMQExE1ERIREhE2ETUREhE2ERIREhIRETYQNhE1ETYRNRE1EjcPNRE1EjURNRE1ETYSNBI1ETUSNBI1ETURNRE2EBMREhI0ERIRNhE1EauQjxIRETYREhE1ETYRNRE1EhIRNRE1ETUSEhE1EjQREhETETUREhE1ETYRNRESERIRExESEhEREhESEhERExESERIREhESEhERExATERIREhIRERIRExA2ETUREhE2ERIREhEADQU=",
     "cool": {

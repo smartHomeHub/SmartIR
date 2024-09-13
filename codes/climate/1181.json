@@ -1,22 +1,14 @@
 {
   "manufacturer": "Gree",
-  "supportedModels": [
-    "Unknown"
-  ],
+  "supportedModels": ["Unknown"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 18.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "cool",
-    "heat"
-  ],
-  "fanModes": [
-    "auto",
-    "sleep",
-    "powerful"
-  ],
+  "operationModes": ["cool", "heat"],
+  "fanModes": ["auto", "sleep", "powerful"],
   "commands": {
     "off": "JgAkAQABJpQVExUSFTcUExUTFhEVExUTFRIVNxU2FTcVExQTFRMVEhUTFRIVExUSFRMUNxUTFRIVExUSFBQVExQ3FRMVNhQUFhEVNxUTFQACjxYRFRMVEhUTFRMUExUTExQVExMUFRMUExUTFRIVExQTFRMUExQUFRIVExUTExQVExUSFRMVEhQ4FRIVExU3FDcVAAUfAAEllRUSFhIVNhUTFBQUExUTFRIVExU2FTcVNhUTFRMVEhUTFRIUFBUSFRMVEhQ4FRIVExUTFBMVExQTFTcUNxU3FRIVExU3FBMVAAKPFhIVExQTFRMUExUTFBMVExUSFRMVEhQUFRIUFBUSFRMUFBQTFRMVEhUTFRIVExQTFRMVEhUTFRIVExUSFTcVNxUADQUAAAAA",
     "cool": {

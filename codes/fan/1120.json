@@ -1,15 +1,9 @@
 {
   "manufacturer": "Europace",
-  "supportedModels": [
-    "Unknown"
-  ],
+  "supportedModels": ["Unknown"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
-  "speed": [
-    "low",
-    "medium",
-    "high"
-  ],
+  "speed": ["low", "medium", "high"],
   "commands": {
     "off": "JgBYAAABLJYTEhMTExITExQ2EzgTEhMTEzcUNhQ3EzcUEhITFDYUNxMSFBIUNhQ3ExIUEhQRFDcUNhQ2FBIUERQ3EzcUNhQSFAAFKQABLUkUAAxzAAEsShQADQU=",
     "default": {

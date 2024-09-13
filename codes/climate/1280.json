@@ -1,25 +1,14 @@
 {
   "manufacturer": "Fujitsu",
-  "supportedModels": [
-    "AR-RBE1E"
-  ],
+  "supportedModels": ["AR-RBE1E"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 18.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "cool",
-    "heat",
-    "dry"
-  ],
-  "fanModes": [
-    "auto",
-    "low",
-    "medium",
-    "high",
-    "highest"
-  ],
+  "operationModes": ["cool", "heat", "dry"],
+  "fanModes": ["auto", "low", "medium", "high", "highest"],
   "commands": {
     "off": "JgB2AGs2Dg4NDw0pDQ4OKQ0ODQ8NDg4pDSkNDw0ODQ8NKQ0pDQ8NDg4ODQ8NDg0PDQ4NDw0ODg4NDw0ODQ8NKQ0PDQ4NDw0ODQ8NDg4ODSkNDw0ODg4NDw0pDQ4ODg0PDQ4NDw0ODSoNDg0pDikNKQ0pDSkOKQ0ADQUAAA==",
     "cool": {
@@ -191,66 +180,6 @@
         "28": "JgAGAW00Dw0PDBAnDwwPJxAMDw0PDBAmECcPDBAMDw0PJw8nDw0PDA8NDwwQDA8NDwwPDQ8MDw0PDBAMDw0OKA8MEAwPDQ8MDg4PDA8NDycPDQ8MDw0PDBAnDycPJw8nECcPJw8nDygPDA8NDycPDQ8MDg4PDBAMDg4PDA8NDycOKA8NDwwPDQ8MEAwPDQ8MDg4PJw8nEAwPJw8NDwwPDQ8MEAwPDQ4NDw0PDA8NDwwQDA8NDwwPDQ8MDw0PDBAMDg4ODQ8NDwwPDQ8MDw0ODg4NDw0ODQ8NDwwPDQ4ODg0PDQ8MDw0PDBAMDg4ODQ8NDigPDQ8MDg4OKA8nDygODQ4oECcPJw8ADQUAAA==",
         "29": "JgAGAW00Dw0PDBAnDwwPJxAMDw0PDA8nECcPDA8NDwwQJw8nDw0PDA8NDwwQDA8MEAwPDQ8MDw0PDA8NDwwQJw8MDw0PDBAMDw0PDA8NDycPDQ8MDw0ODQ8oDycPJw8nECcPJw8nDycQDA8NDycPDQ8MDw0PDA8NDwwQDA8NDigPJw8NDwwPDQ8MEAwPDQ4oDwwPKA8nDwwPKA8MDw0ODRAMDg4PDA8NDwwQDA8NDg0ODg4NDg4PDBAMDw0ODQ4ODg0PDQ4NDw0ODg8MDg4PDA8NDwwPDQ4ODwwPDQ4NDw0ODQ8NDw0ODQ4ODg0ODg4NDygODQ8NDg0PKA8nDycOKBAMDigPKA8ADQUAAA==",
         "30": "JgAGAW00Dw0PDA8nEAwPJw8NDwwQDA8nECcPDA8NDwwPKA8nDwwQDA8NDwwPDQ8MDw0PDBAMDw0PDA8NDwwPKA8MDw0PDA8NDwwQDA8NDycPDBAMDw0PDA8nECcPJw8nDycQJw8nDycQDA8NDycPDBAMDg4PDA8NDwwPDQ8MECcPJw8NDwwPDQ8MDw0PDBAMDycPJxAnDwwPKA8MDw0ODQ8NDwwQDA8NDwwPDQ8MDw0PDQ8MDw0ODQ8NDwwPDQ8NDwwODg4NDw0PDA8NDw0ODQ8NDg0ODg8MDw0ODRAMDg4ODQ8NDg0PDQ8NDg0ODg4NDigQDA4ODg0PJxAnDycPDQ8MDycQJw8ADQUAAA=="
-      },
-      "low": {
-        "18": null,
-        "19": null,
-        "20": null,
-        "21": null,
-        "22": null,
-        "23": null,
-        "24": null,
-        "25": null,
-        "26": null,
-        "27": null,
-        "28": null,
-        "29": null,
-        "30": null
-      },
-      "medium": {
-        "18": null,
-        "19": null,
-        "20": null,
-        "21": null,
-        "22": null,
-        "23": null,
-        "24": null,
-        "25": null,
-        "26": null,
-        "27": null,
-        "28": null,
-        "29": null,
-        "30": null
-      },
-      "high": {
-        "18": null,
-        "19": null,
-        "20": null,
-        "21": null,
-        "22": null,
-        "23": null,
-        "24": null,
-        "25": null,
-        "26": null,
-        "27": null,
-        "28": null,
-        "29": null,
-        "30": null
-      },
-      "highest": {
-        "18": null,
-        "19": null,
-        "20": null,
-        "21": null,
-        "22": null,
-        "23": null,
-        "24": null,
-        "25": null,
-        "26": null,
-        "27": null,
-        "28": null,
-        "29": null,
-        "30": null
       }
     }
   }

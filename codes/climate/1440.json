@@ -1,26 +1,14 @@
 {
   "manufacturer": "Akai",
-  "supportedModels": [
-    "Unknown"
-  ],
+  "supportedModels": ["Unknown"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 16.0,
   "maxTemperature": 32.0,
   "precision": 1.0,
-  "operationModes": [
-    "cool",
-    "heat",
-    "heat_cool",
-    "dry",
-    "fan_only"
-  ],
-  "fanModes": [
-    "auto",
-    "low",
-    "medium",
-    "high"
-  ],
+  "operationModes": ["cool", "heat", "heat_cool", "dry", "fan_only"],
+  "fanModes": ["auto", "low", "medium", "high"],
   "commands": {
     "off": "JgDIAMryEzYSNhI2EjcQOBI2EjYTNhMSExETExITExITEhMTEBUOORE3EjYSNw85EDgSNhI2ExITEhIUERQSExISEBcOFw45EDgQOBA4EjYSNhI3ETcSExITEhMSFBEUEhMQFRAVEDgQORA4EBQRNxI2EjYSNxITEhUQExA5ExIQFRAUEBURFhE1EjYTExE3EjYTNRM2EzUTEw4WETcTEhAVERQTEhMSEjYTEhI3EhQOOBISEBYPORITEzUSExM1ExITNRM2EvITAA0F",
     "cool": {

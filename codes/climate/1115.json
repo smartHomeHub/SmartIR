@@ -1,34 +1,15 @@
 {
   "manufacturer": "Daikin",
-  "supportedModels": [
-    "ftxb-c"
-  ],
+  "supportedModels": ["ftxb-c"],
   "commandsEncoding": "Base64",
   "supportedController": "Broadlink",
+  "temperatureUnit": "C",
   "minTemperature": 18,
   "maxTemperature": 32,
   "precision": 1,
-  "operationModes": [
-    "auto",
-    "dry",
-    "cool",
-    "heat",
-    "fan_only"
-  ],
-  "fanModes": [
-    "auto",
-    "quiet",
-    "level1",
-    "level2",
-    "level3",
-    "powerful"
-  ],
-  "swingModes": [
-    "stop_swing",
-    "stop_swing_eko",
-    "swing",
-    "swing_eko"
-  ],
+  "operationModes": ["auto", "dry", "cool", "heat", "fan_only"],
+  "fanModes": ["auto", "quiet", "level1", "level2", "level3", "powerful"],
+  "swingModes": ["stop_swing", "stop_swing_eko", "swing", "swing_eko"],
   "commands": {
     "off": "JgAWAQABQQABQQABQgABQpdSDAwMHwwfDAwMHwwMDAwMDAwMDR4MDAwMDR4MDQwMDAwMDAwMDAwMDAwMDQwMDAwMDAwMDAwMDB8MHwwMDAwMDA0eDAwNHgwMDR4MDA0eDA0MHg0MDAwMHg0eDAwNDAwMDAwMHwwMDAwMHwwfDAwMDAwNCwwMHwwfDAwMDAwMDR4MAAKaDB8MDAwMDAwNDAweDAwNHg0MDAwMDAwMDAwMDAwMDA0MDAwMDAwMDAwMDAwMDAwNDAwMDAwMDAwMDAwMDAwNDAwMDAwMDAwMDAwMDA0MDAwMDAwMDAwMDAwMDQwMDAwMDAwMDAwMDAwNDAwMDAwMDAwfDB8MDAwfDAwMDAwMDAyYAA0F==",
     "auto": {

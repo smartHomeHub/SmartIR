@@ -1,33 +1,15 @@
 {
   "manufacturer": "Hitachi",
-  "supportedModels": [
-    "RAK-50RPE"
-  ],
+  "supportedModels": ["RAK-50RPE"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 16,
   "maxTemperature": 32,
   "precision": 1.0,
-  "operationModes": [
-    "heat_cool",
-    "heat",
-    "dry",
-    "cool",
-    "fan_only"
-  ],
-  "fanModes": [
-    "high",
-    "medium",
-    "low",
-    "diffuse",
-    "auto"
-  ],
-  "swingModes": [
-    "both",
-    "vertical",
-    "horizontal",
-    "off"
-  ],
+  "operationModes": ["heat_cool", "heat", "dry", "cool", "fan_only"],
+  "fanModes": ["high", "medium", "low", "diffuse", "auto"],
+  "swingModes": ["both", "vertical", "horizontal", "off"],
   "commands": {
     "off": "JgDEAWkyDSYNDw0PDQ8NDw0PDQ8NDw0PDQ8NDw0PDSYNDw0PDQ8NDw0PDQ8NDw0mDSYNDw0PDQ8NDw0PDQ8NDw0PDSYNDw0mDSYNJg0mDSYNJg0PDSYNJg0PDQ8NDw0PDQ8NDw0PDQ8NJg0mDSYNJg0mDSYNJg0mDQ8NDw0PDSYNDw0PDQ8NDw0mDQ8NDw0mDQ8NDw0PDSYNDw0PDSYNDw0PDQ8NDw0PDSYNDw0PDQ8NDw0PDQ8NDw0PDQ8NDw0PDSYNDw0PDQ8NDw0PDQ8NDw0PDQ8NDw0mDQ8NDw0PDQ8NDw0PDQ8NDw0mDSYNDw0PDQ8NDw0PDQ8NJg0mDQ8NDw0PDQ8NDw0PDQ8NDw0PDQ8NDw0PDQ8NDw0PDQ8NDw0PDQ8NDw0PDQ8NDw0PDQ8NDw0PDQ8NDw0PDQ8NDw0PDQ8NDw0PDQ8NDw0PDQ8NDw0PDQ8NDw0PDQ8NDw0PDQ8NDw0PDQ8NDw0PDQ8NDw0PDQ8NDw0PDQ8NDw0PDQ8NDw0PDQ8NDw0mDSYNDw0PDQ8NDw0PDQ8NDw0PDQ8NDw0PDQ8NDw0PDQ8NDw0PDQ8NDw0PDQ8NDw0PDSYNJg0PDQ8NDw0mDQ8NDw0ADQUAAAAA",
     "heat_cool": {

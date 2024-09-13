@@ -1,23 +1,14 @@
 {
   "manufacturer": "Consul",
-  "supportedModels": [
-    "Unknown"
-  ],
+  "supportedModels": ["Unknown"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 18.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "heat",
-    "cool",
-    "heat_cool"
-  ],
-  "fanModes": [
-    "low",
-    "mid",
-    "high"
-  ],
+  "operationModes": ["heat", "cool", "heat_cool"],
+  "fanModes": ["low", "mid", "high"],
   "commands": {
     "off": "JgBoAQABKJYTEhETEhMSOBM3ERQTEhETEhMSExEUERQSExEUERQSEhMSEhMTEhITEhITEhITEhMTEhEUEhMRExQRExIRFBEUEzYTEhQSEhISExMSEhMQFRISFBESExEUERQSEhIUERQQORMSExIRORI4ERQRExITEwABvAABJ5YSExQRERQSOBE5EBUQFBMSERQSExEUEhITEhIUExESExITERQRFBISExMRExEUEhMRExIUERMTEhMSEhMQFRETEjgSExEUEBURFBITERQRExMSEhMSExAVERMTEhEUERQRORMSERQSOBE5EBQTEhAVEQABvQABJpcUERITERQQOhE5ExESExEUEhMQFRITERQRFBETEhMRFBEUEBQSExITEhMSExEUEhMQFRETEhMRFBEUEhMSEhITEjgRFBITExISExEUERMSExITEhMRFBISERQSExMSEhMRORITERQSOBE4ExIRFBITEQANBQ==",
     "heat": {

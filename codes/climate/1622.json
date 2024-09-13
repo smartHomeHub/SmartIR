@@ -1,29 +1,15 @@
 {
   "manufacturer": "Tornado",
-  "supportedModels": [
-    "Master-22 X"
-  ],
+  "supportedModels": ["Master-22 X"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 16,
   "maxTemperature": 32,
   "precision": 1,
-  "operationModes": [
-    "heat",
-    "cool"
-  ],
-  "fanModes": [
-    "low",
-    "mid",
-    "high",
-    "auto"
-  ],
-  "swingModes": [
-    "stop",
-    "hSwing",
-    "vSwing",
-    "swing"
-  ],
+  "operationModes": ["heat", "cool"],
+  "fanModes": ["low", "mid", "high", "auto"],
+  "swingModes": ["stop", "hSwing", "vSwing", "swing"],
   "commands": {
     "off": "JgDYAAABJpUTOBI4ExMSFRETExITOBM3EzgSORI4ExMSOBMTEhMTOBIUEhMTFBETEhMUNxM4EjgUEhIVEhMSEhMTEhMTExIUExITExIUEhMTEhM3ExMTOBIUEhQSFBISEhMTExITExQRFBIUERQSExIVETgTExITEhQSFBEVERMSExMTEhQSExMTEhUQFRISEhQTEhMTExIUEhIVERQSExITEhMUEhITExMSFBMTEhQRExITExMTFBE4EhQSOBIVERURExITExQROBM4EjgUNxI5EjgTOBI5EgANBQ==",
     "heat": {

@@ -1,27 +1,15 @@
 {
   "manufacturer": "Electrolux",
-  "supportedModels": [
-    "EXP26U758CW"
-  ],
+  "supportedModels": ["EXP26U758CW"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 16.0,
   "maxTemperature": 32.0,
   "precision": 1.0,
-  "operationModes": [
-    "cool",
-    "fan_only"
-  ],
-  "fanModes": [
-    "auto",
-    "low",
-    "medium",
-    "high"
-  ],
-  "swingModes": [
-    "on",
-    "off"
-  ],
+  "operationModes": ["cool", "fan_only"],
+  "fanModes": ["auto", "low", "medium", "high"],
+  "swingModes": ["on", "off"],
   "commands": {
     "off": "JgDYAAABJpQSNxI4EhISExISEhMSNxI4EjgSOBI3EhMSEhI4EjgSEhISEhMSEhITEhISOBI4EjcSExISEhMSEhISEhMSEhITEhISExETEhISExI3EhMSEhITEhISExISEhISExISEhMSEhITERMSEhITEjcSExISEhMSEhITEhISEhITEhISExISEhISExISEhMSEhITEhISEhITEhISExISEhMRExISEhMSEhITEhISEhITEhISExI3EhMSOBISEhISExISEhMSNxI4EjgSOBISEhMSNxITEgANBQ==",
     "cool": {
@@ -186,7 +174,6 @@
         }
       }
     },
-
     "fan_only": {
       "auto": {
         "on": {

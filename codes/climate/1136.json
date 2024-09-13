@@ -1,28 +1,14 @@
 {
   "manufacturer": "Mitsubishi Electric",
-  "supportedModels": [
-    "MSXY-FP10VG",
-    "MSXY-FP13VG",
-    "MSXY-FP18VG"
-  ],
+  "supportedModels": ["MSXY-FP10VG", "MSXY-FP13VG", "MSXY-FP18VG"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 16.0,
   "maxTemperature": 31.0,
   "precision": 1.0,
-  "operationModes": [
-    "cool",
-    "dry",
-    "fan_only"
-  ],
-  "fanModes": [
-    "quiet",
-    "auto",
-    "low",
-    "mid",
-    "high",
-    "highest"
-  ],
+  "operationModes": ["cool", "dry", "fan_only"],
+  "fanModes": ["quiet", "auto", "low", "mid", "high", "highest"],
   "commands": {
     "off": "JgBMAm04EScRJxAMDwwRCxAoEAwQCxEnEScQDA8oEQsQDBAnECgQDBAoDygQDBELECcQDBELECgPDBAMEAwQDBAMEAwPDBAMEQsQDBALEAwQDBAMEQsQDA8MEQsRCxELEAwQDBALEQsQDBAMECcQKBAMEAsQDBAMECgRJhAMEAwQDBAMDwwQDBAoEScPDBAoECgPDBAMECgQDA8NDygRJw8oECgQDBAMDwwQDBAMECgPDBAoEAwQDA8MEAwQDBAMEAwQDA8MEAwQDBAMEAwPDBAMEAwQDBAMDwwQDBAMEAwQDA8NDwwQDBAMEAwQDA8MEAwQDBAMEAwPDBAMEAwQDBAMDwwQDBAMEAwQDBAMDwwRCxAMEAwQDBAnEAwQDBAnECgQDBAMEAABn3E2DygQKBAMDwwQDBAoEQsQDA8oECgQDA8oEQsQDBAnECgQDBAnECgQDBAMECcQDBAMECgPDBAMEAwQDBELEAsQDBAMEAwQDBAMEAsQDBAMEAwQDA8MEQsRCxAMEQsQDA8MEQsRCxELECcQKBAMEAwPDQ8MECgQJxAMEQsQDBAMEAwPDBEnECgPDBAoECgQCxAMECgQDBAMDygQKBAnECgQDBAMDwwQDBAMECgPDQ8oEAwQDBAMEAsQDBAMEAwQDA8MEAwQDBAMEAwQCxAMEAwQDBAMDw0PDBAMEAwQDBAMDwwQDBAMEAwQDA8MEAwQDBAMEAwPDQ8MEAwQDBAMEAwPDBAMEAwQDBAMDwwQDBAMEAwQDA8oEAwQDBAnECgQDBAMEAANBQ==",
     "cool": {

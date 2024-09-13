@@ -1,0 +1,18 @@
+{
+  "manufacturer": "Atomberg",
+  "supportedModels": ["Studio+"],
+  "supportedController": "MQTT",
+  "commandsEncoding": "Raw",
+  "speed": ["1", "2", "3", "4", "5", "boost"],
+  "commands": {
+    "off": "{\"Protocol\":\"NEC\",\"Bits\":32,\"Data\":\"0xCF8976\",\"DataLSB\":\"0xF3916E\",\"Repeat\":0}",
+    "default": {
+      "1": "{\"Protocol\":\"NEC\",\"Bits\":32,\"Data\":\"0xCFD12E\",\"DataLSB\":\"0xF38B74\",\"Repeat\":0}",
+      "2": "{\"Protocol\":\"NEC\",\"Bits\":32,\"Data\":\"0xCF09F6\",\"DataLSB\":\"0xF3906F\",\"Repeat\":0}",
+      "3": "{\"Protocol\":\"NEC\",\"Bits\":32,\"Data\":\"0xCF51AE\",\"DataLSB\":\"0xF38A75\",\"Repeat\":0}",
+      "4": "{\"Protocol\":\"NEC\",\"Bits\":32,\"Data\":\"0xCFC936\",\"DataLSB\":\"0xF3936C\",\"Repeat\":0}",
+      "5": "{\"Protocol\":\"NEC\",\"Bits\":32,\"Data\":\"0xCF11EE\",\"DataLSB\":\"0xF38877\",\"Repeat\":0}",
+      "boost": "{\"Protocol\":\"NEC\",\"Bits\":32,\"Data\":\"0xCFF10E\",\"DataLSB\":\"0xF38F70\",\"Repeat\":0}"
+    }
+  }
+}

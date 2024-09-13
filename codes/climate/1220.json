@@ -1,23 +1,14 @@
 {
   "manufacturer": "Sungold",
-  "supportedModels": [
-    "Unknown"
-  ],
+  "supportedModels": ["Unknown"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 62.0,
   "maxTemperature": 86.0,
   "precision": 1.0,
-  "operationModes": [
-    "heat",
-    "cool"
-  ],
-  "fanModes": [
-    "low",
-    "mid",
-    "high",
-    "auto"
-  ],
+  "operationModes": ["heat", "cool"],
+  "fanModes": ["low", "mid", "high", "auto"],
   "commands": {
     "off": "JgDKAJCREzUSEhI2EhISEhISEhISNhISEhISEhISEhISEhI2EhISEhE3EjYSEhI2EjUTEhISEjUTNRI2EjYSNRM1EjYSNhI2EjYSNRI2EjYSNhI1EjYSNhE3EjYSEhISEhIRExISEK2QkhISEjUSExE2EjYSNhE3EhIRNxI1EjYRNxE3ETYSEhI2ETcSEhISEjYSEhISETcSNhISEhISEhISEhISEhISERMSEhISEhISEhETEhISEhISEhISEhISEjYSNRM1EjYSNhAADQUAAAAAAAAAAAAAAAAAAA==",
     "heat": {

@@ -1,29 +1,15 @@
 {
   "manufacturer": "SAGA",
-  "supportedModels": [
-    "SAGA-A-22(CH)"
-  ],
+  "supportedModels": ["SAGA-A-22(CH)"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 16,
   "maxTemperature": 32,
   "precision": 1,
-  "operationModes": [
-    "heat",
-    "cool"
-  ],
-  "fanModes": [
-    "low",
-    "mid",
-    "high",
-    "auto"
-  ],
-  "swingModes": [
-    "stop",
-    "hSwing",
-    "vSwing",
-    "swing"
-  ],
+  "operationModes": ["heat", "cool"],
+  "fanModes": ["low", "mid", "high", "auto"],
+  "swingModes": ["stop", "hSwing", "vSwing", "swing"],
   "commands": {
     "off": "JgDIAMf0FDUQNxYzETcSNRM1ETcRNxITERQSExEUERMRFBMREhIRNxI2EDcRNxE3EzUUNRA4ERQRFBATERQTExETERQUERI1EjUTNRQ0EzQRNhU0EDgSExITEhISEhIUEhESExEUEzUUNBM1EhMRNhI2FDQROBEUERMVEBE3EBMRExIUEhIQFRI2FBAUNBM1EBQRNhE3EjcUEBE3FBERFBI2ExMQFRITEjUTEhM0FRASNBMSERMRNxMREjYSExM2ERMUNBM1FfAUAA0F",
     "heat": {

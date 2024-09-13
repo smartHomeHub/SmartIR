@@ -1,13 +1,9 @@
 {
   "manufacturer": "Atomberg",
-  "supportedModels": [
-    "Renesa"
-  ],
+  "supportedModels": ["Renesa"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
-  "speed": [
-    "1", "2", "3", "4", "5"
-  ],
+  "speed": ["1", "2", "3", "4", "5"],
   "commands": {
     "off": "JgBQAAABJZITExMSExITEhMSExITExMSEzcTNhMTExITNxM2EzcTNxM3ExkMEhMSEzcTEhMTEjcTEhM3EzcTNxMSEzcTNxMSEwAFYQABJkkTAA0F",
     "default": {

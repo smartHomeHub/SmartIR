@@ -1,23 +1,14 @@
 {
   "manufacturer": "Actron",
-  "supportedModels": [
-    "Unknown"
-  ],
+  "supportedModels": ["Unknown"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 17.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "cool",
-    "heat"
-  ],
-  "fanModes": [
-    "auto",
-    "low",
-    "med",
-    "high"
-  ],
+  "operationModes": ["cool", "heat"],
+  "fanModes": ["auto", "low", "med", "high"],
   "commands": {
     "off": "JgDKAJCTEDYQFBA3DzgQExAUDzcQFBATEDcQFBATDzgRNRISETYREhA3EDcRNhA2EBQQNxA2EDcRExAUDxQPFBA3ERMREhE2ETIVNRISERISEhESERMREhESEBQPNxA3EDcQNxA3D66PkxA3EBQQNhA3ERMQEw84EBMQFBA2ERMQExA3EDcPFBE2EBQQNhE2EDcQNw8UETYQNxA3EBMQFBATEBQQNhAUEBMQNw83ETYQFBAUEBMQExETEBMQFA8UEDcQNhE2ETYQNxAADQUAAAAAAAAAAAAAAAAAAA==",
     "cool": {

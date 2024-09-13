@@ -1,26 +1,14 @@
 {
   "manufacturer": "Tadiran",
-  "supportedModels": [
-    "TAC 297"
-  ],
+  "supportedModels": ["TAC 297"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 16.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "heat_cool",
-    "fan_only",
-    "dry",
-    "cool",
-    "heat"
-  ],
-  "fanModes": [
-    "low",
-    "mid",
-    "high",
-    "auto"
-  ],
+  "operationModes": ["heat_cool", "fan_only", "dry", "cool", "heat"],
+  "fanModes": ["low", "mid", "high", "auto"],
   "commands": {
     "off": "JgAQAQABA4szERA2EDYRNRE1EDYQNhE2MhIRNRE1ETUQNjQREDYQNhA2MxE0ERA2MxE0EQ83EDYQNhA2EDYQNhE1ETURNRI0EjQRNRA3EDYPNw83EDYQNhA2ETUQNhE1ETURNTQRNBARNRE1ETURNhA2EDYzETQQMxIPNzMRETURNTMSEDYQNjQAA/EAAQGMMxERNRE1EjQSNBE2DzcQNjMREDYQNhA2ETU0EQ83DzcQNjMRMxMPNjQQMxIQNhA2EDYQNhA2DzcQNhE1EDYQNhA2EDYQNhE1EDYQNhA3EDYQNhA2EDYQNhE1EDYzETMSETURNRA2DzcQNg83NBAzEjMRDzc0EBE1ETYyEg83DzczAA0FAAAAAAAAAAA=",
     "heat_cool": {

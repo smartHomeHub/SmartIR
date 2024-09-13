@@ -1,24 +1,14 @@
 {
   "manufacturer": "Electra",
-  "supportedModels": [
-    "Unknown"
-  ],
+  "supportedModels": ["Unknown"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 16.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "heat",
-    "cool",
-    "fan"
-  ],
-  "fanModes": [
-    "auto",
-    "low",
-    "mid",
-    "high"
-  ],
+  "operationModes": ["heat", "cool", "fan_only"],
+  "fanModes": ["auto", "low", "mid", "high"],
   "commands": {
     "off": "JgDIAIiEEzATDxMwEzATDxMPEzATDxMPEzATDxMPEzATMBMPEzATDxMwEzATMBMwEw8TMBMwEzATDxMPEw8TDxMwEw8TDxMwEzATMBMPEw8TDxMPEw8TDxMPEw8TMBMwEzATMBMwE5yIhBMwEw8TMBMwEw8TDxMwEw8TDxMwEw8TDxMwEzATDxMwEw8TMBMwEzATMBMPEzATMBMwEw8TDxMPEw8TMBMPEw8TMBMwEzATDxMPEw8TDxMPEw8TDxMPEzATMBMwEzATMBMADQUAAAAA",
     "heat": {
@@ -161,7 +151,7 @@
         "30": "JgDIAIiEEzATDxMwEzATDxMPEzATDxMPEzATDxMPEzATMBMPEzATDxMPEzATMBMwEzATMBMwEzATMBMPEw8TDxMPEw8TDxMwEw8TMBMwEw8TDxMPEw8TDxMwEw8TDxMwEzATMBMwE5yIhBMwEw8TMBMwEw8TDxMwEw8TDxMwEw8TDxMwEzATDxMwEw8TDxMwEzATMBMwEzATMBMwEzATDxMPEw8TDxMPEw8TMBMPEzATMBMPEw8TDxMPEw8TMBMPEw8TMBMwEzATMBMADQUAAAAA"
       }
     },
-    "fan": {
+    "fan_only": {
       "auto": {
         "16": "JgDIAIiEEzATDxMwEzATDxMPEzATDxMPEzATDxMPEzATMBMPEzATMBMPEzATMBMwEzATMBMwEw8TMBMPEw8TDxMPEw8TDxMwEzATMBMPEw8TMBMPEw8TDxMPEw8TMBMwEw8TMBMwE5yIhBMwEw8TMBMwEw8TDxMwEw8TDxMwEw8TDxMwEzATDxMwEzATDxMwEzATMBMwEzATMBMPEzATDxMPEw8TDxMPEw8TMBMwEzATDxMPEzATDxMPEw8TDxMPEzATMBMPEzATMBMADQUAAAAA",
         "17": "JgDIAIiEEzATDxMwEzATDxMPEzATDxMPEzATDxMPEzATMBMPEzATMBMPEzATMBMwEzATMBMwEw8TMBMPEw8TDxMPEw8TDxMwEzATMBMPEw8TMBMPEw8TDxMPEw8TMBMwEw8TMBMwE5yIhBMwEw8TMBMwEw8TDxMwEw8TDxMwEw8TDxMwEzATDxMwEzATDxMwEzATMBMwEzATMBMPEzATDxMPEw8TDxMPEw8TMBMwEzATDxMPEzATDxMPEw8TDxMPEzATMBMPEzATMBMADQUAAAAA",

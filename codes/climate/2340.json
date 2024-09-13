@@ -1,25 +1,14 @@
 {
   "manufacturer": "Vortex",
-  "supportedModels": [
-    "VOR-12C3/407"
-  ],
+  "supportedModels": ["VOR-12C3/407"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 16.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "heat",
-    "cool",
-    "dry",
-    "fan_only"
-  ],
-  "fanModes": [
-    "low",
-    "med",
-    "high",
-    "auto"
-  ],
+  "operationModes": ["heat", "cool", "dry", "fan_only"],
+  "fanModes": ["low", "med", "high", "auto"],
   "commands": {
     "off": "JgBOAAABKZAXEBcQFxAXEBc1FjYWERcQFzQXEBcQFzQXEBcRFhIVEBcQFxAXEBcQFxAXEBcQFxAXEBcQFxAXERY1FhEWNRcQFxAXNRYRFgANBQAAAAAAAAAAAAA=",
     "heat": {

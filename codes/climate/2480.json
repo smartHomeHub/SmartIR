@@ -1,26 +1,14 @@
 {
   "manufacturer": "Rotenso",
-  "supportedModels": [
-    "Ukura", "Maze (remote)"
-  ],
+  "supportedModels": ["Ukura", "Maze (remote)"],
   "commandsEncoding": "Base64",
   "supportedController": "Broadlink",
+  "temperatureUnit": "C",
   "minTemperature": 17,
   "maxTemperature": 30,
   "precision": 1,
-  "operationModes": [
-    "cool",
-    "heat",
-    "dry",
-    "heat_cool",
-    "fan_only"
-  ],
-  "fanModes": [
-    "auto",
-    "low",
-    "med",
-    "high"
-  ],
+  "operationModes": ["cool", "heat", "dry", "heat_cool", "fan_only"],
+  "fanModes": ["auto", "low", "med", "high"],
   "commands": {
     "off": "JgDKAI2REDcQExA2EDYQExAUEDYQExATEDYQFBATEDYQNhATEDcQExA2EDYQNhA3EBMQNhA2EDcQExATEBMQExA2EBQQExA2EDYQNhAUEBMQExATEBMQExATEBMQNxA2EDYQNhA3EKuQjxA3EBMQNhA2EBMQFBA2ERIQExA2EBMQFBA2EDYQExA2EBQPNxA2EDYQNxATEDYQNhA2EBQQExATEBMQNhATEBMQNxA2EDYQExATEBQQExATEBMQExATEDYQNxA2EDYQNhAADQUAAAAAAAAAAAAAAAA=",
     "cool": {

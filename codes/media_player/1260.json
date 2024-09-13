@@ -1,8 +1,6 @@
 {
   "manufacturer": "Thomson",
-  "supportedModels": [
-    "40FA3203"
-  ],
+  "supportedModels": ["40FA3203"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
   "commands": {

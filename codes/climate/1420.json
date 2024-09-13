@@ -1,25 +1,14 @@
 {
   "manufacturer": "Sintech",
-  "supportedModels": [
-    "KFR-34GW"
-  ],
+  "supportedModels": ["KFR-34GW"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 16.0,
   "maxTemperature": 31.0,
   "precision": 1.0,
-  "operationModes": [
-    "cool",
-    "heat",
-    "dry",
-    "fan_only"
-  ],
-  "fanModes": [
-    "low",
-    "mid",
-    "high",
-    "auto"
-  ],
+  "operationModes": ["cool", "heat", "dry", "fan_only"],
+  "fanModes": ["low", "mid", "high", "auto"],
   "commands": {
     "off": "JgDmAHU4ECwQLBAMEA0ODg8tEAwPDhAsDy0QDA8tEA0PDQ8tECwQDQ4uDi0PDg8NDy0PDQ8ODy0QDQ4OEAwQDQ4ODw0PDg8ODQ8PDQ8ODg4QDA8ODi4PDQ8ODw0QDQ4ODy0QDA8NEA0PDg8NDy0QDA4PDg4PDRAtECwQLBAMDw0PDg8NDw0QDQ8tEA0OLRANDw0PLQ8ODw0PDg8NDw0PDg8NDw0PDhANDw0PDREMDg4PDQ8ODw4ODg8NDw4ODg8NDw4PDQ8NEA0PDg4ODw0PDg8NDw0PDg8ODi0RKxErEQwODg8NDw4QAA0FAAA=",
     "cool": {

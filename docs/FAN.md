@@ -1,40 +1,43 @@
-<p align="center">
-  <a href="#"><img src="assets/smartir_fan.png" width="350" alt="SmartIR Media Player"></a>
-</p>
+# SmartIR Fan
 
-For this platform to work, we need a .json file containing all the necessary IR or RF commands.
-Find your device's brand code [here](FAN.md#available-codes-for-fan-devices) and add the number in the `device_code` field. The compoenent will download it to the correct folder. If your device is not working, you will need to learn your own codes and place the .json file in `smartir/codes/fan/` subfolders. Please note that the `device_code` field only accepts positive numbers. The .json extension is not required.
+Find your device's brand code [here](FAN_CODES.md) and add the number in the `device_code` field. If your device is not supported, you will need to learn your own IR codes and place them in the Json file in `smartir/custom_codes/fan` subfolder. Please refer to [this guide](CODES_SYNTAX.md) to find a way how to do it. Once you have working device file please do not forgot to submit Pull Request so it could be inherited to this project for other users.
 
 ## Configuration variables
 
-**name** (Optional): The name of the device<br />
-**unique_id** (Optional): An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.<br />
-**device_code** (Required): ...... (Accepts only positive numbers)<br />
-**controller_data** (Required): The data required for the controller to function. Enter the entity_id of the Broadlink remote (must be an already configured device), or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands.<br />
-**delay** (Optional): Adjusts the delay in seconds between multiple commands. The default is 0.5 <br />
-**power_sensor** (Optional): *entity_id* for a sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor. (Accepts only on/off states)<br />
+| Name                         |  Type   | Default  | Description                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| ---------------------------- | :-----: | :------: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`                       | string  | optional | The name of the device                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `unique_id`                  | string  | optional | An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.                                                                                                                                                                                                                                                                                                               |
+| `device_code`                | number  | required | (Accepts only positive numbers)                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `controller_data`            | string  | required | The data required for the controller to function. Look into configuration examples bellow for valid configuration entries for different controllers types.                                                                                                                                                                                                                                                                                |
+| `delay`                      | number  | optional | Adjusts the delay in seconds between multiple commands. The default is 0.5                                                                                                                                                                                                                                                                                                                                                                |
+| `power_sensor`               | string  | optional | _entity_id_ for a sensor that monitors whether your device is actually `on` or `off`. This may be a power monitor sensor. (Accepts only on/off states)                                                                                                                                                                                                                                                                                    |
+| `power_sensor_delay`         |   int   | optional | Maximum delay in second in which power sensor is able to report back to HA changed state of the device, default is 10 seconds. If sensor reaction time is longer extend this time, otherwise you might get unwanted changes in the device state.                                                                                                                                                                                          |
+| `power_sensor_restore_state` | boolean | optional | If `true` than in case power sensor will report to HA that device is `on` without HA actually switching it `on `(device was switched on by remote, of device cycled, etc.), than HA will report last assumed state and attributes at the time when the device was `on` managed by HA. If set to `false` when device will be reported as `on` by the power sensors all device attributes will be reported as `UNKNOWN`. Default is `true`. |
 
-## Example (using broadlink controller)
+## Example configurations
+
+### Example (using broadlink controller)
 
 Add a Broadlink RM device named "Bedroom" via config flow (read the [docs](https://www.home-assistant.io/integrations/broadlink/)).
 
 ```yaml
-smartir:
-
 fan:
   - platform: smartir
     name: Bedroom fan
     unique_id: bedroom_fan
     device_code: 1000
-    controller_data: remote.bedroom_remote
+    controller_data:
+      controller_type: Broadlink
+      remote_entity: remote.bedroom_remote
+      delay_secs: 0.5
+      num_repeats: 3
     power_sensor: binary_sensor.fan_power
 ```
 
 ## Example (using xiaomi controller)
 
 ```yaml
-smartir:
-
 remote:
   - platform: xiaomi_miio
     host: 192.168.10.10
@@ -45,39 +48,55 @@ fan:
     name: Bedroom fan
     unique_id: bedroom_fan
     device_code: 2000
-    controller_data: remote.xiaomi_miio_192_168_10_10
+    controller_data:
+      controller_type: Xiaomi
+      remote_entity: remote.xiaomi_miio_192_168_10_10
     power_sensor: binary_sensor.fan_power
 ```
 
-## Example (using mqtt controller)
+### Example (using MQTT controller)
 
 ```yaml
-smartir:
-
 fan:
   - platform: smartir
     name: Bedroom fan
     unique_id: bedroom_fan
     device_code: 3000
-    controller_data: home-assistant/bedroom-fan/command
+    controller_data:
+      controller_type: MQTT
+      mqtt_topic: home-assistant/bedroom_fan/command
     power_sensor: binary_sensor.fan_power
 ```
 
-## Example (using LOOKin controller)
+### Example (using mqtt Z06/UFO-R11 controller)
 
 ```yaml
-smartir:
+fan:
+  - platform: smartir
+    name: Bedroom fan
+    unique_id: bedroom_fan
+    device_code: 3000
+    controller_data:
+      controller_type: UFOR11
+      mqtt_topic: home-assistant/bedroom_fan/command
+    power_sensor: binary_sensor.fan_power
+```
 
+### Example (using LOOKin controller)
+
+```yaml
 fan:
   - platform: smartir
     name: Bedroom fan
     unique_id: bedroom_fan
     device_code: 4000
-    controller_data: 192.168.10.10
+    controller_data:
+      controller_type: LOOKin
+      remote_host: 192.168.10.10
     power_sensor: binary_sensor.fan_power
 ```
 
-## Example (using ESPHome)
+### Example (using ESPHome)
 
 ESPHome configuration example:
 
@@ -94,7 +113,7 @@ api:
         command: int[]
       then:
         - remote_transmitter.transmit_raw:
-            code: !lambda 'return command;'
+            code: !lambda "return command;"
 
 remote_transmitter:
   pin: GPIO14
@@ -104,94 +123,36 @@ remote_transmitter:
 HA configuration.yaml:
 
 ```yaml
-smartir:
-
 fan:
   - platform: smartir
     name: Bedroom fan
     unique_id: bedroom_fan
     device_code: 4000
-    controller_data: my_espir_send_raw_command
+    controller_data:
+      controller_type: ESPHome
+      esphome_service: my_espir_send_raw_command
+    power_sensor: binary_sensor.fan_power
+```
+
+### Example (using ZHA controller and a TuYa ZS06)
+
+```yaml
+fan:
+  - platform: smartir
+    name: Bedroom fan
+    unique_id: bedroom_fan
+    device_code: 5000
+    controller_data:
+      controller_type: ZHA
+      zha_ieee: "XX:XX:XX:XX:XX:XX:XX:XX"
+      zha_endpoint_id: 1
+      zha_cluster_id: 57348
+      zha_cluster_type: "in"
+      zha_command: 2
+      zha_command_type: "server"
     power_sensor: binary_sensor.fan_power
 ```
 
 ## Available codes for Fan devices
 
-The following are the code files created by the amazing people in the community. Before you start creating your own code file, try if one of them works for your device. **Please open an issue if your device is working and not included in the supported models.**
-Contributing to your own code files is welcome. However, we do not accept incomplete files as well as files related to MQTT controllers.
-
-#### Kaze
-
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1000](../codes/fan/1000.json)|Unknown|Broadlink
-
-#### Acorn
-
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1020](../codes/fan/1020.json)|Unknown|Broadlink
-
-#### Atomberg
-
-| Code | Supported Models | Notes |Controller |
-| ------------- | ----- | ----- | ------------- |
-[1160](../codes/fan/1160.json)|Efficio||Broadlink
-[1170](../codes/fan/1170.json)|Renesa|Speeds `1,2,3,4,5` is mapped to `2,3,4,5,Boost` on the remote|Broadlink
-
-#### Lucci Air
-
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1040](../codes/fan/1040.json)|Aria|Broadlink
-[1041](../codes/fan/1041.json)|Whitehaven DC|Broadlink
-[7040](../codes/fan/7040.json)|Aria|ESPHome
-
-#### Super Fan
-
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1060](../codes/fan/1060.json)|A1|Broadlink
-
-#### Harbor Breeze
-
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1080](../codes/fan/1080.json)|A25-TX001-R1|Broadlink
-[1081](../codes/fan/1081.json)|A25-TX025|Broadlink
-
-#### Pacific
-
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1100](../codes/fan/1100.json)|Unknown|Broadlink
-
-#### Europace
-
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1120](../codes/fan/1120.json)|Unknown|Broadlink
-
-#### SMC
-
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1140](../codes/fan/1140.json)|SP486, SP483|Broadlink
-
-#### Argo
-
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1180](../codes/fan/1180.json)|Standy|Broadlink
-
-#### DCG
-
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1200](../codes/fan/1200.json)|Unknown|Broadlink
-
-#### Mitsubishi
-
-| Code | Supported Models | Controller |
-| ------------- | -------------------------- | ------------- |
-[1220](../codes/fan/1220.json)|C56-RW5|Broadlink
+[**Fan codes**](/docs/FAN_CODES.md)

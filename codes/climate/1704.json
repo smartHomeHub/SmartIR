@@ -1,25 +1,14 @@
 {
   "manufacturer": "Electrolux",
-  "supportedModels": [
-    "EPI12LEIWI"
-  ],
+  "supportedModels": ["EPI12LEIWI"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 17,
   "maxTemperature": 30,
   "precision": 1,
-  "operationModes": [
-    "heat",
-    "cool",
-    "heat_cool",
-    "fan_only"
-  ],
-  "fanModes": [
-    "auto",
-    "level1",
-    "level2",
-    "level3"
-  ],
+  "operationModes": ["heat", "cool", "heat_cool", "fan_only"],
+  "fanModes": ["auto", "level1", "level2", "level3"],
   "commands": {
     "off": "JgDKAJCPEzQTERM0FDQTERMQFDQUEBQQFDMUEBQQFDQUMxQQFDQUEBQzFDQUMxQ0FBAUMxQ0FDUTEBQQExETEBQ0FBAUEBQzFDQUMxQQFBAUEBQQFBAUEBQQFBAUMxQ0FDMUNBQzEqyTjRQ0FBAUMxQ0FBAUEBM0FBAUEBQ0FBATEBQ0FDMUEBQ0FBAUMxQ0FDQTNBQQFDMUNBQ0FBAUEBMQFBAUNBQQFBAUMxQ0FDMUEBQQFBAUEBQQFBAUEBMREzQUNBM0FDQUMxIADQU=",
     "heat": {

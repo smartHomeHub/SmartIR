@@ -1,23 +1,14 @@
 {
   "manufacturer": "Simbio",
-  "supportedModels": [
-    "Unknown"
-  ],
+  "supportedModels": ["Unknown"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 16.0,
   "maxTemperature": 31.0,
   "precision": 1.0,
-  "operationModes": [
-    "cool",
-    "heat"
-  ],
-  "fanModes": [
-    "low",
-    "mid",
-    "high",
-    "auto"
-  ],
+  "operationModes": ["cool", "heat"],
+  "fanModes": ["low", "mid", "high", "auto"],
   "commands": {
     "off": "JgDmAHczEScPKA4TEBEQERAnDxIPEw0pDygPEg8oDxIPEw8nECcPEw8nDygPEg8TDycQEg8RDygQEQ8SEBIPEQ8SEBIQEQ8SDhIQEhARDxEPEhERDhMOEhASEBEPEg4SECgOEhASDygQJxAREBEQEQ8SEBEQEQ4TDygOKQ8SDxIQEQ8SDxMPEQ8oEBEQKA4SEBEPEw8RDxIPEg8SEBEQEQ8SEBIOEg8SDxMPEg4SDxIREQ8SDhIPExARDxIOEhASEBIOERASEREQEQ4TDxIPEg4TEBEREA8SDxIQEQ8oEBEPEg4pEBEPAA0FAAA=",
     "cool": {

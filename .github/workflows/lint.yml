@@ -1,0 +1,60 @@
+name: "Lint"
+
+on:
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          fetch-depth: 0
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v44.5.6
+        with:
+          fetch_depth: "100"
+          files_yaml: |
+            codes:
+              - 'codes/*/*.json'
+            auto:
+              - 'docs/*_CODES.md'
+
+      - name: Prevent changes to the auto generated docs
+        if: steps.changed-files.outputs.auto_any_changed == 'true'
+        env:
+          ALL_CHANGED_AUTO_FILES: ${{ steps.changed-files.outputs.auto_all_changed_files }}
+        run: |
+          FILES=""
+          for file in ${ALL_CHANGED_AUTO_FILES}; do
+            echo "File "$FILE" is auto generated and should not be modified!""
+          done
+          exit 1
+
+      - name: Set up Python
+        if: steps.changed-files.outputs.codes_any_changed == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.X"
+
+      - name: Validate device code files
+        if: steps.changed-files.outputs.codes_any_changed == 'true'
+        env:
+          ALL_CHANGED_DEVICE_FILES: ${{ steps.changed-files.outputs.codes_all_changed_files }}
+        run: |
+          FILES=""
+          for file in ${ALL_CHANGED_DEVICE_FILES}; do
+            FILES="$FILES $file"
+          done
+          python3 test_device_data.py $FILES

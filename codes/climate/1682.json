@@ -1,27 +1,14 @@
 {
   "manufacturer": "Mitsubishi Heavy",
-  "supportedModels": [
-    "SRKM25H",
-    "SRK40HBE",
-	"RKS502A502",
-	"RKS502A503"
-  ],
+  "supportedModels": ["SRKM25H", "SRK40HBE", "RKS502A502", "RKS502A503"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 18,
   "maxTemperature": 30,
   "precision": 1,
-  "operationModes": [
-    "cool",
-    "heat",
-    "dry"
-  ],
-  "fanModes": [
-    "low",
-    "med",
-    "high",
-    "auto"
-  ],
+  "operationModes": ["cool", "heat", "dry"],
+  "fanModes": ["low", "med", "high", "auto"],
   "commands": {
     "off": "JgBoAL/6EnYSdhN1EnYSMxF3EnYTdRMyETUSMhI0EXYSNBE0EjMSMxJ2EnYSdhF4ETMSdhMyEnYSMxI0ETQSMxF3EjMSdhIzEnYSMxJ2FDIRdxE0ETMSdhI0EXcSMxF3EjMTdRN1EvoSAA0F",
     "cool": {

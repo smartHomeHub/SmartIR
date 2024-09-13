@@ -553,26 +553,13 @@
     "off": "JgDKAI6SETYQExE2EBMREhETEBMRNhATERIRExATERIRExA2ERMQExE2EDYRExA2ERMQExESETYQNxA2ETYQNxA2ETYQNxA2ETYQNxA2ETYRNhA2ETYQNhE2ETYQExESETYREhETEKyQkhATETYQExE2EDcQNhE2EBMRNhA3EDYRNhA3EDYRExA2ETYQExETEDYRExA2ETYQNhETEBMRExATEBMREhETEBMREhETEBMRExESEBMREhETEBMREhETEDYRNhESETYRNhAADQU="
   },
   "commandsEncoding": "Base64",
-  "fanModes": [
-    "auto",
-    "low",
-    "medium",
-    "high"
-  ],
+  "fanModes": ["auto", "low", "medium", "high"],
   "manufacturer": "Carrier",
   "maxTemperature": 86,
+  "temperatureUnit": "C",
   "minTemperature": 62,
-  "operationModes": [
-    "cool",
-    "heat",
-    "dry",
-    "heat_cool",
-    "fan_only"
-  ],
+  "operationModes": ["cool", "heat", "dry", "heat_cool", "fan_only"],
   "precision": 1,
   "supportedController": "Broadlink",
-  "supportedModels": [
-    "40MAQB12B--3",
-    "40MAQB18B--3"
-  ]
+  "supportedModels": ["40MAQB12B--3", "40MAQB18B--3"]
 }

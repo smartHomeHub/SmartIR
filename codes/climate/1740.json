@@ -1,27 +1,14 @@
 {
   "manufacturer": "Kelvinator",
-  "supportedModels": [
-    "KSV25HRG"
-  ],
+  "supportedModels": ["KSV25HRG"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 17,
   "maxTemperature": 30,
   "precision": 1,
-  "operationModes": [
-    "heat_cool",
-    "heat",
-    "cool",
-    "fan_only",
-    "dry"
-  ],
-  "fanModes": [
-    "silent",
-    "low",
-    "mid",
-    "high",
-    "auto"
-  ],
+  "operationModes": ["heat_cool", "heat", "cool", "fan_only", "dry"],
+  "fanModes": ["silent", "low", "mid", "high", "auto"],
   "commands": {
     "off": "JgDKAJKREjQTERM0EjUSERMREjQTERIREzQTERIREjUSNRIREzQSEhI0EzQTNBI1EhETNBM0EzQSERMREhETEBM0ExESERM0EzQSNRIRExESERIRExESERMREhETNBM0EjUSNRI0E6uRkRM0EhETNBM0ExATERI1EhETERI0ExESERM0FDMTEBQzFBATMxQzFDMUMxQPFDMUMxQzFA8UEBMQFBATMxQQFA8UMxQzFDMUDxQQFA8UEBMQFBATEBQPFDMUMxQzFDMUMxMADQUAAAAAAAAAAAAAAAAAAA",
     "heat": {

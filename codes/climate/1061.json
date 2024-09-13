@@ -1,27 +1,14 @@
 {
   "manufacturer": "LG",
-  "supportedModels": [
-    "Unknown"
-  ],
+  "supportedModels": ["Unknown"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 16.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "cool",
-    "ai",
-    "dry",
-    "fan_only"
-  ],
-  "fanModes": [
-    "lowest",
-    "low",
-    "mid",
-    "high",
-    "highest",
-    "auto"
-  ],
+  "operationModes": ["cool", "auto", "dry", "fan_only"],
+  "fanModes": ["lowest", "low", "mid", "high", "highest", "auto"],
   "commands": {
     "off": "JgBAAGcAAUMSNBASEBIREREzEREREhEREDQQNBASEBIRERIQERIQEhASEBIQEhASEBIQNBERETMSERARERERMxEADQUAAAAAAAAAAA==",
     "cool": {
@@ -128,7 +115,7 @@
         "30": "JgBAAGcAAUQSMxAREhASEREzEREREREREhEQEhASEBIQNBASEBIQERIzEjIQNBA0EREQNBERETMSMxA0EBIQEhAADQUAAAAAAAAAAA=="
       }
     },
-    "ai": {
+    "auto": {
       "lowest": {
         "16": "JgBAAGcAAUQSMxASEBIQEhA0EBIQEhASEBIQEhASEBIQMxESEDQRMxASEBIQNBEREBERNBIQETMQEhAREjMQEhAADQUAAAAAAAAAAA==",
         "17": "JgBAAGcAAUQSMxASEBIQEhA0EBIQEhASEBIQEhASEBIQMxESEDQRMxASEBIQNBEREBERNBIQETMQEhAREjMQEhAADQUAAAAAAAAAAA==",

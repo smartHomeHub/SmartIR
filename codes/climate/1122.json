@@ -1,25 +1,14 @@
 {
   "manufacturer": "Mitsubishi",
-  "supportedModels": [
-    "MSZ-AP50VGKD"
-  ],
+  "supportedModels": ["MSZ-AP50VGKD"],
   "commandsEncoding": "Base64",
   "supportedController": "Broadlink",
+  "temperatureUnit": "C",
   "minTemperature": 10,
   "maxTemperature": 31,
   "precision": 1,
-  "operationModes": [
-    "cool",
-    "heat"
-  ],
-  "fanModes": [
-    "auto",
-    "quiet",
-    "low",
-    "medium",
-    "high",
-    "highest"
-  ],
+  "operationModes": ["cool", "heat"],
+  "fanModes": ["auto", "quiet", "low", "medium", "high", "highest"],
   "commands": {
     "off": "JgB8AW44DSoNKg0PDQ4PDQ0qDwwODg0qDygODg0qDQ8NDg0qDykNDg0qDygPDQ0PDSoPDA8NDSoNDw0ODw0NDg4ODw0NDg0PDwwNDw8MDg4PDQ0ODQ8NAAEsbjgNKg0qDQ4ODg0PDSoNDg8NDygNKg0PDSoNDw0ODSoPKA4ODygNKg8NDQ4OKg4NDw0NKg0ODw0PDQ4NDw0NDw0ODQ8NDg0PDQ4NDw0ODg4NDw0ODw0NDg0PDQ8NDg0PDQ4NDw8MDw0NKg0PDg0NDw0ODykNKg0qDygNDw0ODQ8NDg4QCw8NDg0PDygPKA8NDg0NKg8NDSoNDw4NDQ8PKA8MDw0NDw0ODw0NDg8NDw0ODQ0PDQ4NDw0PDQ4PDQ0ODQ8PDA8NDQ4PDQ8NDg0PDQ0ODw0NDw0ODQ8NDg8NDwwPDQ0PDg0NDw0ODw0NDg4ODw0NDg0PDwwNDw0ODg4NDw4NDQ8NDg4ODw0NDg0PDQ4NDw0qDQ8NDg0PDQ4NKg4ODSoNAA0FAAAAAAAAAAAAAAAA",
     "cool": {

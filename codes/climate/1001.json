@@ -3,6 +3,7 @@
   "supportedModels": ["AKIRA GAN/GAG-A135FW-M"],
   "commandsEncoding": "Base64",
   "supportedController": "Broadlink",
+  "temperatureUnit": "C",
   "minTemperature": 16,
   "maxTemperature": 30,
   "precision": 1,

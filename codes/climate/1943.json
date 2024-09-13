@@ -1,25 +1,15 @@
 {
-  "manufacturer":"Electra",
-  "supportedModels":[
-    "Unknown"
-  ],
-  "supportedController":"Broadlink",
-  "commandsEncoding":"Base64",
-  "minTemperature":16.0,
-  "maxTemperature":30.0,
-  "precision":1.0,
-  "operationModes":[
-    "cool",
-    "heat",
-    "fan_only"
-  ],
-  "fanModes":[
-    "auto",
-    "low",
-    "mid",
-    "high"
-  ],
-  "commands":{
+  "manufacturer": "Electra",
+  "supportedModels": ["Unknown"],
+  "supportedController": "Broadlink",
+  "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
+  "minTemperature": 16.0,
+  "maxTemperature": 30.0,
+  "precision": 1.0,
+  "operationModes": ["cool", "heat", "fan_only"],
+  "fanModes": ["auto", "low", "mid", "high"],
+  "commands": {
     "off": "JgDIAIiEEzATDxMwEzATDxMPEzATDxMPEzATDxMPEzATMBMPEzATDxMwEzATMBMwEw8TMBMwEzATDxMPEw8TDxMwEw8TDxMwEzATMBMPEw8TDxMPEw8TDxMPEw8TMBMwEzATMBMwE5yIhBMwEw8TMBMwEw8TDxMwEw8TDxMwEw8TDxMwEzATDxMwEw8TMBMwEzATMBMPEzATMBMwEw8TDxMPEw8TMBMPEw8TMBMwEzATDxMPEw8TDxMPEw8TDxMPEzATMBMwEzATMBMADQUAAAAA",
     "cool": {
       "auto": {
@@ -161,7 +151,7 @@
         "30": "JgDIAIiEEzATDxMwEzATDxMPEzATDxMPEzATDxMPEzATMBMPEzATDxMPEzATMBMwEzATMBMwEzATMBMPEw8TDxMPEw8TDxMwEw8TMBMwEzATMBMPEw8TDxMwEw8TDxMPEw8TMBMwE5yIhBMwEw8TMBMwEw8TDxMwEw8TDxMwEw8TDxMwEzATDxMwEw8TDxMwEzATMBMwEzATMBMwEzATDxMPEw8TDxMPEw8TMBMPEzATMBMwEzATDxMPEw8TMBMPEw8TDxMPEzATMBMADQUAAAAA"
       }
     },
-    "fan_only":{
+    "fan_only": {
       "auto": {
         "16": "JgDIAIiEEzATDxMwEzATDxMPEzATDxMPEzATDxMPEzATMBMPEzATMBMPEzATMBMwEzATMBMwEw8TMBMPEw8TDxMPEw8TDxMwEzATMBMPEw8TMBMPEw8TDxMPEw8TMBMwEw8TMBMwE5yIhBMwEw8TMBMwEw8TDxMwEw8TDxMwEw8TDxMwEzATDxMwEzATDxMwEzATMBMwEzATMBMPEzATDxMPEw8TDxMPEw8TMBMwEzATDxMPEzATDxMPEw8TDxMPEzATMBMPEzATMBMADQUAAAAA",
         "17": "JgDIAIiEEzATDxMwEzATDxMPEzATDxMPEzATDxMPEzATMBMPEzATMBMPEzATMBMwEzATMBMwEw8TMBMPEw8TDxMPEw8TDxMwEzATMBMPEw8TMBMPEw8TDxMPEw8TMBMwEw8TMBMwE5yIhBMwEw8TMBMwEw8TDxMwEw8TDxMwEw8TDxMwEzATDxMwEzATDxMwEzATMBMwEzATMBMPEzATDxMPEw8TDxMPEw8TMBMwEzATDxMPEzATDxMPEw8TDxMPEzATMBMPEzATMBMADQUAAAAA",

@@ -1,27 +1,14 @@
 {
   "manufacturer": "Daikin",
-  "supportedModels": [
-    "FTC15NV14",
-    "FTC20NV14",
-    "FTC25NV14",
-    "FTC35NV14"
-  ],
+  "supportedModels": ["FTC15NV14", "FTC20NV14", "FTC25NV14", "FTC35NV14"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 18.0,
   "maxTemperature": 32.0,
   "precision": 1.0,
-  "operationModes": [
-    "cool",
-    "dry",
-    "fan_only"
-  ],
-  "fanModes": [
-    "low",
-    "mid",
-    "high",
-    "auto"
-  ],
+  "operationModes": ["cool", "dry", "fan_only"],
+  "fanModes": ["low", "mid", "high", "auto"],
   "commands": {
     "off": "JgBEAQsQDRAMEA0QDBAMAANEcjgPKg8ODw0PDg8qDw0PDg8NDw4PKg8NDyoPKg8ODyoPKg8qDyoPKg8NDw4PKg8NDw4PDQ8ODw0PDg8NDw4PDQ8ODw0PDg8NDw4PDQ8ODw0PDg8NDw4PDQ8ODyoPKg4ODw4PDQ8ODyoOKw8NDyoPDg8NDw4PDQ8ODw0PDg8NDw4PDQ8ODw0PDg8NDyoPKg8ODw0PDg8NDw4PDQ8ODw0PDg8NDw4PDQ8ODw0PDg8NDw4PDQ8ODw0PDg8NDw4PDQ8ODw0PDg8NDw4PDQ8ODw0PDg8NDw4PDQ8ODw0PDg8NDw4PDQ8ODw0PDg8NDw4ODg8ODw0PKg8ODyoODg8ODg4PKg8qDw4PDQ8ODw0PDg4ODyoPDg8NDw4PDQ8qDw4ODg8ODg4PKg8qDw4OKw8NDyoPDg8qDgANBQAA",
     "cool": {

@@ -1,26 +1,14 @@
 {
   "manufacturer": "Ariston",
-  "supportedModels": [
-    "A-IFWHxx-IGX"
-  ],
+  "supportedModels": ["A-IFWHxx-IGX"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 17.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "heat",
-    "cool",
-    "heat_cool",
-    "dry",
-    "fan_only"
-  ],
-  "fanModes": [
-    "auto",
-    "high",
-    "low",
-    "mid"
-  ],
+  "operationModes": ["heat", "cool", "heat_cool", "dry", "fan_only"],
+  "fanModes": ["auto", "high", "low", "mid"],
   "commands": {
     "off": "JgDKAJOTEzUVEBM1EjYTFA8TEDgSEhITETYTEhETETcSNxISETcRExE4EjUSNhI3EhISNhM1EjcRExMSERMRExI1EhMSExI1EzYRNxISEhMRExETEhIRExETERMSNxE3ETYTNxI1ErCSlBE3EhMRNhI3ERISFRA2EhQQExE2EhQQEhI4ETcSEhI2EhMQOBE3ETcSNhISEjcSNhE3EhQQEhITERMRNxITEBQRNhI3ETcSEhMSERQQExEUERIRFRATETcRNxE3EjYTNhEADQUAAAAAAAAAAAAAAAAAAA==",
     "heat": {

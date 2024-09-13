@@ -1,28 +1,14 @@
 {
   "manufacturer": "Mitsubishi Heavy",
-  "supportedModels": [
-    "SRK25ZSP-W",
-    "SRK35ZSP-W",
-    "SRK45ZSP-W"
-  ],
+  "supportedModels": ["SRK25ZSP-W", "SRK35ZSP-W", "SRK45ZSP-W"],
   "commandsEncoding": "Base64",
   "supportedController": "Broadlink",
+  "temperatureUnit": "C",
   "minTemperature": 18,
   "maxTemperature": 30,
   "precision": 1,
-  "operationModes": [
-    "heat_cool",
-    "cool",
-    "heat",
-    "dry",
-    "fan_only"
-  ],
-  "fanModes": [
-    "auto",
-    "low",
-    "mid",
-    "high"
-  ],
+  "operationModes": ["heat_cool", "cool", "heat", "dry", "fan_only"],
+  "fanModes": ["auto", "low", "mid", "high"],
   "commands": {
     "off": "JgC2AGkzDwsPJRALDwsPJRAKECUPCw8LECUPJRAlDwsPJRAKECUPJRAlDwsPCw8LEAsPJQ8lEAsPJQ8lEAsPCw8lEAsPCw8lEAoQCw8lECUPCw8lECUPJQ8lECUPJRAlDyUQJQ8lEAoQCw8LDwsPCxAKEAsPCw8lECUPJQ8lEAsPJRAkECUQChAKEAsPCw8lEAsPCw8LDyUQJQ8LECQQJQ8lEAsPJQ8LEAoQJQ8LEAoQCw8lDwsQAA0F",
     "heat_cool": {

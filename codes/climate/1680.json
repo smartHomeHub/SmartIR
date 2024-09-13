@@ -1,25 +1,14 @@
 {
   "manufacturer": "Mitsubishi Heavy",
-  "supportedModels": [
-    "SRK25ZJ-S1",
-    "SRK13CRV-S1"
-  ],
+  "supportedModels": ["SRK25ZJ-S1", "SRK13CRV-S1"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 18.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "cool",
-    "heat",
-    "dry"
-  ],
-  "fanModes": [
-    "low",
-    "med",
-    "high",
-    "auto"
-  ],
+  "operationModes": ["cool", "heat", "dry"],
+  "fanModes": ["low", "med", "high", "auto"],
   "commands": {
     "off": "JgC2AGc0DQ0MKA0NDQ0NJw0NDCgMDg0NDScNJwwoDQ0MKAwODCgMKAwoDgsODQ0NDQ0MKA0nDQ0MKA0nDQ0NDQ0nDQ0MDg0nDQ0NDQ0nDiYNDQ0nDScNJw0nDScNJw0nDScOJg0nDQ0NDQ0NDgwNDQ0OCw4NDQ0nDScNJw4MDQ0NDQ4MDScODA0NDgwOJg0nDiYOJg0NDgwOJg4mDiYNDQ4mDiYNDQ0nDQ0ODQ0MDSgNDQwODCgNAA0FAAA=",
     "cool": {

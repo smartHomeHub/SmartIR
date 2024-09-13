@@ -1,26 +1,14 @@
 {
   "manufacturer": "Haier",
-  "supportedModels": [
-    "Unknown"
-  ],
+  "supportedModels": ["Unknown"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
+  "temperatureUnit": "C",
   "minTemperature": 16.0,
   "maxTemperature": 30.0,
   "precision": 1.0,
-  "operationModes": [
-    "cool",
-    "heat",
-    "dry",
-    "fan_only",
-    "heat_cool"
-  ],
-  "fanModes": [
-    "low",
-    "mid",
-    "high",
-    "auto"
-  ],
+  "operationModes": ["cool", "heat", "dry", "fan_only", "heat_cool"],
+  "fanModes": ["low", "mid", "high", "auto"],
   "commands": {
     "off": "JgDoAGRkZI8UNBQSFDQUEhQSFDQUNBQSFDQUEhQ0FDQUNBQ0FBIUEhQ0FDQUNBQ0FBIUEhQ0FBIUEhQSFBIUEhQSFBIUEhQSFBIUEhQSFBIUEhQSFBIUEhQ0FBIUNBQSFBIUEhQSFBIUEhQSFBIUEhQSFBIUEhQSFBIUEhQSFBIUEhQSFBIUEhQSFBIUEhQSFBIUEhQSFBIUEhQSFBIUEhQSFBIUEhQSFBIUEhQSFBIUEhQSFBIUEhQSFBIUEhQSFBIUEhQSFBIUEhQSFBIUEhQSFDQUEhQ0FDQUNBQ0FDQUNBQSFBIUNBIAApAAAA==",
     "cool": {
