@@ -94,19 +94,6 @@ climate:
     power_sensor_restore_state: true
 ```
 
-It is important to notice that there are no MQTT codes in this repository. This means that to make it work, you need to convert codes from Broadlink format into MQTT format which fits Z06/UFO-R11 devices. Here is a step-by-step guide on how to do it:
-
-1. Download json file of code you need (1287.json in my case)
-2. Using https://gist.github.com/svyatogor/7839d00303998a9fa37eb48494dd680f?permalink_comment_id=5153002#gistcomment-5153002 convert code file
-
-example: `python3 broadlink_to_tuya.py 1287.json > 9997.json` (I have used 9997.json to differentiate it from original file)
-
-3. Change in 9997.json `MQTT` to `UFOR11`, like that
-
-`  "supportedController": "UFOR11",`
-
-4. Put it into custom_codes/climate, you can continue using 9997.json name if you wish
-
 ### Example (using LOOKin controller)
 
 ```yaml
