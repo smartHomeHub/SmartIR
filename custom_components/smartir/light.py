@@ -17,7 +17,8 @@ from homeassistant.const import (
     STATE_OFF,
     STATE_ON,
 )
-from homeassistant.helpers.event import async_track_state_change
+from homeassistant.core import callback
+from homeassistant.helpers.event import async_track_state_change_event
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
 from . import COMPONENT_ABS_DIR, Helper
@@ -197,7 +198,7 @@ class SmartIRLight(LightEntity, RestoreEntity):
                 self._colortemp = last_state.attributes[ATTR_COLOR_TEMP_KELVIN]
 
         if self._power_sensor:
-            async_track_state_change(
+            async_track_state_change_event(
                 self.hass, self._power_sensor, self._async_power_sensor_changed
             )
 
@@ -337,7 +338,7 @@ class SmartIRLight(LightEntity, RestoreEntity):
             self._power = STATE_ON
             await self.send_command(CMD_POWER_ON)
 
-        await self.async_update_ha_state()
+        await self.async_write_ha_state()
 
     async def async_turn_off(self):
         self._power = STATE_OFF
@@ -360,24 +361,22 @@ class SmartIRLight(LightEntity, RestoreEntity):
             except Exception as e:
                 _LOGGER.exception(e)
 
-    async def _async_power_sensor_changed(
-        self,
-        entity_id,
-        old_state,
-        new_state,
+    @callback
+    async def _async_power_sensor_changed(self, event):
     ):
         """Handle power sensor changes."""
+        new_state = event.data["new_state"]
         if new_state is None:
             return
-
+        old_state = event.data["old_state"]
         if new_state.state == old_state.state:
             return
 
         if new_state.state == STATE_ON:
             self._on_by_remote = True
-            await self.async_update_ha_state()
+            await self.async_write_ha_state()
 
         if new_state.state == STATE_OFF:
             self._on_by_remote = False
             self._power = STATE_OFF
-            await self.async_update_ha_state()
+            await self.async_write_ha_state()
