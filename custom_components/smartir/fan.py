@@ -76,6 +76,7 @@ async def async_setup_platform(
 
 class SmartIRFan(FanEntity, RestoreEntity):
     _attr_should_poll = False
+    _attr_assumed_state = True
     _enable_turn_on_off_backwards_compatibility = False
 
     def __init__(self, hass, config, device_data):
@@ -340,12 +341,12 @@ class SmartIRFan(FanEntity, RestoreEntity):
         if old_state is not None and new_state.state == old_state.state:
             return
 
-        if new_state.state == STATE_ON and self._state == STATE_OFF:
+        if new_state.state == STATE_ON and self._state != STATE_ON:
             self._state = STATE_ON
             self._on_by_remote = True
         elif new_state.state == STATE_OFF:
             self._on_by_remote = False
-            if self._state == STATE_ON:
+            if self._state != STATE_OFF:
                 self._state = STATE_OFF
         self.async_write_ha_state()
 
