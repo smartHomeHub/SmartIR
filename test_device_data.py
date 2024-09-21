@@ -11,6 +11,7 @@ CHECK_DATA = {
     },
     "fan": {},
     "media_player": {},
+    "light": {},
 }
 
 
@@ -43,7 +44,7 @@ async def test_json(file_path, docs):
 async def main():
     exit = 0
     generate_docs = False
-    docs = {"climate": [], "fan": [], "media_player": []}
+    docs = {"climate": [], "fan": [], "media_player": [], "light": []}
 
     files = sys.argv
     files.pop(0)

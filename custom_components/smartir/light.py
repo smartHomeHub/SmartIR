@@ -1,7 +1,5 @@
 import asyncio
-import json
 import logging
-import os.path
 
 import voluptuous as vol
 
@@ -12,28 +10,28 @@ from homeassistant.components.light import (
     LightEntity,
     PLATFORM_SCHEMA,
 )
-from homeassistant.const import (
-    CONF_NAME,
-    STATE_OFF,
-    STATE_ON,
-)
-from homeassistant.core import callback
-from homeassistant.helpers.event import async_track_state_change_event
+from homeassistant.const import CONF_NAME, STATE_OFF, STATE_ON
+from homeassistant.core import HomeAssistant, Event, EventStateChangedData, callback
+from homeassistant.helpers.event import async_track_state_change_event, async_call_later
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
-from . import COMPONENT_ABS_DIR, Helper
-from .controller import get_controller
+from homeassistant.helpers.typing import ConfigType
+from . import DeviceData
+from .controller import get_controller, get_controller_schema
 
 _LOGGER = logging.getLogger(__name__)
 
 DEFAULT_NAME = "SmartIR Light"
 DEFAULT_DELAY = 0.5
+DEFAULT_POWER_SENSOR_DELAY = 10
 
 CONF_UNIQUE_ID = "unique_id"
 CONF_DEVICE_CODE = "device_code"
 CONF_CONTROLLER_DATA = "controller_data"
 CONF_DELAY = "delay"
 CONF_POWER_SENSOR = "power_sensor"
+CONF_POWER_SENSOR_DELAY = "power_sensor_delay"
+CONF_POWER_SENSOR_RESTORE_STATE = "power_sensor_restore_state"
 
 CMD_BRIGHTNESS_INCREASE = "brighten"
 CMD_BRIGHTNESS_DECREASE = "dim"
@@ -48,84 +46,39 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
         vol.Optional(CONF_UNIQUE_ID): cv.string,
         vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
         vol.Required(CONF_DEVICE_CODE): cv.positive_int,
-        vol.Required(CONF_CONTROLLER_DATA): cv.string,
+        vol.Required(CONF_CONTROLLER_DATA): get_controller_schema(vol, cv),
         vol.Optional(CONF_DELAY, default=DEFAULT_DELAY): cv.string,
         vol.Optional(CONF_POWER_SENSOR): cv.entity_id,
+        vol.Optional(
+            CONF_POWER_SENSOR_DELAY, default=DEFAULT_POWER_SENSOR_DELAY
+        ): cv.positive_int,
+        vol.Optional(CONF_POWER_SENSOR_RESTORE_STATE, default=True): cv.boolean,
     }
 )
 
 
 async def async_setup_platform(
-    hass,
-    config,
-    async_add_entities,
-    discovery_info=None,
+    hass: HomeAssistant, config: ConfigType, async_add_entities, discovery_info=None
 ):
     """Set up the IR Light platform."""
-    device_code = config.get(CONF_DEVICE_CODE)
-    device_files_subdir = os.path.join("codes", "light")
-    device_files_absdir = os.path.join(COMPONENT_ABS_DIR, device_files_subdir)
-
-    if not os.path.isdir(device_files_absdir):
-        os.makedirs(device_files_absdir)
-
-    device_json_filename = str(device_code) + ".json"
-    device_json_path = os.path.join(device_files_absdir, device_json_filename)
-
-    if not os.path.exists(device_json_path):
-        _LOGGER.warning(
-            "Couldn't find the device Json file. The component "
-            "will try to download it from the Github repo."
+    _LOGGER.debug("Setting up the SmartIR light platform")
+    if not (
+        device_data := await DeviceData.load_file(
+            config.get(CONF_DEVICE_CODE),
+            "light",
+            {},
+            hass,
         )
-
-        try:
-            codes_source = (
-                "https://raw.githubusercontent.com/"
-                "smartHomeHub/SmartIR/master/"
-                "codes/light/{}.json"
-            )
-
-            await Helper.downloader(
-                codes_source.format(device_code),
-                device_json_path,
-            )
-        except Exception:
-            _LOGGER.error(
-                "There was an error while downloading the device Json file. "
-                "Please check your internet connection or if the device code "
-                "exists on GitHub. If the problem still exists please "
-                "place the file manually in the proper directory."
-            )
-            return
-
-    with open(device_json_path) as j:
-        try:
-            device_data = json.load(j)
-        except Exception:
-            _LOGGER.error("The device JSON file is invalid")
-            return
+    ):
+        _LOGGER.error("SmartIR light device data init failed!")
+        return
 
     async_add_entities([SmartIRLight(hass, config, device_data)])
 
 
-# find the closest match in a sorted list
-def closest_match(value, list):
-    prev_val = None
-    for index, entry in enumerate(list):
-        if entry > (value or 0):
-            if prev_val is None:
-                return index
-            diff_lo = value - prev_val
-            diff_hi = entry - value
-            if diff_lo < diff_hi:
-                return index - 1
-            return index
-        prev_val = entry
-
-    return len(list) - 1
-
-
 class SmartIRLight(LightEntity, RestoreEntity):
+    _attr_should_poll = False
+
     def __init__(self, hass, config, device_data):
         self.hass = hass
         self._unique_id = config.get(CONF_UNIQUE_ID)
@@ -134,6 +87,16 @@ class SmartIRLight(LightEntity, RestoreEntity):
         self._controller_data = config.get(CONF_CONTROLLER_DATA)
         self._delay = config.get(CONF_DELAY)
         self._power_sensor = config.get(CONF_POWER_SENSOR)
+        self._power_sensor_delay = config.get(CONF_POWER_SENSOR_DELAY)
+        self._power_sensor_restore_state = config.get(CONF_POWER_SENSOR_RESTORE_STATE)
+
+        self._power = STATE_ON
+        self._brightness = None
+        self._colortemp = None
+        self._on_by_remote = False
+        self._support_color_mode = ColorMode.UNKNOWN
+        self._power_sensor_check_expect = None
+        self._power_sensor_check_cancel = None
 
         self._manufacturer = device_data["manufacturer"]
         self._supported_models = device_data["supportedModels"]
@@ -142,14 +105,6 @@ class SmartIRLight(LightEntity, RestoreEntity):
         self._brightnesses = device_data["brightness"]
         self._colortemps = device_data["colorTemperature"]
         self._commands = device_data["commands"]
-
-        self._power = STATE_ON
-        self._brightness = None
-        self._colortemp = None
-
-        self._temp_lock = asyncio.Lock()
-        self._on_by_remote = False
-        self._support_color_mode = ColorMode.UNKNOWN
 
         if (
             CMD_COLORMODE_COLDER in self._commands
@@ -175,6 +130,9 @@ class SmartIRLight(LightEntity, RestoreEntity):
             and self._support_color_mode == ColorMode.UNKNOWN
         ):
             self._support_color_mode = ColorMode.ONOFF
+
+        # Init exclusive lock for sending IR commands
+        self._temp_lock = asyncio.Lock()
 
         # Init the IR/RF controller
         self._controller = get_controller(
@@ -268,8 +226,8 @@ class SmartIRLight(LightEntity, RestoreEntity):
             and ColorMode.COLOR_TEMP == self._support_color_mode
         ):
             target = params.get(ATTR_COLOR_TEMP_KELVIN)
-            old_color_temp = closest_match(self._colortemp, self._colortemps)
-            new_color_temp = closest_match(target, self._colortemps)
+            old_color_temp = DeviceData.closest_match(self._colortemp, self._colortemps)
+            new_color_temp = DeviceData.closest_match(target, self._colortemps)
             _LOGGER.debug(
                 f"Changing color temp from {self._colortemp}K step {old_color_temp} to {target}K step {new_color_temp}"
             )
@@ -302,8 +260,10 @@ class SmartIRLight(LightEntity, RestoreEntity):
 
             elif self._brightnesses:
                 target = params.get(ATTR_BRIGHTNESS)
-                old_brightness = closest_match(self._brightness, self._brightnesses)
-                new_brightness = closest_match(target, self._brightnesses)
+                old_brightness = DeviceData.closest_match(
+                    self._brightness, self._brightnesses
+                )
+                new_brightness = DeviceData.closest_match(target, self._brightnesses)
                 did_something = True
                 _LOGGER.debug(
                     f"Changing brightness from {self._brightness} step {old_brightness} to {target} step {new_brightness}"
@@ -361,21 +321,62 @@ class SmartIRLight(LightEntity, RestoreEntity):
             except Exception as e:
                 _LOGGER.exception(e)
 
-    @callback
-    async def _async_power_sensor_changed(self, event):
+    async def _async_power_sensor_changed(
+        self, event: Event[EventStateChangedData]
+    ) -> None:
         """Handle power sensor changes."""
+        old_state = event.data["old_state"]
         new_state = event.data["new_state"]
         if new_state is None:
             return
-        old_state = event.data["old_state"]
-        if new_state.state == old_state.state:
+
+        if old_state is not None and new_state.state == old_state.state:
             return
 
-        if new_state.state == STATE_ON:
+        if new_state.state == STATE_ON and self._state == STATE_OFF:
+            self._state = STATE_ON
             self._on_by_remote = True
-            await self.async_write_ha_state()
-
-        if new_state.state == STATE_OFF:
+        elif new_state.state == STATE_OFF:
             self._on_by_remote = False
-            self._power = STATE_OFF
-            await self.async_write_ha_state()
+            if self._state == STATE_ON:
+                self._state = STATE_OFF
+        self.async_write_ha_state()
+
+    @callback
+    def _async_power_sensor_check_schedule(self, state):
+        if self._power_sensor_check_cancel:
+            self._power_sensor_check_cancel()
+            self._power_sensor_check_cancel = None
+            self._power_sensor_check_expect = None
+
+        @callback
+        def _async_power_sensor_check(*_):
+            self._power_sensor_check_cancel = None
+            expected_state = self._power_sensor_check_expect
+            self._power_sensor_check_expect = None
+            current_state = getattr(
+                self.hass.states.get(self._power_sensor), "state", None
+            )
+            _LOGGER.debug(
+                "Executing power sensor check for expected state '%s', current state '%s'.",
+                expected_state,
+                current_state,
+            )
+
+            if (
+                expected_state in [STATE_ON, STATE_OFF]
+                and current_state in [STATE_ON, STATE_OFF]
+                and expected_state != current_state
+            ):
+                self._state = current_state
+                _LOGGER.debug(
+                    "Power sensor check failed, reverted device state to '%s'.",
+                    self._state,
+                )
+                self.async_write_ha_state()
+
+        self._power_sensor_check_expect = state
+        self._power_sensor_check_cancel = async_call_later(
+            self.hass, self._power_sensor_delay, _async_power_sensor_check
+        )
+        _LOGGER.debug("Scheduled power sensor check for '%s' state.", state)
