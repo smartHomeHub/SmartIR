@@ -1,34 +1,16 @@
 {
   "manufacturer": "Electrolux",
-  "supportedModels": [
-    "EXP35U538CW"
-  ],
+  "supportedModels": ["EXP35U538CW"],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
   "temperatureUnit": "C",
   "minTemperature": 16,
   "maxTemperature": 32,
   "precision": 1.0,
-  "operationModes": [
-    "auto",
-    "cool",
-    "dry",
-    "fan_only"
-  ],
-  "presetModes": [
-    "normal",
-    "sleep"
-  ],
-  "fanModes": [
-    "auto",
-    "low",
-    "medium",
-    "high"
-  ],
-  "swingModes": [
-    "on",
-    "off"
-  ],
+  "operationModes": ["auto", "cool", "dry", "fan_only"],
+  "presetModes": ["normal", "sleep"],
+  "fanModes": ["auto", "low", "medium", "high"],
+  "swingModes": ["on", "off"],
   "commands": {
     "off": "JgDYAAABIY4TNRM1ExESERMREhETNRM1EjUTNRM1ExESNRM1EzUTERIRExESERMREhETNRM1EjYTERMREhETERIRExESERMREhETERIRExESERM1EzUSERMREhETERIRExESERMREhETERIRExESERMREhETNRMQExETEBMRExATERMQExETEBMRFBATERMQExETEBMRExATERMQExETEBMREhETERIRExESERMREhETERIRExESERM1ExATNRMRExATERIRExETNRI1EzYSNRM1EzYSERM1EwANBQ==",
     "auto": {
