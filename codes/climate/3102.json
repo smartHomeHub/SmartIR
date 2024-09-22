@@ -13,28 +13,10 @@
   "minTemperature": 16,
   "maxTemperature": 30,
   "precision": 1,
-  "operationModes": [
-    "dry",
-    "cool",
-    "fan_only",
-    "heat"
-  ],
-  "presetModes": [
-    "normal",
-    "sleep"
-  ],
-  "fanModes": [
-    "auto",
-    "quiet",
-    "low",
-    "medium",
-    "high",
-    "turbo"
-  ],
-  "swingModes": [
-    "fixed",
-    "swing"
-  ],
+  "operationModes": ["dry", "cool", "fan_only", "heat"],
+  "presetModes": ["normal", "sleep"],
+  "fanModes": ["auto", "quiet", "low", "medium", "high", "turbo"],
+  "swingModes": ["fixed", "swing"],
   "commands": {
     "off": "JgCWAAABOwABPgABPAABPpVRCg0LHwsfCg0LHwoNCg0KDQoNCx8KDQoNCx8KDQoNCg0KDQoNCg0KDQoNCg0KDQoNCg0KDQoNCg0KDQoNCg0KDQoNCg0KDQoNCg0KDQoNCg0KDQoNCg0KDQoNCg0KDQoNCx8KDQsfCg0KDQsfCg0KDQoNCg0LHwsfCx8KDQsfCx8LAAKRlAANBQ==",
     "on": "JgCWAAABOwABPgABPAABPpVRCg0LHwsfCg0LHwoNCg0KDQoNCx8KDQoNCx8KDQoNCg0KDQoNCg0KDQoNCg0KDQoNCg0KDQoNCg0KDQoNCg0KDQoNCg0KDQoNCg0KDQoNCg0KDQoNCg0KDQoNCg0KDQoNCx8KDQsfCg0KDQsfCg0KDQoNCg0LHwsfCx8KDQsfCx8LAAKRlAANBQ==",
