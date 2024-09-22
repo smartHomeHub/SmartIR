@@ -203,6 +203,7 @@ The following are the code files created by the amazing people in the community.
 <tr ><td class="file-td td_text">1703.json</td><td class="manufacturer-td td_text">Electrolux</td><td class="models-td td_text">EXP26U758CW</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1704.json</td><td class="manufacturer-td td_text">Electrolux</td><td class="models-td td_text">EPI12LEIWI</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1705.json</td><td class="manufacturer-td td_text">Electrolux</td><td class="models-td td_text">EXP34U338W / YK-H/531E</td><td class="controller-td td_text">ZHA</td></tr>
+<tr ><td class="file-td td_text">1706.json</td><td class="manufacturer-td td_text">Electrolux</td><td class="models-td td_text">EXP35U538CW</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1740.json</td><td class="manufacturer-td td_text">Kelvinator</td><td class="models-td td_text">KSV25HRG</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1741.json</td><td class="manufacturer-td td_text">Kelvinator</td><td class="models-td td_text">KSV26CRC, KSV26HRC, KSV35CRC, KSV35HRC, KSV53HRC, KSV62HRC, KSV70CRC, KCV70HRC, KSV80HRC</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1760.json</td><td class="manufacturer-td td_text">Daitsu</td><td class="models-td td_text">DS12U-RV</td><td class="controller-td td_text">Broadlink</td></tr>
