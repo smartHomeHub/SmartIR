@@ -18,13 +18,8 @@
   "minTemperature": 61,
   "maxTemperature": 88,
   "precision": 1,
-  "operationModes": [
-    "cool",
-    "heat"
-  ],
-  "fanModes": [
-    "auto"
-  ],
+  "operationModes": ["cool", "heat"],
+  "fanModes": ["auto"],
   "swingModes": [
     "auto",
     "high",
