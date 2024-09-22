@@ -140,7 +140,6 @@ class SmartIRLight(LightEntity, RestoreEntity):
             self._supported_controller,
             self._commands_encoding,
             self._controller_data,
-            self._delay,
         )
 
     async def async_added_to_hass(self):
@@ -298,11 +297,12 @@ class SmartIRLight(LightEntity, RestoreEntity):
             self._power = STATE_ON
             await self.send_command(CMD_POWER_ON)
 
-        await self.async_write_ha_state()
+        self.async_write_ha_state()
 
     async def async_turn_off(self):
         self._power = STATE_OFF
         await self.send_command(CMD_POWER_OFF)
+        self.async_write_ha_state()
 
     async def async_toggle(self):
         await (self.async_turn_on() if not self.is_on else self.async_turn_off())
