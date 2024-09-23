@@ -217,7 +217,7 @@ class SmartIRLight(LightEntity, RestoreEntity):
             and ColorMode.COLOR_TEMP in self.supported_color_modes
         ):
             target = params.get(ATTR_COLOR_TEMP_KELVIN)
-            old_color_temp = DeviceData.closest_match(self._colortemp, self._colrtemps)
+            old_color_temp = DeviceData.closest_match(self._colortemp, self._colortemps)
             new_color_temp = DeviceData.closest_match(target, self._colortemps)
             _LOGGER.debug(
                 f"Changing color temp from {self._colortemp}K step {old_color_temp} to {target}K step {new_color_temp}"
