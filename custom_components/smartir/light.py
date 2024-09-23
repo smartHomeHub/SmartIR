@@ -94,7 +94,6 @@ class SmartIRLight(LightEntity, RestoreEntity):
         self._brightness = None
         self._colortemp = None
         self._on_by_remote = False
-        self._support_color_mode = ColorMode.UNKNOWN
         self._power_sensor_check_expect = None
         self._power_sensor_check_cancel = None
 
@@ -111,7 +110,6 @@ class SmartIRLight(LightEntity, RestoreEntity):
             and CMD_COLORMODE_WARMER in self._commands
         ):
             self._colortemp = self.max_color_temp_kelvin
-            self._support_color_mode = ColorMode.COLOR_TEMP
 
         if CMD_NIGHTLIGHT in self._commands or (
             CMD_BRIGHTNESS_INCREASE in self._commands
@@ -119,17 +117,15 @@ class SmartIRLight(LightEntity, RestoreEntity):
         ):
             self._brightness = 100
             self._support_brightness = True
-            if self._support_color_mode == ColorMode.UNKNOWN:
-                self._support_color_mode = ColorMode.BRIGHTNESS
         else:
             self._support_brightness = False
 
-        if (
-            CMD_POWER_OFF in self._commands
-            and CMD_POWER_ON in self._commands
-            and self._support_color_mode == ColorMode.UNKNOWN
-        ):
-            self._support_color_mode = ColorMode.ONOFF
+        if self._colortemp:
+            self._attr_supported_color_modes = [ColorMode.COLOR_TEMP]
+        elif self._support_brightness:
+            self._attr_supported_color_modes = [ColorMode.BRIGHTNESS]
+        elif CMD_POWER_OFF in self._commands and CMD_POWER_ON in self._commands:
+            self._attr_supported_color_modes = [ColorMode.ONOFF]
 
         # Init exclusive lock for sending IR commands
         self._temp_lock = asyncio.Lock()
@@ -170,13 +166,9 @@ class SmartIRLight(LightEntity, RestoreEntity):
         return self._name
 
     @property
-    def supported_color_modes(self):
-        """Return the list of supported color modes."""
-        return [self._support_color_mode]
-
-    @property
     def color_mode(self):
-        return self._support_color_mode
+        # We only support a single color mode currently, so no need to track it
+        return self._attr_supported_color_modes[0]
 
     @property
     def color_temp_kelvin(self):
@@ -222,10 +214,10 @@ class SmartIRLight(LightEntity, RestoreEntity):
 
         if (
             ATTR_COLOR_TEMP_KELVIN in params
-            and ColorMode.COLOR_TEMP == self._support_color_mode
+            and ColorMode.COLOR_TEMP in self.supported_color_modes
         ):
             target = params.get(ATTR_COLOR_TEMP_KELVIN)
-            old_color_temp = DeviceData.closest_match(self._colortemp, self._colortemps)
+            old_color_temp = DeviceData.closest_match(self._colortemp, self._colrtemps)
             new_color_temp = DeviceData.closest_match(target, self._colortemps)
             _LOGGER.debug(
                 f"Changing color temp from {self._colortemp}K step {old_color_temp} to {target}K step {new_color_temp}"
