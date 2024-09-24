@@ -79,6 +79,12 @@ The resulting directory structure should look similar to this:
 
 To properly function, specification of your controlled device data including IR codes shall exists either in `codes` or in `custom_codes` directory as a .JSON file. When installed both using HACS or manual method, `codes` directory is populated by device data files maintained by this project. If you would like to create your own device data file, place it in the `custom_codes` class `climate|fan|media_player` subdirectory, this directory is persistent and will be manitained accross HACS updates. **Please don't forget to create [PR](https://github.com/litinoveweedle/SmartIR/pulls) for this new device data file and I will try to include it in a new releases.**
 
+### Convert IR Codes from Broadlink to Z06/UFO-R11
+
+Using https://gist.github.com/svyatogor/7839d00303998a9fa37eb48494dd680f?permalink_comment_id=5153002#gistcomment-5153002 you can convert Broadlink code file.
+
+Example: `python3 broadlink_to_tuya.py 1287.json > 9997.json` 
+
 ## Platform setup instructions
 
 Click on the links below for instructions on how to configure each platform.
