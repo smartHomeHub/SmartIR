@@ -83,7 +83,7 @@ To properly function, specification of your controlled device data including IR 
 
 Using https://gist.github.com/svyatogor/7839d00303998a9fa37eb48494dd680f?permalink_comment_id=5153002#gistcomment-5153002 you can convert Broadlink code file.
 
-Example: `python3 broadlink_to_tuya.py 1287.json > 9997.json` 
+Example: `python3 broadlink_to_tuya.py 1287.json > 9997.json`
 
 ## Platform setup instructions
 
