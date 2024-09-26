@@ -1,0 +1,30 @@
+{
+    "manufacturer": "NEC",
+    "supportedModels": [
+        "RE0201-CH2"
+    ],
+    "supportedController": "Broadlink",
+    "commandsEncoding": "Base64",
+    "brightness": [
+        26,
+        51,
+        77,
+        102,
+        128,
+        153,
+        179,
+        204,
+        230,
+        255
+    ],
+    "commands": {
+        "on": "JgBIAAABJ5QVEBI4EhMSExMSExITEhM3EzcTEhM3EzgSExI4EjgSExU1ExITNxM3EzcWNBMTEhMSExI4EhMSExMSExITNxM3EwANBQ==",
+        "off": [
+            "JgBIAAABJ5MUERM4EhMSExITEhMVEBI4EzcTEhM3EzcTEhM3EzgSExI4EhMSOBM3EzcTNxMSExITEhM4EhMSExITEhMSOBI4EwANBQ==",
+            "JgBIAAABJ5MUERM3ExMSExITEhMSExI4EjgTEhM3EzcTEhM3EzgSExITEjgSOBI4EzcTNxMSExITNxMTEhMSExITEhMSOBI4EwANBQ=="
+        ],
+        "brighten": "JgBYAAABJ5MUERM3ExITExITEhMSExI4EjgSExM3EzcTEhM3EzcTEhMTEjgSExI4EjgTNxMSExITNxMSEzcTEhMTEhMSOBI4EgAFYAABJ0kTAAxUAAErSRMADQU=",
+        "dim": "JgBYAAABKpEVEBI4EhMTEhMSExITEhM3FjQTEhM4EjgSExI4EzcTEhM3EzcTEhM4EjgSOBITEhMSExMSEzcTEhMSExITNxM3EwAFYAABJ0kTAAxaAAElShIADQU=",
+        "night": "JgBIAAABJpQTEhM3ExITEhMSExITEhM3EzgSExI4EjgTEhM3EzcTEhMSExITOBI4EjgSOBMSExITNxM3ExITEhMSExMSOBI4EgANBQ=="
+    }
+}

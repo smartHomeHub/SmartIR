@@ -171,6 +171,11 @@ class DeviceData:
                 file_name, device_data, device_class, check_data
             ):
                 return True
+        elif device_class == "light":
+            if DeviceData.check_file_light(
+                file_name, device_data, device_class, check_data
+            ):
+                return True
         return False
 
     @staticmethod
@@ -533,6 +538,11 @@ class DeviceData:
         return True
 
     @staticmethod
+    def check_file_light(file_name, device_data, device_class, check_data):
+        return True
+
+    # round to given precision
+    @staticmethod
     def precision_round(number, precision):
         if precision == 0.1:
             return round(float(number), 1)
@@ -544,3 +554,20 @@ class DeviceData:
             return round(float(number) / int(precision)) * int(precision)
         else:
             return None
+
+    # find the closest match in a sorted list
+    @staticmethod
+    def closest_match(value, list):
+        prev_val = None
+        for index, entry in enumerate(list):
+            if entry > (value or 0):
+                if prev_val is None:
+                    return index
+                diff_lo = value - prev_val
+                diff_hi = entry - value
+                if diff_lo < diff_hi:
+                    return index - 1
+                return index
+            prev_val = entry
+
+        return len(list) - 1
