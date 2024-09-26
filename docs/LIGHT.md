@@ -4,7 +4,7 @@ Find your device's brand code [here](LIGHT_CODES.md) and add the number in the `
 
 ## Configuration variables
 
-| Name                         | Type    | Default  | Description                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| Name                         |  Type   | Default  | Description                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | ---------------------------- | :-----: | :------: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `name`                       | string  | optional | The name of the device                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `unique_id`                  | string  | optional | An ID that uniquely identified this device. If two devices have the same unique ID, Home Assistant will raise an exception.                                                                                                                                                                                                                                                                                                               |
@@ -12,7 +12,7 @@ Find your device's brand code [here](LIGHT_CODES.md) and add the number in the `
 | `controller_data`            | string  | required | The data required for the controller to function. Look into configuration examples below for valid configuration entries for different controller types.                                                                                                                                                                                                                                                                                  |
 | `delay`                      | number  | optional | Adjusts the delay in seconds between multiple commands. The default is 0.5                                                                                                                                                                                                                                                                                                                                                                |
 | `power_sensor`               | string  | optional | _entity_id_ for a sensor or that monitors whether your device is actually On or Off. This may be a power monitor sensor, or a helper that monitors power usage with a threshold. (Accepts only on/off states)                                                                                                                                                                                                                             |
-| `power_sensor_delay`         | int     | optional | Maximum delay in second in which power sensor is able to report back to HA changed state of the device, default is 10 seconds. If sensor reaction time is longer extend this time, otherwise you might get unwanted changes in the device state.                                                                                                                                                                                          |
+| `power_sensor_delay`         |   int   | optional | Maximum delay in second in which power sensor is able to report back to HA changed state of the device, default is 10 seconds. If sensor reaction time is longer extend this time, otherwise you might get unwanted changes in the device state.                                                                                                                                                                                          |
 | `power_sensor_restore_state` | boolean | optional | If `true` than in case power sensor will report to HA that device is `on` without HA actually switching it `on `(device was switched on by remote, of device cycled, etc.), than HA will report last assumed state and attributes at the time when the device was `on` managed by HA. If set to `false` when device will be reported as `on` by the power sensors all device attributes will be reported as `UNKNOWN`. Default is `true`. |
 
 ## Example (using broadlink controller)
@@ -27,7 +27,7 @@ light:
     name: Bedroom Ceiling Light
     unique_id: bedroom_ceiling_light
     device_code: 1000
-    controller_data: 
+    controller_data:
       controller_type: Broadlink
       remote_entity: remote.bedroom_remote
       delay_secs: 0.5
@@ -156,14 +156,13 @@ light:
 ## Light device files
 
 As well as the command mappings, the light device config supports two lists:
-`brightness` and `color_temperature`.  These should be sorted lists
+`brightness` and `color_temperature`. These should be sorted lists
 from lower to higher values of brightness on a scale of 1 to 255, and
-color temperature in Kelvin (normally from 2700 to 6500).  Supported
+color temperature in Kelvin (normally from 2700 to 6500). Supported
 commands are `on` `off`, `brighten`, `dim`, `warmer`, `colder` and `night`.
 If `night` is configured, it is implemented as a special brightness step that
 can be selected by setting a brightness of 1 (such lights usually have a
 separate small and dim nightlight bulb inside the fixture).
-
 
 ## Available codes for Light devices
 
