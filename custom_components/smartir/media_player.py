@@ -73,6 +73,7 @@ async def async_setup_platform(
 
 class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
     _attr_should_poll = False
+    _attr_assumed_state = True
 
     def __init__(self, hass, config, device_data):
         self.hass = hass
@@ -86,7 +87,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         self._power_sensor_restore_state = config.get(CONF_POWER_SENSOR_RESTORE_STATE)
         self._device_class = config.get(CONF_DEVICE_CLASS)
 
-        self._state = STATE_UNKNOWN
+        self._state = STATE_OFF
         self._sources_list = []
         self._source = None
         self._on_by_remote = False
@@ -362,12 +363,12 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         if old_state is not None and new_state.state == old_state.state:
             return
 
-        if new_state.state == STATE_ON and self._state == STATE_OFF:
+        if new_state.state == STATE_ON and self._state != STATE_ON:
             self._on_by_remote = True
             self._state = STATE_ON
         elif new_state.state == STATE_OFF:
             self._on_by_remote = False
-            if self._state == STATE_ON:
+            if self._state != STATE_OFF:
                 self._state = STATE_OFF
                 # self._source = None
         self.async_write_ha_state()
