@@ -166,6 +166,11 @@ class SmartIRLight(LightEntity, RestoreEntity):
         return self._name
 
     @property
+    def state(self):
+        """Return the current state."""
+        return self._state
+
+    @property
     def color_mode(self):
         # We only support a single color mode currently, so no need to track it
         return self._attr_supported_color_modes[0]
@@ -178,15 +183,22 @@ class SmartIRLight(LightEntity, RestoreEntity):
     def min_color_temp_kelvin(self):
         if self._colortemps:
             return self._colortemps[0]
+        else:
+            return None
 
     @property
     def max_color_temp_kelvin(self):
         if self._colortemps:
             return self._colortemps[-1]
+        else:
+            return None
 
     @property
     def is_on(self):
-        return self._state == STATE_ON or self._on_by_remote
+        if self._state == STATE_ON:
+            return True
+        else:
+            return False
 
     @property
     def brightness(self):
