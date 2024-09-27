@@ -87,7 +87,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         self._power_sensor_restore_state = config.get(CONF_POWER_SENSOR_RESTORE_STATE)
         self._device_class = config.get(CONF_DEVICE_CLASS)
 
-        self._state = STATE_UNKNOWN
+        self._state = STATE_OFF
         self._sources_list = []
         self._source = None
         self._on_by_remote = False

@@ -90,7 +90,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
         self._power_sensor_delay = config.get(CONF_POWER_SENSOR_DELAY)
         self._power_sensor_restore_state = config.get(CONF_POWER_SENSOR_RESTORE_STATE)
 
-        self._state = STATE_UNKNOWN
+        self._state = STATE_OFF
         self._speed = None
         self._oscillating = None
         self._on_by_remote = False

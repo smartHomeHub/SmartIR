@@ -90,7 +90,7 @@ class SmartIRLight(LightEntity, RestoreEntity):
         self._power_sensor_delay = config.get(CONF_POWER_SENSOR_DELAY)
         self._power_sensor_restore_state = config.get(CONF_POWER_SENSOR_RESTORE_STATE)
 
-        self._power = STATE_ON
+        self._state = STATE_OFF
         self._brightness = None
         self._colortemp = None
         self._on_by_remote = False
@@ -144,7 +144,7 @@ class SmartIRLight(LightEntity, RestoreEntity):
 
         last_state = await self.async_get_last_state()
         if last_state is not None:
-            self._power = last_state.state
+            self._state = last_state.state
             if ATTR_BRIGHTNESS in last_state.attributes:
                 self._brightness = last_state.attributes[ATTR_BRIGHTNESS]
             if ATTR_COLOR_TEMP_KELVIN in last_state.attributes:
@@ -186,7 +186,7 @@ class SmartIRLight(LightEntity, RestoreEntity):
 
     @property
     def is_on(self):
-        return self._power == STATE_ON or self._on_by_remote
+        return self._state == STATE_ON or self._on_by_remote
 
     @property
     def brightness(self):
@@ -207,8 +207,8 @@ class SmartIRLight(LightEntity, RestoreEntity):
     async def async_turn_on(self, **params):
         did_something = False
         # Turn the light on if off
-        if self._power != STATE_ON and not self._on_by_remote:
-            self._power = STATE_ON
+        if self._state != STATE_ON and not self._on_by_remote:
+            self._state = STATE_ON
             did_something = True
             await self.send_command(CMD_POWER_ON)
 
@@ -245,7 +245,7 @@ class SmartIRLight(LightEntity, RestoreEntity):
             # when a nightlight is fitted for brightness of 1
             if params.get(ATTR_BRIGHTNESS) == 1 and CMD_NIGHTLIGHT in self._commands:
                 self._brightness = 1
-                self._power = STATE_ON
+                self._state = STATE_ON
                 did_something = True
                 await self.send_command(CMD_NIGHTLIGHT)
 
@@ -286,13 +286,13 @@ class SmartIRLight(LightEntity, RestoreEntity):
         # If we do have such monitoring, avoid issuing the command in case
         # on and off are the same remote code.
         if not did_something and not self._on_by_remote:
-            self._power = STATE_ON
+            self._state = STATE_ON
             await self.send_command(CMD_POWER_ON)
 
         self.async_write_ha_state()
 
     async def async_turn_off(self):
-        self._power = STATE_OFF
+        self._state = STATE_OFF
         await self.send_command(CMD_POWER_OFF)
         self.async_write_ha_state()
 
@@ -325,12 +325,12 @@ class SmartIRLight(LightEntity, RestoreEntity):
         if old_state is not None and new_state.state == old_state.state:
             return
 
-        if new_state.state == STATE_ON and self._state == STATE_OFF:
+        if new_state.state == STATE_ON and self._state != STATE_ON:
             self._state = STATE_ON
             self._on_by_remote = True
         elif new_state.state == STATE_OFF:
             self._on_by_remote = False
-            if self._state == STATE_ON:
+            if self._state != STATE_OFF:
                 self._state = STATE_OFF
         self.async_write_ha_state()
 

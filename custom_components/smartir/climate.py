@@ -114,7 +114,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._power_sensor_restore_state = config.get(CONF_POWER_SENSOR_RESTORE_STATE)
         self._temperature_unit = hass.config.units.temperature_unit
 
-        self._state = STATE_UNKNOWN
+        self._state = STATE_OFF
         self._hvac_mode = None
         self._preset_mode = None
         self._fan_mode = None
