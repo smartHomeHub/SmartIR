@@ -1,11 +1,11 @@
 {
   "domain": "smartir",
   "name": "SmartIR",
-  "codeowners": ["@smartHomeHub", "@litinoveweedle"],
+  "codeowners": ["@litinoveweedle"],
   "dependencies": [],
   "documentation": "https://github.com/litinoveweedle/SmartIR",
   "iot_class": "assumed_state",
   "issue_tracker": "https://github.com/litinoveweedle/SmartIR/issues",
-  "requirements": ["aiofiles>=0.6.0"],
+  "requirements": [],
   "version": "0.0.0"
 }

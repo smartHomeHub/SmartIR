@@ -1,0 +1,15 @@
+{
+  "manufacturer": "Argo",
+  "supportedModels": ["Polifemo"],
+  "supportedController": "Broadlink",
+  "commandsEncoding": "Base64",
+  "speed": ["low", "medium", "high"],
+  "commands": {
+    "off": "JgBIAAABJpMTEhETExERFBESExEUERETEhITERI3EjgSNxI4EjcSNxITERMSEhEUERISExESEjgSNxI3EzcSNxM2EjYUNxISEwANBQ==",
+    "default": {
+      "low": "JgBIAAABJZMSExETEhMRExESEhMSEhISEhITEhE4EzYTNhI4ETgSNhMUEBMROBMRExETEhITETcTNxE4EhISNxI4EjcSNxISEgANBQ==",
+      "medium": "JgBIAAABJZMSExETEhMRExESEhMSEhISEhITEhE4EzYTNhI4ETgSNhMUEBMROBMRExETEhITETcTNxE4EhISNxI4EjcSNxISEgANBQ==",
+      "high": "JgBIAAABJZMSExETEhMRExESEhMSEhISEhITEhE4EzYTNhI4ETgSNhMUEBMROBMRExETEhITETcTNxE4EhISNxI4EjcSNxISEgANBQ=="
+    }
+  }
+}
