@@ -259,6 +259,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1400](../codes/media_player/1400.json)| X-CM56 |Broadlink
+[1410](../codes/media_player/1410.json)| VSX-1014 |MQTT
 
 #### JBL
 | Code | Supported Models | Controller |
