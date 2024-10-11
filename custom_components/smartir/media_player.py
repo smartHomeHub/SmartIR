@@ -6,7 +6,7 @@ import voluptuous as vol
 from homeassistant.components.media_player import MediaPlayerEntity, PLATFORM_SCHEMA
 from homeassistant.components.media_player.const import (
     MediaPlayerEntityFeature,
-    MEDIA_TYPE_CHANNEL,
+    MediaType,
 )
 from homeassistant.const import CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN
 from homeassistant.core import HomeAssistant, Event, EventStateChangedData, callback
@@ -219,7 +219,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
     @property
     def media_content_type(self):
         """Content type of current playing media."""
-        return MEDIA_TYPE_CHANNEL
+        return MediaType.CHANNEL
 
     @property
     def source_list(self):
@@ -284,7 +284,7 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
 
     async def async_play_media(self, media_type, media_id, **kwargs):
         """Support channel change through play_media service."""
-        if media_type != MEDIA_TYPE_CHANNEL:
+        if media_type != MediaType.CHANNEL:
             _LOGGER.error("invalid media type")
             return
         if not media_id.isdigit():
