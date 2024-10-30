@@ -454,4 +454,3 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 self._current_humidity = float(state.state)
         except ValueError as ex:
             _LOGGER.error("Unable to update from humidity sensor: %s", ex)
-
