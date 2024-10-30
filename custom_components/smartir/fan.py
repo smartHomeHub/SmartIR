@@ -246,7 +246,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
 
         self.async_write_ha_state()
 
-    async def async_turn_on(self, percentage: int = None, **kwargs):
+    async def async_turn_on(self, percentage: int = None, preset_mode: str = None, **kwargs):
         """Turn on the fan."""
         if percentage is None:
             percentage = ordered_list_item_to_percentage(
