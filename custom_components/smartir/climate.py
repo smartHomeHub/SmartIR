@@ -13,7 +13,7 @@ from homeassistant.components.climate.const import (
     SUPPORT_SWING_MODE, HVAC_MODES, ATTR_HVAC_MODE)
 from homeassistant.const import (
     CONF_NAME, STATE_ON, STATE_OFF, STATE_UNKNOWN, STATE_UNAVAILABLE, ATTR_TEMPERATURE,
-    PRECISION_TENTHS, PRECISION_HALVES, PRECISION_WHOLE, TEMP_FAHRENHEIT)
+    PRECISION_TENTHS, PRECISION_HALVES, PRECISION_WHOLE, UnitOfTemperature)
 from homeassistant.core import callback
 from homeassistant.helpers.event import async_track_state_change
 import homeassistant.helpers.config_validation as cv
@@ -131,7 +131,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
         self._unit = hass.config.units.temperature_unit
         
-        if self._unit == TEMP_FAHRENHEIT:
+        if self._unit == UnitOfTemperature.FAHRENHEIT:
             self._min_temperature = self._celsius_to_fahrenheit(self._min_temperature)
             self._max_temperature = self._celsius_to_fahrenheit(self._max_temperature)
         
@@ -372,7 +372,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 swing_mode = self._current_swing_mode
                 target_temperature = '{0:g}'.format(self._target_temperature)
                 
-                if self._unit == TEMP_FAHRENHEIT:
+                if self._unit == UnitOfTemperature.FAHRENHEIT:
                     target_temperature = '{0:g}'.format(self._fahrenheit_to_celsius(self._target_temperature))
 
                 if operation_mode.lower() == HVAC_MODE_OFF:
