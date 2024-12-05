@@ -7,5 +7,6 @@ The following are the code files created by the amazing people in the community.
 <tr ><td class="file-td td_text">1020.json</td><td class="manufacturer-td td_text">NEC</td><td class="models-td td_text">RE0201-CH1</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1021.json</td><td class="manufacturer-td td_text">NEC</td><td class="models-td td_text">RE0201-CH2</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1040.json</td><td class="manufacturer-td td_text">Toshiba</td><td class="models-td td_text">FRC-199T</td><td class="controller-td td_text">Broadlink</td></tr>
-<tr ><td class="file-td td_text">1060.json</td><td class="manufacturer-td td_text">Takizumi</td><td class="models-td td_text">TLR-002</td><td class="controller-td td_text">Broadlink</td></tr></tbody></table>
+<tr ><td class="file-td td_text">1060.json</td><td class="manufacturer-td td_text">Takizumi</td><td class="models-td td_text">TLR-002</td><td class="controller-td td_text">Broadlink</td></tr>
+<tr ><td class="file-td td_text">1070.json</td><td class="manufacturer-td td_text">Aconic</td><td class="models-td td_text">LED Controller 24Key</td><td class="controller-td td_text">UFOR11</td></tr></tbody></table>
 <!-- MARKDOWN-AUTO-DOCS:END -->
