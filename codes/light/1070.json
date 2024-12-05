@@ -1,16 +1,16 @@
 {
-    "manufacturer": "Aconic",
-    "supportedModels": [
-        "LED Controller 24Key"
-    ],
-    "supportedController": "UFOR11",
-    "commandsEncoding": "Raw",
-    "brightness": [16, 32, 48, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 224, 240, 255],
-    "colorTemperature": [],
-    "commands": {
-        "on": "BZgjrRE/AuAXAQGDBuAFA0AB4AcTQA/gFwFAI+ALAwcQoZgj0Qg/Ag==",        
-        "off": "B34jkRFpAhQC4BUDAWcG4AUDQC/gAxMAFCABQA8BFAJAA0ABQAfgAQMFZwYUAhQCQAfgDQMHOKF+I6MIaQI=",
-        "brighten": "B28jnxFqAhQC4BUDAWcG4AUDQC/gAxNAD+AFA0AB4AET4AMrgAsAFKAHQA8JFAIxoW8jrwhqAg==", 
-        "dim": "CakjoxEnAicCawKAA0AB4AkLAWEGwAMAJ2ALBScCawJhBuAFAwAnYAFAB0ADQAFAB0ADQAEBawLgBy+ADwAnYAcHLKGpI6cIawI="
-    }
+  "manufacturer": "Aconic",
+  "supportedModels": ["LED Controller 24Key"],
+  "supportedController": "UFOR11",
+  "commandsEncoding": "Raw",
+  "brightness": [
+    16, 32, 48, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 224, 240, 255
+  ],
+  "colorTemperature": [],
+  "commands": {
+    "on": "BZgjrRE/AuAXAQGDBuAFA0AB4AcTQA/gFwFAI+ALAwcQoZgj0Qg/Ag==",
+    "off": "B34jkRFpAhQC4BUDAWcG4AUDQC/gAxMAFCABQA8BFAJAA0ABQAfgAQMFZwYUAhQCQAfgDQMHOKF+I6MIaQI=",
+    "brighten": "B28jnxFqAhQC4BUDAWcG4AUDQC/gAxNAD+AFA0AB4AET4AMrgAsAFKAHQA8JFAIxoW8jrwhqAg==",
+    "dim": "CakjoxEnAicCawKAA0AB4AkLAWEGwAMAJ2ALBScCawJhBuAFAwAnYAFAB0ADQAFAB0ADQAEBawLgBy+ADwAnYAcHLKGpI6cIawI="
+  }
 }
