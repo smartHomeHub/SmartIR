@@ -27,6 +27,14 @@ Don't forget to **star** the repository if you had fun!
 
 This is a fork of the original repository smartHomeHub/SmartIR which seems to be unmaintained at the time with many pull requests pending. As some of those were useful to my usage I decided to fork and merge the work of the corresponding authors to allow for simple usage of the integration through HACS. Therefore all the corresponding rights belong to the original authors. I also lately started to fix some additional users issues, implementing HomeAssistant future compatibility changes and adding some functionality, trying to keep compatibility but please note, that there may be some **breaking changes** from the original version.
 
+### MIGRATION from original SmartIR ###
+
+If you want to migrate from the original SmartIR project, please note following:
+
+1. Configuration *is* different! Do not use original configuration, refer to documentation for the proper syntax! Especially remove the `smartir:` section. I highly suggest to remove original SmartIR cnfiguration and create it from scratch based on configuration examples n the docs.
+2. Codes *are* different! Please use codes maintained within this project. If you have custom codes, those will likely need some rework - check documentation for proper code files syntax. If your code file is not working enable debug logging and see the logs.
+3. Code files placement *is* different! Please see following section before having nasty surprise! 
+
 ### WARNING - custom codes!
 
 If you use any own/custom codes json files please backup such json files before migrating to this integration from the original one. After instalation (using HACS) please place your custom files into new `custom_codes` directory. `codes` directory is managed by HACS and you will loose all changes during any HACS update!
@@ -100,6 +108,15 @@ Click on the links below for instructions on how to configure each platform.
 - [Media Player platform](/docs/MEDIA_PLAYER.md)
 - [Fan platform](/docs/FAN.md)
 - [Light platform](/docs/LIGHT.md)
+
+## Debug logging ##
+In case of any issues, especially if you are going to open the issue, enable debug logging first and reproduce your isse.
+```
+    custom_components.smartir.climate: debug
+    custom_components.smartir.fan: debug
+    custom_components.smartir.media_player: debug
+    custom_components.smartir.light: debug
+```
 
 ## See also
 
