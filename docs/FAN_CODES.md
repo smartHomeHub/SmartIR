@@ -21,5 +21,6 @@ The following are the code files created by the amazing people in the community.
 <tr ><td class="file-td td_text">1200.json</td><td class="manufacturer-td td_text">DCG</td><td class="models-td td_text">Unknown</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1220.json</td><td class="manufacturer-td td_text">Mitsubishi</td><td class="models-td td_text">C56-RW5</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">1300.json</td><td class="manufacturer-td td_text">Kendal</td><td class="models-td td_text">TITUS</td><td class="controller-td td_text">Broadlink</td></tr>
+<tr ><td class="file-td td_text">1400.json</td><td class="manufacturer-td td_text">KDK</td><td class="models-td td_text">U60FW</td><td class="controller-td td_text">Broadlink</td></tr>
 <tr ><td class="file-td td_text">7040.json</td><td class="manufacturer-td td_text">Lucci Air</td><td class="models-td td_text">Aria</td><td class="controller-td td_text">ESPHome</td></tr></tbody></table>
 <!-- MARKDOWN-AUTO-DOCS:END -->
