@@ -195,3 +195,9 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1220](../codes/fan/1220.json)|C56-RW5|Broadlink
+
+#### Mallory
+
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1300](../codes/fan/1300.json)|Air Timer TS+|Broadlink
