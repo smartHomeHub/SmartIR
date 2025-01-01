@@ -1,0 +1,56 @@
+{
+    "manufacturer": "Toshiba",
+    "supportedModels": [
+        "FRC-199T"
+    ],
+    "supportedController": "Broadlink",
+    "commandsEncoding": "Base64",
+    "brightness": [
+        16,
+        32,
+        48,
+        64,
+        80,
+        96,
+        112,
+        128,
+        144,
+        160,
+        176,
+        192,
+        208,
+        224,
+        240,
+        255
+    ],
+    "colorTemperature": [
+        2700,
+        2953,
+        3207,
+        3460,
+        3713,
+        3967,
+        4220,
+        4473,
+        4727,
+        4980,
+        5233,
+        5487,
+        5740,
+        5993,
+        6247,
+        6500
+    ],
+    "commands": {
+        "on": "",
+        "off": [
+            "",
+            ""
+        ],
+        "brighten": "",
+        "dim": "",
+        "colder": "",
+        "warmer": "",
+        "night": ""
+    }
+}
