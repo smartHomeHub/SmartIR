@@ -1,0 +1,18 @@
+{
+  "manufacturer": "Pioneer",
+  "supportedModels": [
+    "VSX-1014"
+  ],
+  "supportedController": "MQTT",
+  "commandsEncoding": "Raw",
+  "commands": {
+    "off": "{\"ir_code_to_send\": \"DWMhchBCAvwFQgLdAUICwAfgAwvAE+ADB+ADC0ArwANAF8ADwBNAB+ATE0AbA+FjYyHg/YcghwIFQgI=\"}",
+    "on": "{\"ir_code_to_send\": \"DWMhchBCAvwFQgLdAUICwAfgAwvAE+ADB+ADC0ArwANAF8ADwBNAB+ATE0AbA+FjYyHg/YcghwIFQgI=\"}",
+    "volumeDown": "{\"ir_code_to_send\": \"DYohhxBRAvcFUQLiAVECwAfgAwvAE+ADB+ADC8Ar4AcTQBfgBwPgAyNAC8ADAahj4P2HYIcCBVEC\"}",
+    "volumeUp": "{\"ir_code_to_send\": \"CUcC9wVHAtcBRwJAB0ADwAtAB0AD4AsTQBdAA+AHG0AP4AMDB9tjgSF1EEcCQBPgAy/gAwvgBxtAD0AD4AMj4AMLwBtAE8ADwBPgAwdAC8AD4HyHAgVHAg==\"}",
+    "mute": "{\"ir_code_to_send\": \"DW4hjhBJAvQFSQLXAUkCwAfgAwvAE+ADB+ADC0ArQAPAE+AHC+ADD0AjQAPAE0ALQAMBtmPg/YdghwIFSQI=\"}",
+    "sources": {
+          "TV/Sat": "{\"ir_code_to_send\": \"DXQhixBKAvQFSgLUAUoCwAfgAwvAE+ADB+ADC0ArwANAF0ADwA/AB0ATQAPgBw9AE0ADActj4P2H4ISHAgVKAg==\"}"
+    }
+  }
+}

@@ -220,6 +220,10 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
 
     async def async_turn_off(self):
         """Turn the media player off."""
+        if self._power_sensor is not None and self._state == STATE_OFF:
+            # Media player is already off
+            return
+            
         await self.send_command(self._commands['off'])
         
         if self._power_sensor is None:
@@ -229,6 +233,10 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
 
     async def async_turn_on(self):
         """Turn the media player off."""
+        if self._power_sensor is not None and self._state == STATE_ON:
+            # Media player is already on
+            return
+            
         await self.send_command(self._commands['on'])
 
         if self._power_sensor is None:
