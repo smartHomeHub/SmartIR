@@ -6,10 +6,10 @@
   "codeowners": ["@smartHomeHub"],
   "requirements": ["aiofiles>=0.6.0"],
   "homeassistant": "2024.10.0",
-  "version": "1.17.11",
+  "version": "1.17.12",
   "updater": {
-    "version": "1.17.11",
-    "releaseNotes": "-- Implements asynchronous device file loading",
+    "version": "1.17.12",
+    "releaseNotes": "-- Fixes media_player and fan attributes",
     "files": [
       "__init__.py",
       "climate.py",
