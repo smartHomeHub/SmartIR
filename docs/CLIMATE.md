@@ -258,6 +258,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1162](../codes/climate/1162.json) | 42TVGS024-703    | Broadlink  |
 | [1163](../codes/climate/1163.json) | 40MAQ*           | Broadlink  |
 | [1164](../codes/climate/1164.json) | 42LUVH025N-1     | Broadlink  |
+| [1165](../codes/climate/1165.json) | 42P250HX         | Broadlink  |
 
 #### Gree
 | Code                               | Supported Models                               | Controller  |
@@ -319,6 +320,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1291](../codes/climate/1291.json) | AR-REF1E (Remote control)                                               | Broadlink   |
 | [1292](../codes/climate/1292.json) | AR-RY12 (Remote control) - <b>vertical and horizontal swing support</b> | Broadlink   |
 | [1293](../codes/climate/1293.json) | AR-REB1E (Remote control) - <b>vertical swing support</b>               | Broadlink   |
+| [1294](../codes/climate/1294.json) | AR-RY4 (Remote control)                                                 | Broadlink   |
 
 #### Sharp
 | Code                               | Supported Models | Controller |
@@ -381,6 +383,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1404](../codes/climate/1404.json) | AR##TSHZ##       | Broadlink  |
 | [1405](../codes/climate/1405.json) | AR##TSHQBURN     | Broadlink  |
 | [1406](../codes/climate/1406.json) | AQV12PWD         | Xiaomi     |
+| [1407](../codes/climate/1407.json) | AR##NXWS###      | Broadlink  |
 
 #### Sintech
 | Code                               | Supported Models | Controller |
@@ -485,12 +488,13 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 
 #### Electrolux
 | Code                               | Supported Models                                                                                                                                                                             | Controller |
-| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+|------------------------------------| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
 | [1700](../codes/climate/1700.json) | EACS/I-HAT/N3                                                                                                                                                                                | Broadlink  |
 | [1701](../codes/climate/1701.json) | EACS-HA                                                                                                                                                                                      | Broadlink  |
 | [1702](../codes/climate/1702.json) | QI/QE09F<br>QI/QE09R<br>QI/QE12F<br>QI/QE12R<br>QI/QE18F<br>QI/QE18R<br>QI/QE22F<br>QI/QE22R<br>XI/XE09F<br>XI/XE09R<br>XI/XE12F<br>XI/XE12R<br>XI/XE18F<br>XI/XE18R<br>XI/XE22F<br>XI/XE22R | Broadlink  |
 | [1703](../codes/climate/1703.json) | EXP26U758CW   | Broadlink  |
 | [1704](../codes/climate/1704.json) | EPI12LEIWI   | Broadlink  |
+| [1705](../codes/climate/1705.json) | EACM-10 HR/N3   | Broadlink  |
 
 #### Erisson
 | Code                               | Supported Models | Controller |
@@ -568,6 +572,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1945](../codes/climate/1945.json) | Unknown model (Swing support) | Broadlink  |
 | [1946](../codes/climate/1946.json) | RC-3 | Broadlink  |
 | [1947](../codes/climate/1947.json) | Electra Damper | Broadlink  |
+| [1948](../codes/climate/1948.json) | Electra Classic 10 | Broadlink  |
 
 #### AUX
 | Code                               | Supported Models     | Controller |
@@ -575,6 +580,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1960](../codes/climate/1960.json) | Unknown              | Broadlink  |
 | [1961](../codes/climate/1961.json) | AUX FREEDOM AUX-09FH | Broadlink  |
 | [1962](../codes/climate/1962.json) | iClima ICI-09A (YKR-H/101E remote) (Also works with Mundo Clima MUPR-12-H9A) | Broadlink  |
+| [1963](../codes/climate/1963.json) | Kendal Split Inverter (YKR-T/121E remote) AC Freedom App | Broadlink  |
 
 #### Fuji
 | Code                               | Supported Models | Controller |
@@ -928,3 +934,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | -----------------| ---------- |
 | [3300](../codes/climate/3300.json) | DI-A series      | Broadlink  |
+
+### Chunlan
+| Code                               | Supported Models | Controller |
+| ---------------------------------- | -----------------| ---------- |
+| [3320](../codes/climate/3320.json) | KFR-25GW/VW (CH-9) | Broadlink  |
