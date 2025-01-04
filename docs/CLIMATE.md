@@ -382,6 +382,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1404](../codes/climate/1404.json) | AR##TSHZ##       | Broadlink  |
 | [1405](../codes/climate/1405.json) | AR##TSHQBURN     | Broadlink  |
 | [1406](../codes/climate/1406.json) | AQV12PWD         | Xiaomi     |
+| [1407](../codes/climate/1407.json) | AR##NXWS###      | Broadlink  |
 
 #### Sintech
 | Code                               | Supported Models | Controller |
