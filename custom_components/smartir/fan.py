@@ -108,7 +108,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
         self._direction = None
         self._last_on_speed = None
         self._oscillating = None
-        self._support_flags = FanEntityFeature.SET_SPEED
+        self._support_flags = FanEntityFeature.SET_SPEED | FanEntityFeature.TURN_ON | FanEntityFeature.TURN_OFF
 
         if (DIRECTION_REVERSE in self._commands and \
             DIRECTION_FORWARD in self._commands):
