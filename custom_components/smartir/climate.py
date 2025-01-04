@@ -54,7 +54,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Set up the IR Climate platform."""
-    _LOGGER.debug("Setting up the startir platform")
+    _LOGGER.debug("Setting up the smartir platform")
     device_code = config.get(CONF_DEVICE_CODE)
     device_files_subdir = os.path.join('codes', 'climate')
     device_files_absdir = os.path.join(COMPONENT_ABS_DIR, device_files_subdir)

@@ -319,6 +319,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1291](../codes/climate/1291.json) | AR-REF1E (Remote control)                                               | Broadlink   |
 | [1292](../codes/climate/1292.json) | AR-RY12 (Remote control) - <b>vertical and horizontal swing support</b> | Broadlink   |
 | [1293](../codes/climate/1293.json) | AR-REB1E (Remote control) - <b>vertical swing support</b>               | Broadlink   |
+| [1294](../codes/climate/1294.json) | AR-RY4 (Remote control)                                                 | Broadlink   |
 
 #### Sharp
 | Code                               | Supported Models | Controller |
@@ -568,6 +569,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1945](../codes/climate/1945.json) | Unknown model (Swing support) | Broadlink  |
 | [1946](../codes/climate/1946.json) | RC-3 | Broadlink  |
 | [1947](../codes/climate/1947.json) | Electra Damper | Broadlink  |
+| [1948](../codes/climate/1948.json) | Electra Classic 10 | Broadlink  |
 
 #### AUX
 | Code                               | Supported Models     | Controller |
@@ -575,6 +577,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1960](../codes/climate/1960.json) | Unknown              | Broadlink  |
 | [1961](../codes/climate/1961.json) | AUX FREEDOM AUX-09FH | Broadlink  |
 | [1962](../codes/climate/1962.json) | iClima ICI-09A (YKR-H/101E remote) (Also works with Mundo Clima MUPR-12-H9A) | Broadlink  |
+| [1963](../codes/climate/1963.json) | Kendal Split Inverter (YKR-T/121E remote) AC Freedom App | Broadlink  |
 
 #### Fuji
 | Code                               | Supported Models | Controller |
