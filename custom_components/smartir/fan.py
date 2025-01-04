@@ -108,7 +108,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
         self._direction = None
         self._last_on_speed = None
         self._oscillating = None
-        self._support_flags = FanEntityFeature.SET_SPEED
+        self._support_flags = FanEntityFeature.SET_SPEED | FanEntityFeature.TURN_ON | FanEntityFeature.TURN_OFF
 
         if (DIRECTION_REVERSE in self._commands and \
             DIRECTION_FORWARD in self._commands):
@@ -250,6 +250,14 @@ class SmartIRFan(FanEntity, RestoreEntity):
 
     async def async_turn_on(self, percentage: int = None, preset_mode: str = None, **kwargs):
         """Turn on the fan."""
+        if 'on' in self._commands:
+            command = self._commands['on']
+            try:
+                await self._controller.send(command)
+                await asyncio.sleep(1)
+            except Exception as e:
+                _LOGGER.exception(e)
+
         if percentage is None:
             percentage = ordered_list_item_to_percentage(
                 self._speed_list, self._last_on_speed or self._speed_list[0])
