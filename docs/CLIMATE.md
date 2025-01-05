@@ -957,3 +957,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | -----------------| ---------- |
 | [3360](../codes/climate/3360.json) | KS09<br>KS12<br>KS18<br>KS24<br>KS28 | Broadlink  |
+
+### Viomi
+| Code                               | Supported Models | Controller |
+| ---------------------------------- | -----------------| ---------- |
+| [8720](../codes/climate/8720.json) | KF-26GW/Y4PF5-A5 | ESPHome  |
