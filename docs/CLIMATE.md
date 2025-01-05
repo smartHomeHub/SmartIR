@@ -261,6 +261,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1163](../codes/climate/1163.json) | 40MAQ*           | Broadlink  |
 | [1164](../codes/climate/1164.json) | 42LUVH025N-1     | Broadlink  |
 | [1165](../codes/climate/1165.json) | 42P250HX         | Broadlink  |
+| [1166](../codes/climate/1166.json) | CS-A121N         | Broadlink  |
 
 #### Gree
 | Code                               | Supported Models                               | Controller  |
