@@ -264,6 +264,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1420](../codes/media_player/1420.json)| Cinema SB160 |Broadlink
+[1421](../codes/media_player/1421.json)| JBL Bar 2.0 All-in-One |Broadlink
 
 #### Andersson
 | Code | Supported Models | Controller |
