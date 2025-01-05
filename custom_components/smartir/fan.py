@@ -1,4 +1,5 @@
 import asyncio
+import aiofiles
 import json
 import logging
 import os.path
@@ -6,10 +7,8 @@ import os.path
 import voluptuous as vol
 
 from homeassistant.components.fan import (
-    FanEntity, PLATFORM_SCHEMA,
-    DIRECTION_REVERSE, DIRECTION_FORWARD,
-    SUPPORT_SET_SPEED, SUPPORT_DIRECTION, SUPPORT_OSCILLATE, 
-    ATTR_OSCILLATING)
+    FanEntity, FanEntityFeature,
+    PLATFORM_SCHEMA, DIRECTION_REVERSE, DIRECTION_FORWARD)
 from homeassistant.const import (
     CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN)
 from homeassistant.core import callback
@@ -74,12 +73,15 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
                           "place the file manually in the proper directory.")
             return
 
-    with open(device_json_path) as j:
-        try:
-            device_data = json.load(j)
-        except Exception:
-            _LOGGER.error("The device JSON file is invalid")
-            return
+    try:
+        async with aiofiles.open(device_json_path, mode='r') as j:
+            _LOGGER.debug(f"loading json file {device_json_path}")
+            content = await j.read()
+            device_data = json.loads(content)
+            _LOGGER.debug(f"{device_json_path} file loaded")
+    except Exception:
+        _LOGGER.error("The device JSON file is invalid")
+        return
 
     async_add_entities([SmartIRFan(
         hass, config, device_data
@@ -106,17 +108,20 @@ class SmartIRFan(FanEntity, RestoreEntity):
         self._direction = None
         self._last_on_speed = None
         self._oscillating = None
-        self._support_flags = SUPPORT_SET_SPEED
+        self._support_flags = (
+            FanEntityFeature.SET_SPEED
+            | FanEntityFeature.TURN_OFF
+            | FanEntityFeature.TURN_ON)
 
         if (DIRECTION_REVERSE in self._commands and \
             DIRECTION_FORWARD in self._commands):
             self._direction = DIRECTION_REVERSE
             self._support_flags = (
-                self._support_flags | SUPPORT_DIRECTION)
+                self._support_flags | FanEntityFeature.DIRECTION)
         if ('oscillate' in self._commands):
             self._oscillating = False
             self._support_flags = (
-                self._support_flags | SUPPORT_OSCILLATE)
+                self._support_flags | FanEntityFeature.OSCILLATE)
 
 
         self._temp_lock = asyncio.Lock()
@@ -143,7 +148,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
             #If _direction has a value the direction controls appears 
             #in UI even if SUPPORT_DIRECTION is not provided in the flags
             if ('direction' in last_state.attributes and \
-                self._support_flags & SUPPORT_DIRECTION):
+                self._support_flags & FanEntityFeature.DIRECTION):
                 self._direction = last_state.attributes['direction']
 
             if 'last_on_speed' in last_state.attributes:
