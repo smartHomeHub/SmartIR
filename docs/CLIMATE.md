@@ -440,6 +440,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1581](../codes/climate/1581.json) | ZH/JT-03 (Remote)| Broadlink  |
 | [1582](../codes/climate/1582.json) | ZH/TT-14 (Remote)| Broadlink  |
 | [4580](../codes/climate/4580.json) | Unknown          | Xiaomi (v2)|
+| [4581](../codes/climate/4581.json) | ZH/LW-03 (Remote)| Xiaomi (v2)|
 
 #### Beko
 | Code                               | Supported Models | Controller |
