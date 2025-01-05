@@ -962,3 +962,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | -----------------| ---------- |
 | [8720](../codes/climate/8720.json) | KF-26GW/Y4PF5-A5 | ESPHome  |
+
+### Zephir
+| Code                               | Supported Models | Controller |
+| ---------------------------------- | -----------------| ---------- |
+| [3380](../codes/climate/3380.json) | DualSplit | Broadlink  |
