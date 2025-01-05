@@ -1,4 +1,5 @@
 import asyncio
+import aiofiles
 import json
 import logging
 import os.path
@@ -98,12 +99,15 @@ async def async_setup_platform(
             )
             return
 
-    with open(device_json_path) as j:
-        try:
-            device_data = json.load(j)
-        except Exception:
-            _LOGGER.error("The device JSON file is invalid")
-            return
+    try:
+        async with aiofiles.open(device_json_path, mode='r') as j:
+            _LOGGER.debug(f"loading json file {device_json_path}")
+            content = await j.read()
+            device_data = json.loads(content)
+            _LOGGER.debug(f"{device_json_path} file loaded")
+    except Exception:
+        _LOGGER.error("The device JSON file is invalid")
+        return
 
     async_add_entities([SmartIRLight(hass, config, device_data)])
 
@@ -338,11 +342,12 @@ class SmartIRLight(LightEntity, RestoreEntity):
             self._power = STATE_ON
             await self.send_command(CMD_POWER_ON)
 
-        await self.async_write_ha_state()
+        self.async_write_ha_state()
 
     async def async_turn_off(self):
         self._power = STATE_OFF
         await self.send_command(CMD_POWER_OFF)
+        self.async_write_ha_state()
 
     async def async_toggle(self):
         await (self.async_turn_on() if not self.is_on else self.async_turn_off())
@@ -363,7 +368,6 @@ class SmartIRLight(LightEntity, RestoreEntity):
 
     @callback
     async def _async_power_sensor_changed(self, event):
-    ):
         """Handle power sensor changes."""
         new_state = event.data["new_state"]
         if new_state is None:
@@ -374,9 +378,9 @@ class SmartIRLight(LightEntity, RestoreEntity):
 
         if new_state.state == STATE_ON:
             self._on_by_remote = True
-            await self.async_write_ha_state()
+            self.async_write_ha_state()
 
         if new_state.state == STATE_OFF:
             self._on_by_remote = False
             self._power = STATE_OFF
-            await self.async_write_ha_state()
+            self.async_write_ha_state()
