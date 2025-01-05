@@ -60,7 +60,6 @@ Click on the links below for instructions on how to configure each platform.
 
 ## See also
 * [Discussion about SmartIR Climate (Home Assistant Community)](https://community.home-assistant.io/t/smartir-control-your-climate-tv-and-fan-devices-via-ir-rf-controllers/)
-* [SmartIR Chat on Telegram](https://t.me/smartHomeHub)
 
 <br><br>
 <p align="center">
