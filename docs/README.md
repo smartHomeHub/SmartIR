@@ -57,7 +57,7 @@ Click on the links below for instructions on how to configure each platform.
 * [Climate platform](/docs/CLIMATE.md)
 * [Media Player platform](/docs/MEDIA_PLAYER.md)
 * [Fan platform](/docs/FAN.md)
-* [Light platform](docs/LIGHT.md)
+* [Light platform](/docs/LIGHT.md)
 <br><br>
 
 ## See also
