@@ -425,6 +425,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
 | [1540](../codes/climate/1540.json) | SPIS412L         | Broadlink  |
+| [1541](../codes/climate/1541.json) | ABM859/G         | Broadlink  |
 
 #### Tadiran
 | Code                               | Supported Models | Controller |
