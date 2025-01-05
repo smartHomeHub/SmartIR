@@ -203,7 +203,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1105](../codes/climate/1105.json) | FTX12NMVJU                                                                                                                                                     | Broadlink  |
 | [1106](../codes/climate/1106.json) | ATX20KV1B<br>ATX25KV1B<br>ATX35KV1B                                                                                                                            | Broadlink  |
 | [1107](../codes/climate/1107.json) | FTX25JAV1NB                                                                                                                                                    | Broadlink  |
-| [1108](../codes/climate/1108.json) | FTXG25EV1BS<br>FTXG35EV1BS<br>FTXG35EV1BW                                                                                                                                                    | Broadlink  |
+| [1108](../codes/climate/1108.json) | FTXG25EV1BS<br>FTXG35EV1BS<br>FTXG35EV1BW<br>FTXS12WVJU9                                                                                                                                                    | Broadlink  |
 | [1109](../codes/climate/1109.json) | BRC4C158 (Remote)                                                                                                                                              | Broadlink  |
 | [1110](../codes/climate/1110.json) | FTC15NV14<br>FTC20NV14<br>FTC25NV14<br>FTC35NV14                                                                                                                                              | Broadlink  |
 | [1111](../codes/climate/1111.json) | FTE09NV25                                                                                                                                           | Broadlink  |
@@ -601,7 +601,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models                 | Controller |
 | ---------------------------------- | -------------------------------- | ---------- |
 | [2040](../codes/climate/2040.json) | WYS018GMFI17RL<br>WYS009GMFI17RL<br>CB018GMFILCFHD<br>CB012GMFILCFHD | Broadlink  |
-| [2041](../codes/climate/2041.json) | WT018GLFI19HLD | Broadlink  |
+| [2041](../codes/climate/2041.json) | WT018GLFI19HLD<br>WT012ALFI19HLD | Broadlink  |
 #### Dimplex
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
