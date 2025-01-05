@@ -297,7 +297,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1260](../codes/climate/1260.json) | RAS-13NKV-E / RAS-13NAV-E<br>RAS-13NKV-A / RAS-13NAV-A<br>RAS-16NKV-E / RAS-16NAV-E<br>RAS-16NKV-A / RAS-16NAV-A<br>RAS-M10SKV-E | Broadlink  |
 | [1261](../codes/climate/1261.json) | WH-TA05NE<br>WH-TA05LE<br>WH-TA11EJ                                                                              | Broadlink  |
 | [1262](../codes/climate/1262.json) | RAC-PD0812CRRU<br>RAC-PD1013CWRU<br>RAC-PD1213CWRU<br>RAC-PD1414CWRU                                             | Broadlink  |
-| [1263](../codes/climate/1263.json) | RAS-B07J2KVSG-E<br>RAS-B10J2KVSG-E<br>RAS-B13J2KVSG-E<br>RAS-B10SKVP-E<br>RAS-B18UFV-A                                           | Broadlink  |
+| [1263](../codes/climate/1263.json) | RAS-B07J2KVSG-E<br>RAS-B10J2KVSG-E<br>RAS-B13J2KVSG-E<br>RAS-B10SKVP-E<br>RAS-B18UFV-A<br>RAS-B13J2KVG-E         | Broadlink  |
 | [1264](../codes/climate/1264.json) | RAS-13SKVR-A                                                                                                     | Broadlink  |
 | [1265](../codes/climate/1265.json) | RAS-25SKVP2-ND<br>RAS-35SKVP2-ND                                                                                 | Broadlink  |
 | [7260](../codes/climate/7260.json) | RAS-18NKV2-E                                                                                                     | ESPHome    |
