@@ -144,6 +144,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ------------- | -------------------------- | ------------- |
 [1000](../codes/media_player/1000.json)|26PFL560H|Broadlink
 [1001](../codes/media_player/1001.json)|42PFL3007H/60<br>37PF9641D/10|Broadlink
+[1002](../codes/media_player/1002.json)|47PFG4109/77|Broadlink
 
 #### Sony
 | Code | Supported Models | Controller |
