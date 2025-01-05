@@ -319,3 +319,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1600](../codes/media_player/1600.json)| 40F600GU |Broadlink
+
+#### Sharp
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1620](../codes/media_player/1620.json)|LC-32LE700E<br>LC-32LE700S<br>LC-40LE700E<br>LC-40LE700S<br>LC-46LE700E<br>LC-46LE700S<br>LC-52LE700E<br>LC-52LE700S<br>LC-32LX700E<br>LC-40LX700E<br>LC-46LX700E<br>LC-32LU700E<br>LC-32LU700S<br>LC-40LU700E<br>LC-40LU700S<br>LC-46LU700E<br>LC-46LU700S<br>LC-32LE705E<br>LC-32LE705S<br>LC-40LE705E<br>LC-40LE705S<br>LC-46LE705E<br>LC-46LE705S<br>LC-52LE705E<br>LC-52LE705S<br>LC-32LX705E<br>LC-40LX705E<br>LC-46LX705E<br>LC-32LU705E<br>LC-32LU705S<br>LC-40LU705E<br>LC-40LU705S<br>LC-46LU705E<br>LC-46LU705S |Broadlink
