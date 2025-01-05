@@ -6,10 +6,10 @@
   "codeowners": ["@smartHomeHub"],
   "requirements": ["aiofiles>=0.6.0"],
   "homeassistant": "2024.10.0",
-  "version": "1.17.13",
+  "version": "1.18.0",
   "updater": {
-    "version": "1.17.13",
-    "releaseNotes": "-- Fixes action fan.toggle not supported #1341",
+    "version": "1.18.0",
+    "releaseNotes": "-- Adds support for light devices",
     "files": [
       "__init__.py",
       "climate.py",
