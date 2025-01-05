@@ -947,3 +947,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | -----------------| ---------- |
 | [3320](../codes/climate/3320.json) | KFR-25GW/VW (CH-9) | Broadlink  |
+
+### Wide
+| Code                               | Supported Models | Controller |
+| ---------------------------------- | -----------------| ---------- |
+| [3340](../codes/climate/3340.json) | WDS12ECO | Broadlink  |
