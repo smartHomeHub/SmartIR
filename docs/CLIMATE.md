@@ -218,6 +218,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1119](../codes/climate/1119.json) | FTXS60FVMA                                                                                           | Broadlink  |
 | [4100](../codes/climate/4100.json) | FTXS25CVMB<br>FTXS35CVMB<br>FTXS60BVMB<br>FVXS25BVMB                                                 | Xiaomi     |
 | [4100](../codes/climate/4100.json) | FTXS25CVMB<br>FTXS35CVMB<br>FTXS60BVMB<br>FVXS25BVMB                                                                                                           | Xiaomi     |
+| [4101](../codes/climate/4101.json) | FTKQ25SAVMV                                                                                                       | Broadlink     |
 
 #### Mitsubishi Electric
 | Code                               | Supported Models                                                                                     | Controller |
