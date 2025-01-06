@@ -192,6 +192,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1089](../codes/climate/1089.json) | RAK-35RXE                                                     | Broadlink  |
 | [1090](../codes/climate/1090.json) | RAK-50RPE                                                     | Broadlink  |
 | [1091](../codes/climate/1091.json) | HSPE2700FCINV<br>HSPE3200FCINV<br>HSPE5400FCINV<br>HSPE6400FCINV | Broadlink  |
+| [1092](../codes/climate/1092.json) | RAS-E14HB                                                     | Broadlink |
 
 #### Daikin
 | Code                               | Supported Models                                                                                                                                               | Controller |
