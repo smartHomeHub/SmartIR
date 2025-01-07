@@ -200,4 +200,4 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1300](../codes/fan/1300.json)|Air Timer TS+|Broadlink
+[1240](../codes/fan/1240.json)|Air Timer TS+|Broadlink
