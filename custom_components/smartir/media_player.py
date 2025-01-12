@@ -60,7 +60,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
 
         try:
             codes_source = ("https://raw.githubusercontent.com/"
-                            "smartHomeHub/SmartIR/master/"
+                            "DmitriySafronov/SmartIR/master/"
                             "codes/media_player/{}.json")
 
             await Helper.downloader(codes_source.format(device_code), device_json_path)
