@@ -22,11 +22,11 @@ DOMAIN = 'smartir'
 VERSION = '1.18.0'
 MANIFEST_URL = (
     "https://raw.githubusercontent.com/"
-    "DmitriySafronov/SmartIR/{}/"
+    "dmitriysafronov/SmartIR/{}/"
     "custom_components/smartir/manifest.json")
 REMOTE_BASE_URL = (
     "https://raw.githubusercontent.com/"
-    "DmitriySafronov/SmartIR/{}/"
+    "dmitriysafronov/SmartIR/{}/"
     "custom_components/smartir/")
 COMPONENT_ABS_DIR = os.path.dirname(
     os.path.abspath(__file__))

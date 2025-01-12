@@ -1,7 +1,7 @@
 {
   "domain": "smartir",
   "name": "SmartIR",
-  "documentation": "https://github.com/DmitriySafronov/SmartIR",
+  "documentation": "https://github.com/dmitriysafronov/SmartIR",
   "dependencies": [],
   "codeowners": ["@smartHomeHub"],
   "requirements": ["aiofiles>=0.6.0"],
