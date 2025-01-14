@@ -1,0 +1,21 @@
+{
+  "manufacturer": "Mallory",
+  "supportedModels": [
+    "Air Timer TS+"
+  ],
+  "supportedController": "Broadlink",
+  "commandsEncoding": "Base64",
+  "speed": [
+    "low",
+    "medium",
+    "high"
+  ],
+  "commands": {
+    "off": "JgCcACkOKQ8NKykPKQ4NKw0rKQ8NKw0rDSoOAAEVKQ8pDg0rKQ8pDw0rDSopDw0rDioNKw4AARMpDygPDiopDykPDSoOKikPDSsNKw0rDgABFCkPKQ8OKigPKQ8OKg0rKA8OKg0rDioNAAEUKQ8oDw4qKQ8pDg4qDSspDw4qDioNKg4AARUpDygPDiopDykPDSoNKykPDioNKw0rDQANBQ==",
+    "default": {
+      "low": "JgCcACwMKwwOKikPKg4NKw0qDioNKw0rKQ8OAAEVKA8pDw4qKQ8oDw0rECgOKg0rDSsqDQ4AARQpDykOECgpDykPDioNKw4qDSoOKikPEAABEykPKQ4OKioOKQ8NKw0rDSsNKg4qKQ8NAAEUKQ8pDw0rKwwpDw0rECgOKg4qDSsoDxAAARMrDCoODSspDygPDSsNKw4qDioNKykODgANBQ==",
+      "medium": "JgCcACkPKA8NKykPKQ4OKg4qDSsNKykPDSoOAAEVKQ8oDw0rKQ8pDg4qDioNKw0rKQ8NKg0AARQqDikPDSspDikPDSsNKw4qDSspDg0rDgABFCoOKQ8NKygPKQ8NKw0rDSsNKioODSsNAAEUKQ8pDw0rKA8pDw0rDSsNKg4qKQ8NKw4AARQpDykODSspDykPDSoOKg0rDiopDw0qDgANBQ==",
+      "high": "JgCSACoNKQ8NKyoOKA8NKw4qDioNKw0qDSsp+SoOKQ8NKykOKQ8NKw4qDSsOKQ0rDioq+CkOKQ8NKygPKQ8NKw4qDSoOKg4qDiop+SkPKA8NKyoOKA8NKw4qDioNKw0rDiks9ikPKA8NKykPKA8NKw0rDioOKg4qDSoq+SkOKQ8NKykPKA8NKw0rDioOKg0qDioqAA0F"
+    }
+  }
+}
