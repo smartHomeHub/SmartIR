@@ -164,7 +164,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ---------------------------------- | -------------------------------------------------------------------- | ---------- |
 | [1060](../codes/climate/1060.json) | R09AWN<br>R24AWN<br>E09EK                                            | Broadlink  |
 | [1061](../codes/climate/1061.json) | Unknown model                                                        | Broadlink  |
-| [1062](../codes/climate/1062.json) | LG InverterV P12RK                                                   | Broadlink  |
+| [1062](../codes/climate/1062.json) | LG InverterV P12RK, A06AWV                                           | Broadlink  |
 | [1063](../codes/climate/1063.json) | LG Inverter P12EP1, P12EU (AKB74955603 Remote)                              | Broadlink  |
 | [1064](../codes/climate/1064.json) | Unknown model                                                        | Broadlink  |
 | [1065](../codes/climate/1065.json) | LG LA080EC,LAXXXEC (AKB73598011 remote)                              | Broadlink  |
