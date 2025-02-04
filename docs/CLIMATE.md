@@ -248,7 +248,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [4124](../codes/climate/4124.json) | MSZ-SF25VE3<br>MSZ-SF35VE3<br>MSZ-SF42VE3<br>MSZ-SF50VE3<br>MSZ-AP20VG<br>MSZ-AP25VGD| Xiaomi v2  |
 | [4129](../codes/climate/4129.json) | DXK18Z1-S                                                                                            | Xiaomi v2  |
 | [7124](../codes/climate/7124.json) | MSZ-SF25VE3<br>MSZ-SF35VE3<br>MSZ-SF42VE3<br>MSZ-SF50VE<br>MSZ-AP20VG                                | ESPHome |
-
+| [1002](../codes/climate/1002.json) | MSZ-AP25VDG2 **(swing mode)**<br/> MSZ-AP25VDKG2 **(swing mode)**<br/> MSZ-AP35VDG2 **(swing mode)**<br/> MSZ-AP35VDKG2 **(swing mode)**<br/> MSZ-AP42VDG2 **(swing mode)**<br/> MSZ-AP42VDKG2 **(swing mode)**<br/> MSZ-AP50VDG2 **(swing mode)**<br/> MSZ-AP50VDKG2 **(swing mode)**<br/> | Broadlink  |
 
 #### Actron
 | Code                               | Supported Models | Controller |
