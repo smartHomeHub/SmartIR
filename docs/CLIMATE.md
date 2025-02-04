@@ -123,6 +123,41 @@ climate:
     power_sensor: binary_sensor.ac_power
 ```
 
+## Example (using ESPHome with Pronto protocol):
+ESPHome configuration example:
+```yaml
+esphome:
+  name: my_espir
+  platform: ESP8266
+  board: esp01_1m
+
+api:
+  services:
+    - service: send_pronto_command
+      variables:
+        command: string
+      then:
+        - remote_transmitter.transmit_pronto:
+            data: !lambda 'return command;'
+remote_transmitter:
+  pin: GPIO14
+  carrier_duty_percent: 50%
+```
+HA configuration.yaml:
+```yaml
+smartir:
+
+climate:
+  - platform: smartir
+    name: Office AC
+    unique_id: office_ac
+    device_code: 6666
+    controller_data: my_espir_send_pronto_command
+    temperature_sensor: sensor.temperature
+    humidity_sensor: sensor.humidity
+    power_sensor: binary_sensor.ac_power
+```
+
 ## Available codes for climate devices:
 The following are the code files created by the amazing people in the community. Before you start creating your own code file, try if one of them works for your device. **Please open an issue if your device is working and not included in the supported models.**
 Contributing to your own code files is welcome. However, we do not accept incomplete files as well as files related to MQTT controllers.
@@ -720,6 +755,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2440](../codes/climate/2440.json) | ClimaVair VAI 8-025    | Broadlink  |
+| [6666](../codes/climate/6666.json) | ClimaVair VAI 8-035    | ESPHome  |
 
 #### FanWorld
 | Code                               | Supported Models       | Controller |
