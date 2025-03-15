@@ -15,6 +15,7 @@ XIAOMI_CONTROLLER = 'Xiaomi'
 MQTT_CONTROLLER = 'MQTT'
 LOOKIN_CONTROLLER = 'LOOKin'
 ESPHOME_CONTROLLER = 'ESPHome'
+ZHA_CONTROLLER = 'ZHA'
 
 ENC_BASE64 = 'Base64'
 ENC_HEX = 'Hex'
@@ -26,6 +27,7 @@ XIAOMI_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
 MQTT_COMMANDS_ENCODING = [ENC_RAW]
 LOOKIN_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
 ESPHOME_COMMANDS_ENCODING = [ENC_RAW]
+ZHA_COMMANDS_ENCODING = [ENC_RAW]
 
 
 def get_controller(hass, controller, encoding, controller_data, delay):
@@ -35,7 +37,8 @@ def get_controller(hass, controller, encoding, controller_data, delay):
         XIAOMI_CONTROLLER: XiaomiController,
         MQTT_CONTROLLER: MQTTController,
         LOOKIN_CONTROLLER: LookinController,
-        ESPHOME_CONTROLLER: ESPHomeController
+        ESPHOME_CONTROLLER: ESPHomeController,
+        ZHA_CONTROLLER: ZHAController
     }
     try:
         return controllers[controller](hass, controller, encoding, controller_data, delay)
@@ -131,6 +134,29 @@ class XiaomiController(AbstractController):
         await self.hass.services.async_call(
             'remote', 'send_command', service_data)
 
+class ZHAController(AbstractController):
+    """Controls a Moes device."""
+
+    def check_encoding(self, encoding):
+        """Check if the encoding is supported by the controller."""
+        if encoding not in ZHA_COMMANDS_ENCODING:
+            raise Exception("The encoding is not supported "
+                            "by the ZHA controller.")
+
+    async def send(self, command):
+        """Send a command."""
+        service_data = {
+            'cluster_type': 'in',
+            'endpoint_id': '1',
+            'command': '2',
+            'ieee': self._controller_data,
+            'command_type': 'server',
+            'params': { 'code': command},
+            'cluster_id': '57348'
+        }
+
+        await self.hass.services.async_call(
+            'zha', 'issue_zigbee_cluster_command', service_data)
 
 class MQTTController(AbstractController):
     """Controls a MQTT device."""
