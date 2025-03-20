@@ -6,10 +6,12 @@ import logging
 import json
 
 from homeassistant.const import ATTR_ENTITY_ID
+from homeassistant.components.remote import ATTR_DEVICE
 from . import Helper
 
 _LOGGER = logging.getLogger(__name__)
 
+LOCALTUYA_CONTROLLER = 'LocalTuya'
 BROADLINK_CONTROLLER = 'Broadlink'
 XIAOMI_CONTROLLER = 'Xiaomi'
 MQTT_CONTROLLER = 'MQTT'
@@ -21,6 +23,7 @@ ENC_HEX = 'Hex'
 ENC_PRONTO = 'Pronto'
 ENC_RAW = 'Raw'
 
+LOCALTUYA_COMMANDS_ENCODING = [ENC_RAW]
 BROADLINK_COMMANDS_ENCODING = [ENC_BASE64, ENC_HEX, ENC_PRONTO]
 XIAOMI_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
 MQTT_COMMANDS_ENCODING = [ENC_RAW]
@@ -28,9 +31,10 @@ LOOKIN_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
 ESPHOME_COMMANDS_ENCODING = [ENC_RAW]
 
 
-def get_controller(hass, controller, encoding, controller_data, delay):
+def get_controller(hass, controller, encoding, controller_data, unique_id, delay):
     """Return a controller compatible with the specification provided."""
     controllers = {
+        LOCALTUYA_CONTROLLER: LocalTuyaController,
         BROADLINK_CONTROLLER: BroadlinkController,
         XIAOMI_CONTROLLER: XiaomiController,
         MQTT_CONTROLLER: MQTTController,
@@ -38,19 +42,20 @@ def get_controller(hass, controller, encoding, controller_data, delay):
         ESPHOME_CONTROLLER: ESPHomeController
     }
     try:
-        return controllers[controller](hass, controller, encoding, controller_data, delay)
+        return controllers[controller](hass, controller, encoding, controller_data, unique_id, delay)
     except KeyError:
         raise Exception("The controller is not supported.")
 
 
 class AbstractController(ABC):
     """Representation of a controller."""
-    def __init__(self, hass, controller, encoding, controller_data, delay):
+    def __init__(self, hass, controller, encoding, controller_data, unique_id, delay):
         self.check_encoding(encoding)
         self.hass = hass
         self._controller = controller
         self._encoding = encoding
         self._controller_data = controller_data
+        self._unique_id = unique_id
         self._delay = delay
 
     @abstractmethod
@@ -62,6 +67,36 @@ class AbstractController(ABC):
     async def send(self, command):
         """Send a command."""
         pass
+
+
+class LocalTuyaController(AbstractController):
+    """Controls a LocalTuya device."""
+
+    def check_encoding(self, encoding):
+        """Check if the encoding is supported by the controller."""
+        if encoding not in LOCALTUYA_COMMANDS_ENCODING:
+            raise Exception("The encoding is not supported "
+                            "by the LocalTuya controller.")
+
+    async def send(self, command):
+        """Send a command."""
+        commands = []
+
+        if not isinstance(command, list): 
+            command = [command]
+
+        for _command in command:
+            commands.append(_command)
+
+        service_data = {
+            ATTR_ENTITY_ID: self._controller_data,
+            ATTR_DEVICE: self._unique_id,
+            'command': commands,
+            'delay_secs': self._delay
+        }
+
+        await self.hass.services.async_call(
+            'remote', 'send_command', service_data)
 
 
 class BroadlinkController(AbstractController):

@@ -133,7 +133,9 @@ class SmartIRFan(FanEntity, RestoreEntity):
             self._supported_controller, 
             self._commands_encoding,
             self._controller_data,
-            self._delay)
+            self._unique_id,
+            self._delay
+        )
 
     async def async_added_to_hass(self):
         """Run when entity about to be added."""
