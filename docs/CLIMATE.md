@@ -96,8 +96,8 @@ esphome:
   board: esp01_1m
 
 api:
-  services:
-    - service: send_raw_command
+  actions:
+    - action: send_raw_command
       variables:
         command: int[]
       then:
