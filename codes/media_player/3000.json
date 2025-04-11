@@ -1,0 +1,29 @@
+{
+    "manufacturer": "LG",
+    "supportedModels": [
+      "OLED55B6V via transmit_lg"
+    ],
+    "supportedController": "MQTT",
+    "commandsEncoding": "Raw",
+    "commands": {
+        "off": "{\"data\": 551527260 }",
+        "on": "{\"data\": 551494620 }",
+        "previousChannel": "{\"data\": 551518335 }",
+        "nextChannel": "{\"data\": 551485695 }",
+        "volumeDown": "{\"data\": 551538225 }",
+        "volumeUp": "{\"data\": 551502015 }",
+        "mute": "{\"data\": 551522415 }",
+        "sources": {
+            "Channel 1": "{\"data\": 551520375 }",
+            "Channel 2": "{\"data\": 551504055 }",
+            "Channel 3": "{\"data\": 551536695 }",
+            "Channel 4": "{\"data\": 551495895 }",
+            "Channel 5": "{\"data\": 551528535 }",
+            "Channel 6": "{\"data\": 551512215 }",
+            "Channel 7": "{\"data\": 551544855 }",
+            "Channel 8": "{\"data\": 551491815 }",
+            "Channel 9": "{\"data\": 551524455 }",
+            "Channel 0": "{\"data\": 551487735 }"
+        }
+    }
+}
