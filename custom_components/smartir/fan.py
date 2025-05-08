@@ -12,7 +12,7 @@ from homeassistant.components.fan import (
 from homeassistant.const import (
     CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN)
 from homeassistant.core import callback
-from homeassistant.helpers.event import async_track_state_change
+from homeassistant.helpers.event import async_track_state_change_event
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
 from homeassistant.util.percentage import (
@@ -155,7 +155,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
                 self._last_on_speed = last_state.attributes['last_on_speed']
 
             if self._power_sensor:
-                async_track_state_change(self.hass, self._power_sensor, 
+                async_track_state_change_event(self.hass, self._power_sensor, 
                                          self._async_power_sensor_changed)
 
     @property
