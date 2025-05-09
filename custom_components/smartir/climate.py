@@ -12,8 +12,8 @@ from homeassistant.components.climate.const import (
 from homeassistant.const import (
     CONF_NAME, STATE_ON, STATE_OFF, STATE_UNKNOWN, STATE_UNAVAILABLE, ATTR_TEMPERATURE,
     PRECISION_TENTHS, PRECISION_HALVES, PRECISION_WHOLE)
-from homeassistant.core import callback
-from homeassistant.helpers.event import async_track_state_change
+from homeassistant.core import Event, EventStateChangedData, callback
+from homeassistant.helpers.event import async_track_state_change_event
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
 from . import COMPONENT_ABS_DIR, Helper
@@ -155,42 +155,45 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             self._commands_encoding,
             self._controller_data,
             self._delay)
-            
+
     async def async_added_to_hass(self):
         """Run when entity about to be added."""
         await super().async_added_to_hass()
         _LOGGER.debug(f"async_added_to_hass {self} {self.name} {self.supported_features}")
-    
+	    
         last_state = await self.async_get_last_state()
-        
+	    
         if last_state is not None:
             self._hvac_mode = last_state.state
             self._current_fan_mode = last_state.attributes['fan_mode']
             self._current_swing_mode = last_state.attributes.get('swing_mode')
             self._target_temperature = last_state.attributes['temperature']
-
+	    
             if 'last_on_operation' in last_state.attributes:
                 self._last_on_operation = last_state.attributes['last_on_operation']
-
+	    
         if self._temperature_sensor:
-            async_track_state_change(self.hass, self._temperature_sensor, 
-                                     self._async_temp_sensor_changed)
-
+            async_track_state_change_event(
+                self.hass, self._temperature_sensor, self._async_temp_sensor_changed
+            )
+	    
             temp_sensor_state = self.hass.states.get(self._temperature_sensor)
             if temp_sensor_state and temp_sensor_state.state != STATE_UNKNOWN:
                 self._async_update_temp(temp_sensor_state)
-
+	    
         if self._humidity_sensor:
-            async_track_state_change(self.hass, self._humidity_sensor, 
-                                     self._async_humidity_sensor_changed)
-
+            async_track_state_change_event(
+                self.hass, self._humidity_sensor, self._async_humidity_sensor_changed
+            )
+	    
             humidity_sensor_state = self.hass.states.get(self._humidity_sensor)
             if humidity_sensor_state and humidity_sensor_state.state != STATE_UNKNOWN:
                 self._async_update_humidity(humidity_sensor_state)
-
+	    
         if self._power_sensor:
-            async_track_state_change(self.hass, self._power_sensor, 
-                                     self._async_power_sensor_changed)
+            async_track_state_change_event(
+                self.hass, self._power_sensor, self._async_power_sensor_changed
+            )
 
     @property
     def unique_id(self):
@@ -393,17 +396,32 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
         self._async_update_temp(new_state)
         self.async_write_ha_state()
+		
+    async def _async_temp_sensor_changed(self, event: Event[EventStateChangedData]) -> None:
+        """Handle temperature sensor changes."""
+        new_state = event.data["new_state"]
 
-    async def _async_humidity_sensor_changed(self, entity_id, old_state, new_state):
-        """Handle humidity sensor changes."""
+        if new_state is None:
+            return
+
+        self._async_update_temp(new_state)
+        self.async_write_ha_state()
+
+    async def _async_humidity_sensor_changed(self, event: Event[EventStateChangedData]) -> None:
+        """Handle temperature sensor changes."""
+        new_state = event.data["new_state"]
+
         if new_state is None:
             return
 
         self._async_update_humidity(new_state)
         self.async_write_ha_state()
 
-    async def _async_power_sensor_changed(self, entity_id, old_state, new_state):
+    async def _async_power_sensor_changed(self, event: Event[EventStateChangedData]) -> None:
         """Handle power sensor changes."""
+        new_state = event.data["new_state"]
+		old_state = event.data["old_state"]
+
         if new_state is None:
             return
 
