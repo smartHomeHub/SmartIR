@@ -124,6 +124,11 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._fan_modes = device_data['fanModes']
         self._swing_modes = device_data.get('swingModes')
         self._commands = device_data['commands']
+        
+        # Most devices use the same command to turn on to a specific state and update their state to that state, and they have a separate single command for turning off.
+        # Some devices have separate commands for updating the state and turning on. To turn off, you need to resend the current state.
+        self._resend_state_to_turn_off = device_data.get('resendStateToTurnOff', False)
+        _LOGGER.debug(f"{self._name} resend state to turn off: {self._resend_state_to_turn_off}")
 
         self._target_temperature = self._min_temperature
         self._hvac_mode = HVACMode.OFF
@@ -324,12 +329,13 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
     async def async_set_hvac_mode(self, hvac_mode):
         """Set operation mode."""
+        turning_on = (self._hvac_mode == HVACMode.OFF and hvac_mode != HVACMode.OFF)
         self._hvac_mode = hvac_mode
         
         if not hvac_mode == HVACMode.OFF:
             self._last_on_operation = hvac_mode
 
-        await self.send_command()
+        await self.send_command(turning_on)
         self.async_write_ha_state()
 
     async def async_set_fan_mode(self, fan_mode):
@@ -359,7 +365,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         else:
             await self.async_set_hvac_mode(self._operation_modes[1])
 
-    async def send_command(self):
+    async def send_command(self, turning_on=False):    
         async with self._temp_lock:
             try:
                 self._on_by_remote = False
@@ -367,6 +373,21 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 fan_mode = self._current_fan_mode
                 swing_mode = self._current_swing_mode
                 target_temperature = '{0:g}'.format(self._target_temperature)
+
+                if self._resend_state_to_turn_off:
+                    if turning_on:
+                        _LOGGER.debug("sending desired state as on/off command to turn on")
+                        await self._controller.send(
+                            self._commands[operation_mode][fan_mode][target_temperature]['on_off'])
+                    elif operation_mode.lower() == HVACMode.OFF:
+                        _LOGGER.debug("sending current state as on/off command to turn off")
+                        await self._controller.send(
+                            self._commands[self.last_on_operation][fan_mode][target_temperature]['on_off'])
+                    else:
+                         _LOGGER.debug("sending desired state update command")
+                         await self._controller.send(
+                            self._commands[operation_mode][fan_mode][target_temperature]['update'])
+                    return
 
                 if operation_mode.lower() == HVACMode.OFF:
                     await self._controller.send(self._commands['off'])
