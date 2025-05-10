@@ -15,6 +15,7 @@ SmartIR currently supports the following controllers:
 * [LOOK.in Remote](http://look-in.club/devices/remote)
 * [ESPHome User-defined service for remote transmitter](https://esphome.io/components/api.html#user-defined-services)
 * [MQTT Publish service](https://www.home-assistant.io/docs/mqtt/service/)
+* [ZHA](https://www.home-assistant.io/integrations/zha/) [through quirks](https://github.com/zigpy/zha-device-handlers/issues/1687#issuecomment-1424357574)
 
 More than 120 climate devices are currently supported out-of-the-box, mainly for the Broadlink controller, thanks to our awesome community.<br><br>
 Don't forget to **star** the repository if you had fun!<br><br>
