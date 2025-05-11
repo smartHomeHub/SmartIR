@@ -136,8 +136,9 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 
 | Code | Supported Models | Notes |Controller |
 | ------------- | ----- | ----- | ------------- |
-[1160](../codes/fan/1160.json)|Efficio||Broadlink
-[1170](../codes/fan/1170.json)|Renesa|Speeds `1,2,3,4,5` is mapped to `2,3,4,5,Boost` on the remote|Broadlink
+[1160](../codes/fan/1160.json)|Efficio||Broadlin
+[1170](../codes/fan/1170.json)|Renesa|Speeds `1,2,3,4,5` is mapped to `2,3,4,5,Boost` on the remote|Broadlinkk
+[1170](../codes/fan/1171.json)|Renesa Wall Fan|Speeds `1,2,3,4,5,6` is mapped to `1,2,3,4,5,Boost` on the remote|Broadlink
 
 #### Lucci Air
 
