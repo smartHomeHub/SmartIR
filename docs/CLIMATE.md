@@ -277,6 +277,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1185](../codes/climate/1185.json) | KFR-50LW<br>YAP1F2                             | Broadlink   |
 | [1186](../codes/climate/1186.json) | GWH18ACD-D3DNA 1M                              | Broadlink   |
 | [1187](../codes/climate/1187.json) | Unknown model                                  | Broadlink   |
+| [1188](../codes/climate/1188.json) | Vireo VIR18HP230V1AH                           | Broadlink   |
 | [4180](../codes/climate/4180.json) | YB0FB2 (Remote)                                | Xiaomi      |
 | [4181](../codes/climate/4181.json) | YB1FA  (Remote)                                | Xiaomi (v2) |
 
