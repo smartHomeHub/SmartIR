@@ -10,7 +10,7 @@
   "precision": 1,
   "operationModes": [
     "cool",
-    "fan",
+    "fan_only",
     "dry"
   ],
   "fanModes": [
@@ -101,7 +101,7 @@
         }
       }
     },
-    "fan": {
+    "fan_only": {
       "low": {
         "static": {
           "16": "JgB4AAABH40SEhEUEBQQNhI1ExMQExAUEDYTEhAUERMQFBA2EhMQFA8UEBQQFBATEBQQFBAUEDYSExAUEBMQNhM1EjUTNRI1ExIQFBAUEBQQExAUEBQQFA8UEBQQFBATEBQQFBAUEBMQFBA2EhMQNhM1EjUTEw8UEAANBQ==",
