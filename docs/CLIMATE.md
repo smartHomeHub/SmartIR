@@ -961,6 +961,11 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ---------------------------------- | -----------------| ---------- |
 | [3360](../codes/climate/3360.json) | KS09<br>KS12<br>KS18<br>KS24<br>KS28 | Broadlink  |
 
+### Silvercrest
+| Code                               | Supported Models | Controller |
+| ---------------------------------- | -----------------| ---------- |
+| [3400](../codes/climate/3400.json) | SMK 7000 B2 | Broadlink  |
+
 ### Viomi
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | -----------------| ---------- |
