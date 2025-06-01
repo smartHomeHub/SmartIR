@@ -379,6 +379,11 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [4381](../codes/climate/4381.json) | RG70C1/BGEF | Xiaomi     |
 | [7386](../codes/climate/7386.json) | KFR-32GW                       | ESPHome    |
 
+#### Kaysun
+| Code                               | Supported Models               | Controller |
+| ---------------------------------- | ------------------------------ | ---------- |
+| [1395](../codes/climate/1395.json) | RG10B(D)/BGEF (Remote)         | Broadlink  |
+
 #### Samsung
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
