@@ -5,11 +5,11 @@
   "dependencies": [],
   "codeowners": ["@smartHomeHub"],
   "requirements": ["aiofiles>=0.6.0"],
-  "homeassistant": "2024.10.0",
-  "version": "1.18.0",
+  "homeassistant": "2025.5.0",
+  "version": "1.18.1",
   "updater": {
-    "version": "1.18.0",
-    "releaseNotes": "-- Adds support for light devices",
+    "version": "1.18.1",
+    "releaseNotes": "-- Implements new async_track_state_change_event",
     "files": [
       "__init__.py",
       "climate.py",
