@@ -15,6 +15,7 @@ XIAOMI_CONTROLLER = 'Xiaomi'
 MQTT_CONTROLLER = 'MQTT'
 LOOKIN_CONTROLLER = 'LOOKin'
 ESPHOME_CONTROLLER = 'ESPHome'
+Z2M_CONTROLLER = 'Z2M'
 
 ENC_BASE64 = 'Base64'
 ENC_HEX = 'Hex'
@@ -26,6 +27,7 @@ XIAOMI_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
 MQTT_COMMANDS_ENCODING = [ENC_RAW]
 LOOKIN_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
 ESPHOME_COMMANDS_ENCODING = [ENC_RAW]
+Z2M_COMMANDS_ENCODING = [ENC_RAW]
 
 
 def get_controller(hass, controller, encoding, controller_data, delay):
@@ -35,7 +37,9 @@ def get_controller(hass, controller, encoding, controller_data, delay):
         XIAOMI_CONTROLLER: XiaomiController,
         MQTT_CONTROLLER: MQTTController,
         LOOKIN_CONTROLLER: LookinController,
-        ESPHOME_CONTROLLER: ESPHomeController
+        ESPHOME_CONTROLLER: ESPHomeController,
+        Z2M_CONTROLLER: Z2MController
+
     }
     try:
         return controllers[controller](hass, controller, encoding, controller_data, delay)
@@ -140,6 +144,26 @@ class MQTTController(AbstractController):
         if encoding not in MQTT_COMMANDS_ENCODING:
             raise Exception("The encoding is not supported "
                             "by the mqtt controller.")
+
+    async def send(self, command):
+        """Send a command."""
+        service_data = {
+            'topic': self._controller_data,
+            'payload': command
+        }
+
+        await self.hass.services.async_call(
+            'mqtt', 'publish', service_data)
+        
+
+class Z2MController(AbstractController):
+    """Controls a Z2M device."""
+
+    def check_encoding(self, encoding):
+        """Check if the encoding is supported by the controller."""
+        if encoding not in Z2M_COMMANDS_ENCODING:
+            raise Exception("The encoding is not supported "
+                            "by the zigbee2mqtt controller.")
 
     async def send(self, command):
         """Send a command."""
