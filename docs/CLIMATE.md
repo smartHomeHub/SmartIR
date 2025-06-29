@@ -970,3 +970,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | -----------------| ---------- |
 | [3380](../codes/climate/3380.json) | DualSplit | Broadlink  |
+
+### Elco
+| Code                               | Supported Models | Controller |
+| ---------------------------------- | ---------------- | ---------- |
+| [4200](../codes/climate/4200.json) | Classic          | Broadlink  |
