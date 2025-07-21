@@ -123,6 +123,38 @@ climate:
     power_sensor: binary_sensor.ac_power
 ```
 
+## Example (using Home Assistant Scripts):
+Home Assistant Scripts configuration example:
+```yaml
+smartir:
+
+climate:
+    - platform: smartir
+      name: Office AC
+      unique_id: office_ac
+      device_code: 9260
+      controller_data: script.ac_control
+      temperature_sensor: sensor.office_temperature
+      humidity_sensor: sensor.office_humidity
+```
+The script should accept an input variable `ir_command`. Example using the
+Tuya-based Zigbee IR blaster TS1201:
+```yaml
+script:
+    ac_control:
+        alias: Issue a command via the remote
+        data:
+          cluster_type: in
+          command: 2
+          endpoint_id: 1
+          params:
+            code: "{{ ir_command }}"
+          cluster_id: 57348
+          ieee: f8:44:77:ff:fe:ab:7d:fd
+          command_type: server
+        action: zha.issue_zigbee_cluster_command
+```
+
 ## Available codes for climate devices:
 The following are the code files created by the amazing people in the community. Before you start creating your own code file, try if one of them works for your device. **Please open an issue if your device is working and not included in the supported models.**
 Contributing to your own code files is welcome. However, we do not accept incomplete files as well as files related to MQTT controllers.
@@ -307,6 +339,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1264](../codes/climate/1264.json) | RAS-13SKVR-A                                                                                                     | Broadlink  |
 | [1265](../codes/climate/1265.json) | RAS-25SKVP2-ND<br>RAS-35SKVP2-ND                                                                                 | Broadlink  |
 | [7260](../codes/climate/7260.json) | RAS-18NKV2-E                                                                                                     | ESPHome    |
+| [9260](../codes/climate/1260.json) | RAS-13NKV-E / RAS-13NAV-E<br>RAS-13NKV-A / RAS-13NAV-A<br>RAS-16NKV-E / RAS-16NAV-E<br>RAS-16NKV-A / RAS-16NAV-A<br>RAS-M10SKV-E | Script  |
 
 #### Fujitsu
 | Code                               | Supported Models                                                        | Controller  |
