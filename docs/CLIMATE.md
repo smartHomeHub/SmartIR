@@ -182,7 +182,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ---------------------------------- | ------------------------------------------------------------- | ---------- |
 | [1080](../codes/climate/1080.json) | RAC-50HK1<br>RAS-10KH2 | Broadlink  |
 | [1081](../codes/climate/1081.json) | RAC-10EH1<br>RAC-18EH1<br>RAS-10EH1<br>RAS-10EH3<br>RAS-18EH1 | Broadlink  |
-| [1082](../codes/climate/1082.json) | RAS-25YHA<br>RAS-35YHA                                        | Broadlink  |
+| [1082](../codes/climate/1082.json) | RAS-25YHA<br>RAS-35YHA<br>RAS-18YH4                           | Broadlink  |
 | [1083](../codes/climate/1083.json) | RAS-32CNH2                                                    | Broadlink  |
 | [1084](../codes/climate/1084.json) | RAS-DX18HDK<br>RAK-35RPC                                      | Broadlink  |
 | [1085](../codes/climate/1085.json) | RPA24B3BL                                                     | Broadlink  |
@@ -203,7 +203,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1103](../codes/climate/1103.json) | Unknown model                                                                                                                                                  | Broadlink  |
 | [1104](../codes/climate/1104.json) | TF25DVM                                                                                                                                                        | Broadlink  |
 | [1105](../codes/climate/1105.json) | FTX12NMVJU                                                                                                                                                     | Broadlink  |
-| [1106](../codes/climate/1106.json) | ATX20KV1B<br>ATX25KV1B<br>ATX35KV1B                                                                                                                            | Broadlink  |
+| [1106](../codes/climate/1106.json) | ATX20KV1B<br>ATX25KV1B<br>ATX35KV1B<br>FTX35JV1B             | Broadlink  |
 | [1107](../codes/climate/1107.json) | FTX25JAV1NB                                                                                                                                                    | Broadlink  |
 | [1108](../codes/climate/1108.json) | FTXG25EV1BS<br>FTXG35EV1BS<br>FTXG35EV1BW<br>FTXS12WVJU9                                                                                                                                                    | Broadlink  |
 | [1109](../codes/climate/1109.json) | BRC4C158 (Remote)                                                                                                                                              | Broadlink  |
@@ -230,7 +230,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1123](../codes/climate/1123.json) | SRK25ZSX<br>SRC25ZSX                                                                                 | Broadlink  |
 | [1124](../codes/climate/1124.json) | MSZ-SF25VE3<br>MSZ-SF35VE3<br>MSZ-SF42VE3<br>MSZ-SF50VE<br>MSZ-AP20VG                                | Broadlink  |
 | [1125](../codes/climate/1125.json) | MLZ-KP25VF<br>MLZ-KP35VF<br>MLZ-KP50VF                                                               | Broadlink  |
-| [1126](../codes/climate/1126.json) | MSX09-NV II <br> MSH-07RV <br> MSH-12RV <br> MS-24RV<br>MS09NW2                                                 | Broadlink  |
+| [1126](../codes/climate/1126.json) | MSX09-NV II <br> MSH-07RV <br> MSH-12RV <br> MS-24RV<br>MS09NW2<br>MSC-09RV                          | Broadlink  |
 | [1127](../codes/climate/1127.json) | MSZ-HJ25VA                                                                                           | Broadlink  |
 | [1128](../codes/climate/1128.json) | MSZ-HJ25VA<br>MSZ-HJ35VA                                                                             | Broadlink  |
 | [1129](../codes/climate/1129.json) | MSZ-GE22VA<br>MSZ-EF35VE<br>MSZ-GL\*NA                                                               | Broadlink  |
