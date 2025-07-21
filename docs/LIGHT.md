@@ -8,7 +8,7 @@ Find your device's brand code [here](LIGHT.md#available-codes-for-light-devices)
 ## Configuration variables
 
 **name** (Optional): The name of the device<br />
-**nuique_id** (Optional): An ID that uniquely identified this device. If two devices have the same unique ID, Home Assistant will raise an exception.<br />
+**unique_id** (Optional): An ID that uniquely identified this device. If two devices have the same unique ID, Home Assistant will raise an exception.<br />
 **device_code** (Required): ...... (Accepts only positive numbers)<br />
 **controller_data** (Required): The data required for the controller to function. Enter the entity_id of the Broadlink or Xiaomi IR controller, or the MQTT topic on which to send commands.<br />
 **delay** (Optional): Adjusts the delay in seconds between multiple commands. The default is 0.5 <br />
