@@ -7,7 +7,6 @@ import json
 
 from homeassistant.const import ATTR_ENTITY_ID
 from . import Helper
-
 _LOGGER = logging.getLogger(__name__)
 
 BROADLINK_CONTROLLER = 'Broadlink'
@@ -15,6 +14,7 @@ XIAOMI_CONTROLLER = 'Xiaomi'
 MQTT_CONTROLLER = 'MQTT'
 LOOKIN_CONTROLLER = 'LOOKin'
 ESPHOME_CONTROLLER = 'ESPHome'
+UFOR11_CONTROLLER = 'UFOR11'
 
 ENC_BASE64 = 'Base64'
 ENC_HEX = 'Hex'
@@ -26,6 +26,7 @@ XIAOMI_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
 MQTT_COMMANDS_ENCODING = [ENC_RAW]
 LOOKIN_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
 ESPHOME_COMMANDS_ENCODING = [ENC_RAW]
+UFOR11_COMMANDS_ENCODING = [ENC_RAW]
 
 
 def get_controller(hass, controller, encoding, controller_data, delay):
@@ -35,7 +36,8 @@ def get_controller(hass, controller, encoding, controller_data, delay):
         XIAOMI_CONTROLLER: XiaomiController,
         MQTT_CONTROLLER: MQTTController,
         LOOKIN_CONTROLLER: LookinController,
-        ESPHOME_CONTROLLER: ESPHomeController
+        ESPHOME_CONTROLLER: ESPHomeController,
+        UFOR11_CONTROLLER: UFOR11Controller
     }
     try:
         return controllers[controller](hass, controller, encoding, controller_data, delay)
@@ -77,7 +79,7 @@ class BroadlinkController(AbstractController):
         """Send a command."""
         commands = []
 
-        if not isinstance(command, list): 
+        if not isinstance(command, list):
             command = [command]
 
         for _command in command:
@@ -104,7 +106,7 @@ class BroadlinkController(AbstractController):
 
         service_data = {
             ATTR_ENTITY_ID: self._controller_data,
-            'command':  commands,
+            'command': commands,
             'delay_secs': self._delay
         }
 
@@ -125,7 +127,7 @@ class XiaomiController(AbstractController):
         """Send a command."""
         service_data = {
             ATTR_ENTITY_ID: self._controller_data,
-            'command':  self._encoding.lower() + ':' + command
+            'command': self._encoding.lower() + ':' + command
         }
 
         await self.hass.services.async_call(
@@ -165,7 +167,7 @@ class LookinController(AbstractController):
         """Send a command."""
         encoding = self._encoding.lower().replace('pronto', 'prontohex')
         url = f"http://{self._controller_data}/commands/ir/" \
-                f"{encoding}/{command}"
+              f"{encoding}/{command}"
         await self.hass.async_add_executor_job(requests.get, url)
 
 
@@ -177,10 +179,30 @@ class ESPHomeController(AbstractController):
         if encoding not in ESPHOME_COMMANDS_ENCODING:
             raise Exception("The encoding is not supported "
                             "by the ESPHome controller.")
-    
+
     async def send(self, command):
         """Send a command."""
-        service_data = {'command':  json.loads(command)}
+        service_data = {'command': json.loads(command)}
 
         await self.hass.services.async_call(
             'esphome', self._controller_data, service_data)
+
+
+class UFOR11Controller(MQTTController):
+    """Controls a UFO-R11 device."""
+
+    def check_encoding(self, encoding):
+        """Check if the encoding is supported by the controller."""
+        if encoding not in UFOR11_COMMANDS_ENCODING:
+            raise Exception("The encoding is not supported "
+                            "by the UFO-R11 controller.")
+
+    async def send(self, command):
+        """Send a command."""
+        service_data = {
+            'topic': self._controller_data,
+            'payload': json.dumps({"ir_code_to_send": command})
+        }
+
+        await self.hass.services.async_call(
+            'mqtt', 'publish', service_data)
