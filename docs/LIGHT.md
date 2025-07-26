@@ -71,3 +71,9 @@ Contributing your own code files is welcome. However, we do not accept incomplet
 | Code                             | Supported Models | Controller |
 |----------------------------------|------------------|------------|
 | [1060](../codes/light/1060.json) | TLR-002          | Broadlink  |
+
+#### Silvercrest
+
+| Code                             | Supported Models | Controller |
+|----------------------------------|------------------|------------|
+| [1080](../codes/light/1080.json) | 14135502L        | Broadlink  |
