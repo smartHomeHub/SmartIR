@@ -1,0 +1,25 @@
+{
+    "manufacturer": "Elecrtra",
+    "supportedModels": [
+        "Damper"
+    ],
+    "supportedController": "Broadlink",
+    "commandsEncoding": "Base64",
+    "minTemperature": 22,
+    "maxTemperature": 22,
+    "precision": 1.0,
+    "operationModes": [
+        "heat_cool"
+    ],
+    "fanModes": [
+        "auto"
+    ],
+    "commands": {
+        "heat_cool": {
+            "auto": {
+                "22": "JgBqAICAERMQExESESoRKRIqESkSKhAqEhERExESESoRKRIqECqAghATERIREhEqESoRKhEqECsRKhATERIREhIpESoRKhEqgIEREhESEhERKhIpESoSKREqESoRExASEhERKxEpESsQKv4ADQU="
+            }
+        },
+        "off": "JgBqAH+BERMQEhISECsRKhArESkRKxEpERMREhESESoRKhESERJ/gRESERIREhEqEikRKhEqESoRKhESERISERErESkRExATfoEREhETEBMRKhArESkRKxEpESsQEhISEBMRKhEqERIREvwADQU="
+    }
+}
