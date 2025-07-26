@@ -595,6 +595,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1961](../codes/climate/1961.json) | AUX FREEDOM AUX-09FH | Broadlink  |
 | [1962](../codes/climate/1962.json) | iClima ICI-09A (YKR-H/101E remote) (Also works with Mundo Clima MUPR-12-H9A) | Broadlink  |
 | [1963](../codes/climate/1963.json) | Kendal Split Inverter (YKR-T/121E remote) AC Freedom App | Broadlink  |
+| [1964](../codes/climate/1964.json) | Homemaker HMASW-H09A4 (YKR-C/02JE remote) | Broadlink  |
 
 #### Fuji
 | Code                               | Supported Models | Controller |
