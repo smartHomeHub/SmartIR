@@ -190,6 +190,11 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 [1123](../codes/media_player/1123.json)|AS201|Broadlink
 [1124](../codes/media_player/1124.json)|YAS-109|Broadlink
 
+#### Denon
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1130](../codes/media_player/1130.json)|AVR-X2200W (RC-1192 remote)|Broadlink
+
 #### RME
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
