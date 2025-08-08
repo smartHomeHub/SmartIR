@@ -1,4 +1,4 @@
 check_updates:
-  description: Check for SmartIR updates.
+  description: Check for CustomIR updates.
 update_component:
-  description: Update SmartIR component.
+  description: Update CustomIR component.

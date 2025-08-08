@@ -21,7 +21,7 @@ from .controller import get_controller
 
 _LOGGER = logging.getLogger(__name__)
 
-DEFAULT_NAME = "SmartIR Climate"
+DEFAULT_NAME = "CustomIR Climate"
 DEFAULT_DELAY = 0.5
 
 CONF_UNIQUE_ID = 'unique_id'
@@ -37,7 +37,8 @@ SUPPORT_FLAGS = (
     ClimateEntityFeature.TURN_OFF |
     ClimateEntityFeature.TURN_ON |
     ClimateEntityFeature.TARGET_TEMPERATURE | 
-    ClimateEntityFeature.FAN_MODE
+    ClimateEntityFeature.FAN_MODE |
+    ClimateEntityFeature.PRESET_MODE
 )
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
@@ -54,7 +55,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Set up the IR Climate platform."""
-    _LOGGER.debug("Setting up the smartir platform")
+    _LOGGER.debug("Setting up the customir platform")
     device_code = config.get(CONF_DEVICE_CODE)
     device_files_subdir = os.path.join('codes', 'climate')
     device_files_absdir = os.path.join(COMPONENT_ABS_DIR, device_files_subdir)
@@ -71,7 +72,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
 
         try:
             codes_source = ("https://raw.githubusercontent.com/"
-                            "smartHomeHub/SmartIR/master/"
+                            "melangad/CustomIR/master/"
                             "codes/climate/{}.json")
 
             await Helper.downloader(codes_source.format(device_code), device_json_path)
@@ -92,13 +93,13 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
         _LOGGER.error("The device JSON file is invalid")
         return
 
-    async_add_entities([SmartIRClimate(
+    async_add_entities([CustomIRClimate(
         hass, config, device_data
     )])
 
-class SmartIRClimate(ClimateEntity, RestoreEntity):
+class CustomIRClimate(ClimateEntity, RestoreEntity):
     def __init__(self, hass, config, device_data):
-        _LOGGER.debug(f"SmartIRClimate init started for device {config.get(CONF_NAME)} supported models {device_data['supportedModels']}")
+        _LOGGER.debug(f"CustomIRClimate init started for device {config.get(CONF_NAME)} supported models {device_data['supportedModels']}")
         self.hass = hass
         self._unique_id = config.get(CONF_UNIQUE_ID)
         self._name = config.get(CONF_NAME)
@@ -123,12 +124,14 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._operation_modes = [HVACMode.OFF] + valid_hvac_modes
         self._fan_modes = device_data['fanModes']
         self._swing_modes = device_data.get('swingModes')
+        self._presest_modes = device_data.get('presetModes')
         self._commands = device_data['commands']
 
         self._target_temperature = self._min_temperature
         self._hvac_mode = HVACMode.OFF
         self._current_fan_mode = self._fan_modes[0]
         self._current_swing_mode = None
+        self._current_preset_mode = None
         self._last_on_operation = None
 
         self._current_temperature = None
@@ -268,7 +271,15 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     def swing_mode(self):
         """Return the current swing mode."""
         return self._current_swing_mode
-
+    
+    @property
+    def preset_modes(self):
+        return self._presest_modes
+    
+    @property
+    def preset_mode(self):
+        return self._current_preset_mode
+    
     @property
     def current_temperature(self):
         """Return the current temperature."""
@@ -348,6 +359,13 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             await self.send_command()
         self.async_write_ha_state()
 
+    async def async_set_preset_mode(self, preset_mode):
+        """Set new target preset mode."""
+        self._current_preset_mode = preset_mode
+
+        await self.send_command()
+        self.async_write_ha_state()
+
     async def async_turn_off(self):
         """Turn off."""
         await self.async_set_hvac_mode(HVACMode.OFF)
@@ -366,7 +384,9 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 operation_mode = self._hvac_mode
                 fan_mode = self._current_fan_mode
                 swing_mode = self._current_swing_mode
+                preset_mode = self._current_preset_mode
                 target_temperature = '{0:g}'.format(self._target_temperature)
+                command_to_send = ''
 
                 if operation_mode.lower() == HVACMode.OFF:
                     await self._controller.send(self._commands['off'])
@@ -376,12 +396,20 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                     await self._controller.send(self._commands['on'])
                     await asyncio.sleep(self._delay)
 
-                if self._support_swing == True:
-                    await self._controller.send(
-                        self._commands[operation_mode][fan_mode][swing_mode][target_temperature])
+                if preset_mode == 'none':
+
+                    if self._support_swing == True:
+                        command_to_send = self._commands[operation_mode][fan_mode][swing_mode][target_temperature]
+                    else:
+                        command_to_send = self._commands[operation_mode][fan_mode][target_temperature]
                 else:
-                    await self._controller.send(
-                        self._commands[operation_mode][fan_mode][target_temperature])
+                    if self._support_swing == True:
+                        command_to_send = self._commands['preset'][operation_mode][preset_mode][swing_mode][target_temperature]
+                    else:
+                        command_to_send = self._commands['preset'][operation_mode][preset_mode][target_temperature]
+                    
+                    
+                await self._controller.send(command_to_send)
 
             except Exception as e:
                 _LOGGER.exception(e)

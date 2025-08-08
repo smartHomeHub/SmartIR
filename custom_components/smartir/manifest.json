@@ -1,9 +1,9 @@
 {
-  "domain": "smartir",
-  "name": "SmartIR",
-  "documentation": "https://github.com/smartHomeHub/SmartIR",
+  "domain": "customir",
+  "name": "CustomIR",
+  "documentation": "https://github.com/melangad/CustomIR",
   "dependencies": [],
-  "codeowners": ["@smartHomeHub"],
+  "codeowners": ["@melangad"],
   "requirements": ["aiofiles>=0.6.0"],
   "homeassistant": "2025.5.0",
   "version": "1.18.1",
