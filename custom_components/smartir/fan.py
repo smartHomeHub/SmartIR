@@ -138,16 +138,19 @@ class SmartIRFan(FanEntity, RestoreEntity):
         
         last_state = await self.async_get_last_state()
         if last_state is not None:
-            # Restore speed based on 'percentage' (fixed part)
-            if 'percentage' in last_state.attributes:
+            # Keep the original 'speed' attribute check first for backward compatibility
+            if 'speed' in last_state.attributes:
+                self._speed = last_state.attributes['speed']
+            # Fallback to percentage-based restoration if speed is not available
+            elif 'percentage' in last_state.attributes:
                 percentage = last_state.attributes['percentage']
                 if percentage == 0:
                     self._speed = SPEED_OFF
                 else:
                     self._speed = percentage_to_ordered_list_item(self._speed_list, percentage)
             
-            # Restore direction if supported
-            if ('direction' in last_state.attributes and
+            # Restore direction if supported (keep original condition structure)
+            if ('direction' in last_state.attributes and \
                 self._support_flags & FanEntityFeature.DIRECTION):
                 self._direction = last_state.attributes['direction']
             
@@ -158,12 +161,6 @@ class SmartIRFan(FanEntity, RestoreEntity):
             # Restore last_on_speed
             if 'last_on_speed' in last_state.attributes:
                 self._last_on_speed = last_state.attributes['last_on_speed']
-
-            # Sync fan state after restore
-            if self._speed != SPEED_OFF:
-                await self.send_command()
-            if self._oscillating:
-                await self._controller.send(self._commands['oscillate'])
 
         if self._power_sensor:
             async_track_state_change_event(self.hass, self._power_sensor,
@@ -245,12 +242,15 @@ class SmartIRFan(FanEntity, RestoreEntity):
 
     async def async_oscillate(self, oscillating: bool) -> None:
         """Set oscillation of the fan."""
-        if oscillating != self._oscillating:  # Only send command if state changes
-            self._oscillating = oscillating
-            try:
-                await self._controller.send(self._commands['oscillate'])
-            except Exception as e:
-                _LOGGER.exception(e)
+        # Always update state first
+        self._oscillating = oscillating
+        
+        # Send command regardless to ensure synchronization
+        try:
+            await self._controller.send(self._commands['oscillate'])
+        except Exception as e:
+            _LOGGER.exception(f"Failed to send oscillate command: {e}")
+        
         self.async_write_ha_state()
 
     async def async_set_direction(self, direction: str):
@@ -263,12 +263,17 @@ class SmartIRFan(FanEntity, RestoreEntity):
     async def async_turn_on(self, percentage: int = None, preset_mode: str = None, **kwargs):
         """Turn on the fan."""
         if percentage is None:
-            percentage = ordered_list_item_to_percentage(
-                self._speed_list, self._last_on_speed or self._speed_list[0])
+            if self._last_on_speed:
+                percentage = ordered_list_item_to_percentage(self._speed_list, self._last_on_speed)
+            else:
+                percentage = ordered_list_item_to_percentage(self._speed_list, self._speed_list[0])
+        
+        _LOGGER.debug(f"Turning on {self._name} with {percentage}% speed")
         await self.async_set_percentage(percentage)
 
     async def async_turn_off(self):
         """Turn off the fan."""
+        _LOGGER.debug(f"Turning off {self._name}")
         await self.async_set_percentage(0)
 
     async def send_command(self):
@@ -278,16 +283,26 @@ class SmartIRFan(FanEntity, RestoreEntity):
             direction = self._direction or 'default'
 
             if speed is None:  # Handle None case
+                _LOGGER.warning(f"Skipping command - speed is None for {self._name}")
                 return  # Skip sending command if speed is unknown
             elif speed.lower() == SPEED_OFF:
                 command = self._commands['off']
             else:
+                # Ensure the speed exists in commands
+                if direction not in self._commands:
+                    _LOGGER.error(f"Direction '{direction}' not found in commands for {self._name}")
+                    return
+                if speed not in self._commands[direction]:
+                    _LOGGER.error(f"Speed '{speed}' not found in commands[{direction}] for {self._name}")
+                    return
                 command = self._commands[direction][speed]
 
             try:
+                _LOGGER.debug(f"Sending command for {self._name}: speed={speed}, direction={direction}")
                 await self._controller.send(command)
             except Exception as e:
-                _LOGGER.exception(e)
+                _LOGGER.exception(f"Failed to send command for {self._name}: {e}")
+                # Don't raise the exception to prevent UI lockup
 
     @callback
     async def _async_power_sensor_changed(self, event: Event[EventStateChangedData]) -> None:
