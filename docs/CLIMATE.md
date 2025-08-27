@@ -383,17 +383,19 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [7386](../codes/climate/7386.json) | KFR-32GW                       | ESPHome    |
 
 #### Samsung
-| Code                               | Supported Models | Controller |
-| ---------------------------------- | ---------------- | ---------- |
-| [1400](../codes/climate/1400.json) | Unknown model    | Broadlink  |
-| [1401](../codes/climate/1401.json) | AR##HSF/JFS##    | Broadlink  |
-| [1402](../codes/climate/1402.json) | AR##TSHGAWK      | Broadlink  |
-| [1403](../codes/climate/1403.json) | AR##TXHZ##       | Broadlink  |
-| [1404](../codes/climate/1404.json) | AR##TSHZ##       | Broadlink  |
-| [1405](../codes/climate/1405.json) | AR##TSHQBURN     | Broadlink  |
-| [1406](../codes/climate/1406.json) | AQV12PWD         | Xiaomi     |
-| [1407](../codes/climate/1407.json) | AR##NXWS###      | Broadlink  |
+| Code                               | Supported Models                           | Controller |
+|------------------------------------|--------------------------------------------| ---------- |
+| [1400](../codes/climate/1400.json) | Unknown model                              | Broadlink  |
+| [1401](../codes/climate/1401.json) | AR##HSF/JFS##                              | Broadlink  |
+| [1402](../codes/climate/1402.json) | AR##TSHGAWK                                | Broadlink  |
+| [1403](../codes/climate/1403.json) | AR##TXHZ##                                 | Broadlink  |
+| [1404](../codes/climate/1404.json) | AR##TSHZ##                                 | Broadlink  |
+| [1405](../codes/climate/1405.json) | AR##TSHQBURN                               | Broadlink  |
+| [1406](../codes/climate/1406.json) | AQV12PWD                                   | Xiaomi     |
+| [1407](../codes/climate/1407.json) | AR##NXWS###                                | Broadlink  |
 | [1408](../codes/climate/1408.json) | AR18HSFSAWKNEU Ver.01 (DB93-15169D remote) | Broadlink  |
+| [1409](../codes/climate/1409.json) | AR##KSF###                                 | Broadlink  |
+
 
 #### Sintech
 | Code                               | Supported Models | Controller |
