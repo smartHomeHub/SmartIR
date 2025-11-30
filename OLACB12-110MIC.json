@@ -1,0 +1,55 @@
+{
+  "manufacturer": "Olimpo",
+  "model": "OLACB12-110MIC",
+  "supportedModels": ["OLACB12-110MIC"],
+
+  "powerCommand": {
+    "on": "Aire_On",
+    "off": "Aire_Off"
+  },
+
+  "temperatureSet": {
+    "16": "Cool_16",
+    "17": "Cool_17",
+    "18": "Cool_18",
+    "19": "Cool_19",
+    "20": "Cool_20",
+    "21": "Cool_21",
+    "22": "Cool_22",
+    "23": "Cool_23",
+    "24": "Cool_24",
+    "25": "Cool_25",
+    "26": "Cool_26",
+    "27": "Cool_27",
+    "28": "Cool_28",
+    "29": "Cool_29",
+    "30": "Cool_30"
+  },
+
+  "mode": {
+    "cool": "mode_cool",
+    "heat": "mode_heat",
+    "fan_only": "mode_fan",
+    "dry": "mode_dry",
+    "auto": "mode_auto"
+  },
+
+  "fanMode": {
+    "auto": "fan_auto",
+    "low": "fan_low",
+    "medium": "fan_medium",
+    "high": "fan_high"
+  },
+
+  "swingMode": {
+    "on": "swing_on",
+    "off": "swing_off"
+  },
+
+  "specialFunctions": {
+    "sleep": "sleep",
+    "led": "led",
+    "clean": "clean",
+    "turbo": "turbo"
+  }
+}
