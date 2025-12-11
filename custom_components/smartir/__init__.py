@@ -2,7 +2,7 @@ import aiofiles
 import aiohttp
 import asyncio
 import binascii
-from distutils.version import StrictVersion
+from packaging import version
 import json
 import logging
 import os.path
@@ -77,14 +77,14 @@ async def _update(hass, branch, do_update=False, notify_if_latest=True):
                     last_version = data['updater']['version']
                     release_notes = data['updater']['releaseNotes']
 
-                    if StrictVersion(last_version) <= StrictVersion(VERSION):
+                    if version.parse(last_version) <= version.parse(VERSION):
                         if notify_if_latest:
                             hass.components.persistent_notification.async_create(
                                 "You're already using the latest version!", 
                                 title='SmartIR')
                         return
 
-                    if StrictVersion(current_ha_version) < StrictVersion(min_ha_version):
+                    if version.parse(current_ha_version) < version.parse(min_ha_version):
                         hass.components.persistent_notification.async_create(
                             "There is a new version of SmartIR integration, but it is **incompatible** "
                             "with your system. Please first update Home Assistant.", title='SmartIR')
