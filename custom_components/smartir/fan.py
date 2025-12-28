@@ -10,9 +10,9 @@ from homeassistant.components.fan import (
     FanEntity, FanEntityFeature,
     PLATFORM_SCHEMA, DIRECTION_REVERSE, DIRECTION_FORWARD)
 from homeassistant.const import (
-    CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN)
+    CONF_NAME, STATE_OFF, STATE_ON)
 from homeassistant.core import Event, EventStateChangedData, callback
-from homeassistant.helpers.event import async_track_state_change, async_track_state_change_event
+from homeassistant.helpers.event import async_track_state_change_event
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
 from homeassistant.util.percentage import (
@@ -40,7 +40,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
     vol.Required(CONF_DEVICE_CODE): cv.positive_int,
     vol.Required(CONF_CONTROLLER_DATA): cv.string,
-    vol.Optional(CONF_DELAY, default=DEFAULT_DELAY): cv.string,
+    vol.Optional(CONF_DELAY, default=DEFAULT_DELAY): cv.positive_float,
     vol.Optional(CONF_POWER_SENSOR): cv.entity_id
 })
 
@@ -94,7 +94,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
         self._name = config.get(CONF_NAME)
         self._device_code = config.get(CONF_DEVICE_CODE)
         self._controller_data = config.get(CONF_CONTROLLER_DATA)
-        self._delay = config.get(CONF_DELAY)
+        self._delay = float(config.get(CONF_DELAY))
         self._power_sensor = config.get(CONF_POWER_SENSOR)
 
         self._manufacturer = device_data['manufacturer']
@@ -142,21 +142,46 @@ class SmartIRFan(FanEntity, RestoreEntity):
         last_state = await self.async_get_last_state()
 
         if last_state is not None:
-            if 'speed' in last_state.attributes:
-                self._speed = last_state.attributes['speed']
+            attrs = last_state.attributes
+
+            if 'last_on_speed' in attrs:
+                self._last_on_speed = attrs['last_on_speed']
+
+            # Restore speed (older HA) OR percentage (newer HA)
+            if 'speed' in attrs:
+                self._speed = attrs['speed']
+            elif 'percentage' in attrs:
+                try:
+                    pct = int(attrs.get('percentage') or 0)
+                except (TypeError, ValueError):
+                    pct = 0
+
+                if pct <= 0:
+                    self._speed = SPEED_OFF
+                else:
+                    self._speed = percentage_to_ordered_list_item(self._speed_list, pct)
+                    if not self._last_on_speed:
+                        self._last_on_speed = self._speed
+
+            # If HA restored "on" but no speed/percentage available, best-effort fallback
+            elif last_state.state == STATE_ON and self._speed_list:
+                self._speed = self._last_on_speed or self._speed_list[0]
 
             #If _direction has a value the direction controls appears 
             #in UI even if SUPPORT_DIRECTION is not provided in the flags
-            if ('direction' in last_state.attributes and \
+            if ('direction' in attrs and \
                 self._support_flags & FanEntityFeature.DIRECTION):
-                self._direction = last_state.attributes['direction']
+                self._direction = attrs['direction']
 
-            if 'last_on_speed' in last_state.attributes:
-                self._last_on_speed = last_state.attributes['last_on_speed']
+            if ('oscillating' in attrs and \
+                self._support_flags & FanEntityFeature.OSCILLATE):
+                self._oscillating = attrs['oscillating']
 
-            if self._power_sensor:
-                async_track_state_change_event(self.hass, self._power_sensor, 
-                                               self._async_power_sensor_changed)
+        # IMPORTANT: always register power sensor if configured
+        if self._power_sensor:
+            async_track_state_change_event(
+                self.hass, self._power_sensor, self._async_power_sensor_changed
+            )
 
     @property
     def unique_id(self):
@@ -179,6 +204,8 @@ class SmartIRFan(FanEntity, RestoreEntity):
     @property
     def percentage(self):
         """Return speed percentage of the fan."""
+        if self._speed is None:
+            return None
         if (self._speed == SPEED_OFF):
             return 0
 
@@ -237,9 +264,20 @@ class SmartIRFan(FanEntity, RestoreEntity):
 
     async def async_oscillate(self, oscillating: bool) -> None:
         """Set oscillation of the fan."""
-        self._oscillating = oscillating
+        if not (self._support_flags & FanEntityFeature.OSCILLATE):
+            return
 
-        await self.send_command()
+        # Toggle-style oscillate: only send when changing desired state
+        if self._oscillating == oscillating:
+            self.async_write_ha_state()
+            return
+
+        self._oscillating = oscillating
+        try:
+            await self._controller.send(self._commands['oscillate'])
+        except Exception as e:
+            _LOGGER.exception(e)
+
         self.async_write_ha_state()
 
     async def async_set_direction(self, direction: str):
@@ -268,14 +306,28 @@ class SmartIRFan(FanEntity, RestoreEntity):
             self._on_by_remote = False
             speed = self._speed
             direction = self._direction or 'default'
-            oscillating = self._oscillating
+
+            if speed is None:
+                _LOGGER.warning("Speed is None for %s; skipping command send", self._name)
+                return
 
             if speed.lower() == SPEED_OFF:
-                command = self._commands['off']
-            elif oscillating:
-                command = self._commands['oscillate']
+                command = self._commands.get('off')
+                if command is None:
+                    _LOGGER.error("'off' command missing for %s", self._name)
+                    return
             else:
-                command = self._commands[direction][speed] 
+                dir_map = self._commands.get(direction)
+                if not isinstance(dir_map, dict):
+                    _LOGGER.error("Direction '%s' missing for %s", direction, self._name)
+                    return
+                command = dir_map.get(speed)
+                if command is None:
+                    _LOGGER.error(
+                        "Speed '%s' missing in commands[%s] for %s",
+                        speed, direction, self._name
+                    )
+                    return
 
             try:
                 await self._controller.send(command)
@@ -283,13 +335,12 @@ class SmartIRFan(FanEntity, RestoreEntity):
                 _LOGGER.exception(e)
 
     @callback
-    async def _async_power_sensor_changed(self, event: Event[EventStateChangedData]) -> None:
+    def _async_power_sensor_changed(self, event: Event[EventStateChangedData]) -> None:
         """Handle power sensor changes."""
-        entity_id = event.data["entity_id"]
         old_state = event.data["old_state"]
         new_state = event.data["new_state"]
 
-        if new_state is None:
+        if new_state is None or old_state is None:
             return
 
         if new_state.state == old_state.state:
@@ -297,7 +348,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
 
         if new_state.state == STATE_ON and self._speed == SPEED_OFF:
             self._on_by_remote = True
-            self._speed = None
+            self._speed = self._last_on_speed or self._speed_list[0]
             self.async_write_ha_state()
 
         if new_state.state == STATE_OFF:
