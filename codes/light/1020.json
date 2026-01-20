@@ -1,7 +1,7 @@
 {
     "manufacturer": "NEC",
     "supportedModels": [
-        "RE0201-CH1",
+        "RE0201-CH1"
     ],
     "supportedController": "Broadlink",
     "commandsEncoding": "Base64",
