@@ -109,15 +109,15 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
                 )
                 return
 
-    try:
-        async with aiofiles.open(device_json_path, mode="r") as j:
-            _LOGGER.debug(f"loading json file {device_json_path}")
-            content = await j.read()
-            device_data = json.loads(content)
-            _LOGGER.debug(f"{device_json_path} file loaded")
-    except Exception:
-        _LOGGER.error("The device JSON file is invalid")
-        return
+        try:
+            async with aiofiles.open(device_json_path, mode="r") as j:
+                _LOGGER.debug(f"loading json file {device_json_path}")
+                content = await j.read()
+                device_data = json.loads(content)
+                _LOGGER.debug(f"{device_json_path} file loaded")
+        except Exception:
+            _LOGGER.error("The device JSON file is invalid")
+            return
 
         async_add_entities([SmartIRClimate(hass, config, device_data)])
     else:
