@@ -1,0 +1,28 @@
+{
+  "manufacturer": "Harbor Breeze",
+  "supportedModels": [
+    "A25-TX025"
+  ],
+  "supportedController": "Broadlink",
+  "commandsEncoding": "Base64",
+  "speed": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6"
+  ],
+  "commands": {
+    "off": "eAs0ABARHx0QHRAdEB0QDx8eEB0QDx8dEA8fHRAdEB0RDh8PHw8fDh8OHx0QDx8dEA8fHQ8AAYEA",
+    "default": {
+      "1": "eAc0ABAaDxoPGg8aDxoPGg8aDxoPGg8aDxoPGg8aDxoPGg8aEBoPDhsOGw0bDRsaDw4bGg8AAbkAAAAA",
+      "2": "eAY0ABAaDxoPGg8aDxoPGg8aDxoPGg8aDxoPGg8aDxoPGg8aEA0bGg8OGw4bDhsaDw0bGg8AAbkAAAAA",
+      "3": "eAs0AA8aDhsPGg8aDxsPGg8aDxoPGg8aDxsPGg8aDxsPGg8bDxoPGg8OGw4bDhsbDw4bGg8AAboAAAAA",
+      "4": "eAc0ABAZEBoPGg8ZEBoPGQ8aEBkQGQ8ZDxoQGQ8ZEBkPGg8aEA0cDRwZEA0cDRwZEA0cGQ8AAbkAAAAA",
+      "5": "eAs0ABAaDxoPGg8aDxkPGRAaDxoPGg8aDxoPGg8aDxoPGg8aEBoPDRwaEA0bDRwaDw0bGg8AAbkAAAAA",
+      "6": "eAs0ABAaDxoPGg8aDxoPGg8aDxoPGg8aDxoPGg8aDxoPGg8aEA0bGg8aDw0bDRsaDw0bGg8AAbkAAAAA"
+    },
+    "oscillate": "eQs0AA8aDhsPGw4bDhsOGg4bDxsPGw4bDhsOGw4bDhsOGw4bDxsOGw4bDg8bDhobDw4aGw4AAboAAAAA"
+  }
+}
