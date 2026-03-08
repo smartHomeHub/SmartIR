@@ -1,0 +1,30 @@
+{
+    "manufacturer": "NEC",
+    "supportedModels": [
+        "RE0201-CH1",
+    ],
+    "supportedController": "Broadlink",
+    "commandsEncoding": "Base64",
+    "brightness": [
+        26,
+        51,
+        77,
+        102,
+        128,
+        153,
+        179,
+        204,
+        230,
+        255
+    ],
+    "commands": {
+        "on": "JgBIAAABJ5QTEhI4EhMTEhMSExITEhM3EzcTEhM3EzgSExI4EjgSExM3ExITNxM3EzcTNxMTEjgSExI4EhMSExMSExITNxMSEwANBQ==",
+        "off": [
+            "JgBIAAABJpQTEhI4ExITEhMSExITEhM3EzcTExI4EjgSExI4FTUTEhM3ExITNxM3EzcTOBITEjgSExI4ExITEhMSExITNxMSEwANBQ==",
+            "JgBOAAABJ5QTEhI4EhMSExITExITEhM3EzcTEhM3EzcTExI4EjgSExITEjgTNxM3EzcTNxMSEzgSOBITEhMSExITExITNxMSEwAH6RYOEgANBQ=="
+        ],
+        "brighten": "JgBYAAABKJMVERI4EhMSExITEhMSExI4EzcTEhM3EzcTEhM4EjgSExITEjgSExM3EzcTNxMSEzcTOBITEjgSExITEhMSOBMSEwAFYAABJkoSAAxYAAEmShIADQU=",
+        "dim": "JgBYAAABJpQUERM3ExITEhMSExMSExI4EjgSExM3EzcTEhM3EzcTEhM4EjgSExI4EzcTNxMSEzcTEhMSEzgSExITExISOBITEgAFYQABJkoSAAxYAAEnSRMADQU=",
+        "night": "JgBIAAABJpQTEhI4ExITEhMSExITEhM3EzcTEhM4EjgSExI4EzcTEhMSExITNxM3EzcTOBITEjgSOBM3ExITEhMSExITNxMSEwANBQ=="
+    }
+}
