@@ -1,0 +1,75 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "SmartIR",
+        "description": "Choose the SmartIR device type to set up.",
+        "data": {
+          "platform": "Device type"
+        }
+      },
+      "method": {
+        "title": "Setup method",
+        "description": "Choose whether to browse the included SmartIR codes or enter a code manually.",
+        "data": {
+          "setup_method": "Setup method"
+        }
+      },
+      "manufacturer": {
+        "title": "Manufacturer",
+        "description": "Choose the brand for your SmartIR device.",
+        "data": {
+          "manufacturer": "Manufacturer"
+        }
+      },
+      "model": {
+        "title": "Model / code",
+        "description": "Choose the SmartIR code that matches your device.",
+        "data": {
+          "device_code": "Model / code"
+        }
+      },
+      "manual": {
+        "title": "Manual code",
+        "description": "Enter the SmartIR device code manually.",
+        "data": {
+          "device_code": "Device code"
+        }
+      },
+      "details": {
+        "title": "Entity details",
+        "description": "Selected code: {code}\nSupported controller: {controller}\nEncoding: {encoding}",
+        "data": {
+          "name": "Name",
+          "controller_data": "Controller data / service name",
+          "delay": "Delay between commands",
+          "power_sensor": "Power sensor",
+          "temperature_sensor": "Temperature sensor",
+          "humidity_sensor": "Humidity sensor",
+          "power_sensor_restore_state": "Restore HVAC state from power sensor",
+          "device_class": "Media player class",
+          "source_names": "Optional source remap JSON / text"
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "SmartIR options",
+        "description": "Update the UI-configured SmartIR entity.",
+        "data": {
+          "name": "Name",
+          "controller_data": "Controller data / service name",
+          "delay": "Delay between commands",
+          "power_sensor": "Power sensor",
+          "temperature_sensor": "Temperature sensor",
+          "humidity_sensor": "Humidity sensor",
+          "power_sensor_restore_state": "Restore HVAC state from power sensor",
+          "device_class": "Media player class",
+          "source_names": "Optional source remap JSON / text"
+        }
+      }
+    }
+  }
+}

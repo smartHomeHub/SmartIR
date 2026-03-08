@@ -1,12 +1,17 @@
 {
   "domain": "smartir",
   "name": "SmartIR",
+  "config_flow": true,
   "documentation": "https://github.com/smartHomeHub/SmartIR",
   "dependencies": [],
-  "codeowners": ["@smartHomeHub"],
-  "requirements": ["aiofiles>=0.6.0"],
+  "codeowners": [
+    "@smartHomeHub"
+  ],
+  "requirements": [
+    "aiofiles>=0.6.0"
+  ],
   "homeassistant": "2025.5.0",
-  "version": "1.18.1",
+  "version": "1.19.0-ui",
   "updater": {
     "version": "1.18.1",
     "releaseNotes": "-- Implements new async_track_state_change_event",
@@ -15,7 +20,7 @@
       "climate.py",
       "media_player.py",
       "fan.py",
-      "light.py",  
+      "light.py",
       "controller.py",
       "manifest.json",
       "services.yaml"
