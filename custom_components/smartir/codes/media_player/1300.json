@@ -1,0 +1,35 @@
+ {
+    "manufacturer": "OKI",
+    "supportedModels": [
+      "V19B-LED4"
+    ],
+    "supportedController": "Broadlink",
+    "commandsEncoding": "Base64",
+    "commands": {
+            "off": "JgAwAB4cOhwdHR4bHR0dOTocHTkdHTscHQAK+x0dOhwdHR0cHR0dOTsbHTkeHDocHgANBQAAAAAAAAAA",
+            "on": "JgAwAB0cHR07HBwdHR0dODscHTkdHDodHQAK+x0dHB06HR4bHhweODocHTkeHDscHAANBQAAAAAAAAAA",
+            "previousChannel": "JgA0AB0dOhwdHR0cHR0dOR4bOh0dHB0dHTkcAArgHR06HB0dHR0cHR05HB06HR0dHB0dORwADQUAAAAA",
+            "nextChannel": "JgA0ABwdHhw6HB0dHRwdOR0dOhwdHR0cHR0dAAr8HB0dHTkdHR0dHB44HR06HB0dHRwdHR0ADQUAAAAA",
+            "volumeDown": "JgAwAB0cOxweHBwdHhwcOTs4OxwdHR04HQAK4BwdOh0dHB4cHhwcOTo5Oh0dHRw5HQANBQAAAAAAAAAA",
+            "volumeUp": "JgAwAB0cHR06HB4cHRwdOTo5Oh0dHB0dHgAK+x4cHRw6HRwdHhwdOTo5OhwdHRwdHQANBQAAAAAAAAAA",
+            "mute": "JgAwABwdOh0dHB0dHB0dOTodHTkcHTo5HQAK4B0cOh0eHBwdHR0cOTodHTkdHTo4HQANBQAAAAAAAAAA",
+     "sources": {
+            "Channel 0": "JgA0AB0dOh0cHR4cHB0dOTodHB0eHBwdHR0cAAr8HR06HB0dHRwdHR05OhwdHR0cHR0dHB0ADQUAAAAA",
+            "Channel 1": "JgA0AB0dHB06HR0cHhweODocHR0dHB0dHTkdAArfHB0eHDkdHhwdHB05Oh0cHR4cHB0eOB0ADQUAAAAA",
+            "Channel 2": "JgAYAB0cOh0dHR0cHR0cOTodHR0cHR05OgANBQ==",
+            "Channel 3": "JgA0AB0dHRw6HR0cHR0dOTocHhwdHB44HhwcAArgHhwcHTodHB0eHBw6OR0dHRwdHjgdHRwADQUAAAAA",
+            "Channel 4": "JgAwABwdOxwdHR0cHRwdOTodHRwdOTodHgAK+x0cOh0dHRwdHhwcOTodHR0cOTscHQANBQAAAAAAAAAA",
+            "Channel 5": "JgAwAB4cHRw7HB0dHRwdOTscHRwdOTo5HQAK3x4cHhs7HB0dHB0eODodHB0eODo5HgANBQAAAAAAAAAA",
+            "Channel 6": "JgBIAB0cOh0dHR0cHR0cOTodHR0cOR0dOgAK+x4cOh0cHR4cHB0eODocHR0eOB0cOwAK+h4cOhweHB4cHB0eODodHB0dOR0cOgANBQ==",
+            "Channel 7": "JgA0AB4cHB06HR0cHR0eODscHB0dOR0cHhwdAArfHRweHDodHB0dHRw5OxwdHRw5HR0dHB4ADQUAAAAA",
+            "Channel 8": "JgBIABwdOh0dHB0dHRweODodHTk6HB0dHQAK/BwdOh0dHB0dHRwdOTodHTk6HRwdHQAK+x0dOh0cHR0dHB0dOTscHDk6HR0dHAANBQ==",
+            "Channel 9": "JgAwABwdHR05HR0dHRwdOTodHDo5HR05HQAK3x0dHR05HR0dHB0dOTodHDk6HR05HQANBQAAAAAAAAAA",
+            "HDMI": ["JgBoABwdOh0dHRwdHR0cOR0dHRwdHTodHB0dAAr7HR06HR0cHRwdHR44HB0dHRwdOh0dHB4ACvodHTocHR0dHB0dHTkcHR0dHB06HR0cHQAK+x0dOxsdHR0cHhwdORwdHR0cHTodHB0dAA0F",
+            "JgAwAB8bPBofGx8aHxsfNj03PBseNx8bHwAK3R4bPBsfGx4bHxseNzw3PBsfNx4bHwANBQAAAAAAAAAA",
+            "JgAwAB8bPBofGx8aHxsfNj03PBseNx8bHwAK3R4bPBsfGx4bHxseNzw3PBsfNx4bHwANBQAAAAAAAAAA",
+            "JgAwAB8bPBofGx8aHxsfNj03PBseNx8bHwAK3R4bPBsfGx4bHxseNzw3PBsfNx4bHwANBQAAAAAAAAAA",
+            "JgAwAB8bPBofGx8aHxsfNj03PBseNx8bHwAK3R4bPBsfGx4bHxseNzw3PBsfNx4bHwANBQAAAAAAAAAA"
+            ]
+       }
+    }
+}
