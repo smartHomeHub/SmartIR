@@ -1,1 +1,17 @@
-
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "SmartIR Setup",
+        "description": "Configure a SmartIR device",
+        "data": {
+          "name": "Name",
+          "device_type": "Device Type",
+          "manufacturer": "Manufacturer",
+          "device_code": "Device Code",
+          "controller": "IR Controller"
+        }
+      }
+    }
+  }
+}
