@@ -12,10 +12,13 @@ from homeassistant.components.media_player.const import (
     MediaPlayerEntityFeature, MediaType)
 from homeassistant.const import (
     CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN)
+from homeassistant.core import Event, EventStateChangedData, callback
+from homeassistant.helpers.event import async_track_state_change_event
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
 from . import COMPONENT_ABS_DIR, Helper
 from .controller import get_controller
+from .power_feedback import consumption_state_is_on, retry_with_feedback_backoff
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -28,8 +31,26 @@ CONF_DEVICE_CODE = 'device_code'
 CONF_CONTROLLER_DATA = "controller_data"
 CONF_DELAY = "delay"
 CONF_POWER_SENSOR = 'power_sensor'
+CONF_POWER_CONSUMPTION_SENSOR = 'power_consumption_sensor'
+CONF_POWER_CONSUMPTION_ON_THRESHOLD_WATTS = 'power_consumption_on_threshold_watts'
+CONF_POWER_CONSUMPTION_RETRY_COUNT = "power_consumption_retry_count"
+CONF_POWER_CONSUMPTION_RETRY_INITIAL_DELAY_SECONDS = (
+    "power_consumption_retry_initial_delay_seconds"
+)
+CONF_POWER_CONSUMPTION_RETRY_BACKOFF_MULTIPLIER = (
+    "power_consumption_retry_backoff_multiplier"
+)
+CONF_POWER_CONSUMPTION_RETRY_MAX_DELAY_SECONDS = (
+    "power_consumption_retry_max_delay_seconds"
+)
 CONF_SOURCE_NAMES = 'source_names'
 CONF_DEVICE_CLASS = 'device_class'
+
+DEFAULT_POWER_CONSUMPTION_ON_THRESHOLD_WATTS = 10.0
+DEFAULT_POWER_CONSUMPTION_RETRY_COUNT = 3
+DEFAULT_POWER_CONSUMPTION_RETRY_INITIAL_DELAY_SECONDS = 2.0
+DEFAULT_POWER_CONSUMPTION_RETRY_BACKOFF_MULTIPLIER = 1.5
+DEFAULT_POWER_CONSUMPTION_RETRY_MAX_DELAY_SECONDS = 10.0
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_UNIQUE_ID): cv.string,
@@ -38,6 +59,27 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_CONTROLLER_DATA): cv.string,
     vol.Optional(CONF_DELAY, default=DEFAULT_DELAY): cv.string,
     vol.Optional(CONF_POWER_SENSOR): cv.entity_id,
+    vol.Optional(CONF_POWER_CONSUMPTION_SENSOR): cv.entity_id,
+    vol.Optional(
+        CONF_POWER_CONSUMPTION_ON_THRESHOLD_WATTS,
+        default=DEFAULT_POWER_CONSUMPTION_ON_THRESHOLD_WATTS,
+    ): vol.All(vol.Coerce(float), vol.Range(min=0)),
+    vol.Optional(
+        CONF_POWER_CONSUMPTION_RETRY_COUNT,
+        default=DEFAULT_POWER_CONSUMPTION_RETRY_COUNT,
+    ): vol.All(vol.Coerce(int), vol.Range(min=0)),
+    vol.Optional(
+        CONF_POWER_CONSUMPTION_RETRY_INITIAL_DELAY_SECONDS,
+        default=DEFAULT_POWER_CONSUMPTION_RETRY_INITIAL_DELAY_SECONDS,
+    ): vol.All(vol.Coerce(float), vol.Range(min=0)),
+    vol.Optional(
+        CONF_POWER_CONSUMPTION_RETRY_BACKOFF_MULTIPLIER,
+        default=DEFAULT_POWER_CONSUMPTION_RETRY_BACKOFF_MULTIPLIER,
+    ): vol.All(vol.Coerce(float), vol.Range(min=1)),
+    vol.Optional(
+        CONF_POWER_CONSUMPTION_RETRY_MAX_DELAY_SECONDS,
+        default=DEFAULT_POWER_CONSUMPTION_RETRY_MAX_DELAY_SECONDS,
+    ): vol.All(vol.Coerce(float), vol.Range(min=0)),
     vol.Optional(CONF_SOURCE_NAMES): dict,
     vol.Optional(CONF_DEVICE_CLASS, default=DEFAULT_DEVICE_CLASS): cv.string
 })
@@ -94,6 +136,22 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
         self._controller_data = config.get(CONF_CONTROLLER_DATA)
         self._delay = config.get(CONF_DELAY)
         self._power_sensor = config.get(CONF_POWER_SENSOR)
+        self._power_consumption_sensor = config.get(CONF_POWER_CONSUMPTION_SENSOR)
+        self._power_consumption_on_threshold_watts = config.get(
+            CONF_POWER_CONSUMPTION_ON_THRESHOLD_WATTS
+        )
+        self._power_consumption_retry_count = config.get(
+            CONF_POWER_CONSUMPTION_RETRY_COUNT
+        )
+        self._power_consumption_retry_initial_delay_seconds = config.get(
+            CONF_POWER_CONSUMPTION_RETRY_INITIAL_DELAY_SECONDS
+        )
+        self._power_consumption_retry_backoff_multiplier = config.get(
+            CONF_POWER_CONSUMPTION_RETRY_BACKOFF_MULTIPLIER
+        )
+        self._power_consumption_retry_max_delay_seconds = config.get(
+            CONF_POWER_CONSUMPTION_RETRY_MAX_DELAY_SECONDS
+        )
 
         self._manufacturer = device_data['manufacturer']
         self._supported_models = device_data['supportedModels']
@@ -143,6 +201,8 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
                 self._sources_list.append(key)
 
         self._temp_lock = asyncio.Lock()
+        self._last_consumption_effective_on = None
+        self._command_generation = 0
 
         #Init the IR/RF controller
         self._controller = get_controller(
@@ -160,6 +220,28 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
 
         if last_state is not None:
             self._state = last_state.state
+
+        if self._power_sensor and self._power_consumption_sensor:
+            _LOGGER.warning(
+                "%s: both %s and %s are set; using %s only",
+                self.name,
+                CONF_POWER_SENSOR,
+                CONF_POWER_CONSUMPTION_SENSOR,
+                CONF_POWER_SENSOR,
+            )
+
+        if self._power_sensor:
+            async_track_state_change_event(
+                self.hass, self._power_sensor, self._async_power_sensor_changed
+            )
+            self._sync_from_power_sensor()
+        elif self._power_consumption_sensor:
+            async_track_state_change_event(
+                self.hass,
+                self._power_consumption_sensor,
+                self._async_power_consumption_sensor_changed,
+            )
+            self._sync_from_power_consumption()
 
     @property
     def should_poll(self):
@@ -222,18 +304,18 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
 
     async def async_turn_off(self):
         """Turn the media player off."""
-        await self.send_command(self._commands['off'])
+        await self.send_command(self._commands['off'], desired_is_on=False)
         
-        if self._power_sensor is None:
+        if self._power_sensor is None and self._power_consumption_sensor is None:
             self._state = STATE_OFF
             self._source = None
             self.async_write_ha_state()
 
     async def async_turn_on(self):
         """Turn the media player off."""
-        await self.send_command(self._commands['on'])
+        await self.send_command(self._commands['on'], desired_is_on=True)
 
-        if self._power_sensor is None:
+        if self._power_sensor is None and self._power_consumption_sensor is None:
             self._state = STATE_ON
             self.async_write_ha_state()
 
@@ -285,22 +367,125 @@ class SmartIRMediaPlayer(MediaPlayerEntity, RestoreEntity):
             await self.send_command(self._commands['sources']["Channel {}".format(digit)])
         self.async_write_ha_state()
 
-    async def send_command(self, command):
-        async with self._temp_lock:
-            try:
-                await self._controller.send(command)
-            except Exception as e:
-                _LOGGER.exception(e)
-            
-    async def async_update(self):
+    def _consumption_feedback_enabled(self) -> bool:
+        return self._power_sensor is None and self._power_consumption_sensor is not None
+
+    def _read_consumption_effective_power(self):
+        if not self._consumption_feedback_enabled():
+            return None
+        power_state = self.hass.states.get(self._power_consumption_sensor)
+        if power_state is None:
+            return None
+        return consumption_state_is_on(
+            power_state, self._power_consumption_on_threshold_watts
+        )
+
+    def _apply_effective_power(self, is_on: bool) -> None:
+        self._state = STATE_ON if is_on else STATE_OFF
+        if not is_on:
+            self._source = None
+        self.async_write_ha_state()
+
+    def _sync_from_power_sensor(self):
         if self._power_sensor is None:
             return
-
         power_state = self.hass.states.get(self._power_sensor)
+        if power_state is None:
+            return
+        if power_state.state == STATE_ON:
+            self._apply_effective_power(True)
+        elif power_state.state == STATE_OFF:
+            self._apply_effective_power(False)
 
-        if power_state:
-            if power_state.state == STATE_OFF:
-                self._state = STATE_OFF
-                self._source = None
-            elif power_state.state == STATE_ON:
-                self._state = STATE_ON
+    def _sync_from_power_consumption(self):
+        if self._power_consumption_sensor is None:
+            return
+        power_state = self.hass.states.get(self._power_consumption_sensor)
+        if power_state is None:
+            return
+        is_on = consumption_state_is_on(
+            power_state, self._power_consumption_on_threshold_watts
+        )
+        self._last_consumption_effective_on = is_on
+        self._apply_effective_power(is_on)
+
+    async def _retry_consumption_feedback_if_needed(
+        self, desired_is_on: bool, command_generation: int, resend_command
+    ):
+        if not self._consumption_feedback_enabled():
+            return
+
+        def should_skip_retry() -> bool:
+            return command_generation != self._command_generation
+
+        def is_feedback_matching() -> bool:
+            current_is_on = self._read_consumption_effective_power()
+            return current_is_on is not None and current_is_on == desired_is_on
+
+        matched = await retry_with_feedback_backoff(
+            retry_count=self._power_consumption_retry_count,
+            initial_delay_seconds=self._power_consumption_retry_initial_delay_seconds,
+            backoff_multiplier=self._power_consumption_retry_backoff_multiplier,
+            max_delay_seconds=self._power_consumption_retry_max_delay_seconds,
+            should_skip_retry=should_skip_retry,
+            is_feedback_matching=is_feedback_matching,
+            resend_command=resend_command,
+        )
+        if matched or should_skip_retry():
+            return
+        measured_is_on = self._read_consumption_effective_power()
+        if measured_is_on is not None:
+            self._last_consumption_effective_on = measured_is_on
+            self._apply_effective_power(measured_is_on)
+
+    async def send_command(self, command, desired_is_on=None):
+        self._command_generation += 1
+        command_generation = self._command_generation
+        if desired_is_on is None:
+            desired_is_on = self._state == STATE_ON
+
+        async def resend_command():
+            async with self._temp_lock:
+                try:
+                    await self._controller.send(command)
+                except Exception as e:
+                    _LOGGER.exception(e)
+
+        await resend_command()
+        await self._retry_consumption_feedback_if_needed(
+            desired_is_on, command_generation, resend_command
+        )
+            
+    async def async_update(self):
+        if self._power_sensor is not None:
+            self._sync_from_power_sensor()
+        elif self._power_consumption_sensor is not None:
+            self._sync_from_power_consumption()
+
+    @callback
+    async def _async_power_sensor_changed(self, event: Event[EventStateChangedData]) -> None:
+        new_state = event.data["new_state"]
+        if new_state is None:
+            return
+        old_state = event.data["old_state"]
+        if old_state is not None and new_state.state == old_state.state:
+            return
+        if new_state.state == STATE_ON:
+            self._apply_effective_power(True)
+        elif new_state.state == STATE_OFF:
+            self._apply_effective_power(False)
+
+    @callback
+    async def _async_power_consumption_sensor_changed(
+        self, event: Event[EventStateChangedData]
+    ) -> None:
+        new_state = event.data["new_state"]
+        if new_state is None:
+            return
+        is_on = consumption_state_is_on(
+            new_state, self._power_consumption_on_threshold_watts
+        )
+        if self._last_consumption_effective_on is not None and is_on == self._last_consumption_effective_on:
+            return
+        self._last_consumption_effective_on = is_on
+        self._apply_effective_power(is_on)

@@ -18,6 +18,7 @@ import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
 from . import COMPONENT_ABS_DIR, Helper
 from .controller import get_controller
+from .power_feedback import consumption_state_is_on, retry_with_feedback_backoff
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -32,6 +33,24 @@ CONF_TEMPERATURE_SENSOR = 'temperature_sensor'
 CONF_HUMIDITY_SENSOR = 'humidity_sensor'
 CONF_POWER_SENSOR = 'power_sensor'
 CONF_POWER_SENSOR_RESTORE_STATE = 'power_sensor_restore_state'
+CONF_POWER_CONSUMPTION_SENSOR = 'power_consumption_sensor'
+CONF_POWER_CONSUMPTION_ON_THRESHOLD_WATTS = 'power_consumption_on_threshold_watts'
+CONF_POWER_CONSUMPTION_RETRY_COUNT = "power_consumption_retry_count"
+CONF_POWER_CONSUMPTION_RETRY_INITIAL_DELAY_SECONDS = (
+    "power_consumption_retry_initial_delay_seconds"
+)
+CONF_POWER_CONSUMPTION_RETRY_BACKOFF_MULTIPLIER = (
+    "power_consumption_retry_backoff_multiplier"
+)
+CONF_POWER_CONSUMPTION_RETRY_MAX_DELAY_SECONDS = (
+    "power_consumption_retry_max_delay_seconds"
+)
+
+DEFAULT_POWER_CONSUMPTION_ON_THRESHOLD_WATTS = 10.0
+DEFAULT_POWER_CONSUMPTION_RETRY_COUNT = 3
+DEFAULT_POWER_CONSUMPTION_RETRY_INITIAL_DELAY_SECONDS = 2.0
+DEFAULT_POWER_CONSUMPTION_RETRY_BACKOFF_MULTIPLIER = 1.5
+DEFAULT_POWER_CONSUMPTION_RETRY_MAX_DELAY_SECONDS = 10.0
 
 SUPPORT_FLAGS = (
     ClimateEntityFeature.TURN_OFF |
@@ -49,7 +68,28 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_TEMPERATURE_SENSOR): cv.entity_id,
     vol.Optional(CONF_HUMIDITY_SENSOR): cv.entity_id,
     vol.Optional(CONF_POWER_SENSOR): cv.entity_id,
-    vol.Optional(CONF_POWER_SENSOR_RESTORE_STATE, default=False): cv.boolean
+    vol.Optional(CONF_POWER_SENSOR_RESTORE_STATE, default=False): cv.boolean,
+    vol.Optional(CONF_POWER_CONSUMPTION_SENSOR): cv.entity_id,
+    vol.Optional(
+        CONF_POWER_CONSUMPTION_ON_THRESHOLD_WATTS,
+        default=DEFAULT_POWER_CONSUMPTION_ON_THRESHOLD_WATTS,
+    ): vol.All(vol.Coerce(float), vol.Range(min=0)),
+    vol.Optional(
+        CONF_POWER_CONSUMPTION_RETRY_COUNT,
+        default=DEFAULT_POWER_CONSUMPTION_RETRY_COUNT,
+    ): vol.All(vol.Coerce(int), vol.Range(min=0)),
+    vol.Optional(
+        CONF_POWER_CONSUMPTION_RETRY_INITIAL_DELAY_SECONDS,
+        default=DEFAULT_POWER_CONSUMPTION_RETRY_INITIAL_DELAY_SECONDS,
+    ): vol.All(vol.Coerce(float), vol.Range(min=0)),
+    vol.Optional(
+        CONF_POWER_CONSUMPTION_RETRY_BACKOFF_MULTIPLIER,
+        default=DEFAULT_POWER_CONSUMPTION_RETRY_BACKOFF_MULTIPLIER,
+    ): vol.All(vol.Coerce(float), vol.Range(min=1)),
+    vol.Optional(
+        CONF_POWER_CONSUMPTION_RETRY_MAX_DELAY_SECONDS,
+        default=DEFAULT_POWER_CONSUMPTION_RETRY_MAX_DELAY_SECONDS,
+    ): vol.All(vol.Coerce(float), vol.Range(min=0)),
 })
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
@@ -109,6 +149,23 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._humidity_sensor = config.get(CONF_HUMIDITY_SENSOR)
         self._power_sensor = config.get(CONF_POWER_SENSOR)
         self._power_sensor_restore_state = config.get(CONF_POWER_SENSOR_RESTORE_STATE)
+        self._power_consumption_sensor = config.get(CONF_POWER_CONSUMPTION_SENSOR)
+        self._power_consumption_on_threshold_watts = config.get(
+            CONF_POWER_CONSUMPTION_ON_THRESHOLD_WATTS
+        )
+        self._power_consumption_retry_count = config.get(
+            CONF_POWER_CONSUMPTION_RETRY_COUNT
+        )
+        self._power_consumption_retry_initial_delay_seconds = config.get(
+            CONF_POWER_CONSUMPTION_RETRY_INITIAL_DELAY_SECONDS
+        )
+        self._power_consumption_retry_backoff_multiplier = config.get(
+            CONF_POWER_CONSUMPTION_RETRY_BACKOFF_MULTIPLIER
+        )
+        self._power_consumption_retry_max_delay_seconds = config.get(
+            CONF_POWER_CONSUMPTION_RETRY_MAX_DELAY_SECONDS
+        )
+        self._last_consumption_effective_on = None
 
         self._manufacturer = device_data['manufacturer']
         self._supported_models = device_data['supportedModels']
@@ -147,6 +204,8 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
         self._temp_lock = asyncio.Lock()
         self._on_by_remote = False
+        self._command_generation = 0
+        self._consumption_feedback_hold_count = 0
 
         #Init the IR/RF controller
         self._controller = get_controller(
@@ -165,9 +224,13 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         
         if last_state is not None:
             self._hvac_mode = last_state.state
-            self._current_fan_mode = last_state.attributes['fan_mode']
+            self._current_fan_mode = last_state.attributes.get(
+                'fan_mode', self._current_fan_mode)
             self._current_swing_mode = last_state.attributes.get('swing_mode')
-            self._target_temperature = last_state.attributes['temperature']
+            if self._current_swing_mode is None and self._swing_modes:
+                self._current_swing_mode = self._swing_modes[0]
+            self._target_temperature = last_state.attributes.get(
+                ATTR_TEMPERATURE, self._target_temperature)
 
             if 'last_on_operation' in last_state.attributes:
                 self._last_on_operation = last_state.attributes['last_on_operation']
@@ -188,9 +251,27 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             if humidity_sensor_state and humidity_sensor_state.state != STATE_UNKNOWN:
                 self._async_update_humidity(humidity_sensor_state)
 
+        if self._power_sensor and self._power_consumption_sensor:
+            _LOGGER.warning(
+                "%s: both %s and %s are set; using %s only",
+                self.name,
+                CONF_POWER_SENSOR,
+                CONF_POWER_CONSUMPTION_SENSOR,
+                CONF_POWER_SENSOR,
+            )
+
         if self._power_sensor:
             async_track_state_change_event(self.hass, self._power_sensor, 
                                            self._async_power_sensor_changed)
+        elif self._power_consumption_sensor:
+            async_track_state_change_event(
+                self.hass,
+                self._power_consumption_sensor,
+                self._async_power_consumption_sensor_changed,
+            )
+            cons_state = self.hass.states.get(self._power_consumption_sensor)
+            if cons_state is not None:
+                self._update_from_power_consumption(cons_state)
 
     @property
     def unique_id(self):
@@ -318,6 +399,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             return
         
         if not self._hvac_mode.lower() == HVACMode.OFF:
+            self.async_write_ha_state()
             await self.send_command()
 
         self.async_write_ha_state()
@@ -329,6 +411,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         if not hvac_mode == HVACMode.OFF:
             self._last_on_operation = hvac_mode
 
+        self.async_write_ha_state()
         await self.send_command()
         self.async_write_ha_state()
 
@@ -337,6 +420,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._current_fan_mode = fan_mode
         
         if not self._hvac_mode.lower() == HVACMode.OFF:
+            self.async_write_ha_state()
             await self.send_command()      
         self.async_write_ha_state()
 
@@ -345,6 +429,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._current_swing_mode = swing_mode
 
         if not self._hvac_mode.lower() == HVACMode.OFF:
+            self.async_write_ha_state()
             await self.send_command()
         self.async_write_ha_state()
 
@@ -359,32 +444,100 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         else:
             await self.async_set_hvac_mode(self._operation_modes[1])
 
-    async def send_command(self):
+    def _consumption_feedback_enabled(self) -> bool:
+        """Retries use consumption feedback only when binary power_sensor is not set."""
+        return self._power_sensor is None and self._power_consumption_sensor is not None
+
+    def _read_consumption_effective_power(self):
+        """Return current on/off from power consumption or None if unavailable."""
+        if not self._consumption_feedback_enabled():
+            return None
+        power_state = self.hass.states.get(self._power_consumption_sensor)
+        if power_state is None:
+            return None
+        return consumption_state_is_on(
+            power_state, self._power_consumption_on_threshold_watts
+        )
+
+    async def _send_current_climate_command(self, operation_mode, fan_mode, swing_mode, target_temperature):
+        """Send the current climate command sequence once."""
         async with self._temp_lock:
+            self._on_by_remote = False
+            if operation_mode.lower() == HVACMode.OFF:
+                await self._controller.send(self._commands['off'])
+                return
+
+            if 'on' in self._commands:
+                await self._controller.send(self._commands['on'])
+                await asyncio.sleep(self._delay)
+
+            if self._support_swing:
+                await self._controller.send(
+                    self._commands[operation_mode][fan_mode][swing_mode][target_temperature]
+                )
+            else:
+                await self._controller.send(
+                    self._commands[operation_mode][fan_mode][target_temperature]
+                )
+
+    async def _retry_consumption_feedback_if_needed(
+        self, desired_is_on: bool, command_generation: int, resend_command
+    ):
+        """Retry command with backoff until consumption feedback matches desired state."""
+        if not self._consumption_feedback_enabled():
+            return
+
+        def should_skip_retry() -> bool:
+            return command_generation != self._command_generation
+
+        def is_feedback_matching() -> bool:
+            current_is_on = self._read_consumption_effective_power()
+            return current_is_on is not None and current_is_on == desired_is_on
+
+        matched = await retry_with_feedback_backoff(
+            retry_count=self._power_consumption_retry_count,
+            initial_delay_seconds=self._power_consumption_retry_initial_delay_seconds,
+            backoff_multiplier=self._power_consumption_retry_backoff_multiplier,
+            max_delay_seconds=self._power_consumption_retry_max_delay_seconds,
+            should_skip_retry=should_skip_retry,
+            is_feedback_matching=is_feedback_matching,
+            resend_command=resend_command,
+        )
+        if matched or should_skip_retry():
+            return
+        measured_is_on = self._read_consumption_effective_power()
+        if measured_is_on is not None:
+            self._last_consumption_effective_on = measured_is_on
+            self._apply_effective_power(measured_is_on)
+
+    async def send_command(self):
+        self._command_generation += 1
+        command_generation = self._command_generation
+        operation_mode = self._hvac_mode
+        fan_mode = self._current_fan_mode
+        swing_mode = self._current_swing_mode
+        target_temperature = '{0:g}'.format(self._target_temperature)
+        desired_is_on = operation_mode.lower() != HVACMode.OFF
+
+        async def resend_command():
             try:
-                self._on_by_remote = False
-                operation_mode = self._hvac_mode
-                fan_mode = self._current_fan_mode
-                swing_mode = self._current_swing_mode
-                target_temperature = '{0:g}'.format(self._target_temperature)
-
-                if operation_mode.lower() == HVACMode.OFF:
-                    await self._controller.send(self._commands['off'])
-                    return
-
-                if 'on' in self._commands:
-                    await self._controller.send(self._commands['on'])
-                    await asyncio.sleep(self._delay)
-
-                if self._support_swing == True:
-                    await self._controller.send(
-                        self._commands[operation_mode][fan_mode][swing_mode][target_temperature])
-                else:
-                    await self._controller.send(
-                        self._commands[operation_mode][fan_mode][target_temperature])
-
+                await self._send_current_climate_command(
+                    operation_mode, fan_mode, swing_mode, target_temperature
+                )
             except Exception as e:
                 _LOGGER.exception(e)
+
+        consumption_hold = self._consumption_feedback_enabled()
+        if consumption_hold:
+            self._consumption_feedback_hold_count += 1
+        try:
+            await resend_command()
+            await self._retry_consumption_feedback_if_needed(
+                desired_is_on, command_generation, resend_command
+            )
+        finally:
+            if consumption_hold:
+                self._consumption_feedback_hold_count -= 1
                 
     @callback
     async def _async_temp_sensor_changed(self, event: Event[EventStateChangedData]) -> None:
@@ -409,31 +562,56 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self.async_write_ha_state()
         
     @callback
+    def _apply_effective_power(self, is_on: bool) -> None:
+        """Sync climate state from a binary on/off (power present or not)."""
+        if is_on and self._hvac_mode == HVACMode.OFF:
+            self._on_by_remote = True
+            if self._power_sensor_restore_state and self._last_on_operation is not None:
+                self._hvac_mode = self._last_on_operation
+            else:
+                self._hvac_mode = STATE_ON
+            self.async_write_ha_state()
+        elif not is_on:
+            self._on_by_remote = False
+            if self._hvac_mode != HVACMode.OFF:
+                self._hvac_mode = HVACMode.OFF
+            self.async_write_ha_state()
+
+    @callback
+    def _update_from_power_consumption(self, state) -> None:
+        """Apply threshold to power sensor; only act on effective on/off change."""
+        if self._consumption_feedback_hold_count > 0:
+            return
+        is_on = consumption_state_is_on(
+            state, self._power_consumption_on_threshold_watts
+        )
+        if self._last_consumption_effective_on is not None and is_on == self._last_consumption_effective_on:
+            return
+        self._last_consumption_effective_on = is_on
+        self._apply_effective_power(is_on)
+
+    @callback
+    async def _async_power_consumption_sensor_changed(
+        self, event: Event[EventStateChangedData]
+    ) -> None:
+        new_state = event.data["new_state"]
+        if new_state is None:
+            return
+        self._update_from_power_consumption(new_state)
+
+    @callback
     async def _async_power_sensor_changed(self, event: Event[EventStateChangedData]) -> None:
-        entity_id = event.data["entity_id"]
-        old_state = event.data["old_state"]
         new_state = event.data["new_state"]
     
         if new_state is None:
             return
 
+        old_state = event.data["old_state"]
         if old_state is not None and new_state.state == old_state.state:
             return
 
-        if new_state.state == STATE_ON and self._hvac_mode == HVACMode.OFF:
-            self._on_by_remote = True
-            if self._power_sensor_restore_state == True and self._last_on_operation is not None:
-                self._hvac_mode = self._last_on_operation
-            else:
-                self._hvac_mode = STATE_ON
-
-            self.async_write_ha_state()
-
-        if new_state.state == STATE_OFF:
-            self._on_by_remote = False
-            if self._hvac_mode != HVACMode.OFF:
-                self._hvac_mode = HVACMode.OFF
-            self.async_write_ha_state()
+        is_on = new_state.state == STATE_ON
+        self._apply_effective_power(is_on)
 
     @callback
     def _async_update_temp(self, state):
