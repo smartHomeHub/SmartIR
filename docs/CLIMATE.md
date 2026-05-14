@@ -278,6 +278,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1186](../codes/climate/1186.json) | GWH18ACD-D3DNA 1M                              | Broadlink   |
 | [1187](../codes/climate/1187.json) | Unknown model                                  | Broadlink   |
 | [1188](../codes/climate/1188.json) | Vireo VIR18HP230V1AH                           | Broadlink   |
+| [1189](../codes/climate/1189.json) | GMV5 GMV-ND45T/A-T                             | Broadlink   |
 | [4180](../codes/climate/4180.json) | YB0FB2 (Remote)                                | Xiaomi      |
 | [4181](../codes/climate/4181.json) | YB1FA  (Remote)                                | Xiaomi (v2) |
 
@@ -378,6 +379,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1393](../codes/climate/1393.json) | Polario MPPHB-09CRN7-Q         | Broadlink  |
 | [1394](../codes/climate/1394.json) | RG70C/BGEF (Remote)            | Broadlink  |
 | [1395](../codes/climate/1395.json) | RG10B(D1)/BGEFU1 (Remote)      | Broadlink  |
+| [1396](../codes/climate/1396.json) | MI2-56GDN1                     | Broadlink  |
 | [4380](../codes/climate/4380.json) | MCD-24HRN1-Q1<br>RAS-10N3KVR-E | Xiaomi     |
 | [4381](../codes/climate/4381.json) | RG70C1/BGEF | Xiaomi     |
 | [7386](../codes/climate/7386.json) | KFR-32GW                       | ESPHome    |
@@ -902,7 +904,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 ### Cooper & Hunter
 | Code                               | Supported Models | Controller |
 |------------------------------------|------------------|------------|
-| [3120](../codes/climate/3120.json) | Unknown  | Broadlink  |
+| [3120](../codes/climate/3120.json) | CH-S07XN7T<br>CH-S09XN7T<br>CH-S12XN7T<br>CH-S18XN7T<br>CH-S24XN7T<br>CH-S30XN7T<br>YAP1F | Broadlink  |
 
 ### Argo
 | Code                               | Supported Models | Controller |
