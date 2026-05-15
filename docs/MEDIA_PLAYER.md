@@ -189,6 +189,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 [1122](../codes/media_player/1122.json)|VR50590 remote|Broadlink
 [1123](../codes/media_player/1123.json)|AS201|Broadlink
 [1124](../codes/media_player/1124.json)|YAS-109|Broadlink
+[1125](../codes/media_player/1125.json)|YAS-203|MQTT
 
 #### RME
 | Code | Supported Models | Controller |
