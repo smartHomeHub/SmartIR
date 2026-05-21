@@ -353,6 +353,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1344](../codes/climate/1344.json) | YB1FA Remote (Control) (Swing support) | Broadlink  |
 | [1345](../codes/climate/1345.json) | TAC-297 Remote (Control)               | Broadlink  |
 | [1346](../codes/climate/1346.json) | [TAC 297H V3.2](https://www.tadiran-group.co.il/wp-content/uploads/2021/07/TAC-297-51603500450201.png)               | Broadlink  |
+| [1347](../codes/climate/1347.json) | WK-CU-0903 (Remote)<br>Tadiran Spirit | Broadlink  |
 
 #### Springer
 | Code                               | Supported Models       | Controller |
