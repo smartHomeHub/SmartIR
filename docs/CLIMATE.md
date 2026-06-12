@@ -833,6 +833,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2860](../codes/climate/2860.json) | SENA/12HF/IZ           | Broadlink  |
+| [8861](../codes/climate/8861.json) | SENA/09HF/I, SENA/12HF/I, SENA/18HF/I, SENA/24HF/I (RG66A2/BGEFU1 remote, F-mode) | Broadlink  |
 
 #### Bora
 | Code                               | Supported Models       | Controller |
