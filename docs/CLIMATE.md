@@ -131,7 +131,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models      | Controller |
 | ---------------------------------- | --------------------- | ---------- |
 | [1000](../codes/climate/1000.json) | AKIRA GAN/GAG-A128 VL | Broadlink  |
-| [1001](../codes/climate/1000.json) | AKIRA GAN/GAG A135FW ML | Broadlink |
+| [1001](../codes/climate/1001.json) | AKIRA GAN/GAG A135FW ML | Broadlink |
+| [1002](../codes/climate/1002.json) | IZURU TRN-XXXXX | Broadlink |
 
 #### Panasonic
 | Code                               | Supported Models                                                   | Controller |
