@@ -1,0 +1,22 @@
+{
+  "manufacturer": "China Ceilling Fan",
+  "supportedModels": [
+    "Unknown"
+  ],
+  "supportedController": "Broadlink",
+  "commandsEncoding": "Base64",
+  "speed": [
+    "low",
+    "medium",
+    "high",
+    "random"
+  ],
+  "commands": {
+    "off": "JgBIAAABJ5ITEhQRFBEUERQRFBEUEhMRFDYUNhQ2FDYUNhQ2EzcTNxM3ExITNxITExIUERQ2ExISExI4EhMSOBI4EjgSExI4EgANBQ==",
+    "default": {
+      "low": "JgBQAAABJpMUERQRFBEUERQRFBEUERQRFDYUNhQ2FDYUNhQ2FDYUNhQ2FDYUNhQRFBEUERQRFBEUERQRFBEUNhQ2FDYUNhQ2FAAFDQABKEkUAA0F",
+      "medium": "JgBQAAABJpIUERQRFBEUERQRFBEUERQRFDYUNhQ2FDYUNhQ2FDYUNhMSEzcTNxMSEzYUERQRFBEUNhQRFBEUNhQRFDYUNhQ2FAAFDAABKEkUAA0F",
+      "high": "JgBQAAABJJQSExITEhMSExITEhMSExITEjgSOBI4EjgSOBI4EzcTNxMSExIUNhQ2FBEUERQRGgwTNhQ2FBEUERQ2FDYUNhQ2FAAFDAABJ0kUAA0F"
+      }
+    }
+  }
