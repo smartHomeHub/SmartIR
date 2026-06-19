@@ -244,6 +244,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1137](../codes/climate/1137.json) | MSZ-HR35VF                                                                                           | Broadlink  |
 | [1138](../codes/climate/1138.json) | MSZ-FD25VA-E2 (KM09D/0166901 Remote)                                                                 | Broadlink  |
 | [1139](../codes/climate/1139.json) | MLZ-KP series (SG176 Remote) | Broadlink  |
+| [1141](../codes/climate/1141.json) | MSY-GE13VA<br>MSY-GE15VA<br>MSY-GE15VE <b>(Swing mode)</b> | Broadlink  |
 | [5140](../codes/climate/5140.json) | MSC-A12WV | Broadlink  |
 | [4124](../codes/climate/4124.json) | MSZ-SF25VE3<br>MSZ-SF35VE3<br>MSZ-SF42VE3<br>MSZ-SF50VE3<br>MSZ-AP20VG<br>MSZ-AP25VGD| Xiaomi v2  |
 | [4129](../codes/climate/4129.json) | DXK18Z1-S                                                                                            | Xiaomi v2  |
