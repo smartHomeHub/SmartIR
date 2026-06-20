@@ -145,11 +145,32 @@ class MQTTController(AbstractController):
         """Send a command."""
         service_data = {
             'topic': self._controller_data,
-            'payload': command
+            'payload': self._format_payload(command),
         }
 
         await self.hass.services.async_call(
             'mqtt', 'publish', service_data)
+
+    def _format_payload(self, command):
+        """Build an MQTT payload for Zigbee2MQTT and similar IR blasters.
+
+        - Topic ending in ``ir_code_to_send``: raw code string (Z2M convention).
+        - Command already JSON (e.g. ``{"ir_code_to_send":"..."}``): use as-is.
+        - Otherwise: wrap as ``{"ir_code_to_send": "<code>"}`` on the device
+          ``set`` topic.
+        """
+        if isinstance(command, dict):
+            return json.dumps(command)
+
+        command = command.strip()
+        if command.startswith('{'):
+            return command
+
+        topic = self._controller_data.rstrip('/')
+        if topic.endswith('ir_code_to_send'):
+            return command
+
+        return json.dumps({'ir_code_to_send': command})
 
 
 class LookinController(AbstractController):

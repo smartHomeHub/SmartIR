@@ -17,7 +17,7 @@ from homeassistant.helpers.event import async_track_state_change, async_track_st
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
 from . import COMPONENT_ABS_DIR, Helper
-from .controller import get_controller
+from .controller import MQTT_CONTROLLER, get_controller
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -32,6 +32,8 @@ CONF_TEMPERATURE_SENSOR = 'temperature_sensor'
 CONF_HUMIDITY_SENSOR = 'humidity_sensor'
 CONF_POWER_SENSOR = 'power_sensor'
 CONF_POWER_SENSOR_RESTORE_STATE = 'power_sensor_restore_state'
+CONF_SEND_ON_COMMAND = 'send_on_command'
+DEVICE_SEND_ON_COMMAND = 'sendOnCommand'
 
 SUPPORT_FLAGS = (
     ClimateEntityFeature.TURN_OFF |
@@ -49,7 +51,8 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_TEMPERATURE_SENSOR): cv.entity_id,
     vol.Optional(CONF_HUMIDITY_SENSOR): cv.entity_id,
     vol.Optional(CONF_POWER_SENSOR): cv.entity_id,
-    vol.Optional(CONF_POWER_SENSOR_RESTORE_STATE, default=False): cv.boolean
+    vol.Optional(CONF_POWER_SENSOR_RESTORE_STATE, default=False): cv.boolean,
+    vol.Optional(CONF_SEND_ON_COMMAND): cv.boolean,
 })
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
@@ -109,6 +112,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._humidity_sensor = config.get(CONF_HUMIDITY_SENSOR)
         self._power_sensor = config.get(CONF_POWER_SENSOR)
         self._power_sensor_restore_state = config.get(CONF_POWER_SENSOR_RESTORE_STATE)
+        self._send_on_command = self._resolve_send_on_command(config, device_data)
 
         self._manufacturer = device_data['manufacturer']
         self._supported_models = device_data['supportedModels']
@@ -155,7 +159,24 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             self._commands_encoding,
             self._controller_data,
             self._delay)
-            
+
+    @staticmethod
+    def _resolve_send_on_command(config, device_data):
+        """Resolve whether to send a separate power-on IR packet before state commands.
+
+        Priority: YAML ``send_on_command`` > device JSON ``sendOnCommand`` >
+        controller default (``False`` for MQTT, ``True`` otherwise).
+
+        Stateful AC codes (mode + fan + temperature in one packet) break when a
+        generic ``on`` command is sent first — common with Zigbee2MQTT blasters
+        (Moes UFO-R11, ZS06, etc.).
+        """
+        if CONF_SEND_ON_COMMAND in config:
+            return config[CONF_SEND_ON_COMMAND]
+        if DEVICE_SEND_ON_COMMAND in device_data:
+            return device_data[DEVICE_SEND_ON_COMMAND]
+        return device_data['supportedController'] != MQTT_CONTROLLER
+
     async def async_added_to_hass(self):
         """Run when entity about to be added."""
         await super().async_added_to_hass()
@@ -293,7 +314,8 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             'manufacturer': self._manufacturer,
             'supported_models': self._supported_models,
             'supported_controller': self._supported_controller,
-            'commands_encoding': self._commands_encoding
+            'commands_encoding': self._commands_encoding,
+            'send_on_command': self._send_on_command,
         }
 
     async def async_set_temperature(self, **kwargs):
@@ -372,7 +394,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                     await self._controller.send(self._commands['off'])
                     return
 
-                if 'on' in self._commands:
+                if 'on' in self._commands and self._send_on_command:
                     await self._controller.send(self._commands['on'])
                     await asyncio.sleep(self._delay)
 

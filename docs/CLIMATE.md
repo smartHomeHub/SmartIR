@@ -18,6 +18,7 @@ _Please note that the device_code field only accepts positive numbers. The .json
 | `humidity_sensor` | string | optional | *entity_id* for a humidity sensor |
 | `power_sensor` | string | optional | *entity_id* for a sensor that monitors whether your device is actually `on` or `off`. This may be a power monitor sensor. (Accepts only on/off states) |
 | `power_sensor_restore_state` | boolean | optional | If `power_sensor` is set, and the device is likely to turn off and back on while still in the set mode (for instance, a minisplit cycling on and off while in heating or cooling mode), setting this to `true` will cause the climate state to update dynamically, following the state of the `power_sensor`. |
+| `send_on_command` | boolean | optional | Send the separate `on` IR packet before mode/fan/temperature commands. Defaults to `false` for MQTT controllers and `true` for all others. Override when your AC needs (or must not use) a dedicated power-on code. Can also be set per device JSON as `sendOnCommand`. |
 
 ## Example (using broadlink controller):
 Add a Broadlink RM device named "Bedroom" via config flow (read the [docs](https://www.home-assistant.io/integrations/broadlink/)).
@@ -57,6 +58,17 @@ climate:
 ```
 
 ## Example (using mqtt controller):
+Use with any MQTT IR blaster. For **Zigbee2MQTT** devices (Moes UFO-R11, ZS06, etc.) set `supportedController` to `MQTT` and `commandsEncoding` to `Raw` in your device JSON.
+
+`controller_data` is the MQTT topic passed to `mqtt.publish`. SmartIR picks the payload format automatically:
+
+| `controller_data` topic | MQTT payload |
+| ----------------------- | ------------ |
+| `zigbee2mqtt/<device>/set/ir_code_to_send` | Raw IR code string |
+| `zigbee2mqtt/<device>/set` | `{"ir_code_to_send":"<code>"}` |
+
+Stateful split AC codes already include power/mode/fan/temperature. A separate `on` command before each state change breaks many MQTT blasters — SmartIR skips it by default for MQTT (`send_on_command: false`). Set `send_on_command: true` only if your AC requires a dedicated power-on packet (typical for some Broadlink setups).
+
 ```yaml
 smartir:
 
@@ -65,11 +77,24 @@ climate:
     name: Office AC
     unique_id: office_ac
     device_code: 3000
-    controller_data: home-assistant/office-ac/command
+    # Z2M: publish raw code to the ir_code_to_send sub-topic
+    controller_data: zigbee2mqtt/office_ir/set/ir_code_to_send
     temperature_sensor: sensor.temperature
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
     power_sensor_restore_state: true
+```
+
+Alternative Z2M topic (JSON payload on the device `set` topic):
+
+```yaml
+    controller_data: zigbee2mqtt/office_ir/set
+```
+
+Explicit override when the default does not match your hardware:
+
+```yaml
+    send_on_command: true
 ```
 
 ## Example (using LOOKin controller):
