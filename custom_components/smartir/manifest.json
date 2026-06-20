@@ -6,10 +6,10 @@
   "codeowners": ["@smartHomeHub"],
   "requirements": ["aiofiles>=0.6.0"],
   "homeassistant": "2025.5.0",
-  "version": "1.18.1",
+  "version": "1.18.2",
   "updater": {
-    "version": "1.18.1",
-    "releaseNotes": "-- Implements new async_track_state_change_event",
+    "version": "1.18.2",
+    "releaseNotes": "-- MQTT: auto payload format for Zigbee2MQTT; optional send_on_command for stateful AC",
     "files": [
       "__init__.py",
       "climate.py",
