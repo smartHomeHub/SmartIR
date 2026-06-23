@@ -105,6 +105,7 @@ class BroadlinkController(AbstractController):
         service_data = {
             ATTR_ENTITY_ID: self._controller_data,
             'command':  commands,
+            'device': 'smartir',
             'delay_secs': self._delay
         }
 
