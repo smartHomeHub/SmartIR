@@ -548,6 +548,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models  | Controller |
 | ---------------------------------- | ----------------- | ---------- |
 | [1820](../codes/climate/1820.json) | WSI XN<br>RAR-3U4 | Broadlink  |
+| [1821](../codes/climate/1821.json) | AARIA Start | Broadlink  |
 
 #### Hualing
 | Code                               | Supported Models            | Controller |
