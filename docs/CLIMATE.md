@@ -670,6 +670,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [2241](../codes/climate/2241.json) | PAC EM77                | Broadlink  |
 | [2242](../codes/climate/2242.json) | PAC AN140HPEW           | Broadlink  |
 | [2243](../codes/climate/2243.json) | DL3000                  | Broadlink  |
+| [2244](../codes/climate/2244.json) | PAC AN112               | Broadlink |
 
 #### Profio
 | Code                               | Supported Models        | Controller |
