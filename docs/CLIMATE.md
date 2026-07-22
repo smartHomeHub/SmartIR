@@ -334,6 +334,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ---------------------------------- | ---------------- | ---------- |
 | [1300](../codes/climate/1300.json) | AY-B22DM         | Broadlink  |
 | [1301](../codes/climate/1301.json) | AY-X##BE         | Broadlink  |
+| [1302](../codes/climate/1302.json) | AY-XP30EJ (Eco Inverter, Plasmacluster) - Cool/Heat/Dry, no fan speed control | Broadlink  |
 | [7300](../codes/climate/7300.json) | AH-AP9GMY        | ESPHome    |
 
 #### Haier
