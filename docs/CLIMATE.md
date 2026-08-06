@@ -339,7 +339,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 #### Haier
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
-| [1320](../codes/climate/1320.json) | Unknown model    | Broadlink  |
+| [1320](../codes/climate/1320.json) | HSU12Xc7-W<br>2XC7-G | Broadlink  |
 | [1321](../codes/climate/1321.json) | Top-Tech 14      | Broadlink  |
 | [1322](../codes/climate/1322.json) | HSU-09HPL03/R03  | Broadlink  |
 

@@ -1,7 +1,8 @@
 {
   "manufacturer": "Haier",
   "supportedModels": [
-    "Unknown"
+    "HSU12Xc7-W",
+    "2XC7-G"
   ],
   "supportedController": "Broadlink",
   "commandsEncoding": "Base64",
