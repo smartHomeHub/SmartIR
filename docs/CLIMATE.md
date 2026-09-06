@@ -12,7 +12,7 @@ _Please note that the device_code field only accepts positive numbers. The .json
 | `name` | string | optional | The name of the device |
 | `unique_id` | string | optional | An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception. |
 | `device_code` | number | required | (Accepts only positive numbers) |
-| `controller_data` | string | required | The data required for the controller to function. Enter the entity_id of the Broadlink remote **(must be an already configured device)**, or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands. |
+| `controller_data` | string | required | The data required for the controller to function. Enter the entity_id of the Broadlink remote **(must be an already configured device)**, or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands, or a JSON object describing the ZHA cluster command (see the ZHA example below). |
 | `delay` | number | optional | Adjusts the delay in seconds between multiple commands. The default is 0.5 |
 | `temperature_sensor` | string | optional | *entity_id* for a temperature sensor |
 | `humidity_sensor` | string | optional | *entity_id* for a humidity sensor |
@@ -122,6 +122,35 @@ climate:
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
 ```
+
+## Example (using a ZHA Zigbee IR blaster, e.g. Tuya TS1201):
+
+`controller_data` is the ZHA cluster-command target as a JSON string. For a TS1201 that is
+the ZosungIRControl cluster (`0xE004` = 57348) and its `IRSend` command (2):
+
+```yaml
+smartir:
+
+climate:
+  - platform: smartir
+    name: Garage AC
+    unique_id: garage_ac
+    device_code: 9000
+    controller_data: '{
+     "ieee": "xx:xx:xx:xx:xx:xx:xx:xx",
+     "endpoint_id": 1,
+     "cluster_id": 57348,
+     "cluster_type": "in",
+     "command": 2,
+     "command_type": "server"
+    }'
+    temperature_sensor: sensor.garage_temperature
+```
+
+The code string is passed to the blaster verbatim in `params.code`. Do **not** wrap it in the
+blaster's own key-table envelope first — the ZHA quirk builds that itself, and a pre-wrapped
+code ends up nested inside it, whereupon the blaster transmits nothing at all: no error, no
+LED, no IR.
 
 ## Available codes for climate devices:
 The following are the code files created by the amazing people in the community. Before you start creating your own code file, try if one of them works for your device. **Please open an issue if your device is working and not included in the supported models.**

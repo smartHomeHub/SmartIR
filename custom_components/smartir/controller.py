@@ -15,6 +15,7 @@ XIAOMI_CONTROLLER = 'Xiaomi'
 MQTT_CONTROLLER = 'MQTT'
 LOOKIN_CONTROLLER = 'LOOKin'
 ESPHOME_CONTROLLER = 'ESPHome'
+ZHA_CONTROLLER = 'zha'
 
 ENC_BASE64 = 'Base64'
 ENC_HEX = 'Hex'
@@ -26,6 +27,9 @@ XIAOMI_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
 MQTT_COMMANDS_ENCODING = [ENC_RAW]
 LOOKIN_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
 ESPHOME_COMMANDS_ENCODING = [ENC_RAW]
+# Zigbee IR blasters carry their own base64 payload (Tuya/Zosung: FastLZ-compressed
+# microsecond durations), which is passed through untouched rather than converted.
+ZHA_COMMANDS_ENCODING = [ENC_BASE64, ENC_RAW]
 
 
 def get_controller(hass, controller, encoding, controller_data, delay):
@@ -35,7 +39,8 @@ def get_controller(hass, controller, encoding, controller_data, delay):
         XIAOMI_CONTROLLER: XiaomiController,
         MQTT_CONTROLLER: MQTTController,
         LOOKIN_CONTROLLER: LookinController,
-        ESPHOME_CONTROLLER: ESPHomeController
+        ESPHOME_CONTROLLER: ESPHomeController,
+        ZHA_CONTROLLER: ZhaController
     }
     try:
         return controllers[controller](hass, controller, encoding, controller_data, delay)
@@ -184,3 +189,51 @@ class ESPHomeController(AbstractController):
 
         await self.hass.services.async_call(
             'esphome', self._controller_data, service_data)
+
+
+class ZhaController(AbstractController):
+    """Controls a Zigbee IR blaster through the ZHA integration.
+
+    `controller_data` is the JSON cluster-command target, e.g. for a Tuya TS1201 the
+    ZosungIRControl cluster (0xE004 = 57348) and its IRSend command (2):
+
+        controller_data: '{"ieee": "xx:xx:xx:xx:xx:xx:xx:xx", "endpoint_id": 1,
+                           "cluster_id": 57348, "cluster_type": "in",
+                           "command": 2, "command_type": "server"}'
+
+    The command string is placed in `params.code` verbatim. Do NOT wrap it in the blaster's
+    own key-table envelope first: the ZHA quirk builds that itself, and a pre-wrapped code
+    ends up nested inside it, whereupon the blaster transmits nothing at all -- no error, no
+    LED, no IR.
+    """
+
+    def check_encoding(self, encoding):
+        """Check if the encoding is supported by the controller."""
+        if encoding not in ZHA_COMMANDS_ENCODING:
+            raise Exception("The encoding is not supported "
+                            "by the ZHA controller.")
+
+    async def send(self, command):
+        """Send a command."""
+        try:
+            service_data = json.loads(self._controller_data)
+        except ValueError:
+            raise Exception("controller_data must be valid JSON "
+                            "for the ZHA controller.")
+
+        if not isinstance(service_data, dict):
+            raise Exception("controller_data must be a JSON object "
+                            "for the ZHA controller.")
+
+        missing = [key for key in ('ieee', 'endpoint_id', 'cluster_id',
+                                   'cluster_type', 'command')
+                   if service_data.get(key) is None]
+        if missing:
+            raise Exception("Missing " + ", ".join(missing) +
+                            " in controller_data for the ZHA controller.")
+
+        service_data = dict(service_data)
+        service_data['params'] = {'code': command}
+
+        await self.hass.services.async_call(
+            'zha', 'issue_zigbee_cluster_command', service_data)
