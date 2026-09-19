@@ -1,11 +1,14 @@
 from abc import ABC, abstractmethod
-from base64 import b64encode
+from base64 import b64decode, b64encode
 import binascii
+from copy import deepcopy
+import struct
 import requests
 import logging
 import json
 
 from homeassistant.const import ATTR_ENTITY_ID
+from homeassistant.exceptions import ServiceValidationError
 from . import Helper
 
 _LOGGER = logging.getLogger(__name__)
@@ -26,6 +29,33 @@ XIAOMI_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
 MQTT_COMMANDS_ENCODING = [ENC_RAW]
 LOOKIN_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
 ESPHOME_COMMANDS_ENCODING = [ENC_RAW]
+
+
+def _command_string(command):
+    """Require the string payload used by an IR controller."""
+    if not isinstance(command, str) or not command:
+        raise ServiceValidationError("IR command must be a nonempty string")
+    return command
+
+
+def _pronto_bytes(command):
+    """Validate hexadecimal words without imposing a controller's Pronto dialect."""
+    try:
+        raw = bytearray.fromhex(_command_string(command).replace(' ', ''))
+        if len(raw) < 8 or len(raw) % 2:
+            raise ValueError("Invalid Pronto header")
+        return raw
+    except ValueError as err:
+        raise ServiceValidationError("Invalid Pronto command") from err
+
+
+def _pronto_pulses(command):
+    """Convert the raw Pronto format supported by the Broadlink helper."""
+    raw = _pronto_bytes(command)
+    try:
+        return Helper.pronto2lirc(raw)
+    except (ValueError, IndexError, ZeroDivisionError) as err:
+        raise ServiceValidationError("Invalid Broadlink Pronto command") from err
 
 
 def get_controller(hass, controller, encoding, controller_data, delay):
@@ -58,9 +88,18 @@ class AbstractController(ABC):
         """Check if the encoding is supported by the controller."""
         pass
 
-    @abstractmethod
     async def send(self, command):
-        """Send a command."""
+        """Prepare a command and await its controller handler."""
+        await self.send_prepared(self.prepare(command))
+
+    @abstractmethod
+    def prepare(self, command):
+        """Validate and convert a command without external side effects."""
+        pass
+
+    @abstractmethod
+    async def send_prepared(self, prepared):
+        """Send the payload returned by prepare, without converting it again."""
         pass
 
 
@@ -73,43 +112,52 @@ class BroadlinkController(AbstractController):
             raise Exception("The encoding is not supported "
                             "by the Broadlink controller.")
 
-    async def send(self, command):
-        """Send a command."""
+    def prepare(self, command):
+        """Build the remote service payload before any command is sent."""
         commands = []
 
-        if not isinstance(command, list): 
+        if not isinstance(command, list):
             command = [command]
+        if not command:
+            raise ServiceValidationError("IR command list must not be empty")
 
         for _command in command:
+            _command_string(_command)
             if self._encoding == ENC_HEX:
                 try:
                     _command = binascii.unhexlify(_command)
                     _command = b64encode(_command).decode('utf-8')
-                except:
-                    raise Exception("Error while converting "
-                                    "Hex to Base64 encoding")
+                except (ValueError, binascii.Error) as err:
+                    raise ServiceValidationError("Invalid Hex command") from err
 
-            if self._encoding == ENC_PRONTO:
+            elif self._encoding == ENC_PRONTO:
+                pulses = _pronto_pulses(_command)
                 try:
-                    _command = _command.replace(' ', '')
-                    _command = bytearray.fromhex(_command)
-                    _command = Helper.pronto2lirc(_command)
-                    _command = Helper.lirc2broadlink(_command)
+                    _command = Helper.lirc2broadlink(pulses)
                     _command = b64encode(_command).decode('utf-8')
-                except:
-                    raise Exception("Error while converting "
-                                    "Pronto to Base64 encoding")
+                except (ValueError, OverflowError, struct.error) as err:
+                    raise ServiceValidationError("Invalid Pronto pulse widths") from err
+
+            else:
+                try:
+                    # Match HA Broadlink's permissive decoding and missing padding.
+                    if not b64decode(_command + '=' * (-len(_command) % 4)):
+                        raise ValueError("Empty decoded command")
+                except (ValueError, binascii.Error) as err:
+                    raise ServiceValidationError("Invalid Base64 command") from err
 
             commands.append('b64:' + _command)
 
-        service_data = {
+        return {
             ATTR_ENTITY_ID: self._controller_data,
             'command':  commands,
             'delay_secs': self._delay
         }
 
+    async def send_prepared(self, prepared):
+        """Await the remote handler; it may suppress device-level errors."""
         await self.hass.services.async_call(
-            'remote', 'send_command', service_data)
+            'remote', 'send_command', prepared, blocking=True)
 
 
 class XiaomiController(AbstractController):
@@ -121,15 +169,20 @@ class XiaomiController(AbstractController):
             raise Exception("The encoding is not supported "
                             "by the Xiaomi controller.")
 
-    async def send(self, command):
-        """Send a command."""
-        service_data = {
+    def prepare(self, command):
+        """Validate the command while preserving the remote payload."""
+        _command_string(command)
+        if self._encoding == ENC_PRONTO:
+            _pronto_bytes(command)
+        return {
             ATTR_ENTITY_ID: self._controller_data,
             'command':  self._encoding.lower() + ':' + command
         }
 
+    async def send_prepared(self, prepared):
+        """Await the remote service handler."""
         await self.hass.services.async_call(
-            'remote', 'send_command', service_data)
+            'remote', 'send_command', prepared, blocking=True)
 
 
 class MQTTController(AbstractController):
@@ -141,15 +194,19 @@ class MQTTController(AbstractController):
             raise Exception("The encoding is not supported "
                             "by the mqtt controller.")
 
-    async def send(self, command):
-        """Send a command."""
-        service_data = {
+    def prepare(self, command):
+        """Keep MQTT's opaque payload unchanged."""
+        if isinstance(command, (list, dict)):
+            raise ServiceValidationError("MQTT publish payload must be a scalar")
+        return {
             'topic': self._controller_data,
-            'payload': command
+            'payload': deepcopy(command)
         }
 
+    async def send_prepared(self, prepared):
+        """Await the publish service handler."""
         await self.hass.services.async_call(
-            'mqtt', 'publish', service_data)
+            'mqtt', 'publish', prepared, blocking=True)
 
 
 class LookinController(AbstractController):
@@ -161,12 +218,19 @@ class LookinController(AbstractController):
             raise Exception("The encoding is not supported "
                             "by the LOOKin controller.")
 
-    async def send(self, command):
-        """Send a command."""
+    def prepare(self, command):
+        """Build the request URL without performing HTTP I/O."""
+        _command_string(command)
+        if self._encoding == ENC_PRONTO:
+            _pronto_bytes(command)
         encoding = self._encoding.lower().replace('pronto', 'prontohex')
-        url = f"http://{self._controller_data}/commands/ir/" \
+        return f"http://{self._controller_data}/commands/ir/" \
                 f"{encoding}/{command}"
-        await self.hass.async_add_executor_job(requests.get, url)
+
+    async def send_prepared(self, prepared):
+        """Await the HTTP response and surface HTTP errors."""
+        response = await self.hass.async_add_executor_job(requests.get, prepared)
+        response.raise_for_status()
 
 
 class ESPHomeController(AbstractController):
@@ -178,9 +242,15 @@ class ESPHomeController(AbstractController):
             raise Exception("The encoding is not supported "
                             "by the ESPHome controller.")
     
-    async def send(self, command):
-        """Send a command."""
-        service_data = {'command':  json.loads(command)}
+    def prepare(self, command):
+        """Parse JSON without imposing a device-specific ESPHome argument schema."""
+        try:
+            payload = json.loads(_command_string(command))
+        except ValueError as err:
+            raise ServiceValidationError("Invalid ESPHome command JSON") from err
+        return {'command': payload}
 
+    async def send_prepared(self, prepared):
+        """Await the ESPHome service handler."""
         await self.hass.services.async_call(
-            'esphome', self._controller_data, service_data)
+            'esphome', self._controller_data, prepared, blocking=True)

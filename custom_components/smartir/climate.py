@@ -13,6 +13,7 @@ from homeassistant.const import (
     CONF_NAME, STATE_ON, STATE_OFF, STATE_UNKNOWN, STATE_UNAVAILABLE, ATTR_TEMPERATURE,
     PRECISION_TENTHS, PRECISION_HALVES, PRECISION_WHOLE)
 from homeassistant.core import Event, EventStateChangedData, callback
+from homeassistant.exceptions import HomeAssistantError, ServiceValidationError
 from homeassistant.helpers.event import async_track_state_change, async_track_state_change_event
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
@@ -298,55 +299,23 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
     async def async_set_temperature(self, **kwargs):
         """Set new target temperatures."""
-        hvac_mode = kwargs.get(ATTR_HVAC_MODE)  
         temperature = kwargs.get(ATTR_TEMPERATURE)
-          
         if temperature is None:
             return
-            
-        if temperature < self._min_temperature or temperature > self._max_temperature:
-            _LOGGER.warning('The temperature value is out of min/max range') 
-            return
-
-        if self._precision == PRECISION_WHOLE:
-            self._target_temperature = round(temperature)
-        else:
-            self._target_temperature = round(temperature, 1)
-
-        if hvac_mode:
-            await self.async_set_hvac_mode(hvac_mode)
-            return
-        
-        if not self._hvac_mode.lower() == HVACMode.OFF:
-            await self.send_command()
-
-        self.async_write_ha_state()
+        await self._async_apply_settings(
+            temperature=temperature, hvac_mode=kwargs.get(ATTR_HVAC_MODE))
 
     async def async_set_hvac_mode(self, hvac_mode):
         """Set operation mode."""
-        self._hvac_mode = hvac_mode
-        
-        if not hvac_mode == HVACMode.OFF:
-            self._last_on_operation = hvac_mode
-
-        await self.send_command()
-        self.async_write_ha_state()
+        await self._async_apply_settings(hvac_mode=hvac_mode)
 
     async def async_set_fan_mode(self, fan_mode):
         """Set fan mode."""
-        self._current_fan_mode = fan_mode
-        
-        if not self._hvac_mode.lower() == HVACMode.OFF:
-            await self.send_command()      
-        self.async_write_ha_state()
+        await self._async_apply_settings(fan_mode=fan_mode)
 
     async def async_set_swing_mode(self, swing_mode):
         """Set swing mode."""
-        self._current_swing_mode = swing_mode
-
-        if not self._hvac_mode.lower() == HVACMode.OFF:
-            await self.send_command()
-        self.async_write_ha_state()
+        await self._async_apply_settings(swing_mode=swing_mode)
 
     async def async_turn_off(self):
         """Turn off."""
@@ -354,37 +323,89 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         
     async def async_turn_on(self):
         """Turn on."""
-        if self._last_on_operation is not None:
-            await self.async_set_hvac_mode(self._last_on_operation)
-        else:
-            await self.async_set_hvac_mode(self._operation_modes[1])
+        await self._async_apply_settings(turn_on=True)
 
-    async def send_command(self):
+    async def _async_apply_settings(self, *, hvac_mode=None, temperature=None,
+                                   fan_mode=None, swing_mode=None, turn_on=False):
+        """Send one requested state before committing its assumed settings."""
         async with self._temp_lock:
-            try:
-                self._on_by_remote = False
-                operation_mode = self._hvac_mode
-                fan_mode = self._current_fan_mode
-                swing_mode = self._current_swing_mode
-                target_temperature = '{0:g}'.format(self._target_temperature)
+            if turn_on:
+                hvac_mode = self._last_on_operation
+                if hvac_mode is None:
+                    if len(self._operation_modes) < 2:
+                        raise ServiceValidationError("No supported operation mode")
+                    hvac_mode = self._operation_modes[1]
 
-                if operation_mode.lower() == HVACMode.OFF:
-                    await self._controller.send(self._commands['off'])
-                    return
-
-                if 'on' in self._commands:
-                    await self._controller.send(self._commands['on'])
-                    await asyncio.sleep(self._delay)
-
-                if self._support_swing == True:
-                    await self._controller.send(
-                        self._commands[operation_mode][fan_mode][swing_mode][target_temperature])
+            if hvac_mode is not None and hvac_mode not in self._operation_modes:
+                raise ServiceValidationError(f"Unsupported HVAC mode: {hvac_mode}")
+            if fan_mode is not None and fan_mode not in self._fan_modes:
+                raise ServiceValidationError(f"Unsupported fan mode: {fan_mode}")
+            if swing_mode is not None and swing_mode not in (self._swing_modes or []):
+                raise ServiceValidationError(f"Unsupported swing mode: {swing_mode}")
+            if temperature is not None:
+                if not self._min_temperature <= temperature <= self._max_temperature:
+                    raise ServiceValidationError("Temperature is out of min/max range")
+                if self._precision == PRECISION_WHOLE:
+                    temperature = round(temperature)
                 else:
-                    await self._controller.send(
-                        self._commands[operation_mode][fan_mode][target_temperature])
+                    temperature = round(temperature, 1)
 
-            except Exception as e:
-                _LOGGER.exception(e)
+            operation_mode = self._hvac_mode if hvac_mode is None else hvac_mode
+            target_temperature = self._target_temperature if temperature is None else temperature
+            fan_mode = self._current_fan_mode if fan_mode is None else fan_mode
+            swing_mode = self._current_swing_mode if swing_mode is None else swing_mode
+
+            # Settings-only changes while off are remembered without transmitting.
+            if hvac_mode is not None or operation_mode != HVACMode.OFF:
+                await self.send_command(
+                    operation_mode, fan_mode, swing_mode, target_temperature)
+                self._on_by_remote = False
+
+            self._hvac_mode = operation_mode
+            self._target_temperature = target_temperature
+            self._current_fan_mode = fan_mode
+            self._current_swing_mode = swing_mode
+            if hvac_mode is not None and hvac_mode != HVACMode.OFF:
+                self._last_on_operation = hvac_mode
+            self.async_write_ha_state()
+
+    async def send_command(self, operation_mode, fan_mode, swing_mode, temperature):
+        """Send a selected state. The caller holds the transaction lock."""
+        try:
+            if operation_mode == HVACMode.OFF:
+                command = self._commands['off']
+            else:
+                target_temperature = '{0:g}'.format(temperature)
+                if self._support_swing:
+                    command = self._commands[operation_mode][fan_mode][swing_mode][target_temperature]
+                else:
+                    command = self._commands[operation_mode][fan_mode][target_temperature]
+            on_command = self._commands.get('on') if operation_mode != HVACMode.OFF else None
+        except (KeyError, TypeError, ValueError) as err:
+            raise ServiceValidationError(
+                f"No command for HVAC mode {operation_mode}, fan {fan_mode}, "
+                f"swing {swing_mode}, temperature {temperature}") from err
+
+        commands = []
+        if operation_mode != HVACMode.OFF and 'on' in self._commands:
+            commands.append(on_command)
+        commands.append(command)
+        for selected_command in commands:
+            codes = selected_command if isinstance(selected_command, list) else [selected_command]
+            if not codes or any(not isinstance(code, str) or not code for code in codes):
+                raise ServiceValidationError("IR commands must be nonempty strings or lists of strings")
+
+        # Prepare the entire sequence before a preamble can operate the device.
+        prepared = [self._controller.prepare(selected) for selected in commands]
+        try:
+            for index, payload in enumerate(prepared):
+                if index:
+                    await asyncio.sleep(self._delay)
+                await self._controller.send_prepared(payload)
+        except HomeAssistantError:
+            raise
+        except Exception as err:
+            raise HomeAssistantError("Failed to send climate command") from err
                 
     @callback
     async def _async_temp_sensor_changed(self, event: Event[EventStateChangedData]) -> None:
@@ -420,20 +441,22 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         if old_state is not None and new_state.state == old_state.state:
             return
 
-        if new_state.state == STATE_ON and self._hvac_mode == HVACMode.OFF:
-            self._on_by_remote = True
-            if self._power_sensor_restore_state == True and self._last_on_operation is not None:
-                self._hvac_mode = self._last_on_operation
-            else:
-                self._hvac_mode = STATE_ON
+        # Apply power observations after any in-flight requested-state transaction.
+        async with self._temp_lock:
+            if new_state.state == STATE_ON and self._hvac_mode == HVACMode.OFF:
+                self._on_by_remote = True
+                if self._power_sensor_restore_state == True and self._last_on_operation is not None:
+                    self._hvac_mode = self._last_on_operation
+                else:
+                    self._hvac_mode = STATE_ON
 
-            self.async_write_ha_state()
+                self.async_write_ha_state()
 
-        if new_state.state == STATE_OFF:
-            self._on_by_remote = False
-            if self._hvac_mode != HVACMode.OFF:
-                self._hvac_mode = HVACMode.OFF
-            self.async_write_ha_state()
+            if new_state.state == STATE_OFF:
+                self._on_by_remote = False
+                if self._hvac_mode != HVACMode.OFF:
+                    self._hvac_mode = HVACMode.OFF
+                self.async_write_ha_state()
 
     @callback
     def _async_update_temp(self, state):
