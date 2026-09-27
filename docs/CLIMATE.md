@@ -630,6 +630,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models   | Controller |
 | ---------------------------------- | ------------------ | ---------- |
 | [2100](../codes/climate/2100.json) | Magnum Inverter 19 | Broadlink  |
+| [2101](../codes/climate/2101.json) | X32                | Broadlink  |
 
 #### Technibel
 | Code                               | Supported Models | Controller |
