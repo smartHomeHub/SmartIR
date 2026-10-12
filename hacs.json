@@ -1,5 +1,6 @@
 {
-  "name": "SmartIR",
+  "name": "SmartIR Fujitsu AR-DB1",
   "homeassistant": "2025.5.0",
-  "persistent_directory": "codes"
+  "persistent_directory": "codes",
+  "render_readme": true
 }

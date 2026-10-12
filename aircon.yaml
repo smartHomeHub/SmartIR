@@ -1,0 +1,301 @@
+esphome:
+  name: aircon
+  friendly_name: Air Condition
+
+esp8266:
+  board: d1_mini
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: !secret api_encryption_key
+
+  actions:
+    - action: send_raw_command
+      variables:
+        command: int[]
+      then:
+        - remote_transmitter.transmit_raw:
+            code: !lambda 'return command;'
+            carrier_frequency: 38kHz
+
+ota:
+  - platform: esphome
+    encryption:
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+globals:
+  - id: ir_raw_frame
+    type: std::string
+    restore_value: no
+    initial_value: '""'
+  - id: fujitsu_ardb1_valid
+    type: bool
+    restore_value: no
+    initial_value: 'false'
+  - id: fujitsu_ardb1_off
+    type: bool
+    restore_value: no
+    initial_value: 'false'
+  - id: fujitsu_ardb1_command
+    type: std::string
+    restore_value: no
+    initial_value: '""'
+  - id: fujitsu_ardb1_mode
+    type: std::string
+    restore_value: no
+    initial_value: '""'
+  - id: fujitsu_ardb1_fan
+    type: std::string
+    restore_value: no
+    initial_value: '""'
+  - id: fujitsu_ardb1_swing_mode
+    type: std::string
+    restore_value: no
+    initial_value: '"off"'
+  - id: fujitsu_ardb1_temperature
+    type: int
+    restore_value: no
+    initial_value: '0'
+  - id: fujitsu_ardb1_valid_frames
+    type: uint32_t
+    restore_value: no
+    initial_value: '0'
+  - id: fujitsu_ardb1_rejected_frames
+    type: uint32_t
+    restore_value: no
+    initial_value: '0'
+  - id: fujitsu_ardb1_off_frames
+    type: uint32_t
+    restore_value: no
+    initial_value: '0'
+
+status_led:
+  pin:
+    number: D4
+    inverted: true
+
+# --------------------------------------------------
+# IR TRANSMITTER
+# --------------------------------------------------
+
+remote_transmitter:
+  id: ir_tx
+  pin: D5
+  carrier_duty_percent: 50%
+
+
+# --------------------------------------------------
+# IR RECEIVER
+# --------------------------------------------------
+
+remote_receiver:
+  id: ir_rx
+  pin:
+    number: D1
+    inverted: true
+    mode: INPUT_PULLUP
+  tolerance: 55%
+  buffer_size: 2kb
+
+  on_raw:
+    then:
+      - lambda: |-
+          ESP_LOGI("IR_LEARN", "RAW FRAME: %d timings", x.size());
+
+          id(fujitsu_ardb1_valid) = false;
+          id(fujitsu_ardb1_off) = false;
+          id(fujitsu_ardb1_command).clear();
+          id(fujitsu_ardb1_mode).clear();
+          id(fujitsu_ardb1_fan).clear();
+          id(fujitsu_ardb1_swing_mode) = "off";
+          id(fujitsu_ardb1_temperature) = 0;
+
+          // AR-DB1 carries LSB-first data in the long/short spaces.  A full
+          // state frame is 15 bytes (120 bits); OFF is the 6-byte short frame.
+          uint8_t bytes[15] = {0};
+          const size_t bit_count = (x.size() >= 2) ? (x.size() - 2) / 2 : 0;
+          const size_t usable_bits = bit_count < 120 ? bit_count : 120;
+          for (size_t bit = 0; bit < usable_bits; bit++) {
+            const int32_t space = x[3 + bit * 2];
+            if (space < -700) {
+              bytes[bit / 8] |= 1 << (bit % 8);
+            }
+          }
+
+          const bool header_ok = usable_bits >= 48 &&
+              bytes[0] == 0x14 && bytes[1] == 0x63 && bytes[2] == 0x00 &&
+              bytes[3] == 0x10 && bytes[4] == 0x10;
+          uint8_t swing = 0;
+          if (header_ok && bytes[5] == 0x02) {
+            id(fujitsu_ardb1_valid) = true;
+            id(fujitsu_ardb1_off) = true;
+            id(fujitsu_ardb1_command) = "off";
+          } else if (header_ok && bytes[5] == 0x6D) {
+            id(fujitsu_ardb1_valid) = true;
+            id(fujitsu_ardb1_command) = "swing_toggle";
+          } else if (header_ok && usable_bits == 120 && bytes[5] == 0xFC &&
+                     bytes[6] == 0x08 && bytes[7] == 0x30) {
+            uint8_t checksum = 0;
+            for (size_t index = 0; index < 14; index++) {
+              checksum += bytes[index];
+            }
+            if (bytes[14] == uint8_t(0x9B - checksum)) {
+              const char *modes[] = {"heat_cool", "cool", "dry", "fan_only", "heat"};
+              const char *fans[] = {"auto", "high", "medium", "low", "Quiet"};
+              const uint8_t mode = bytes[9] & 0x07;
+              const uint8_t fan = bytes[10] & 0x07;
+              swing = (bytes[10] >> 4) & 0x03;
+              if (mode <= 4 && fan <= 4) {
+                id(fujitsu_ardb1_valid) = true;
+                id(fujitsu_ardb1_mode) = modes[mode];
+                id(fujitsu_ardb1_fan) = fans[fan];
+                id(fujitsu_ardb1_swing_mode) = swing == 1 ? "vertical" : "off";
+                id(fujitsu_ardb1_temperature) = ((bytes[8] >> 2) / 4) + 16;
+              }
+            }
+          }
+
+          if (id(fujitsu_ardb1_valid)) {
+            id(fujitsu_ardb1_valid_frames)++;
+            if (id(fujitsu_ardb1_command) == "swing_toggle") {
+              id(fujitsu_ardb1_last_decoded).publish_state("vertical swing toggled");
+              ESP_LOGI("FUJITSU_ARDB1", "decoded vertical swing toggle");
+            } else if (id(fujitsu_ardb1_off)) {
+              id(fujitsu_ardb1_off_frames)++;
+              id(fujitsu_ardb1_last_decoded).publish_state("off");
+              ESP_LOGI("FUJITSU_ARDB1", "decoded OFF");
+            } else {
+              id(fujitsu_ardb1_last_decoded).publish_state(
+                  id(fujitsu_ardb1_mode) + " / " + id(fujitsu_ardb1_fan) +
+                  " / " + std::to_string(id(fujitsu_ardb1_temperature)) + " C");
+              ESP_LOGI("FUJITSU_ARDB1", "decoded mode=%s fan=%s temperature=%d swing=%d",
+                       id(fujitsu_ardb1_mode).c_str(), id(fujitsu_ardb1_fan).c_str(),
+                       id(fujitsu_ardb1_temperature), swing);
+            }
+          } else if (x.size() >= 98) {
+            id(fujitsu_ardb1_rejected_frames)++;
+          }
+
+          if (x.size() < 20) {
+            ESP_LOGI("IR_LEARN", "ignored");
+            return;
+          }
+
+          std::string raw;
+          for (size_t i = 0; i < x.size(); i++) {
+            if (i > 0) raw += ",";
+            raw += std::to_string(x[i]);
+          }
+
+          id(ir_raw_frame) = raw;
+          if (x.size() >= 90) {
+            ESP_LOGI("IR_CAPTURE", "RAW FRAME (%d timings): %s", x.size(), raw.c_str());
+          }
+
+      - if:
+          condition:
+            lambda: 'return x.size() >= 100;'
+          then:
+            - homeassistant.event:
+                event: esphome.aircon_ir_received
+                data:
+                  raw: !lambda 'return id(ir_raw_frame);'
+                  length: !lambda 'return x.size();'
+                  protocol: fujitsu_ardb1
+                  decoded: !lambda 'return id(fujitsu_ardb1_valid);'
+                  command: !lambda 'return id(fujitsu_ardb1_command);'
+                  mode: !lambda 'return id(fujitsu_ardb1_mode);'
+                  fan: !lambda 'return id(fujitsu_ardb1_fan);'
+                  swing_mode: !lambda 'return id(fujitsu_ardb1_swing_mode);'
+                  temperature: !lambda 'return id(fujitsu_ardb1_temperature);'
+
+
+# --------------------------------------------------
+# TEMPERATURE / HUMIDITY
+# --------------------------------------------------
+
+sensor:
+  - platform: dht
+    pin: D2
+
+    temperature:
+      name: "Current Temperature"
+      id: temperature_sensor
+      unit_of_measurement: "°C"
+      accuracy_decimals: 1
+
+    humidity:
+      name: "Current Humidity"
+      id: humidity_sensor
+
+    model: DHT22
+    update_interval: 60s
+
+# --------------------------------------------------
+# DIAGNOSTICS
+# --------------------------------------------------
+
+  - platform: template
+    name: "Valid IR Frames"
+    id: fujitsu_ardb1_valid_frames_sensor
+    entity_category: diagnostic
+    disabled_by_default: true
+    accuracy_decimals: 0
+    update_interval: 15s
+    lambda: 'return id(fujitsu_ardb1_valid_frames);'
+
+  - platform: template
+    name: "Rejected IR Frames"
+    id: fujitsu_ardb1_rejected_frames_sensor
+    entity_category: diagnostic
+    disabled_by_default: true
+    accuracy_decimals: 0
+    update_interval: 15s
+    lambda: 'return id(fujitsu_ardb1_rejected_frames);'
+
+  - platform: template
+    name: "OFF IR Frames"
+    id: fujitsu_ardb1_off_frames_sensor
+    entity_category: diagnostic
+    disabled_by_default: true
+    accuracy_decimals: 0
+    update_interval: 15s
+    lambda: 'return id(fujitsu_ardb1_off_frames);'
+
+  - platform: wifi_signal
+    name: "WiFi Signal"
+    entity_category: diagnostic
+    update_interval: 60s
+
+text_sensor:
+  - platform: template
+    name: "Last Decoded IR"
+    id: fujitsu_ardb1_last_decoded
+    entity_category: diagnostic
+    disabled_by_default: true
+    update_interval: never
+
+button:
+  - platform: template
+    name: "Reset IR Diagnostics"
+    entity_category: diagnostic
+    disabled_by_default: true
+    on_press:
+      - lambda: |-
+          id(fujitsu_ardb1_valid_frames) = 0;
+          id(fujitsu_ardb1_rejected_frames) = 0;
+          id(fujitsu_ardb1_off_frames) = 0;
+          id(fujitsu_ardb1_last_decoded).publish_state("reset");
+
+
+binary_sensor:
+  - platform: gpio
+    pin: D7
+    name: "Louvre"

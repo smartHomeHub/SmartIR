@@ -32,6 +32,13 @@ CONF_TEMPERATURE_SENSOR = 'temperature_sensor'
 CONF_HUMIDITY_SENSOR = 'humidity_sensor'
 CONF_POWER_SENSOR = 'power_sensor'
 CONF_POWER_SENSOR_RESTORE_STATE = 'power_sensor_restore_state'
+CONF_RECEIVER_EVENT = 'receiver_event'
+CONF_RECEIVER_DEVICE_ID = 'receiver_device_id'
+
+RECEIVER_MIN_FRAME_LENGTH = 20
+RECEIVER_LONG_SPACE_THRESHOLD = -700
+RECEIVER_END_OF_FRAME_THRESHOLD = -5000
+RECEIVER_MAX_BIT_ERRORS = 0
 
 SUPPORT_FLAGS = (
     ClimateEntityFeature.TURN_OFF |
@@ -49,7 +56,9 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_TEMPERATURE_SENSOR): cv.entity_id,
     vol.Optional(CONF_HUMIDITY_SENSOR): cv.entity_id,
     vol.Optional(CONF_POWER_SENSOR): cv.entity_id,
-    vol.Optional(CONF_POWER_SENSOR_RESTORE_STATE, default=False): cv.boolean
+    vol.Optional(CONF_POWER_SENSOR_RESTORE_STATE, default=False): cv.boolean,
+    vol.Optional(CONF_RECEIVER_EVENT): cv.string,
+    vol.Optional(CONF_RECEIVER_DEVICE_ID): cv.string
 })
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
@@ -109,6 +118,8 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._humidity_sensor = config.get(CONF_HUMIDITY_SENSOR)
         self._power_sensor = config.get(CONF_POWER_SENSOR)
         self._power_sensor_restore_state = config.get(CONF_POWER_SENSOR_RESTORE_STATE)
+        self._receiver_event = config.get(CONF_RECEIVER_EVENT)
+        self._receiver_device_id = config.get(CONF_RECEIVER_DEVICE_ID)
 
         self._manufacturer = device_data['manufacturer']
         self._supported_models = device_data['supportedModels']
@@ -123,7 +134,9 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._operation_modes = [HVACMode.OFF] + valid_hvac_modes
         self._fan_modes = device_data['fanModes']
         self._swing_modes = device_data.get('swingModes')
+        self._swing_commands = device_data.get('swingCommands', {})
         self._commands = device_data['commands']
+        self._receiver_frames = self._build_receiver_frames(self._commands)
 
         self._target_temperature = self._min_temperature
         self._hvac_mode = HVACMode.OFF
@@ -191,6 +204,19 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         if self._power_sensor:
             async_track_state_change_event(self.hass, self._power_sensor, 
                                            self._async_power_sensor_changed)
+
+        if self._receiver_event and self._receiver_device_id:
+            self.async_on_remove(
+                self.hass.bus.async_listen(
+                    self._receiver_event,
+                    self._async_received_ir_frame,
+                )
+            )
+        elif self._receiver_event or self._receiver_device_id:
+            _LOGGER.warning(
+                "Both receiver_event and receiver_device_id are required for %s",
+                self.name,
+            )
 
     @property
     def unique_id(self):
@@ -345,7 +371,11 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._current_swing_mode = swing_mode
 
         if not self._hvac_mode.lower() == HVACMode.OFF:
-            await self.send_command()
+            swing_command = self._swing_commands.get(swing_mode)
+            if swing_command:
+                await self._controller.send(swing_command)
+            else:
+                await self.send_command()
         self.async_write_ha_state()
 
     async def async_turn_off(self):
@@ -367,7 +397,6 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 fan_mode = self._current_fan_mode
                 swing_mode = self._current_swing_mode
                 target_temperature = '{0:g}'.format(self._target_temperature)
-
                 if operation_mode.lower() == HVACMode.OFF:
                     await self._controller.send(self._commands['off'])
                     return
@@ -376,7 +405,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                     await self._controller.send(self._commands['on'])
                     await asyncio.sleep(self._delay)
 
-                if self._support_swing == True:
+                if self._support_swing == True and not self._swing_commands:
                     await self._controller.send(
                         self._commands[operation_mode][fan_mode][swing_mode][target_temperature])
                 else:
@@ -385,6 +414,227 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
             except Exception as e:
                 _LOGGER.exception(e)
+
+    @staticmethod
+    def _build_receiver_frames(commands):
+        """Flatten the SmartIR command tree into raw frames and their state."""
+        frames = []
+
+        def walk(node, metadata):
+            if isinstance(node, str):
+                try:
+                    frames.append({
+                        'raw': json.loads(node),
+                        'metadata': metadata.copy(),
+                    })
+                except json.JSONDecodeError:
+                    _LOGGER.warning("Invalid raw command in SmartIR device code")
+                return
+
+            if not isinstance(node, dict):
+                return
+
+            for key, value in node.items():
+                new_metadata = metadata.copy()
+                if not metadata and key == 'off':
+                    new_metadata['command'] = 'off'
+                elif not metadata:
+                    new_metadata['mode'] = key
+                elif 'mode' in metadata and 'fan' not in metadata:
+                    new_metadata['fan'] = key
+                elif 'fan' in metadata:
+                    try:
+                        new_metadata['temperature'] = float(key)
+                    except ValueError:
+                        new_metadata['temperature'] = key
+                walk(value, new_metadata)
+
+        walk(commands, {})
+        return frames
+
+    @staticmethod
+    def _frame_signature(frame):
+        """Convert Fujitsu raw timings to its stable short/long-space bit stream."""
+        signature = []
+        for index in range(2, len(frame) - 1, 2):
+            space = frame[index + 1]
+            if space <= RECEIVER_END_OF_FRAME_THRESHOLD:
+                break
+            signature.append(space <= RECEIVER_LONG_SPACE_THRESHOLD)
+        return tuple(signature)
+
+    @classmethod
+    def _compare_received_frame(cls, received, candidate):
+        """Compare decoded Fujitsu bits, ignoring harmless timing jitter."""
+        received_signature = cls._frame_signature(received)
+        candidate_signature = cls._frame_signature(candidate)
+        if len(received_signature) != len(candidate_signature):
+            return None
+        if not received_signature:
+            return None
+
+        bit_errors = sum(
+            received_bit != candidate_bit
+            for received_bit, candidate_bit in zip(
+                received_signature, candidate_signature
+            )
+        )
+        return -bit_errors, bit_errors, len(received_signature)
+
+    @callback
+    def _async_received_ir_frame(self, event):
+        """Update this climate entity from an IR frame received by ESPHome."""
+        received_device_id = event.data.get('device_id')
+        if received_device_id != self._receiver_device_id:
+            _LOGGER.warning(
+                "Ignoring IR event for %s: expected device_id=%s, received=%s",
+                self.name,
+                self._receiver_device_id,
+                received_device_id,
+            )
+            return
+
+        # The ESPHome AR-DB1 decoder has already validated its header and
+        # checksum.  Do not fall back to fuzzy raw-frame matching for this
+        # source: incomplete frames must leave the current state untouched.
+        if event.data.get('protocol') == 'fujitsu_ardb1':
+            decoded = event.data.get('decoded')
+            if decoded is not True and str(decoded).lower() not in ('1', 'true'):
+                _LOGGER.debug("Rejected incomplete AR-DB1 frame for %s", self.name)
+                return
+
+            command = event.data.get('command')
+            if command == 'swing_toggle':
+                if not self._swing_modes:
+                    _LOGGER.warning("Received AR-DB1 swing command for %s without swing modes", self.name)
+                    return
+                self._current_swing_mode = (
+                    'off' if self._current_swing_mode == 'vertical' else 'vertical'
+                )
+                _LOGGER.info("Received AR-DB1 swing toggle for %s: %s", self.name, self._current_swing_mode)
+            elif command == 'off':
+                self._hvac_mode = HVACMode.OFF
+                _LOGGER.info("Received AR-DB1 OFF command for %s", self.name)
+            else:
+                mode = event.data.get('mode')
+                fan_mode = event.data.get('fan')
+                temperature = event.data.get('temperature')
+                if mode not in self._operation_modes or fan_mode not in self._fan_modes:
+                    _LOGGER.warning(
+                        "Received unsupported AR-DB1 state for %s: mode=%s fan=%s",
+                        self.name, mode, fan_mode,
+                    )
+                    return
+                try:
+                    temperature = float(temperature)
+                except (TypeError, ValueError):
+                    _LOGGER.warning("Received invalid AR-DB1 temperature for %s", self.name)
+                    return
+
+                self._hvac_mode = mode
+                self._last_on_operation = mode
+                self._current_fan_mode = fan_mode
+                self._target_temperature = temperature
+                swing_mode = event.data.get('swing_mode')
+                if swing_mode in (self._swing_modes or []):
+                    self._current_swing_mode = swing_mode
+                _LOGGER.info(
+                    "Received AR-DB1 state for %s: mode=%s fan=%s temperature=%s swing=%s",
+                    self.name, mode, fan_mode, temperature, self._current_swing_mode,
+                )
+
+            self.async_write_ha_state()
+            return
+
+        raw_string = event.data.get('raw')
+        if not isinstance(raw_string, str):
+            return
+
+        _LOGGER.warning(
+            "Processing received IR frame for %s: %d timings",
+            self.name,
+            len(raw_string.split(',')),
+        )
+
+        try:
+            received = [int(value.strip()) for value in raw_string.split(',')]
+        except ValueError:
+            _LOGGER.warning("Unable to parse received IR frame for %s", self.name)
+            return
+
+        if len(received) < RECEIVER_MIN_FRAME_LENGTH:
+            return
+
+        best = None
+        best_metadata = []
+        for frame in self._receiver_frames:
+            result = self._compare_received_frame(received, frame['raw'])
+            if result is None:
+                continue
+            if best is None or result[0] > best['score']:
+                best = {
+                    'metadata': frame['metadata'],
+                    'score': result[0],
+                    'bit_errors': result[1],
+                    'bit_count': result[2],
+                }
+                best_metadata = [frame['metadata']]
+            elif result[0] == best['score']:
+                best_metadata.append(frame['metadata'])
+
+        if best is None or best['bit_errors'] > RECEIVER_MAX_BIT_ERRORS:
+            if best is None:
+                _LOGGER.warning(
+                    "Received IR frame for %s has no complete Fujitsu bit signature",
+                    self.name,
+                )
+            else:
+                _LOGGER.warning(
+                    "Received IR frame rejected for %s: candidate=%s bit_errors=%d/%d",
+                    self.name,
+                    best['metadata'],
+                    best['bit_errors'],
+                    best['bit_count'],
+                )
+            return
+
+        distinct_matches = {
+            json.dumps(metadata, sort_keys=True)
+            for metadata in best_metadata
+        }
+        if len(distinct_matches) != 1:
+            _LOGGER.warning(
+                "Received IR frame for %s is ambiguous and was ignored: %s",
+                self.name,
+                sorted(distinct_matches),
+            )
+            return
+
+        metadata = best_metadata[0]
+        if metadata.get('command') == 'off':
+            self._hvac_mode = HVACMode.OFF
+        else:
+            mode = metadata.get('mode')
+            fan_mode = metadata.get('fan')
+            temperature = metadata.get('temperature')
+            if mode not in self._operation_modes or fan_mode not in self._fan_modes:
+                _LOGGER.warning("Received IR frame has unsupported SmartIR state: %s", metadata)
+                return
+
+            self._hvac_mode = mode
+            self._last_on_operation = mode
+            self._current_fan_mode = fan_mode
+            if isinstance(temperature, (int, float)):
+                self._target_temperature = temperature
+
+        _LOGGER.warning(
+            "Received IR match for %s: %s (bit_errors=%d/%d)",
+            self.name,
+            metadata,
+            best['bit_errors'],
+            best['bit_count'],
+        )
+        self.async_write_ha_state()
                 
     @callback
     async def _async_temp_sensor_changed(self, event: Event[EventStateChangedData]) -> None:
