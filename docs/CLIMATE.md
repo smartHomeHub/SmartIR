@@ -973,3 +973,9 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | -----------------| ---------- |
 | [3380](../codes/climate/3380.json) | DualSplit | Broadlink  |
+
+#### Olimpia Splendid
+| Code                               | Supported Models | Controller |
+| ---------------------------------- | ---------------- | ---------- |
+| [1981](../codes/climate/1981.json) | Unico (LCD remote, 11-byte IR protocol) | Broadlink |
+| [1982](../codes/climate/1982.json) | Unico Master (short 71-bit IR protocol) | Broadlink |
