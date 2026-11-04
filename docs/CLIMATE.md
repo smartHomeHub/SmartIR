@@ -993,3 +993,13 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [3480](../codes/climate/3480.json) | AKIRA GAN/GAG-A128 VL  | Broadlink  |
+
+### Rinnai
+| Code                               | Supported Models                            | Controller |
+| ---------------------------------- | ------------------------------------------- | ---------- |
+| [3500](../codes/climate/3500.json) | Enduro 13<br>Dynamo 15<br>Avenger 25        | Broadlink  |
+
+### Elco
+| Code                               | Supported Models | Controller |
+| ---------------------------------- | ---------------- | ---------- |
+| [3520](../codes/climate/3520.json) | Classic          | Broadlink  |
