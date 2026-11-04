@@ -983,3 +983,13 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [3440](../codes/climate/3440.json) | WRW07CSW<br>WRW11CSW   | Broadlink  |
+
+### Danby
+| Code                               | Supported Models | Controller |
+| ---------------------------------- | ---------------- | ---------- |
+| [3460](../codes/climate/3460.json) | Unknown          | Broadlink  |
+
+### Hommer
+| Code                               | Supported Models       | Controller |
+| ---------------------------------- | ---------------------- | ---------- |
+| [3480](../codes/climate/3480.json) | AKIRA GAN/GAG-A128 VL  | Broadlink  |
