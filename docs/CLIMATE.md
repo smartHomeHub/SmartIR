@@ -12,7 +12,7 @@ _Please note that the device_code field only accepts positive numbers. The .json
 | `name` | string | optional | The name of the device |
 | `unique_id` | string | optional | An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception. |
 | `device_code` | number | required | (Accepts only positive numbers) |
-| `controller_data` | string | required | The data required for the controller to function. Enter the entity_id of the Broadlink remote **(must be an already configured device)**, or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands. |
+| `controller_data` | string | required | The data required for the controller to function. Enter the entity_id of the Broadlink remote **(must be an already configured device)**, or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands or the ZHA zigbee cluster to send commands to. |
 | `delay` | number | optional | Adjusts the delay in seconds between multiple commands. The default is 0.5 |
 | `temperature_sensor` | string | optional | *entity_id* for a temperature sensor |
 | `humidity_sensor` | string | optional | *entity_id* for a humidity sensor |
@@ -118,6 +118,28 @@ climate:
     unique_id: office_ac
     device_code: 8000
     controller_data: my_espir_send_raw_command
+    temperature_sensor: sensor.temperature
+    humidity_sensor: sensor.humidity
+    power_sensor: binary_sensor.ac_power
+```
+
+## Example (using ZHA controller and a TuYa ZS06):
+```yaml
+smartir:
+
+climate:
+  - platform: smartir
+    name: Office AC
+    unique_id: office_ac
+    device_code: 9000
+    controller_data: '{
+     "ieee":"XX:XX:XX:XX:XX:XX:XX:XX",
+     "endpoint_id": 1,
+     "cluster_id": 57348,
+     "cluster_type": "in",
+     "command": 2,
+     "command_type": "server"
+    }'
     temperature_sensor: sensor.temperature
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
