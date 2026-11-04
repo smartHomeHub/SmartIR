@@ -5,14 +5,24 @@
 For this platform to work, we need a .json file containing all the necessary IR or RF commands.
 Find your device's brand code [here](FAN.md#available-codes-for-fan-devices) and add the number in the `device_code` field. The compoenent will download it to the correct folder. If your device is not working, you will need to learn your own codes and place the .json file in `smartir/codes/fan/` subfolders. Please note that the `device_code` field only accepts positive numbers. The .json extension is not required.
 
-## Configuration variables
+## Configuration variables:
 
-**name** (Optional): The name of the device<br />
-**unique_id** (Optional): An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.<br />
-**device_code** (Required): ...... (Accepts only positive numbers)<br />
-**controller_data** (Required): The data required for the controller to function. Enter the entity_id of the Broadlink remote (must be an already configured device), or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands.<br />
-**delay** (Optional): Adjusts the delay in seconds between multiple commands. The default is 0.5 <br />
-**power_sensor** (Optional): *entity_id* for a sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor. (Accepts only on/off states)<br />
+| Name | Type | Default | Description |
+| ---- | :--: | :-----: | ----------- |
+| `name` | string | optional | The name of the device |
+| `unique_id` | string | optional | An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception. |
+| `device_code` | number | required | (Accepts only positive numbers) |
+| `controller_data` | string | required | The data required for the controller to function. Enter the entity_id of the Broadlink remote **(must be an already configured device)**, or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands. |
+| `delay` | number | optional | Adjusts the delay in seconds between multiple commands. The default is 0.5 |
+| `power_sensor` | string | optional | *entity_id* for a sensor that monitors whether your device is actually `on` or `off`. This may be a power monitor sensor. (Accepts only on/off states) |
+| `power_consumption_sensor` | string | optional | *entity_id* for a numeric power sensor used to infer On/Off when consumption is above threshold. Used only if `power_sensor` is not set. |
+| `power_consumption_on_threshold_watts` | number | `10` | Threshold in watts to map `power_consumption_sensor` to On/Off (`> threshold` = on). Supports `W` and `kW` units; missing unit defaults to `W`. |
+| `power_consumption_retry_count` | number | `3` | Retries command resend when measured power does not match the expected On/Off state. Used only with `power_consumption_sensor`. |
+| `power_consumption_retry_initial_delay_seconds` | number | `2.0` | Initial delay before first retry for consumption mismatch handling. |
+| `power_consumption_retry_backoff_multiplier` | number | `1.5` | Exponential backoff multiplier applied between retry attempts. |
+| `power_consumption_retry_max_delay_seconds` | number | `10.0` | Maximum delay cap for retry backoff. |
+
+If both `power_sensor` and `power_consumption_sensor` are configured, SmartIR uses `power_sensor` and ignores consumption-based retries.
 
 ## Example (using broadlink controller)
 
@@ -113,6 +123,27 @@ fan:
     device_code: 4000
     controller_data: my_espir_send_raw_command
     power_sensor: binary_sensor.fan_power
+```
+
+## Example (numeric power consumption + retries)
+
+Use when you only have a **watts** sensor (for example from a plug or energy integration). Do not set `power_sensor` if you want consumption-based feedback and retries.
+
+```yaml
+smartir:
+
+fan:
+  - platform: smartir
+    name: Bedroom fan
+    unique_id: bedroom_fan_power_feedback
+    device_code: 3000
+    controller_data: zigbee2mqtt/bedroom/fan/set/ir_code_to_send
+    power_consumption_sensor: sensor.bedroom_fan_switch_power
+    power_consumption_on_threshold_watts: 10
+    power_consumption_retry_count: 3
+    power_consumption_retry_initial_delay_seconds: 1.0
+    power_consumption_retry_backoff_multiplier: 2.0
+    power_consumption_retry_max_delay_seconds: 8.0
 ```
 
 ## Available codes for Fan devices

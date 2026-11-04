@@ -17,7 +17,15 @@ _Please note that the device_code field only accepts positive numbers. The .json
 | `temperature_sensor` | string | optional | *entity_id* for a temperature sensor |
 | `humidity_sensor` | string | optional | *entity_id* for a humidity sensor |
 | `power_sensor` | string | optional | *entity_id* for a sensor that monitors whether your device is actually `on` or `off`. This may be a power monitor sensor. (Accepts only on/off states) |
+| `power_consumption_sensor` | string | optional | *entity_id* for a sensor reporting live power usage (numeric state). Used only if `power_sensor` is not set. |
+| `power_consumption_on_threshold_watts` | number | `10` | Threshold in watts to map `power_consumption_sensor` to On/Off (`> threshold` = on, otherwise off). Supports `W` and `kW` units; missing unit defaults to `W`. |
+| `power_consumption_retry_count` | number | `3` | Retries command resend when measured power does not match the expected On/Off state. Used only with `power_consumption_sensor`. |
+| `power_consumption_retry_initial_delay_seconds` | number | `2.0` | Initial delay before first retry for consumption mismatch handling. |
+| `power_consumption_retry_backoff_multiplier` | number | `1.5` | Exponential backoff multiplier applied between retry attempts. |
+| `power_consumption_retry_max_delay_seconds` | number | `10.0` | Maximum delay cap for retry backoff. |
 | `power_sensor_restore_state` | boolean | optional | If `power_sensor` is set, and the device is likely to turn off and back on while still in the set mode (for instance, a minisplit cycling on and off while in heating or cooling mode), setting this to `true` will cause the climate state to update dynamically, following the state of the `power_sensor`. |
+
+If both `power_sensor` and `power_consumption_sensor` are configured, SmartIR uses `power_sensor` and ignores consumption-based retries.
 
 ## Example (using broadlink controller):
 Add a Broadlink RM device named "Bedroom" via config flow (read the [docs](https://www.home-assistant.io/integrations/broadlink/)).
@@ -121,6 +129,30 @@ climate:
     temperature_sensor: sensor.temperature
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
+```
+
+## Example (numeric power consumption + retries)
+
+Typical setup when a smart plug or energy monitor exposes **watts** (not a binary on/off). SmartIR treats the load as on when power is **greater than** `power_consumption_on_threshold_watts`, optionally retries IR sends if feedback does not match, then aligns the entity to measured power if retries are exhausted.
+
+```yaml
+smartir:
+
+climate:
+  - platform: smartir
+    name: Bedroom AC
+    unique_id: bedroom_ac_power_feedback
+    device_code: 3000
+    controller_data: zigbee2mqtt/bedroom/ac/set/ir_code_to_send
+    temperature_sensor: sensor.bedroom_temperature
+    humidity_sensor: sensor.bedroom_humidity
+    power_consumption_sensor: sensor.bedroom_ac_switch_power
+    power_consumption_on_threshold_watts: 10
+    power_consumption_retry_count: 3
+    power_consumption_retry_initial_delay_seconds: 1.0
+    power_consumption_retry_backoff_multiplier: 2.0
+    power_consumption_retry_max_delay_seconds: 8.0
+    power_sensor_restore_state: true
 ```
 
 ## Available codes for climate devices:

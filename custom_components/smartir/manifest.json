@@ -17,6 +17,7 @@
       "fan.py",
       "light.py",  
       "controller.py",
+      "power_feedback.py",
       "manifest.json",
       "services.yaml"
     ]

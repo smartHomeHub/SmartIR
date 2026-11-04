@@ -21,6 +21,7 @@ from homeassistant.util.percentage import (
 )
 from . import COMPONENT_ABS_DIR, Helper
 from .controller import get_controller
+from .power_feedback import consumption_state_is_on, retry_with_feedback_backoff
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -32,6 +33,24 @@ CONF_DEVICE_CODE = 'device_code'
 CONF_CONTROLLER_DATA = "controller_data"
 CONF_DELAY = "delay"
 CONF_POWER_SENSOR = 'power_sensor'
+CONF_POWER_CONSUMPTION_SENSOR = 'power_consumption_sensor'
+CONF_POWER_CONSUMPTION_ON_THRESHOLD_WATTS = 'power_consumption_on_threshold_watts'
+CONF_POWER_CONSUMPTION_RETRY_COUNT = "power_consumption_retry_count"
+CONF_POWER_CONSUMPTION_RETRY_INITIAL_DELAY_SECONDS = (
+    "power_consumption_retry_initial_delay_seconds"
+)
+CONF_POWER_CONSUMPTION_RETRY_BACKOFF_MULTIPLIER = (
+    "power_consumption_retry_backoff_multiplier"
+)
+CONF_POWER_CONSUMPTION_RETRY_MAX_DELAY_SECONDS = (
+    "power_consumption_retry_max_delay_seconds"
+)
+
+DEFAULT_POWER_CONSUMPTION_ON_THRESHOLD_WATTS = 10.0
+DEFAULT_POWER_CONSUMPTION_RETRY_COUNT = 3
+DEFAULT_POWER_CONSUMPTION_RETRY_INITIAL_DELAY_SECONDS = 2.0
+DEFAULT_POWER_CONSUMPTION_RETRY_BACKOFF_MULTIPLIER = 1.5
+DEFAULT_POWER_CONSUMPTION_RETRY_MAX_DELAY_SECONDS = 10.0
 
 SPEED_OFF = "off"
 
@@ -41,7 +60,28 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_DEVICE_CODE): cv.positive_int,
     vol.Required(CONF_CONTROLLER_DATA): cv.string,
     vol.Optional(CONF_DELAY, default=DEFAULT_DELAY): cv.string,
-    vol.Optional(CONF_POWER_SENSOR): cv.entity_id
+    vol.Optional(CONF_POWER_SENSOR): cv.entity_id,
+    vol.Optional(CONF_POWER_CONSUMPTION_SENSOR): cv.entity_id,
+    vol.Optional(
+        CONF_POWER_CONSUMPTION_ON_THRESHOLD_WATTS,
+        default=DEFAULT_POWER_CONSUMPTION_ON_THRESHOLD_WATTS,
+    ): vol.All(vol.Coerce(float), vol.Range(min=0)),
+    vol.Optional(
+        CONF_POWER_CONSUMPTION_RETRY_COUNT,
+        default=DEFAULT_POWER_CONSUMPTION_RETRY_COUNT,
+    ): vol.All(vol.Coerce(int), vol.Range(min=0)),
+    vol.Optional(
+        CONF_POWER_CONSUMPTION_RETRY_INITIAL_DELAY_SECONDS,
+        default=DEFAULT_POWER_CONSUMPTION_RETRY_INITIAL_DELAY_SECONDS,
+    ): vol.All(vol.Coerce(float), vol.Range(min=0)),
+    vol.Optional(
+        CONF_POWER_CONSUMPTION_RETRY_BACKOFF_MULTIPLIER,
+        default=DEFAULT_POWER_CONSUMPTION_RETRY_BACKOFF_MULTIPLIER,
+    ): vol.All(vol.Coerce(float), vol.Range(min=1)),
+    vol.Optional(
+        CONF_POWER_CONSUMPTION_RETRY_MAX_DELAY_SECONDS,
+        default=DEFAULT_POWER_CONSUMPTION_RETRY_MAX_DELAY_SECONDS,
+    ): vol.All(vol.Coerce(float), vol.Range(min=0)),
 })
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
@@ -96,6 +136,22 @@ class SmartIRFan(FanEntity, RestoreEntity):
         self._controller_data = config.get(CONF_CONTROLLER_DATA)
         self._delay = config.get(CONF_DELAY)
         self._power_sensor = config.get(CONF_POWER_SENSOR)
+        self._power_consumption_sensor = config.get(CONF_POWER_CONSUMPTION_SENSOR)
+        self._power_consumption_on_threshold_watts = config.get(
+            CONF_POWER_CONSUMPTION_ON_THRESHOLD_WATTS
+        )
+        self._power_consumption_retry_count = config.get(
+            CONF_POWER_CONSUMPTION_RETRY_COUNT
+        )
+        self._power_consumption_retry_initial_delay_seconds = config.get(
+            CONF_POWER_CONSUMPTION_RETRY_INITIAL_DELAY_SECONDS
+        )
+        self._power_consumption_retry_backoff_multiplier = config.get(
+            CONF_POWER_CONSUMPTION_RETRY_BACKOFF_MULTIPLIER
+        )
+        self._power_consumption_retry_max_delay_seconds = config.get(
+            CONF_POWER_CONSUMPTION_RETRY_MAX_DELAY_SECONDS
+        )
 
         self._manufacturer = device_data['manufacturer']
         self._supported_models = device_data['supportedModels']
@@ -126,6 +182,8 @@ class SmartIRFan(FanEntity, RestoreEntity):
 
         self._temp_lock = asyncio.Lock()
         self._on_by_remote = False
+        self._last_consumption_effective_on = None
+        self._command_generation = 0
 
         #Init the IR/RF controller
         self._controller = get_controller(
@@ -154,9 +212,28 @@ class SmartIRFan(FanEntity, RestoreEntity):
             if 'last_on_speed' in last_state.attributes:
                 self._last_on_speed = last_state.attributes['last_on_speed']
 
-            if self._power_sensor:
-                async_track_state_change_event(self.hass, self._power_sensor, 
-                                               self._async_power_sensor_changed)
+        if self._power_sensor and self._power_consumption_sensor:
+            _LOGGER.warning(
+                "%s: both %s and %s are set; using %s only",
+                self.name,
+                CONF_POWER_SENSOR,
+                CONF_POWER_CONSUMPTION_SENSOR,
+                CONF_POWER_SENSOR,
+            )
+
+        if self._power_sensor:
+            async_track_state_change_event(
+                self.hass, self._power_sensor, self._async_power_sensor_changed
+            )
+        elif self._power_consumption_sensor:
+            async_track_state_change_event(
+                self.hass,
+                self._power_consumption_sensor,
+                self._async_power_consumption_sensor_changed,
+            )
+            cons_state = self.hass.states.get(self._power_consumption_sensor)
+            if cons_state is not None:
+                self._update_from_power_consumption(cons_state)
 
     @property
     def unique_id(self):
@@ -246,7 +323,7 @@ class SmartIRFan(FanEntity, RestoreEntity):
         """Set the direction of the fan"""
         self._direction = direction
 
-        if not self._speed.lower() == SPEED_OFF:
+        if self._speed and self._speed.lower() != SPEED_OFF:
             await self.send_command()
 
         self.async_write_ha_state()
@@ -263,45 +340,116 @@ class SmartIRFan(FanEntity, RestoreEntity):
         """Turn off the fan."""
         await self.async_set_percentage(0)
 
-    async def send_command(self):
-        async with self._temp_lock:
+    def _consumption_feedback_enabled(self) -> bool:
+        return self._power_sensor is None and self._power_consumption_sensor is not None
+
+    def _read_consumption_effective_power(self):
+        if not self._consumption_feedback_enabled():
+            return None
+        power_state = self.hass.states.get(self._power_consumption_sensor)
+        if power_state is None:
+            return None
+        return consumption_state_is_on(
+            power_state, self._power_consumption_on_threshold_watts
+        )
+
+    def _apply_effective_power(self, is_on: bool) -> None:
+        if is_on and self._speed == SPEED_OFF:
+            self._on_by_remote = True
+            self._speed = None
+            self.async_write_ha_state()
+        elif not is_on:
             self._on_by_remote = False
-            speed = self._speed
-            direction = self._direction or 'default'
-            oscillating = self._oscillating
+            if self._speed != SPEED_OFF:
+                self._speed = SPEED_OFF
+            self.async_write_ha_state()
 
-            if speed.lower() == SPEED_OFF:
-                command = self._commands['off']
-            elif oscillating:
-                command = self._commands['oscillate']
-            else:
-                command = self._commands[direction][speed] 
+    @callback
+    def _update_from_power_consumption(self, state) -> None:
+        is_on = consumption_state_is_on(
+            state, self._power_consumption_on_threshold_watts
+        )
+        if self._last_consumption_effective_on is not None and is_on == self._last_consumption_effective_on:
+            return
+        self._last_consumption_effective_on = is_on
+        self._apply_effective_power(is_on)
 
-            try:
-                await self._controller.send(command)
-            except Exception as e:
-                _LOGGER.exception(e)
+    async def _retry_consumption_feedback_if_needed(
+        self, desired_is_on: bool, command_generation: int, resend_command
+    ):
+        if not self._consumption_feedback_enabled():
+            return
+
+        def should_skip_retry() -> bool:
+            return command_generation != self._command_generation
+
+        def is_feedback_matching() -> bool:
+            current_is_on = self._read_consumption_effective_power()
+            return current_is_on is not None and current_is_on == desired_is_on
+
+        matched = await retry_with_feedback_backoff(
+            retry_count=self._power_consumption_retry_count,
+            initial_delay_seconds=self._power_consumption_retry_initial_delay_seconds,
+            backoff_multiplier=self._power_consumption_retry_backoff_multiplier,
+            max_delay_seconds=self._power_consumption_retry_max_delay_seconds,
+            should_skip_retry=should_skip_retry,
+            is_feedback_matching=is_feedback_matching,
+            resend_command=resend_command,
+        )
+        if matched or should_skip_retry():
+            return
+        measured_is_on = self._read_consumption_effective_power()
+        if measured_is_on is not None:
+            self._last_consumption_effective_on = measured_is_on
+            self._apply_effective_power(measured_is_on)
+
+    async def send_command(self):
+        self._command_generation += 1
+        command_generation = self._command_generation
+        speed = self._speed or SPEED_OFF
+        direction = self._direction or 'default'
+        oscillating = self._oscillating
+        desired_is_on = speed.lower() != SPEED_OFF
+
+        if speed.lower() == SPEED_OFF:
+            command = self._commands['off']
+        elif oscillating:
+            command = self._commands['oscillate']
+        else:
+            command = self._commands[direction][speed]
+
+        async def resend_command():
+            async with self._temp_lock:
+                self._on_by_remote = False
+                try:
+                    await self._controller.send(command)
+                except Exception as e:
+                    _LOGGER.exception(e)
+
+        await resend_command()
+        await self._retry_consumption_feedback_if_needed(
+            desired_is_on, command_generation, resend_command
+        )
 
     @callback
     async def _async_power_sensor_changed(self, event: Event[EventStateChangedData]) -> None:
         """Handle power sensor changes."""
-        entity_id = event.data["entity_id"]
         old_state = event.data["old_state"]
         new_state = event.data["new_state"]
 
         if new_state is None:
             return
 
-        if new_state.state == old_state.state:
+        if old_state is not None and new_state.state == old_state.state:
             return
 
-        if new_state.state == STATE_ON and self._speed == SPEED_OFF:
-            self._on_by_remote = True
-            self._speed = None
-            self.async_write_ha_state()
+        self._apply_effective_power(new_state.state == STATE_ON)
 
-        if new_state.state == STATE_OFF:
-            self._on_by_remote = False
-            if self._speed != SPEED_OFF:
-                self._speed = SPEED_OFF
-            self.async_write_ha_state()
+    @callback
+    async def _async_power_consumption_sensor_changed(
+        self, event: Event[EventStateChangedData]
+    ) -> None:
+        new_state = event.data["new_state"]
+        if new_state is None:
+            return
+        self._update_from_power_consumption(new_state)
