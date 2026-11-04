@@ -973,3 +973,13 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | -----------------| ---------- |
 | [3380](../codes/climate/3380.json) | DualSplit | Broadlink  |
+
+### FlinQ
+| Code                               | Supported Models | Controller |
+| ---------------------------------- | ---------------- | ---------- |
+| [3420](../codes/climate/3420.json) | FQC8151          | Broadlink  |
+
+### Winia
+| Code                               | Supported Models       | Controller |
+| ---------------------------------- | ---------------------- | ---------- |
+| [3440](../codes/climate/3440.json) | WRW07CSW<br>WRW11CSW   | Broadlink  |
