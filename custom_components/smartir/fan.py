@@ -12,7 +12,7 @@ from homeassistant.components.fan import (
 from homeassistant.const import (
     CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN)
 from homeassistant.core import Event, EventStateChangedData, callback
-from homeassistant.helpers.event import async_track_state_change, async_track_state_change_event
+from homeassistant.helpers.event import async_track_state_change_event
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
 from homeassistant.util.percentage import (
