@@ -179,8 +179,17 @@ class ESPHomeController(AbstractController):
                             "by the ESPHome controller.")
     
     async def send(self, command):
-        """Send a command."""
-        service_data = {'command':  json.loads(command)}
+        """Send commands."""
+        commands = []
 
-        await self.hass.services.async_call(
-            'esphome', self._controller_data, service_data)
+        if not isinstance(command, list): 
+            command = [command]
+
+        for _command in command:
+            commands.append(_command)
+
+        for _command in commands:
+            service_data = {'command':  json.loads(_command)}
+
+            await self.hass.services.async_call(
+                'esphome', self._controller_data, service_data)
