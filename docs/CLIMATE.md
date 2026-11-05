@@ -149,6 +149,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1030](../codes/climate/1030.json) | CS-E12JKDW <b>(Swing mode)</b>	    							  | Broadlink  |
 | [1031](../codes/climate/1031.json) | SRK25ZMP-S<br>SRK35ZMP-S<br>SRK45ZMP-S	    					  | Broadlink  |
 | [1032](../codes/climate/1032.json) | CS-CU-HU18YKYF	    					                                      | Broadlink  |
+| [7032](../codes/climate/7032.json) | A75C428 (Remote, untested)<br>A75C443 (Remote)<br>A75C559 (Remote, untested)<br>A75C598 (Remote, untested) | ESPHome |
 
 #### General Electric
 | Code                               | Supported Models                                                                               | Controller |
@@ -158,7 +159,6 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1042](../codes/climate/1042.json) | ASHA09LCC                                                                                      | Broadlink  |
 | [1043](../codes/climate/1043.json) | ASWX09LECA                                                                                     | Broadlink  |
 | [1044](../codes/climate/1044.json) | AHD08LXW1                                                                                      | Broadlink  |
-
 #### LG
 | Code                               | Supported Models                                                     | Controller |
 | ---------------------------------- | -------------------------------------------------------------------- | ---------- |
@@ -220,6 +220,9 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [4100](../codes/climate/4100.json) | FTXS25CVMB<br>FTXS35CVMB<br>FTXS60BVMB<br>FVXS25BVMB                                                 | Xiaomi     |
 | [4100](../codes/climate/4100.json) | FTXS25CVMB<br>FTXS35CVMB<br>FTXS60BVMB<br>FVXS25BVMB                                                                                                           | Xiaomi     |
 | [5120](../codes/climate/5120.json) | ARC433B51                                                                                            | Broadlink  |
+| [5121](../codes/climate/5121.json) | FTKQ25SAVMV                                                                                          | Broadlink  |
+| [5122](../codes/climate/5122.json) | FWT02GATNMV1<br>FWT03GATNMV1<br>FWT04GATNMV1<br>FWT05GATNMV1<br>FWT06GATNMV1                       | Broadlink  |
+| [5123](../codes/climate/5123.json) | ATXB25C2V1B<br>ATXB35C2V1B<br>ARC470A1                                                            | Broadlink  |
 
 #### Mitsubishi Electric
 | Code                               | Supported Models                                                                                     | Controller |
@@ -249,6 +252,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [4129](../codes/climate/4129.json) | DXK18Z1-S                                                                                            | Xiaomi v2  |
 | [7124](../codes/climate/7124.json) | MSZ-SF25VE3<br>MSZ-SF35VE3<br>MSZ-SF42VE3<br>MSZ-SF50VE<br>MSZ-AP20VG                                | ESPHome |
 
+| [1141](../codes/climate/1141.json) | MSZ-AP25VDG2<br>MSZ-AP25VDKG2<br>MSZ-AP35VDG2<br>MSZ-AP35VDKG2<br>MSZ-AP42VDG2<br>MSZ-AP42VDKG2<br>MSZ-AP50VDG2<br>MSZ-AP50VDKG2 | Broadlink |
 
 #### Actron
 | Code                               | Supported Models | Controller |
@@ -328,6 +332,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1292](../codes/climate/1292.json) | AR-RY12 (Remote control) - <b>vertical and horizontal swing support</b> | Broadlink   |
 | [1293](../codes/climate/1293.json) | AR-REB1E (Remote control) - <b>vertical swing support</b>               | Broadlink   |
 | [1294](../codes/climate/1294.json) | AR-RY4 (Remote control)                                                 | Broadlink   |
+| [1297](../codes/climate/1297.json) | AR-RY13 (Remote control)                                                | Broadlink   |
 
 #### Sharp
 | Code                               | Supported Models | Controller |
@@ -430,6 +435,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1521](../codes/climate/1521.json) | Unknown            | Broadlink  |
 | [1522](../codes/climate/1522.json) | DG11R2-01 (Remote) (Also works for Zephyr ZE-18CA17) | Broadlink  |
 | [5520](../codes/climate/5520.json) | AS-07UR4SYDD815G   | LOOKin  |
+| [7523](../codes/climate/7523.json) | DGR11R2            | ESPHome   |
 
 #### Whirlpool
 | Code                               | Supported Models | Controller |
@@ -692,7 +698,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models       | Controller |
 | ---------------------------------- | ---------------------- | ---------- |
 | [2320](../codes/climate/2320.json) | ARC-08WB<br>ARC-10WB<br>ARC-126MD<br>ARC-126MDB<br>ARC-148MS | Broadlink  |
-| [2321](../codes/climate/2321.json) | ARC-12S<br>ARC-12SD<br>ARC-122DS<br>ARC-14S<br>ARC-141BG<br>ARC-143MX<br>ARC-101CW | Broadlink  |
+| [2321](../codes/climate/2321.json) | ARC-12S<br>ARC-12SD<br>ARC-122DS<br>ARC-141BG<br>ARC-143MX<br>ARC-101CW | Broadlink  |
+| [2322](../codes/climate/2322.json) | ARC-14S | Broadlink  |
 
 #### Vortex
 | Code                               | Supported Models       | Controller |
@@ -1003,3 +1010,13 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
 | [3520](../codes/climate/3520.json) | Classic          | Broadlink  |
+
+### Silvercrest
+| Code                               | Supported Models | Controller |
+| ---------------------------------- | ---------------- | ---------- |
+| [3400](../codes/climate/3400.json) | SMK 7000 B2      | Broadlink  |
+
+### Yamato
+| Code                               | Supported Models | Controller |
+| ---------------------------------- | ---------------- | ---------- |
+| [7401](../codes/climate/7401.json) | M-HW12           | ESPHome    |
