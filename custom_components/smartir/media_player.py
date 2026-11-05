@@ -15,7 +15,7 @@ from homeassistant.const import (
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
 from . import COMPONENT_ABS_DIR, Helper
-from .controller import get_controller
+from .controller import get_controller, cv_controller_data
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -35,7 +35,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_UNIQUE_ID): cv.string,
     vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
     vol.Required(CONF_DEVICE_CODE): cv.positive_int,
-    vol.Required(CONF_CONTROLLER_DATA): cv.string,
+    vol.Required(CONF_CONTROLLER_DATA): cv_controller_data,
     vol.Optional(CONF_DELAY, default=DEFAULT_DELAY): cv.string,
     vol.Optional(CONF_POWER_SENSOR): cv.entity_id,
     vol.Optional(CONF_SOURCE_NAMES): dict,
