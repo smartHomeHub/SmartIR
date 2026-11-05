@@ -132,6 +132,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ---------------------------------- | --------------------- | ---------- |
 | [1000](../codes/climate/1000.json) | AKIRA GAN/GAG-A128 VL | Broadlink  |
 | [1001](../codes/climate/1000.json) | AKIRA GAN/GAG A135FW ML | Broadlink |
+| [1002](../codes/climate/1002.json) | IZURU TRN-XXXXX          | Broadlink |
 
 #### Panasonic
 | Code                               | Supported Models                                                   | Controller |
@@ -229,6 +230,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [5124](../codes/climate/5124.json) | ATKC18TV2S                                                                                          | Broadlink  |
 | [5125](../codes/climate/5125.json) | ARC478A51                                                                                           | Broadlink  |
 | [5126](../codes/climate/5126.json) | FTXF20D5V1B<br>FTXF25D5V1B<br>FTXF35D5V1B<br>FTXF42D5V1B                                         | Broadlink  |
+| [5127](../codes/climate/5127.json) | ATXB50CV1B<br>GS02 (Remote)                                                                         | Broadlink  |
 
 #### Mitsubishi Electric
 | Code                               | Supported Models                                                                                     | Controller |
@@ -343,9 +345,11 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1292](../codes/climate/1292.json) | AR-RY12 (Remote control) - <b>vertical and horizontal swing support</b> | Broadlink   |
 | [1293](../codes/climate/1293.json) | AR-REB1E (Remote control) - <b>vertical swing support</b>               | Broadlink   |
 | [1294](../codes/climate/1294.json) | AR-RY4 (Remote control)                                                 | Broadlink   |
+| [1295](../codes/climate/1295.json) | AR-REG1U<br>ASMG18CMCA                                                  | Broadlink   |
 | [1296](../codes/climate/1296.json) | AR-RY4 (Remote control)                                                 | Broadlink   |
 | [1297](../codes/climate/1297.json) | AR-RY13 (Remote control)                                                | Broadlink   |
 | [1298](../codes/climate/1298.json) | ASTG18LVCB (AR-RAH1E remote)                                            | Broadlink   |
+| [1299](../codes/climate/1299.json) | AR-JE4 (Remote control)                                                 | Broadlink   |
 | [7290](../codes/climate/7290.json) | AR-JE8 (Remote control)                                                 | ESPHome     |
 
 #### Sharp
@@ -417,6 +421,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1407](../codes/climate/1407.json) | AR##NXWS###      | Broadlink  |
 | [1408](../codes/climate/1408.json) | AR18HSFSAWKNEU Ver.01 (DB93-15169D remote) | Broadlink  |
 | [1409](../codes/climate/1409.json) | AR12NXFPEWQN | Broadlink  |
+| [1410](../codes/climate/1410.json) | RG10A/BGEF (Remote) | Broadlink |
+| [1411](../codes/climate/1411.json) | ARxxKSF | Broadlink |
 
 #### Sintech
 | Code                               | Supported Models | Controller |
@@ -453,6 +459,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1521](../codes/climate/1521.json) | Unknown            | Broadlink  |
 | [1522](../codes/climate/1522.json) | DG11R2-01 (Remote)<br>DG11L1-12 (Remote)<br>Also works for Zephyr ZE-18CA17 | Broadlink  |
 | [1523](../codes/climate/1523.json) | RCH-RZY1-0       | Broadlink  |
+| [1524](../codes/climate/1524.json) | DG11J1-99        | Broadlink  |
 | [5520](../codes/climate/5520.json) | AS-07UR4SYDD815G   | LOOKin  |
 | [7523](../codes/climate/7523.json) | DGR11R2            | ESPHome   |
 
@@ -525,6 +532,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1690](../codes/climate/1690.json) | FDUM VF2                                             | Broadlink  |
 | [1691](../codes/climate/1691.json) | SRK71ZRA-W                                           | Broadlink  |
 | [1692](../codes/climate/1692.json) | DXK12Z3-S<br>DXK09Z5-S<br>DXK15Z5-S                  | Broadlink  |
+| [1693](../codes/climate/1693.json) | SRK71ZEA-S1                                          | Broadlink  |
 
 #### Electrolux
 | Code                               | Supported Models                                                                                                                                                                             | Controller |
@@ -968,6 +976,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | -----------------| ---------- |
 | [3240](../codes/climate/3240.json) | SC-09FS32        | Broadlink  |
+| [3241](../codes/climate/3241.json) | GC-09IS35        | Broadlink  |
 
 #### Family
 | Code                               | Supported Models | Controller |
@@ -1079,3 +1088,18 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ---------------------------------- | ---------------- | ---------- |
 | [3640](../codes/climate/3640.json) | Unico (LCD remote, 11-byte IR protocol) | Broadlink |
 | [3641](../codes/climate/3641.json) | Unico Master (short 71-bit IR protocol) | Broadlink |
+
+### Teco
+| Code                               | Supported Models | Controller |
+| ---------------------------------- | ---------------- | ---------- |
+| [3660](../codes/climate/3660.json) | Teco AC          | Broadlink  |
+
+### Kaysun
+| Code                               | Supported Models        | Controller |
+| ---------------------------------- | ----------------------- | ---------- |
+| [3680](../codes/climate/3680.json) | RG10B(D)/BGEF (Remote)  | Broadlink  |
+
+### Fedders
+| Code                               | Supported Models | Controller |
+| ---------------------------------- | ---------------- | ---------- |
+| [3700](../codes/climate/3700.json) | FSF12TC1W        | Broadlink  |

@@ -329,3 +329,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1640](../codes/media_player/1640.json)| 32LC818H |Broadlink
+
+#### Denon
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1660](../codes/media_player/1660.json)| AVR-X2200W<br>RC-1192 | Broadlink
