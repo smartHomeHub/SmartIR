@@ -425,7 +425,11 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             if self._power_sensor_restore_state == True and self._last_on_operation is not None:
                 self._hvac_mode = self._last_on_operation
             else:
-                self._hvac_mode = STATE_ON
+                self._hvac_mode = (
+                    self._operation_modes[1]
+                    if len(self._operation_modes) > 1
+                    else HVACMode.OFF
+                )
 
             self.async_write_ha_state()
 
