@@ -1,7 +1,8 @@
 {
     "manufacturer":"BAXI",
     "supportedModels":[
-      "Unknow"
+      "Unknow",
+      "Vortex (YKR-H/009E remote)"
     ],
     "supportedController":"Broadlink",
     "commandsEncoding":"Base64",
