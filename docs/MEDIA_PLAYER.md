@@ -252,7 +252,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 #### Optoma
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1360](../codes/media_player/1360.json)| HD27 |Broadlink
+[1360](../codes/media_player/1360.json)| HD27 (sends the off command twice for confirmation) |Broadlink
 
 #### Xiaomi
 | Code | Supported Models | Controller |

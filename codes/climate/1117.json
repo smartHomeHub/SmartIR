@@ -1,7 +1,9 @@
 {
     "manufacturer": "Daikin",
     "supportedModels": [
-        "DTXF35TVMA"
+        "DTXF35TVMA",
+        "FTX18UVJU",
+        "FTX24UVJU"
     ],
     "supportedController": "Broadlink",
     "commandsEncoding": "Base64",
