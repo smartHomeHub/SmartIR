@@ -25,7 +25,7 @@ BROADLINK_COMMANDS_ENCODING = [ENC_BASE64, ENC_HEX, ENC_PRONTO]
 XIAOMI_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
 MQTT_COMMANDS_ENCODING = [ENC_RAW]
 LOOKIN_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
-ESPHOME_COMMANDS_ENCODING = [ENC_RAW]
+ESPHOME_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
 
 
 def get_controller(hass, controller, encoding, controller_data, delay):
@@ -170,17 +170,40 @@ class LookinController(AbstractController):
 
 
 class ESPHomeController(AbstractController):
-    """Controls a ESPHome device."""
+    """Controls an ESPHome device."""
 
     def check_encoding(self, encoding):
         """Check if the encoding is supported by the controller."""
         if encoding not in ESPHOME_COMMANDS_ENCODING:
-            raise Exception("The encoding is not supported "
-                            "by the ESPHome controller.")
+            raise ValueError(
+                f"Encoding '{encoding}' not supported by ESPHome controller"
+            )
     
     async def send(self, command):
-        """Send a command."""
-        service_data = {'command':  json.loads(command)}
+        """Send a command with proper encoding handling."""
+        self.check_encoding(self._encoding)  # Ensure valid encoding
+        
+        # Define command processors for different encodings
+        processors = {
+            ENC_RAW: lambda: {"command": json.loads(command)},
+            ENC_PRONTO: lambda: {"command": command}
+        }
+        
+        try:
+            # Get the processor function for current encoding
+            processor = processors[self._encoding]
+        except KeyError:
+            raise ValueError(f"Unhandled encoding: {self._encoding}") from None
+
+        try:
+            service_data = processor()
+        except json.JSONDecodeError as e:
+            raise ValueError(f"Invalid JSON command: {e}") from e
+        except Exception as e:
+            raise RuntimeError(f"Error processing {self._encoding} command") from e
 
         await self.hass.services.async_call(
-            'esphome', self._controller_data, service_data)
+            'esphome', 
+            self._controller_data, 
+            service_data
+        )
