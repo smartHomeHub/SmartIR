@@ -228,6 +228,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [5123](../codes/climate/5123.json) | ATXB25C2V1B<br>ATXB35C2V1B<br>ARC470A1                                                            | Broadlink  |
 | [5124](../codes/climate/5124.json) | ATKC18TV2S                                                                                          | Broadlink  |
 | [5125](../codes/climate/5125.json) | ARC478A51                                                                                           | Broadlink  |
+| [5126](../codes/climate/5126.json) | FTXF20D5V1B<br>FTXF25D5V1B<br>FTXF35D5V1B<br>FTXF42D5V1B                                         | Broadlink  |
 
 #### Mitsubishi Electric
 | Code                               | Supported Models                                                                                     | Controller |
@@ -259,6 +260,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 
 | [1141](../codes/climate/1141.json) | MSZ-AP25VDG2<br>MSZ-AP25VDKG2<br>MSZ-AP35VDG2<br>MSZ-AP35VDKG2<br>MSZ-AP42VDG2<br>MSZ-AP42VDKG2<br>MSZ-AP50VDG2<br>MSZ-AP50VDKG2 | Broadlink |
 | [1142](../codes/climate/1142.json) | MSY-GE13VA<br>MSY-GE15VA<br>MSY-GE15VE | Broadlink |
+| [1143](../codes/climate/1143.json) | MSZ-FH Remote SG15C | Broadlink |
 
 #### Actron
 | Code                               | Supported Models | Controller |
@@ -292,6 +294,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [4181](../codes/climate/4181.json) | YB1FA  (Remote)                                | Xiaomi (v2) |
 | [1189](../codes/climate/1189.json) | Gree YAY1F1 Remote                             | Broadlink   |
 | [1190](../codes/climate/1190.json) | Y812A<br>KFR-25G<br>NaJ31-K                  | Broadlink   |
+| [1191](../codes/climate/1191.json) | GMV5 GMV-ND45T/A-T                          | Broadlink   |
 
 #### Tosot
 | Code                               | Supported Models | Controller |
@@ -340,7 +343,9 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1292](../codes/climate/1292.json) | AR-RY12 (Remote control) - <b>vertical and horizontal swing support</b> | Broadlink   |
 | [1293](../codes/climate/1293.json) | AR-REB1E (Remote control) - <b>vertical swing support</b>               | Broadlink   |
 | [1294](../codes/climate/1294.json) | AR-RY4 (Remote control)                                                 | Broadlink   |
+| [1296](../codes/climate/1296.json) | AR-RY4 (Remote control)                                                 | Broadlink   |
 | [1297](../codes/climate/1297.json) | AR-RY13 (Remote control)                                                | Broadlink   |
+| [1298](../codes/climate/1298.json) | ASTG18LVCB (AR-RAH1E remote)                                            | Broadlink   |
 | [7290](../codes/climate/7290.json) | AR-JE8 (Remote control)                                                 | ESPHome     |
 
 #### Sharp
@@ -394,6 +399,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1393](../codes/climate/1393.json) | Polario MPPHB-09CRN7-Q         | Broadlink  |
 | [1394](../codes/climate/1394.json) | RG70C/BGEF (Remote)            | Broadlink  |
 | [1395](../codes/climate/1395.json) | RG10B(D1)/BGEFU1 (Remote)      | Broadlink  |
+| [1396](../codes/climate/1396.json) | MI2-56GDN1                     | Broadlink  |
 | [4380](../codes/climate/4380.json) | MCD-24HRN1-Q1<br>RAS-10N3KVR-E | Xiaomi     |
 | [4381](../codes/climate/4381.json) | RG70C1/BGEF | Xiaomi     |
 | [7386](../codes/climate/7386.json) | KFR-32GW                       | ESPHome    |
@@ -584,6 +590,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
 | [1880](../codes/climate/1880.json) | Unknown          | Broadlink  |
+| [1881](../codes/climate/1881.json) | Genia Fan        | Broadlink  |
 
 #### TCL
 | Code                               | Supported Models  | Controller |
@@ -930,7 +937,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 ### Cooper & Hunter
 | Code                               | Supported Models | Controller |
 |------------------------------------|------------------|------------|
-| [3120](../codes/climate/3120.json) | Unknown  | Broadlink  |
+| [3120](../codes/climate/3120.json) | CH-S07XN7T<br>CH-S09XN7T<br>CH-S12XN7T<br>CH-S18XN7T<br>CH-S24XN7T<br>CH-S30XN7T<br>YAP1F | Broadlink  |
 
 ### Argo
 | Code                               | Supported Models | Controller |
