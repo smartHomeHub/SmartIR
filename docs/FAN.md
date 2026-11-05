@@ -138,6 +138,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ------------- | ----- | ----- | ------------- |
 [1160](../codes/fan/1160.json)|Efficio||Broadlink
 [1170](../codes/fan/1170.json)|Renesa|Speeds `1,2,3,4,5` is mapped to `2,3,4,5,Boost` on the remote|Broadlink
+[1171](../codes/fan/1171.json)|Renesa Wall Fan||Broadlink
 
 #### Lucci Air
 
@@ -201,3 +202,21 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1240](../codes/fan/1240.json)|Air Timer TS+|Broadlink
+
+#### Hyundai
+
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1260](../codes/fan/1260.json)|Unknown|Broadlink
+
+#### Taobao
+
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1280](../codes/fan/1280.json)|XH-MD<br>XH-FS|Broadlink
+
+#### Westinghouse
+
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1300](../codes/fan/1300.json)|GFC-52V-L|Broadlink
