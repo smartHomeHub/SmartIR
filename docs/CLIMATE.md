@@ -233,10 +233,10 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code                               | Supported Models                                                                                     | Controller |
 |------------------------------------|------------------------------------------------------------------------------------------------------| ---------- |
 | [1120](../codes/climate/1120.json) | MSZ-GL25VGD<br>MSZ-GL35VGD<br>MSZ-GL42VGD<br>MSZ-GL50VG<br>MSZ-GL60VGD<br>MSZ-GL71VGD<br>MSZ-GL80VGD | Broadlink  |
-| [1121](../codes/climate/1121.json) | MSZ-GA35VA                                                                                           | Broadlink  |
-| [1122](../codes/climate/1122.json) | MSZ-AP50VGKD                                                                                         | Broadlink  |
+| [1121](../codes/climate/1121.json) | MSZ-GA25VA<br>MSZ-GA35VA                                                                             | Broadlink  |
+| [1122](../codes/climate/1122.json) | MSZ-AP50VGKD<br>MSZ-AP60VGKD                                                                         | Broadlink  |
 | [1123](../codes/climate/1123.json) | SRK25ZSX<br>SRC25ZSX                                                                                 | Broadlink  |
-| [1124](../codes/climate/1124.json) | MSZ-SF25VE3<br>MSZ-SF35VE3<br>MSZ-SF42VE3<br>MSZ-SF50VE<br>MSZ-AP20VG                                | Broadlink  |
+| [1124](../codes/climate/1124.json) | MSZ-SF25VE3<br>MSZ-SF35VE3<br>MSZ-SF42VE3<br>MSZ-SF50VE3<br>MSZ-AP15VGD<br>MSZ-AP20VG<br>MSZ-AP20VGD<br>MSZ-AP25VGD<br>MSZ-AP60VGD2<br>MSZ-AP60VGKD2<br>MSZ-AP71VGD2<br>MSZ-AP71VGKD2<br>MSZ-AP80VGD2<br>MSZ-AP80VGKD2 | Broadlink  |
 | [1125](../codes/climate/1125.json) | MLZ-KP25VF<br>MLZ-KP35VF<br>MLZ-KP50VF                                                               | Broadlink  |
 | [1126](../codes/climate/1126.json) | MSX09-NV II <br> MSH-07RV <br> MSH-12RV <br> MS-24RV<br>MS09NW2<br>MSC-09RV                          | Broadlink  |
 | [1127](../codes/climate/1127.json) | MSZ-HJ25VA                                                                                           | Broadlink  |
@@ -315,7 +315,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1260](../codes/climate/1260.json) | RAS-13NKV-E / RAS-13NAV-E<br>RAS-13NKV-A / RAS-13NAV-A<br>RAS-16NKV-E / RAS-16NAV-E<br>RAS-16NKV-A / RAS-16NAV-A<br>RAS-M10SKV-E | Broadlink  |
 | [1261](../codes/climate/1261.json) | WH-TA05NE<br>WH-TA05LE<br>WH-TA11EJ                                                                              | Broadlink  |
 | [1262](../codes/climate/1262.json) | RAC-PD0812CRRU<br>RAC-PD1013CWRU<br>RAC-PD1213CWRU<br>RAC-PD1414CWRU                                             | Broadlink  |
-| [1263](../codes/climate/1263.json) | RAS-B07J2KVSG-E<br>RAS-B10J2KVSG-E<br>RAS-B13J2KVSG-E<br>RAS-B10SKVP-E<br>RAS-B18UFV-A<br>RAS-B13J2KVG-E<br>RAS-B13N3KVP-E<br>RAS-B10PKVSG-E        | Broadlink  |
+| [1263](../codes/climate/1263.json) | RAS-B07J2KVSG-E<br>RAS-B07J2KVG-E<br>RAS-B10J2KVSG-E<br>RAS-B13J2KVSG-E<br>RAS-B10SKVP-E<br>RAS-B18UFV-A<br>RAS-B13J2KVG-E<br>RAS-B13N3KVP-E<br>RAS-B10PKVSG-E | Broadlink  |
 | [1264](../codes/climate/1264.json) | RAS-13SKVR-A                                                                                                     | Broadlink  |
 | [1265](../codes/climate/1265.json) | RAS-25SKVP2-ND<br>RAS-35SKVP2-ND                                                                                 | Broadlink  |
 | [7260](../codes/climate/7260.json) | RAS-18NKV2-E                                                                                                     | ESPHome    |
@@ -354,7 +354,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 #### Haier
 | Code                               | Supported Models | Controller |
 | ---------------------------------- | ---------------- | ---------- |
-| [1320](../codes/climate/1320.json) | Unknown model    | Broadlink  |
+| [1320](../codes/climate/1320.json) | HSU12Xc7-W<br>2XC7-G | Broadlink  |
 | [1321](../codes/climate/1321.json) | Top-Tech 14      | Broadlink  |
 | [1322](../codes/climate/1322.json) | HSU-09HPL03/R03  | Broadlink  |
 
@@ -445,7 +445,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ---------------------------------- | ------------------ | ---------- |
 | [1520](../codes/climate/1520.json) | Unknown            | Broadlink  |
 | [1521](../codes/climate/1521.json) | Unknown            | Broadlink  |
-| [1522](../codes/climate/1522.json) | DG11R2-01 (Remote) (Also works for Zephyr ZE-18CA17) | Broadlink  |
+| [1522](../codes/climate/1522.json) | DG11R2-01 (Remote)<br>DG11L1-12 (Remote)<br>Also works for Zephyr ZE-18CA17 | Broadlink  |
 | [1523](../codes/climate/1523.json) | RCH-RZY1-0       | Broadlink  |
 | [5520](../codes/climate/5520.json) | AS-07UR4SYDD815G   | LOOKin  |
 | [7523](../codes/climate/7523.json) | DGR11R2            | ESPHome   |
@@ -512,7 +512,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1683](../codes/climate/1683.json) | DXK12ZMA-S                                           | Broadlink  |
 | [1684](../codes/climate/1684.json) | DXK24ZRA                                             | Broadlink  |
 | [1685](../codes/climate/1685.json) | SRK50ZS-S<br>DXKZ6W18                                | Broadlink  |
-| [1686](../codes/climate/1686.json) | SRK20ZSA-W<br>SRK25ZSA-W<br>SRK35ZSA-W<br>SRK50ZSA-W | Broadlink  |
+| [1686](../codes/climate/1686.json) | SRK20ZSA-W<br>SRK25ZSA-W<br>SRK35ZSA-W<br>SRK50ZSA-W <b>(Vertical swing support)</b> | Broadlink  |
 | [1687](../codes/climate/1687.json) | SRK35ZJX-S<br>SRK20ZJX-S                             | Broadlink  |
 | [1688](../codes/climate/1688.json) | SRK25ZSP-W<br>SRK35ZSP-W<br>SRK45ZSP-W               | Broadlink  |
 | [1689](../codes/climate/1689.json) | DXK12ZSA-W                                           | Broadlink  |
