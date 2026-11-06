@@ -2,7 +2,7 @@ import aiofiles
 import aiohttp
 import asyncio
 import binascii
-from distutils.version import StrictVersion
+import re
 import json
 import logging
 import os.path
@@ -17,6 +17,22 @@ import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.typing import ConfigType
 
 _LOGGER = logging.getLogger(__name__)
+
+_VERSION_RE = re.compile(r"(\d+)(?:\.(\d+))?(?:\.(\d+))?")
+
+
+def _version_tuple(version):
+    """Return a comparable tuple for a version string.
+
+    ``distutils.version.StrictVersion`` was removed from the standard
+    library in Python 3.12, which made the whole integration fail to
+    import (``ModuleNotFoundError: No module named 'distutils'``).
+    """
+    match = _VERSION_RE.match(str(version).strip().lstrip("vV"))
+    if match is None:
+        return (0, 0, 0)
+    return tuple(int(part) if part is not None else 0 for part in match.groups())
+
 
 DOMAIN = 'smartir'
 VERSION = '1.18.2'
@@ -77,14 +93,14 @@ async def _update(hass, branch, do_update=False, notify_if_latest=True):
                     last_version = data['updater']['version']
                     release_notes = data['updater']['releaseNotes']
 
-                    if StrictVersion(last_version) <= StrictVersion(VERSION):
+                    if _version_tuple(last_version) <= _version_tuple(VERSION):
                         if notify_if_latest:
                             hass.components.persistent_notification.async_create(
                                 "You're already using the latest version!", 
                                 title='SmartIR')
                         return
 
-                    if StrictVersion(current_ha_version) < StrictVersion(min_ha_version):
+                    if _version_tuple(current_ha_version) < _version_tuple(min_ha_version):
                         hass.components.persistent_notification.async_create(
                             "There is a new version of SmartIR integration, but it is **incompatible** "
                             "with your system. Please first update Home Assistant.", title='SmartIR')
