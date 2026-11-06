@@ -6,7 +6,7 @@
   "codeowners": ["@smartHomeHub"],
   "requirements": ["aiofiles>=0.6.0"],
   "homeassistant": "2025.5.0",
-  "version": "1.18.2",
+  "version": "1.18.3",
   "updater": {
     "version": "1.18.2",
     "releaseNotes": "-- Remove unused async_track_state_change",

@@ -45,7 +45,7 @@ def _notify(hass, message, title="SmartIR"):
 
 
 DOMAIN = 'smartir'
-VERSION = '1.18.2'
+VERSION = '1.18.3'
 MANIFEST_URL = (
     "https://raw.githubusercontent.com/"
     "smartHomeHub/SmartIR/{}/"
