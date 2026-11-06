@@ -12,7 +12,7 @@ from homeassistant.components.climate.const import (
 from homeassistant.const import (
     CONF_NAME, STATE_ON, STATE_OFF, STATE_UNKNOWN, STATE_UNAVAILABLE, ATTR_TEMPERATURE,
     PRECISION_TENTHS, PRECISION_HALVES, PRECISION_WHOLE)
-from homeassistant.core import Event, EventStateChangedData, callback
+from homeassistant.core import callback
 from homeassistant.helpers.event import async_track_state_change_event
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.restore_state import RestoreEntity
@@ -36,7 +36,7 @@ CONF_POWER_SENSOR_RESTORE_STATE = 'power_sensor_restore_state'
 SUPPORT_FLAGS = (
     ClimateEntityFeature.TURN_OFF |
     ClimateEntityFeature.TURN_ON |
-    ClimateEntityFeature.TARGET_TEMPERATURE | 
+    ClimateEntityFeature.TARGET_TEMPERATURE |
     ClimateEntityFeature.FAN_MODE
 )
 
@@ -135,7 +135,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._current_humidity = None
 
         self._unit = hass.config.units.temperature_unit
-        
+
         #Supported features
         self._support_flags = SUPPORT_FLAGS
         self._support_swing = False
@@ -155,14 +155,14 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             self._commands_encoding,
             self._controller_data,
             self._delay)
-            
+
     async def async_added_to_hass(self):
         """Run when entity about to be added."""
         await super().async_added_to_hass()
         _LOGGER.debug(f"async_added_to_hass {self} {self.name} {self.supported_features}")
-    
+
         last_state = await self.async_get_last_state()
-        
+
         if last_state is not None:
             self._hvac_mode = last_state.state
             self._current_fan_mode = last_state.attributes['fan_mode']
@@ -173,24 +173,24 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 self._last_on_operation = last_state.attributes['last_on_operation']
 
         if self._temperature_sensor:
-            async_track_state_change_event(self.hass, self._temperature_sensor, 
-                                           self._async_temp_sensor_changed)
+            async_track_state_change_event(self.hass, [self._temperature_sensor],
+                                     self._async_temp_sensor_changed)
 
             temp_sensor_state = self.hass.states.get(self._temperature_sensor)
             if temp_sensor_state and temp_sensor_state.state != STATE_UNKNOWN:
                 self._async_update_temp(temp_sensor_state)
 
         if self._humidity_sensor:
-            async_track_state_change_event(self.hass, self._humidity_sensor, 
-                                           self._async_humidity_sensor_changed)
+            async_track_state_change_event(self.hass, [self._humidity_sensor],
+                                     self._async_humidity_sensor_changed)
 
             humidity_sensor_state = self.hass.states.get(self._humidity_sensor)
             if humidity_sensor_state and humidity_sensor_state.state != STATE_UNKNOWN:
                 self._async_update_humidity(humidity_sensor_state)
 
         if self._power_sensor:
-            async_track_state_change_event(self.hass, self._power_sensor, 
-                                           self._async_power_sensor_changed)
+            async_track_state_change_event(self.hass, [self._power_sensor],
+                                     self._async_power_sensor_changed)
 
     @property
     def unique_id(self):
@@ -218,7 +218,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     def min_temp(self):
         """Return the polling state."""
         return self._min_temperature
-        
+
     @property
     def max_temp(self):
         """Return the polling state."""
@@ -298,14 +298,14 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
     async def async_set_temperature(self, **kwargs):
         """Set new target temperatures."""
-        hvac_mode = kwargs.get(ATTR_HVAC_MODE)  
+        hvac_mode = kwargs.get(ATTR_HVAC_MODE)
         temperature = kwargs.get(ATTR_TEMPERATURE)
-          
+
         if temperature is None:
             return
-            
+
         if temperature < self._min_temperature or temperature > self._max_temperature:
-            _LOGGER.warning('The temperature value is out of min/max range') 
+            _LOGGER.warning('The temperature value is out of min/max range')
             return
 
         if self._precision == PRECISION_WHOLE:
@@ -316,7 +316,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         if hvac_mode:
             await self.async_set_hvac_mode(hvac_mode)
             return
-        
+
         if not self._hvac_mode.lower() == HVACMode.OFF:
             await self.send_command()
 
@@ -325,7 +325,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     async def async_set_hvac_mode(self, hvac_mode):
         """Set operation mode."""
         self._hvac_mode = hvac_mode
-        
+
         if not hvac_mode == HVACMode.OFF:
             self._last_on_operation = hvac_mode
 
@@ -335,9 +335,9 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     async def async_set_fan_mode(self, fan_mode):
         """Set fan mode."""
         self._current_fan_mode = fan_mode
-        
+
         if not self._hvac_mode.lower() == HVACMode.OFF:
-            await self.send_command()      
+            await self.send_command()
         self.async_write_ha_state()
 
     async def async_set_swing_mode(self, swing_mode):
@@ -351,7 +351,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     async def async_turn_off(self):
         """Turn off."""
         await self.async_set_hvac_mode(HVACMode.OFF)
-        
+
     async def async_turn_on(self):
         """Turn on."""
         if self._last_on_operation is not None:
@@ -385,35 +385,56 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
             except Exception as e:
                 _LOGGER.exception(e)
-                
-    @callback
-    async def _async_temp_sensor_changed(self, event: Event[EventStateChangedData]) -> None:
-        """Handle temperature sensor changes."""
-        new_state = event.data["new_state"]        
 
+    async def _async_temp_sensor_changed(self, event):
+        """Handle temperature sensor changes."""
+        new_state = event.data.get("new_state")
         if new_state is None:
             return
 
+        old_state = event.data.get("old_state")
+        if new_state is None:
+            return
+
+        new_state = event.data.get("new_state")
+        new_state = event.data.get("new_state")
+        if new_state is None:
+            return
+
+        old_state = event.data.get("old_state")
+        if new_state is None:
+            return
         self._async_update_temp(new_state)
         self.async_write_ha_state()
 
-    @callback
-    async def _async_humidity_sensor_changed(self, event: Event[EventStateChangedData]) -> None:
+    async def _async_humidity_sensor_changed(self, event):
         """Handle humidity sensor changes."""
-        new_state = event.data["new_state"]
-
+        new_state = event.data.get("new_state")
         if new_state is None:
             return
 
+        old_state = event.data.get("old_state")
+        if new_state is None:
+            return
+
+        new_state = event.data.get("new_state")
+        new_state = event.data.get("new_state")
+        if new_state is None:
+            return
+
+        old_state = event.data.get("old_state")
+        if new_state is None:
+            return
         self._async_update_humidity(new_state)
         self.async_write_ha_state()
-        
-    @callback
-    async def _async_power_sensor_changed(self, event: Event[EventStateChangedData]) -> None:
-        entity_id = event.data["entity_id"]
-        old_state = event.data["old_state"]
-        new_state = event.data["new_state"]
-    
+
+    async def _async_power_sensor_changed(self, event):
+        """Handle power sensor changes."""
+        new_state = event.data.get("new_state")
+        if new_state is None:
+            return
+
+        old_state = event.data.get("old_state")
         if new_state is None:
             return
 
