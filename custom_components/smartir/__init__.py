@@ -34,6 +34,17 @@ def _version_tuple(version):
     return tuple(int(part) if part is not None else 0 for part in match.groups())
 
 
+def _notify(hass, message, title="SmartIR"):
+    """Create a persistent notification.
+
+    ``hass.components.persistent_notification`` is deprecated, the
+    component module has to be imported and called directly instead.
+    """
+    from homeassistant.components import persistent_notification
+
+    persistent_notification.async_create(hass, message, title=title)
+
+
 DOMAIN = 'smartir'
 VERSION = '1.18.2'
 MANIFEST_URL = (
@@ -95,19 +106,19 @@ async def _update(hass, branch, do_update=False, notify_if_latest=True):
 
                     if _version_tuple(last_version) <= _version_tuple(VERSION):
                         if notify_if_latest:
-                            hass.components.persistent_notification.async_create(
+                            _notify(hass, 
                                 "You're already using the latest version!", 
                                 title='SmartIR')
                         return
 
                     if _version_tuple(current_ha_version) < _version_tuple(min_ha_version):
-                        hass.components.persistent_notification.async_create(
+                        _notify(hass, 
                             "There is a new version of SmartIR integration, but it is **incompatible** "
                             "with your system. Please first update Home Assistant.", title='SmartIR')
                         return
 
                     if do_update is False:
-                        hass.components.persistent_notification.async_create(
+                        _notify(hass, 
                             "A new version of SmartIR integration is available ({}). "
                             "Call the ``smartir.update_component`` service to update "
                             "the integration. \n\n **Release notes:** \n{}"
@@ -129,11 +140,11 @@ async def _update(hass, branch, do_update=False, notify_if_latest=True):
                             _LOGGER.error("Error updating %s. Please update the file manually.", file)
 
                     if has_errors:
-                        hass.components.persistent_notification.async_create(
+                        _notify(hass, 
                             "There was an error updating one or more files of SmartIR. "
                             "Please check the logs for more information.", title='SmartIR')
                     else:
-                        hass.components.persistent_notification.async_create(
+                        _notify(hass, 
                             "Successfully updated to {}. Please restart Home Assistant."
                             .format(last_version), title='SmartIR')
     except Exception:
