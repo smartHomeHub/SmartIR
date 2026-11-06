@@ -120,3 +120,34 @@ def test_persistent_notification_helper_uses_component():
         and node.func.attr == "async_create"
     ]
     assert calls, "_notify does not call persistent_notification.async_create"
+
+
+REMOVED_HELPER_APIS = (
+    "async_track_state_change",
+    "async_track_state_added_domain",
+    "async_track_state_removed_domain",
+)
+
+
+def test_no_imports_of_removed_home_assistant_apis():
+    """Home Assistant 2026.11 no longer exports ``async_track_state_change``.
+
+    SmartIR <= 1.18.0 imported it in climate.py, fan.py and light.py, so those
+    platforms raised ImportError during setup and every entity ended up as
+    "This entity is no longer being provided by the smartir integration".
+    1.18.1 replaced it with ``async_track_state_change_event``; this test keeps
+    the old, removed names from coming back.
+    """
+    offenders = []
+    for path, tree in _trees():
+        for node in ast.walk(tree):
+            if not isinstance(node, ast.ImportFrom):
+                continue
+            if not (node.module or "").startswith("homeassistant"):
+                continue
+            for alias in node.names:
+                if alias.name in REMOVED_HELPER_APIS:
+                    offenders.append(
+                        "%s:%s imports %s" % (path.name, node.lineno, alias.name)
+                    )
+    assert not offenders, offenders
