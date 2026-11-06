@@ -6,7 +6,6 @@ import re
 import json
 import logging
 import os.path
-import requests
 import struct
 import voluptuous as vol
 
