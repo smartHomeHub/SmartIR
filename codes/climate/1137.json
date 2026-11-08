@@ -1,6 +1,7 @@
 {
     "manufacturer": "Mitsubishi Electric",
     "supportedModels": [
+        "MSZ-HR25VF",
         "MSZ-HR35VF"
     ],
     "commandsEncoding": "Base64",
