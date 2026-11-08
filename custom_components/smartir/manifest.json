@@ -5,11 +5,11 @@
   "dependencies": [],
   "codeowners": ["@smartHomeHub"],
   "requirements": ["aiofiles>=0.6.0"],
-  "homeassistant": "2025.5.0",
-  "version": "1.18.1",
+  "homeassistant": "2026.11.0",
+  "version": "1.18.2",
   "updater": {
-    "version": "1.18.1",
-    "releaseNotes": "-- Implements new async_track_state_change_event",
+    "version": "1.18.2",
+    "releaseNotes": "-- Remove unused async_track_state_change",
     "files": [
       "__init__.py",
       "climate.py",

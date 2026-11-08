@@ -145,6 +145,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 [1000](../codes/media_player/1000.json)|26PFL560H|Broadlink
 [1001](../codes/media_player/1001.json)|42PFL3007H/60<br>37PF9641D/10|Broadlink
 [1002](../codes/media_player/1002.json)|47PFG4109/77|Broadlink
+[1003](../codes/media_player/1003.json)|32PFS6908/12|Broadlink
 
 #### Sony
 | Code | Supported Models | Controller |
@@ -251,7 +252,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 #### Optoma
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
-[1360](../codes/media_player/1360.json)| HD27 |Broadlink
+[1360](../codes/media_player/1360.json)| HD27 (sends the off command twice for confirmation) |Broadlink
 
 #### Xiaomi
 | Code | Supported Models | Controller |
@@ -328,3 +329,8 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1640](../codes/media_player/1640.json)| 32LC818H |Broadlink
+
+#### Denon
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1660](../codes/media_player/1660.json)| AVR-X2200W<br>RC-1192 | Broadlink

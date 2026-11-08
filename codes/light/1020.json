@@ -1,7 +1,7 @@
 {
     "manufacturer": "NEC",
     "supportedModels": [
-        "RE0201-CH1",
+        "RE0201-CH1"
     ],
     "supportedController": "Broadlink",
     "commandsEncoding": "Base64",
@@ -17,6 +17,7 @@
         230,
         255
     ],
+    "colorTemperature": [],
     "commands": {
         "on": "JgBIAAABJ5QTEhI4EhMTEhMSExITEhM3EzcTEhM3EzgSExI4EjgSExM3ExITNxM3EzcTNxMTEjgSExI4EhMSExMSExITNxMSEwANBQ==",
         "off": [

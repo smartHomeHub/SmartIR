@@ -7,12 +7,14 @@ Find your device's brand code [here](FAN.md#available-codes-for-fan-devices) and
 
 ## Configuration variables
 
-**name** (Optional): The name of the device<br />
-**unique_id** (Optional): An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception.<br />
-**device_code** (Required): ...... (Accepts only positive numbers)<br />
-**controller_data** (Required): The data required for the controller to function. Enter the entity_id of the Broadlink remote (must be an already configured device), or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands.<br />
-**delay** (Optional): Adjusts the delay in seconds between multiple commands. The default is 0.5 <br />
-**power_sensor** (Optional): *entity_id* for a sensor that monitors whether your device is actually On or Off. This may be a power monitor sensor. (Accepts only on/off states)<br />
+| Name | Type | Default | Description |
+| ---- | :--: | :-----: | ----------- |
+| `name` | string | optional | The name of the device |
+| `unique_id` | string | optional | An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception. |
+| `device_code` | number | required | Accepts only positive numbers. |
+| `controller_data` | string | required | The entity ID of the configured Broadlink or Xiaomi remote, or the MQTT topic used to send commands. |
+| `delay` | number | 0.5 | Delay in seconds between multiple commands. |
+| `power_sensor` | string | optional | Entity ID of a sensor that monitors whether the device is on or off. Accepts on/off states. |
 
 ## Example (using broadlink controller)
 
@@ -138,6 +140,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ------------- | ----- | ----- | ------------- |
 [1160](../codes/fan/1160.json)|Efficio||Broadlink
 [1170](../codes/fan/1170.json)|Renesa|Speeds `1,2,3,4,5` is mapped to `2,3,4,5,Boost` on the remote|Broadlink
+[1171](../codes/fan/1171.json)|Renesa Wall Fan||Broadlink
 
 #### Lucci Air
 
@@ -201,3 +204,27 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | Code | Supported Models | Controller |
 | ------------- | -------------------------- | ------------- |
 [1240](../codes/fan/1240.json)|Air Timer TS+|Broadlink
+
+#### Hyundai
+
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1260](../codes/fan/1260.json)|Unknown|Broadlink
+
+#### Taobao
+
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1280](../codes/fan/1280.json)|XH-MD<br>XH-FS|Broadlink
+
+#### Westinghouse
+
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1300](../codes/fan/1300.json)|GFC-52V-L|Broadlink
+
+#### ThreeSixty Fans
+
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1320](../codes/fan/1320.json)|Kira (2021; six speeds and Ocean Breeze)|Broadlink
