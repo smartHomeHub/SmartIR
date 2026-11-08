@@ -6,10 +6,10 @@
   "codeowners": ["@smartHomeHub"],
   "requirements": ["aiofiles>=0.6.0"],
   "homeassistant": "2026.11.0",
-  "version": "1.18.2",
+  "version": "1.3",
   "updater": {
-    "version": "1.18.2",
-    "releaseNotes": "-- Remove unused async_track_state_change",
+    "version": "1.3",
+    "releaseNotes": "Fujitsu AR-DB1 fork release 1.3",
     "files": [
       "__init__.py",
       "climate.py",
