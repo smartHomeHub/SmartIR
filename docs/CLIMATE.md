@@ -18,6 +18,8 @@ _Please note that the device_code field only accepts positive numbers. The .json
 | `humidity_sensor` | string | optional | *entity_id* for a humidity sensor |
 | `power_sensor` | string | optional | *entity_id* for a sensor that monitors whether your device is actually `on` or `off`. This may be a power monitor sensor. (Accepts only on/off states) |
 | `power_sensor_restore_state` | boolean | optional | If `power_sensor` is set, and the device is likely to turn off and back on while still in the set mode (for instance, a minisplit cycling on and off while in heating or cooling mode), setting this to `true` will cause the climate state to update dynamically, following the state of the `power_sensor`. |
+| `receiver_event` | string | optional | Home Assistant event emitted by this climate device's IR receiver. Use together with `receiver_device_id`. SmartIR matches its `raw` comma-separated timings against this climate device's JSON code file and updates the climate state without transmitting an IR command. |
+| `receiver_device_id` | string | optional | The Home Assistant `device_id` included in the receiver event. This scopes raw frames to one physical IR receiver, preventing identical climate devices from updating each other. Use together with `receiver_event`. |
 
 ## Example (using broadlink controller):
 Add a Broadlink RM device named "Bedroom" via config flow (read the [docs](https://www.home-assistant.io/integrations/broadlink/)).

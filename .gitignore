@@ -1,0 +1,7 @@
+# ESPHome secrets and build artifacts
+secrets.yaml
+.esphome/
+
+# Python cache
+__pycache__/
+*.py[cod]
