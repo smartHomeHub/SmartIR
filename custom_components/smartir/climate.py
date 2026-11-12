@@ -11,7 +11,8 @@ from homeassistant.components.climate.const import (
     ClimateEntityFeature, HVACMode, HVAC_MODES, ATTR_HVAC_MODE)
 from homeassistant.const import (
     CONF_NAME, STATE_ON, STATE_OFF, STATE_UNKNOWN, STATE_UNAVAILABLE, ATTR_TEMPERATURE,
-    PRECISION_TENTHS, PRECISION_HALVES, PRECISION_WHOLE)
+    PRECISION_TENTHS, PRECISION_HALVES, PRECISION_WHOLE, UnitOfTemperature)
+from homeassistant.util.unit_conversion import TemperatureConverter
 from homeassistant.core import Event, EventStateChangedData, callback
 from homeassistant.helpers.event import async_track_state_change_event
 import homeassistant.helpers.config_validation as cv
@@ -118,6 +119,15 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         self._max_temperature = device_data['maxTemperature']
         self._precision = device_data['precision']
 
+        # Determine device temperature unit (from JSON or infer from range)
+        self._device_temperature_unit = device_data.get('temperatureUnit')
+        if not self._device_temperature_unit:
+            # Infer from temperature range - if min temp > 40, likely Fahrenheit
+            if self._min_temperature > 40:
+                self._device_temperature_unit = UnitOfTemperature.FAHRENHEIT
+            else:
+                self._device_temperature_unit = UnitOfTemperature.CELSIUS
+
         valid_hvac_modes = [x for x in device_data['operationModes'] if x in HVAC_MODES]
 
         self._operation_modes = [HVACMode.OFF] + valid_hvac_modes
@@ -155,7 +165,27 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             self._commands_encoding,
             self._controller_data,
             self._delay)
-            
+
+    def _device_temp_to_display_temp(self, device_temp):
+        """Convert a temperature from device unit to the display unit."""
+        if device_temp is None:
+            return None
+        if self._device_temperature_unit == self._unit:
+            return device_temp
+        return TemperatureConverter.convert(
+            device_temp, self._device_temperature_unit, self._unit
+        )
+
+    def _display_temp_to_device_temp(self, display_temp):
+        """Convert a temperature from the display unit to device unit."""
+        if display_temp is None:
+            return None
+        if self._device_temperature_unit == self._unit:
+            return display_temp
+        return TemperatureConverter.convert(
+            display_temp, self._unit, self._device_temperature_unit
+        )
+
     async def async_added_to_hass(self):
         """Run when entity about to be added."""
         await super().async_added_to_hass()
@@ -167,7 +197,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             self._hvac_mode = last_state.state
             self._current_fan_mode = last_state.attributes['fan_mode']
             self._current_swing_mode = last_state.attributes.get('swing_mode')
-            self._target_temperature = last_state.attributes['temperature']
+            self._target_temperature = self._display_temp_to_device_temp(last_state.attributes['temperature'])
 
             if 'last_on_operation' in last_state.attributes:
                 self._last_on_operation = last_state.attributes['last_on_operation']
@@ -217,17 +247,17 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     @property
     def min_temp(self):
         """Return the polling state."""
-        return self._min_temperature
-        
+        return self._device_temp_to_display_temp(self._min_temperature)
+
     @property
     def max_temp(self):
         """Return the polling state."""
-        return self._max_temperature
+        return self._device_temp_to_display_temp(self._max_temperature)
 
     @property
     def target_temperature(self):
         """Return the temperature we try to reach."""
-        return self._target_temperature
+        return self._device_temp_to_display_temp(self._target_temperature)
 
     @property
     def target_temperature_step(self):
@@ -272,6 +302,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     @property
     def current_temperature(self):
         """Return the current temperature."""
+        # Current temperature comes from sensor which is already in HA's unit
         return self._current_temperature
 
     @property
@@ -298,25 +329,28 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
     async def async_set_temperature(self, **kwargs):
         """Set new target temperatures."""
-        hvac_mode = kwargs.get(ATTR_HVAC_MODE)  
+        hvac_mode = kwargs.get(ATTR_HVAC_MODE)
         temperature = kwargs.get(ATTR_TEMPERATURE)
-          
+
         if temperature is None:
             return
-            
-        if temperature < self._min_temperature or temperature > self._max_temperature:
-            _LOGGER.warning('The temperature value is out of min/max range') 
+
+        # Convert from display unit to device unit for internal storage
+        temperature_device_unit = self._display_temp_to_device_temp(temperature)
+
+        if temperature_device_unit < self._min_temperature or temperature_device_unit > self._max_temperature:
+            _LOGGER.warning('The temperature value is out of min/max range')
             return
 
         if self._precision == PRECISION_WHOLE:
-            self._target_temperature = round(temperature)
+            self._target_temperature = round(temperature_device_unit)
         else:
-            self._target_temperature = round(temperature, 1)
+            self._target_temperature = round(temperature_device_unit, 1)
 
         if hvac_mode:
             await self.async_set_hvac_mode(hvac_mode)
             return
-        
+
         if not self._hvac_mode.lower() == HVACMode.OFF:
             await self.send_command()
 
