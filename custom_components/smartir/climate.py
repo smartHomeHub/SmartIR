@@ -8,7 +8,12 @@ import voluptuous as vol
 
 from homeassistant.components.climate import ClimateEntity, PLATFORM_SCHEMA
 from homeassistant.components.climate.const import (
-    ClimateEntityFeature, HVACMode, HVAC_MODES, ATTR_HVAC_MODE)
+    ClimateEntityFeature,
+    HVACMode,
+    HVAC_MODES,
+    ATTR_HVAC_MODE,
+    PRESET_NONE,
+)
 from homeassistant.const import (
     CONF_NAME, STATE_ON, STATE_OFF, STATE_UNKNOWN, STATE_UNAVAILABLE, ATTR_TEMPERATURE,
     PRECISION_TENTHS, PRECISION_HALVES, PRECISION_WHOLE)
@@ -120,6 +125,8 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
 
         valid_hvac_modes = [x for x in device_data['operationModes'] if x in HVAC_MODES]
 
+        self._presets_mode = device_data.get("presets", [PRESET_NONE])
+        self._preset = None
         self._operation_modes = [HVACMode.OFF] + valid_hvac_modes
         self._fan_modes = device_data['fanModes']
         self._swing_modes = device_data.get('swingModes')
@@ -139,11 +146,17 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
         #Supported features
         self._support_flags = SUPPORT_FLAGS
         self._support_swing = False
+        self._support_preset = False
 
         if self._swing_modes:
             self._support_flags = self._support_flags | ClimateEntityFeature.SWING_MODE
             self._current_swing_mode = self._swing_modes[0]
             self._support_swing = True
+
+        if self._presets_mode != [PRESET_NONE]:
+            self._support_flags = self._support_flags | ClimateEntityFeature.PRESET_MODE
+            self._support_preset = True
+            self._preset = self.preset_modes[0]
 
         self._temp_lock = asyncio.Lock()
         self._on_by_remote = False
@@ -243,6 +256,22 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
     def hvac_mode(self):
         """Return hvac mode ie. heat, cool."""
         return self._hvac_mode
+
+    @property
+    def preset_mode(self):
+        """Return the current preset mode, e.g., home, away, temp.
+
+        Requires ClimateEntityFeature.PRESET_MODE.
+        """
+        return self._preset
+
+    @property
+    def preset_modes(self):
+        """Return a list of available preset modes.
+
+        Requires ClimateEntityFeature.PRESET_MODE.
+        """
+        return self._presets_mode
 
     @property
     def last_on_operation(self):
@@ -348,6 +377,12 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
             await self.send_command()
         self.async_write_ha_state()
 
+    async def async_set_preset_mode(self, preset_mode: str) -> None:
+        """Set new preset mode."""
+        self._preset = preset_mode
+        await self.send_command()
+        self.async_write_ha_state()
+
     async def async_turn_off(self):
         """Turn off."""
         await self.async_set_hvac_mode(HVACMode.OFF)
@@ -366,6 +401,7 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                 operation_mode = self._hvac_mode
                 fan_mode = self._current_fan_mode
                 swing_mode = self._current_swing_mode
+                preset_mode = self._preset
                 target_temperature = '{0:g}'.format(self._target_temperature)
 
                 if operation_mode.lower() == HVACMode.OFF:
@@ -376,12 +412,27 @@ class SmartIRClimate(ClimateEntity, RestoreEntity):
                     await self._controller.send(self._commands['on'])
                     await asyncio.sleep(self._delay)
 
-                if self._support_swing == True:
-                    await self._controller.send(
-                        self._commands[operation_mode][fan_mode][swing_mode][target_temperature])
+                if self._support_preset:
+                    if preset_mode == PRESET_NONE:
+                        preset_dict = self._commands
+                    else:
+                        preset_dict = self._commands.get(preset_mode, {})
                 else:
-                    await self._controller.send(
-                        self._commands[operation_mode][fan_mode][target_temperature])
+                    preset_dict = self._commands
+
+                operation_dict = preset_dict.get(operation_mode, preset_dict)
+
+                fan_dict = operation_dict.get(fan_mode, operation_dict)
+
+                if self._support_swing == True:
+                    temp_dict = fan_dict.get(swing_mode, fan_dict)
+                else:
+                    temp_dict = fan_dict
+
+                command_to_send = temp_dict.get(target_temperature, None)
+
+                if command_to_send is not None:
+                    await self._controller.send(command_to_send)
 
             except Exception as e:
                 _LOGGER.exception(e)
