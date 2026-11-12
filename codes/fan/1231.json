@@ -1,0 +1,33 @@
+{
+  "manufacturer": "EGLO",
+  "supportedModels": [
+    "35014",
+    "35015",
+    "35016",
+    "35017",
+    "35069",
+    "35071",
+    "35072",
+    "35073"
+  ],
+  "supportedController": "Broadlink",
+  "commandsEncoding": "Base64",
+  "speed": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5"
+  ],
+  "commands": {
+    "off": "scAGARSfBgAAAVAABaIKvh8JCx0fCgoeCx0fCQsdCx0fCh4KCh4KHh4KHwkKHh8KCh4KHgoeCh4KHgsdHwoeCgq+HwoKHh4KCh4LHR8JCx4KHh4KHgoKHgsdHwoeCgoeHgoKHgoeCx4KHgoeCh4eCh4KCr8eCgsdHwkLHgodHwoKHgoeHgofCQofCh4eCh4KCh4eCwoeCh4KHgoeCh4LHR4KHwkLvh4KCx0fCQsdCx0fCgoeCh4eCh4KCh4LHR8KHgoKHh4KCh4KHgoeCh4LHQsdHwoeCgq+HgoLHR8JCx4KHh4KCh4KHh4KHgoKHgseHgoeCgoeHgoKHgoeCh4LHQsdCx0fCR8ABdw=",
+    "default": {
+      "1": "scD8AOKeBgALHh4KCh4LHR8JCh4LHR8JHwoKHgoeHgoeCgoeHgoKHgoeCh4LHQseHgoKHh4KCr4fCgoeHgoKHgoeHgoKHgsdHwkfCgoeCh4eCh4KCh4eCgoeCh4LHgodCx4eCgoeHgoKvh8JCx0fCQseCh0fCgoeCh4eCh4KCh4KHh4KHwkKHx4JCx4KHgoeCh4KHh4KCh4eCgq/HgoKHh4KCh4KHh8JCx0LHR8JHwoKHQseHgoeCgoeHgoKHgoeCh4KHgsdHwkLHR8KCr4eCgoeHgoKHgoeHwkKHgsdHwkfCgodCx4eCh4KCh4eCgoeCh4KHgoeCh4eCgoeHgAF3A==",
+      "2": "scD+AOyeBgAeCQsdHwkLHQsdHwkLHgoeHgoeCgoeCh4eCh4KCh4dCwoeCh4KHgoeHgoKHh4KCh4Kvh4JCx0fCgodCx0fCgoeCh4eCh4KCh4KHh4KHgoKHh4KCh4KHgoeCh4eCgoeHgoKHgq+HwkLHR8JCx0LHR8JCx0LHR8JHgoLHQsdHwoeCgoeHgoKHgoeCh4KHh4KCh4eCgoiBr4fCQsdHwkKHgsdHwkLHQsdHwkfCgoeCh4eCh4KCh4eCgoeCh4KHgoeHgoKHh4KCx0Kvh8JCx0fCQseCh0fCQseCh0fCh4KCh4KHh4KHgoKHh4KCh4KHgoeCh4eCgoeHgoKAAXc",
+      "3": "scD+ANieBgAfCQsdHwkLHQseHwkKHgsdHwkfCgoeCh4eCh4KCh4eCwkfCh4KHgoeCh4eCh4KCh8Kvh4KCh4fCgodCx4eCgoeCh4fCR8JCx4KHh4KHgoKHh4KCh8KHgoeCh4KHh4KHgoKHgu+HgoLHR8JCx4KHh4KCh4KHh8JHwoKHgoeHgoeCgoeHwoKHgoeCh4KHgoeHwkfCQseCr4fCQseHgoKHgsdHwkLHgoeHgoeCgoeCx0fCh4KCh4eCgoeCx4KHgoeCh4fCR8KCh4Kvh8KCh0fCgoeCh4fCQsdCx4eCh4KCh4KHh8KHgoKHh4KCh4LHQseCh4KHh4KHgoKAAXc",
+      "4": "sMD+AGibBgAdCgoeHgoKHgoeHgoKHgoeHgoeCgoeCh4eCh4KCh4eCgoeCh4KHgofHQoLHgkfHgoKvh4KCh8dCgoeCh4eCgoeCh4eCh4LCR8JHx0LHQoLHR8KCh4KHgoeCh4eCgoeCh4eCgq+HgoKHh4LCh0KHx0LCR8JHx4KHQsKHgoeHgsdCgoeHgoKHgoeCh4KHh4KCh4KHh4KCr4eCgoeHgoKHgoeHgoKHgoeHwkfCgodCh8dCx4KCh4eCQofCR8KHgoeHgoKHgoeHgoKvh4KCh4eCwkeCh8dCgoeCh4eCh8JCh4KHx4KHgsJHh4KCh4KHgoeCh4eCwkeCh4eAAXc",
+      "5": "sMD+AGibBgAeCgoeHgoKHgoeHgoLHQoeHwodCgseCh4eCh4KCh4eCgoeCh4KHgofCh0LHh4KCh4Kvh4KCh4fCgoeCh4eCgkfCh4eCh4KCh4KHh4KHgsJHh8KCh4KHgoeCh4KHgoeHgoLHQq/HgoKHh4KCh4KHh4KCh4KHx0KHgsJHwodHwoeCgoeHgoKHgofCR4KHgoeCx4eCQseCr4eCgoeHgoKHwoeHgoKHgoeHgoeCgoeCh8cCx4LCR8eCQseCh4KHgoeCh4KHh4KCh4Kvx4KCh4eCgoeCh4eCgoeCh4fCh4KCh4KHh4KHgoKHh4KCh4KHgoeCx4KHgoeHgoKAAXc"
+    },
+    "oscillate": "scD8AOKeBgALHh4KCh4LHR8JCh4LHR8JHwoKHgoeHgoeCgoeHgoKHgoeCh4LHQseHgoKHh4KCr4fCgoeHgoKHgoeHgoKHgsdHwkfCgoeCh4eCh4KCh4eCgoeCh4LHgodCx4eCgoeHgoKvh8JCx0fCQseCh0fCgoeCh4eCh4KCh4KHh4KHwkKHx4JCx4KHgoeCh4KHh4KCh4eCgq/HgoKHh4KCh4KHh8JCx0LHR8JHwoKHQseHgoeCgoeHgoKHgoeCh4KHgsdHwkLHR8KCr4eCgoeHgoKHgoeHwkKHgsdHwkfCgodCx4eCh4KCh4eCgoeCh4KHgoeCh4eCgoeHgAF3A=="
+  }
+}

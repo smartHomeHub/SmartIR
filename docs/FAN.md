@@ -193,6 +193,13 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | ------------- | -------------------------- | ------------- |
 [1200](../codes/fan/1200.json)|Unknown|Broadlink
 
+#### EGLO
+
+| Code | Supported Models | Controller |
+| ------------- | -------------------------- | ------------- |
+[1230](../codes/fan/1230.json)|35014, 35015, 35016, 35017, 35069, 35071, 35072, 35073|Broadlink
+[1231](../codes/fan/1231.json)|35014, 35015, 35016, 35017, 35069, 35071, 35072, 35073|Broadlink
+
 #### Mitsubishi
 
 | Code | Supported Models | Controller |
