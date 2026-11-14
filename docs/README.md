@@ -67,5 +67,34 @@ Click on the links below for instructions on how to configure each platform.
 * [Light platform](/docs/LIGHT.md)
 <br><br>
 
+## Broadlink platform's ZHA Tuya specifics
+Since there is a way to convert *Broadlink* format into *Tuya* format, defining `zha.issue_zigbee_cluster_command`'s `service_data` attributes in the `controlled_data` configuration attribute redirects the `Broadlink` platform to *Tuya* devices (ZS06, ZS08, TS1201) using **ZHA**.
+
+It that case, the `controlled_data` configuration attribute must contain the Zigbee command `service_data` dictionnary like this: 
+```yaml
+climate:
+  - platform: smartir
+    device_code: 1287
+    controller_data: 
+      tuya-broadlink-ieee: "xx:xx:xx:xx:xx:xx:xx:xx"
+      # endpoint_id: 1
+      # cluster_id: 0xe004
+      # cluster_type: "in"
+      # command: 2
+      # command_type: "server"
+      # manufacturer: <code>
+```
+
+**Note**: the attribute `tuya-broadlink-ieee` device Zigbee address is required whereas the other `service_data` attributes (`endpoint_id`, `cluster_id`, `command`, etc...) are optional.
+The commented out examples are the default settings. They correspond to a TS1201 device.
+
+One can also use the additional ``ZHATuyaBroadlink`` platform in code json files.
+
+In that case, an additional `Raw` encoding (compared to the `Broadlink` platform) corresponds to code learned using the device's `IRLearn` command (`endpoint_id:1, cluster_id: 0xe004. type: in, command_id: 1, command_type: server` for a TS1201 device).
+
+In all cases, the `send` is done using the device's `IRSend` command (`endpoint_id:1, cluster_id: 0xe004. type: in, command_id: 2, command_type:server` for a TS1201 device).
+
+
 ## See also
 * [Discussion about SmartIR Climate (Home Assistant Community)](https://community.home-assistant.io/t/smartir-control-your-climate-tv-and-fan-devices-via-ir-rf-controllers/)
+* [Automatic conversion from Broadlink to Tuya #1355](https://github.com/smartHomeHub/SmartIR/issues/1355)
