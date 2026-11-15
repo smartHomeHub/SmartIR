@@ -89,3 +89,9 @@ Contributing your own code files is welcome. However, we do not accept incomplet
 | Code                             | Supported Models | Controller |
 |----------------------------------|------------------|------------|
 | [1120](../codes/light/1120.json) | GFC-52V-         | Broadlink  |
+
+#### SIBRILLE
+
+| Code                             | Supported Models             | Controller |
+|----------------------------------|-------------------------------|------------|
+| [7144](../codes/light/7144.json) | Double Head Desk Lamp CCT     | Broadlink  |
