@@ -12,7 +12,7 @@ Find your device's brand code [here](FAN.md#available-codes-for-fan-devices) and
 | `name` | string | optional | The name of the device |
 | `unique_id` | string | optional | An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception. |
 | `device_code` | number | required | Accepts only positive numbers. |
-| `controller_data` | string | required | The entity ID of the configured Broadlink or Xiaomi remote, or the MQTT topic used to send commands. |
+| `controller_data` | string | required | The entity ID of the configured Broadlink or Xiaomi remote, or the MQTT topic used to send commands or the ZHA zigbee cluster to send commands to. |
 | `delay` | number | 0.5 | Delay in seconds between multiple commands. |
 | `power_sensor` | string | optional | Entity ID of a sensor that monitors whether the device is on or off. Accepts on/off states. |
 
@@ -114,6 +114,27 @@ fan:
     unique_id: bedroom_fan
     device_code: 4000
     controller_data: my_espir_send_raw_command
+    power_sensor: binary_sensor.fan_power
+```
+
+## Example (using ZHA controller and a TuYa ZS06):
+
+```yaml
+smartir:
+
+fan:
+  - platform: smartir
+    name: Bedroom fan
+    unique_id: bedroom_fan
+    device_code: 5000
+    controller_data: '{
+     "ieee":"XX:XX:XX:XX:XX:XX:XX:XX",
+     "endpoint_id": 1,
+     "cluster_id": 57348,
+     "cluster_type": "in",
+     "command": 2,
+     "command_type": "server"
+    }'
     power_sensor: binary_sensor.fan_power
 ```
 
