@@ -1,7 +1,8 @@
 {
   "manufacturer":"Panasonic",
   "supportedModels":[
-    "CS-SA9CKP"
+    "CS-SA9CKP",
+    "CS-E12CKP"
   ],
   "supportedController":"Broadlink",
   "commandsEncoding":"Base64",

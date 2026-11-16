@@ -1,7 +1,8 @@
 {
   "manufacturer": "Mitsubishi Electric ",
   "supportedModels": [
-    "MSZ-GE22VA"
+    "MSZ-GE22VA",
+    "MSZ-EF12NAW"
   ],
   "commandsEncoding": "Base64",
   "supportedController": "Broadlink",

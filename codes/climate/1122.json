@@ -1,7 +1,8 @@
 {
   "manufacturer": "Mitsubishi",
   "supportedModels": [
-    "MSZ-AP50VGKD"
+    "MSZ-AP50VGKD",
+    "MSZ-AP60VGKD"
   ],
   "commandsEncoding": "Base64",
   "supportedController": "Broadlink",

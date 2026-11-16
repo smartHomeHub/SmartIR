@@ -3,7 +3,8 @@
     "supportedModels": [
         "FTXG25EV1BS",
         "FTXG35EV1BS",
-        "FTXG35EV1BW"
+        "FTXG35EV1BW",
+        "FTXV25WVMA"
     ],
     "commandsEncoding": "Base64",
     "supportedController": "Broadlink",
