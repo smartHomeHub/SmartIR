@@ -232,6 +232,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [5125](../codes/climate/5125.json) | ARC478A51                                                                                           | Broadlink  |
 | [5126](../codes/climate/5126.json) | FTXF20D5V1B<br>FTXF25D5V1B<br>FTXF35D5V1B<br>FTXF42D5V1B                                         | Broadlink  |
 | [5127](../codes/climate/5127.json) | ATXB50CV1B<br>GS02 (Remote)                                                                         | Broadlink  |
+| [9028](../codes/climate/9028.json) | FTV28PV1L9-3WM-G1 (APGS02 remote)                                                                   | Broadlink  |
 
 #### Mitsubishi Electric
 | Code                               | Supported Models                                                                                     | Controller |
