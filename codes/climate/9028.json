@@ -1,6 +1,7 @@
 {
   "manufacturer": "Daikin",
   "supportedModels": [
+    "FTV28PV1L9",
     "FTV28PV1L9-3WM-G1"
   ],
   "supportedController": "Broadlink",
