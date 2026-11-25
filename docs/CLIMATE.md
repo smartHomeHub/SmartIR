@@ -425,6 +425,7 @@ Contributing to your own code files is welcome. However, we do not accept incomp
 | [1409](../codes/climate/1409.json) | AR12NXFPEWQN | Broadlink  |
 | [1410](../codes/climate/1410.json) | RG10A/BGEF (Remote) | Broadlink |
 | [1411](../codes/climate/1411.json) | ARxxKSF | Broadlink |
+| [1412](../codes/climate/1412.json) | AR18MQFRCWQNTV | Broadlink |
 
 #### Sintech
 | Code                               | Supported Models | Controller |
