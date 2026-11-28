@@ -28,8 +28,11 @@ LOOKIN_COMMANDS_ENCODING = [ENC_PRONTO, ENC_RAW]
 ESPHOME_COMMANDS_ENCODING = [ENC_RAW]
 
 
-def get_controller(hass, controller, encoding, controller_data, delay):
+def get_controller(hass, controller, encoding, controller_data, delay, device=None):
     """Return a controller compatible with the specification provided."""
+    if controller == "Tuya":
+        return TuyaController(hass, controller, encoding, controller_data, delay, device)
+
     controllers = {
         BROADLINK_CONTROLLER: BroadlinkController,
         XIAOMI_CONTROLLER: XiaomiController,
@@ -184,3 +187,28 @@ class ESPHomeController(AbstractController):
 
         await self.hass.services.async_call(
             'esphome', self._controller_data, service_data)
+
+class TuyaController(AbstractController):
+    """Send SmartIR commands through a LocalTuya remote."""
+
+    def __init__(self, hass, controller, encoding, controller_data, delay, device):
+        super().__init__(hass, controller, encoding, controller_data, delay)
+        if not isinstance(device, str) or not device.strip():
+            raise ValueError("The Tuya code file must specify a device.")
+        self._device = device
+
+    def check_encoding(self, encoding):
+        if encoding != "Tuya":
+            raise ValueError("The encoding is not supported by the Tuya controller.")
+
+    async def send(self, command):
+        await self.hass.services.async_call(
+            "remote",
+            "send_command",
+            {
+                ATTR_ENTITY_ID: self._controller_data,
+                "command": command,
+                "delay_secs": self._delay,
+                "device": self._device,
+            },
+        )
