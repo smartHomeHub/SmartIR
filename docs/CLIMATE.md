@@ -12,7 +12,7 @@ _Please note that the device_code field only accepts positive numbers. The .json
 | `name` | string | optional | The name of the device |
 | `unique_id` | string | optional | An ID that uniquely identifies this device. If two devices have the same unique ID, Home Assistant will raise an exception. |
 | `device_code` | number | required | (Accepts only positive numbers) |
-| `controller_data` | string | required | The data required for the controller to function. Enter the entity_id of the Broadlink remote **(must be an already configured device)**, or the entity id of the Xiaomi IR controller, or the MQTT topic on which to send commands. |
+| `controller_data` | string | required | The data required for the controller to function. Enter the entity_id of the Broadlink remote **(must be an already configured device)**, the entity ID of a Xiaomi or LocalTuya IR remote, or the MQTT topic on which to send commands. |
 | `delay` | number | optional | Adjusts the delay in seconds between multiple commands. The default is 0.5 |
 | `temperature_sensor` | string | optional | *entity_id* for a temperature sensor |
 | `humidity_sensor` | string | optional | *entity_id* for a humidity sensor |
@@ -122,6 +122,25 @@ climate:
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
 ```
+
+## Example using LocalTuya
+
+Set `controller_data` to the `remote` entity provided by LocalTuya. In your climate code file, set `supportedController` and `commandsEncoding` to `Tuya`, and set `device` to the device name used when learning the commands in LocalTuya.
+
+The existing `commands` structure remains the same. Use the names of the learned LocalTuya commands as its values. For example, if you learned an off command named `Turn off` for the device `Bedroom AC`, the following fields belong in your climate code file.
+
+```json
+{
+  "supportedController": "Tuya",
+  "commandsEncoding": "Tuya",
+  "device": "Bedroom AC",
+  "commands": {
+    "off": "Turn off"
+  }
+}
+```
+
+Keep the other climate code fields and the commands for every mode you expose.
 
 ## Available codes for climate devices:
 The following are the code files created by the amazing people in the community. Before you start creating your own code file, try if one of them works for your device. **Please open an issue if your device is working and not included in the supported models.**
